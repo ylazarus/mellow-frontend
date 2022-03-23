@@ -69,9 +69,10 @@ function getEmptyTask() {
 
 }
 
-function getEmptyBoard() {
-    return {
-        title: "",
+function getEmptyBoard(title) {
+
+    const board = {
+        title,
         createdAt: Date.now(),
         archivedAt: null,
         createdBy: {},
@@ -81,6 +82,8 @@ function getEmptyBoard() {
         groups: [],
         activities: [],
     }
+
+    return storageService.post(KEY, board)
 }
 
 function _createBoards() {
@@ -90,6 +93,7 @@ function _createBoards() {
             {
                 "_id": "b101",
                 "title": "Robot dev proj",
+                "isFavorite": false,
                 "createdAt": Date.now(),
                 "createdBy": {
                     "_id": "u101",
