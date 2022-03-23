@@ -12,6 +12,7 @@
     margin-bottom: 2.0625rem;
     background-color: $clr2;
     cursor: pointer;
+    color: black;
 }
 
 .saved-boards{
@@ -34,6 +35,13 @@
 
 .all-boards-container{
     margin: 10px;
+}
+
+.header-container{
+    min-height: 10vh;
+}
+.main-layout{
+    min-height: 90vh;
 }
 
 // color for label cmp

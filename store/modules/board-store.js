@@ -10,10 +10,10 @@ export default {
         boards({ boards }) {
             return JSON.parse(JSON.stringify(boards))
         },
-        favoriteBoards({ boards }) {
-            const favoriteBoards = JSON.parse(JSON.stringify(boards))
-            console.log(favoriteBoards);
-        },
+        // favoriteBoards({ boards }) {
+        //     const favoriteBoards = JSON.parse(JSON.stringify(boards))
+        //     console.log(favoriteBoards);
+        // },
         getCurrBoard({ currBoard }) {
             return JSON.parse(JSON.stringify(currBoard))
         }
