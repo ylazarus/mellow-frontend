@@ -7,9 +7,9 @@
       :task="task"
       :groupId="group.id"
     />
-    <button class="btn" v-if="!isAdding" @click="openAddTask">
+    <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">
       Add a card
-    </button>
+    </div>
     <div v-else class="add-task-container">
       <input
         @blur="saveIfTxt"

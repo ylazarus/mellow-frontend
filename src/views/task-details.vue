@@ -43,8 +43,8 @@ export default {
     };
   },
   async created() {
-    const { groupId, taskId } = this.$route.params;
-    const board = this.$store.getters.getCurrBoard;
+    const { boardId, groupId, taskId } = this.$route.params;
+    const board = await this.$store.dispatch({ type: "loadBoard", boardId });
     console.log('board', board);
     const group = board.groups.find((group) => group.id === groupId);
     const task = group.tasks.find((task) => task.id === taskId);
@@ -53,7 +53,7 @@ export default {
   methods: {
     goBack() {
       const currBoard = this.$store.getters.getCurrBoard;
-      this.$router.push(`/${currBoard._id}`);
+      this.$router.push(`/board/${currBoard._id}`);
     },
     async saveTask() {
       await this.$store.dispatch({ type: "saveTask", toy: this.task });

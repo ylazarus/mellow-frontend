@@ -1,5 +1,5 @@
 <template>
-  <div @click="toTaskDetails(this.groupId, this.task.id)" class="task-preview-container">
+  <div @click="toTaskDetails(this.boardId, this.groupId, this.task.id)" class="task-preview-container">
     <div v-if="task.img">{{ task.img }}</div>
     <div v-if="task.labelIds">{{ task.labelIds }}</div>
     <div>{{ task.title }}</div>
@@ -27,13 +27,24 @@ export default {
     task: Object,
     groupId: String
   },
+  data() {
+    return{
+      boardId: null
+    }
+
+  },
   components: {
     userAvatar
   },
   methods:{
-    toTaskDetails(groupId, taskId){
-      this.$router.push(`/board/${groupId}/${taskId}`)
+    toTaskDetails(boardId, groupId, taskId){
+      this.$router.push(`/board/${boardId}/${groupId}/${taskId}`)
     }
+  },
+  created() {
+    const { boardId } = this.$route.params;
+        this.boardId = boardId
+
   }
 };
 </script>
