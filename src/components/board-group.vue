@@ -3,9 +3,8 @@
     <div contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
     <task-preview v-for="task in group.tasks" :key="task.id" :task="task" :groupId="group.id" />
     <button class="btn" v-if="!isAdding" @click="openAddTask">Add a card</button>
-    <div v-else class="add-task-container">
+    <div  v-else class="add-task-container">
       <input
-        
         @blur="saveIfTxt"
         type="textarea"
         v-model="newTaskTitle"
@@ -47,7 +46,7 @@ export default {
       openAddTask(){
           this.isAdding = true
         //   console.log(this.$refs);
-        //   this.$refs.new1.focus()
+        //   this.$refs.input.focus()
       },
     addTask() {
         console.log('adding task');
