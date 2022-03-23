@@ -1,0 +1,14 @@
+.toy-preview{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 25vw;
+    border: solid 1px $clr1;
+    margin-bottom: 2rem;
+    background-color: $clr2;
+
+    
+
+}
