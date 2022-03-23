@@ -13,6 +13,9 @@ export default {
         favoriteBoards({ boards }) {
             const favoriteBoards = JSON.parse(JSON.stringify(boards))
             console.log(favoriteBoards);
+        },
+        getCurrBoard(state) {
+            return state.boards.find(b => b._id === state.currBoard)
         }
     },
     mutations: {
@@ -25,7 +28,14 @@ export default {
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
-
+        setCurrBoard(state, { boardId }) {
+            state.currBoard = boardId
+        },
+        saveGroup(state, { savedGroup }) {
+            const idx = state.board.groups.findIndex(g => g.id === newGroup.id)
+            if (idx === -1) state.board.groups.push(savedGroup)
+            state.board.groups.splice(idx, 1, savedGroup)
+        }
     },
     actions: {
         async loadBoards({ commit, state }) {
@@ -64,7 +74,18 @@ export default {
                 console.log("board module removeBoard cant load boards now", err)
             }
         },
-
+        async saveGroup(context, { updatingGroup }) {
+            var savedGroup;
+            if (updatingGroup) {
+                savedGroup = await boardService.save(updatingGroup)
+                context.commit({ type: 'saveGroup', savedGroup })
+            }
+            else {
+                savedGroup = await boardService.getEmptyGroup()
+                context.commit({ type: 'saveGroup', savedGroup })
+            }
+            // return savedGroup
+        }
 
     }
 }
