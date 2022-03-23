@@ -13,8 +13,10 @@
             >
                 {{ board.title }}
                 <a @click.stop="toggleFavorite(board._id)">
+                    <img v-if="board.isFavorite" src="src/assets/icons/full-star.png" />
+                    <img v-else src="src/assets/icons/empty-star.png" />
                     <!-- <img src="src/assets/icons/empty-star.png" /> -->
-                    <img :src="changeImgUrl" />
+                    <!-- <img :src="changeImgUrl" /> -->
                 </a>
                 <button @click.stop="removeBoard(board._id)">remove</button>
             </div>
@@ -28,6 +30,7 @@ export default {
     data() {
         return {
             isFavorite: false
+            // 
         }
     },
     methods: {
@@ -63,9 +66,6 @@ export default {
             // for favorite (like is pinned)
             return this.$store.getters.favoriteBoards
         },
-        changeImgUrl() {
-            return this.isFavorite ? 'src/assets/icons/full-star.png' : 'src/assets/icons/empty-star.png'
-        }
     },
 
 }

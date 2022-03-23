@@ -12,7 +12,7 @@
     </div>
     <div v-else class="add-task-container">
       <input
-        @blur="saveIfTxt"
+        @blur.stop="saveIfTxt"
         type="textarea"
         v-model="newTaskTitle"
         placeholder="Enter a title for this card..."
@@ -42,6 +42,7 @@ export default {
   },
   methods: {
     saveIfTxt() {
+      console.log("blur");
       if (this.newTaskTitle) this.addTask();
       else this.clearForm();
     },

@@ -10,10 +10,10 @@ export default {
         boards({ boards }) {
             return JSON.parse(JSON.stringify(boards))
         },
-        favoriteBoards({ boards }) {
-            const favoriteBoards = JSON.parse(JSON.stringify(boards))
-            console.log(favoriteBoards);
-        },
+        // favoriteBoards({ boards }) {
+        //     const favoriteBoards = JSON.parse(JSON.stringify(boards))
+        //     console.log(favoriteBoards);
+        // },
         getCurrBoard({ currBoard }) {
             return JSON.parse(JSON.stringify(currBoard))
         }
@@ -29,8 +29,7 @@ export default {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
         setCurrBoard(state, { board }) {
-            
-            state.currBoard = board
+            state.currBoard = JSON.parse(JSON.stringify(board))
         },
         setFavorite(state, { updatedBoard }) {
             const boardIdx = state.boards.findIndex(board => board._id === updatedBoard._id)
@@ -52,6 +51,7 @@ export default {
         // },
         saveBoard(state, { savedBoard }) {
             const idx = state.boards.findIndex(b => b._id === savedBoard._id)
+            state.boards.splice(idx, 1, savedBoard)
         }
     },
     actions: {
@@ -63,10 +63,14 @@ export default {
                 console.log("board module loadBoards cant load boards now", err)
             }
         },
-        async loadBoard({commit}, {boardId}){
-          const board =  await boardService.getById(boardId)
-          commit ({type: 'setCurrBoard', board})
-          return board
+        async loadBoard({ commit }, { boardId }) {
+            try {
+                const board = await boardService.getById(boardId)
+                commit({ type: 'setCurrBoard', board })
+                return JSON.parse(JSON.stringify(board))
+            } catch (err) {
+                console.log("board module loadBoard cant load board now", err)
+            }
         },
         async addBoard({ commit }) {
             try {
@@ -106,7 +110,7 @@ export default {
             try {
                 const savedBoard = await boardService.save(board)
                 commit({ type: 'saveBoard', savedBoard })
-                return savedBoard
+                return JSON.parse(JSON.stringify(savedBoard))
             } catch (err) {
                 console.log("board module saveBoard cant save board now", err)
             }

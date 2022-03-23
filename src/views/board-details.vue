@@ -4,8 +4,8 @@
     <header class="board-header flex">
       <div class="board-title-container flex">
         <button class="shows-options-btn">Board</button>
-        <p>Title: {{ board.title }}</p>
-        <button class="isStarred">⭐</button>
+        <p contenteditable="true" @blur="saveTitle">{{ board.title }}</p>
+        <button>⭐</button>
       </div>
       |
       <div class="board-members-container flex">
@@ -52,40 +52,38 @@ export default {
   methods: {
     async loadBoard(boardId) {
       this.board = await this.$store.dispatch({ type: "loadBoard", boardId });
-
     },
-    async addGroup() {
-      const newGroup = boardService.getEmptyGroup();
-      this.board.groups.push(newGroup);
+    async saveBoard() {
       this.board = await this.$store.dispatch({
         type: "saveBoard",
         board: this.board,
       });
+    },
+    async saveTitle(ev) {
+      const newTitle = ev.currentTarget.textContent;
+      this.board.title = newTitle;
+      this.saveBoard();
+    },
+    async addGroup() {
+      const newGroup = boardService.getEmptyGroup();
+      this.board.groups.push(newGroup);
+      this.saveBoard();
     },
     async saveGroup({ groupId, type, newValue }) {
       const updatingGroup = this.board.groups.find(
         (group) => group.id === groupId
       );
-      console.log(updatingGroup);
       switch (type) {
         case "saveGroupTitle":
-          console.log(type);
-          console.log(newValue);
           updatingGroup.title = newValue;
           break;
         case "addTask":
-          console.log(type);
           updatingGroup.tasks.push(newValue);
           break;
       }
-      console.log(updatingGroup);
       const idx = this.board.groups.findIndex((group) => group.id === groupId);
       this.board.groups.splice(idx, 1, updatingGroup);
-      console.log(this.board);
-      this.board = await this.$store.dispatch({
-        type: "saveBoard",
-        board: this.board,
-      });
+      this.saveBoard();
     },
     // async addGroup() {
     //   this.$store.dispatch({ type: "saveGroup" });
