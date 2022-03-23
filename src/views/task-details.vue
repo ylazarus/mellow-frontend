@@ -45,8 +45,9 @@ export default {
   async created() {
     const { groupId, taskId } = this.$route.params;
     const board = this.$store.getters.getCurrBoard;
+    console.log('board', board);
     const group = board.groups.find((group) => group.id === groupId);
-    const task = group.find((task) => task.id === taskId);
+    const task = group.tasks.find((task) => task.id === taskId);
     this.task = JSON.parse(JSON.stringify(task));
   },
   methods: {
@@ -58,14 +59,14 @@ export default {
       await this.$store.dispatch({ type: "saveTask", toy: this.task });
       //   this.goBack()
     },
-    async addReview() {
-      await this.$store.dispatch({
-        type: "addReview",
-        review: this.reviewToEdit,
-      });
-      this.reviewToEdit = { txt: "", toyId: null };
-      this.$router.push("/toy");
-    },
+    
+  },
+  computed:{
+      board(){
+          const board = this.$store.getters.getCurrBoard;
+          console.log(board);
+          return board
+      }
   },
   components:{
     userAvatar
