@@ -46,6 +46,7 @@ async function save(board) {
     //     const res = await axios.post(BOARD_URL, board)
     //     return res.data
     //   }
+    console.log(board);
     if (board._id) return storageService.put(KEY, board)
     return storageService.post(KEY, board)
 }

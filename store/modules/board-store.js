@@ -14,8 +14,8 @@ export default {
             const favoriteBoards = JSON.parse(JSON.stringify(boards))
             console.log(favoriteBoards);
         },
-        getCurrBoard(state) {
-            return state.boards.find(b => b._id === state.currBoard)
+        getCurrBoard({ currBoard }) {
+            return JSON.parse(JSON.stringify(currBoard))
         }
     },
     mutations: {
@@ -29,12 +29,22 @@ export default {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
         setCurrBoard(state, { boardId }) {
-            state.currBoard = boardId
+            const currBoard = state.boards.find(b => b._id === boardId)
+            state.currBoard = currBoard
         },
-        saveGroup(state, { savedGroup }) {
-            const idx = state.board.groups.findIndex(g => g.id === newGroup.id)
-            if (idx === -1) state.board.groups.push(savedGroup)
-            state.board.groups.splice(idx, 1, savedGroup)
+        // saveGroup(state, { updatingGroup }) {
+        //     if (updatingGroup) {
+        //         const idx = state.currBoard.groups.findIndex(g => g.id === updatingGroup.id)
+        //         state.currBoard.groups.splice(idx, 1, savedGroup)
+        //     }
+        //     else {
+        //         const newGroup = boardService.getEmptyGroup()
+        //         state.currBoard.groups.push(newGroup)
+        //     }
+        //     this.dispatch({ type: 'saveBoard', board: state.currBoard })
+        // },
+        saveBoard(state, { savedBoard }) {
+            const idx = state.boards.findIndex(b => b._id === savedBoard._id)
         }
     },
     actions: {
@@ -74,18 +84,28 @@ export default {
                 console.log("board module removeBoard cant load boards now", err)
             }
         },
-        async saveGroup(context, { updatingGroup }) {
-            var savedGroup;
-            if (updatingGroup) {
-                savedGroup = await boardService.save(updatingGroup)
-                context.commit({ type: 'saveGroup', savedGroup })
+        async saveBoard({ commit }, { board }) {
+            try {
+                const savedBoard = await boardService.save(board)
+                commit({ type: 'saveBoard', savedBoard })
+                return savedBoard
+            } catch (err) {
+                console.log("board module saveBoard cant save board now", err)
             }
-            else {
-                savedGroup = await boardService.getEmptyGroup()
-                context.commit({ type: 'saveGroup', savedGroup })
-            }
-            // return savedGroup
-        }
-
+        },
+        // async saveGroup({state, commit}, { updatingGroup }) {
+        //     var savedGroup;
+        //     if (updatingGroup) {
+        //         savedGroup = await boardService.save(updatingGroup)
+        //         commit({ type: 'saveGroup', savedGroup })
+        //     }
+        //     else {
+        //         console.log();
+        //         savedGroup = boardService.getEmptyGroup()
+        //         console.log('add', savedGroup);
+        //         commit({ type: 'saveGroup', savedGroup })
+        //     }
+        //     // return savedGroup
+        // }
     }
 }

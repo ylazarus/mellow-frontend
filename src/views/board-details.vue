@@ -54,26 +54,62 @@ export default {
     async loadBoard(boardId) {
       this.board = await boardService.getById(boardId);
     },
-    addGroup() {
-      this.$store.dispatch({ type: "saveGroup" });
+    async addGroup() {
+      const newGroup = boardService.getEmptyGroup();
+      this.board.groups.push(newGroup);
+      this.board = await this.$store.dispatch({
+        type: "saveBoard",
+        board: this.board,
+      });
     },
     async saveGroup({ groupId, type, newValue }) {
       const updatingGroup = this.board.groups.find(
         (group) => group.id === groupId
       );
+      console.log(updatingGroup);
       switch (type) {
         case "saveGroupTitle":
+          console.log(type);
+          console.log(newValue);
           updatingGroup.title = newValue;
           break;
         case "addTask":
+          console.log(type);
           updatingGroup.tasks.push(newValue);
           break;
       }
-      await this.$store.dispatch({ type: "saveGroup", updatingGroup });
-      this.board = this.$store.getters.getCurrBoard;
-      // const idx = this.board.groups.findIndex((group) => group.id === groupId);
-      // this.board.groups.splice(idx, 1, updatingGroup);
+      console.log(updatingGroup);
+      const idx = this.board.groups.findIndex((group) => group.id === groupId);
+      this.board.groups.splice(idx, 1, updatingGroup);
+      console.log(this.board);
+      this.board = await this.$store.dispatch({
+        type: "saveBoard",
+        board: this.board,
+      });
     },
+    // async addGroup() {
+    //   this.$store.dispatch({ type: "saveGroup" });
+    //   // await this.$store.commit({ type: "saveGroup" });
+    //   this.board = this.$store.getters.getCurrBoard;
+    // },
+    // async saveGroup({ groupId, type, newValue }) {
+    //   const updatingGroup = this.board.groups.find(
+    //     (group) => group.id === groupId
+    //   );
+    //   switch (type) {
+    //     case "saveGroupTitle":
+    //       updatingGroup.title = newValue;
+    //       break;
+    //     case "addTask":
+    //       updatingGroup.tasks.push(newValue);
+    //       break;
+    //   }
+    //   // await this.$store.dispatch({ type: "saveGroup", updatingGroup });
+    //   await this.$store.commit({ type: "saveGroup", updatingGroup });
+    //   this.board = this.$store.getters.getCurrBoard;
+    //   // const idx = this.board.groups.findIndex((group) => group.id === groupId);
+    //   // this.board.groups.splice(idx, 1, updatingGroup);
+    // },
   },
   computed: {
     isStarred() {
