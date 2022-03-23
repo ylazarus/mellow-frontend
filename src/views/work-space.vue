@@ -13,8 +13,8 @@
             >
                 {{ board.title }}
                 <a @click.stop="toggleFavorite(board._id)">
-                    <img v-if="!isFavorite" src="src/assets/icons/empty-star.png" />
-                    <img v-else src="src/assets/icons/full-star.png" />
+                    <!-- <img src="src/assets/icons/empty-star.png" /> -->
+                    <img :src="changeImgUrl" />
                 </a>
                 <button @click.stop="removeBoard(board._id)">remove</button>
             </div>
@@ -35,15 +35,20 @@ export default {
             // console.log(boardId);
             this.$router.push(`/board/${boardId}`)
         },
+        // changeImgUrl() {
+        //     var images = require.context('../assets/', false, /\.png$/)
+        //     return images('./' + pet + ".png")
+        // },
         async addBoard() {
             const boardId = await this.$store.dispatch({ type: 'addBoard' })
             // console.log(boardId, 'id back from store');
             this.$router.push(`/board/${boardId}`)
         },
         async toggleFavorite(boardId) {
+            console.log(boardId);
             this.isFavorite = !this.isFavorite
-            // maybe dispatch this.isFavorite
-            this.$store.dispatch({ type: 'toggleFavorite', boardId })
+
+            this.$store.dispatch({ type: 'toggleFavorite', board: { boardId, status: this.isFavorite } })
         },
         async removeBoard(boardId) {
             this.$store.dispatch({ type: 'removeBoard', boardId })
@@ -55,7 +60,11 @@ export default {
             return this.$store.getters.boards
         },
         favoriteBoards() {
+            // for favorite (like is pinned)
             return this.$store.getters.favoriteBoards
+        },
+        changeImgUrl() {
+            return this.isFavorite ? 'src/assets/icons/full-star.png' : 'src/assets/icons/empty-star.png'
         }
     },
 
