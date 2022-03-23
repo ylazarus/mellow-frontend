@@ -24,6 +24,13 @@
     justify-content: center;
 }
 
+.saved-boards a img{
+    width: 20px;
+    transition: ease-in-out 0.2s;
+}
+.saved-boards a img:hover{
+    width: 25px;
+}
 
 .all-boards-container{
     margin: 10px;
