@@ -1,5 +1,5 @@
 <template>
-  <h1>hello</h1>
+  <router-view />
 </template>
 
 <script>
@@ -8,11 +8,14 @@
 export default {
 
   components: {
+
   },
   data() {
     return {}
   },
-  created() { },
+  created() { 
+    this.$store.dispatch({type: 'loadBoards'})
+  },
   methods: {},
   computed: {},
   unmounted() { },
