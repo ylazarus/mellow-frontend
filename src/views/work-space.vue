@@ -12,7 +12,10 @@
                 class="board-preview"
             >
                 {{ board.title }}
-                <button @click.stop="toggleFavorite(board._id)">star</button>
+                <a @click.stop="toggleFavorite(board._id)">
+                    <img v-if="!isFavorite" src="src/assets/icons/empty-star.png" />
+                    <img v-else src="src/assets/icons/full-star.png" />
+                </a>
                 <button @click.stop="removeBoard(board._id)">remove</button>
             </div>
             <button @click="addBoard" class="board-preview justify-center">Create new board</button>
@@ -24,7 +27,7 @@
 export default {
     data() {
         return {
-
+            isFavorite: false
         }
     },
     methods: {
@@ -38,6 +41,8 @@ export default {
             this.$router.push(`/board/${boardId}`)
         },
         async toggleFavorite(boardId) {
+            this.isFavorite = !this.isFavorite
+            // maybe dispatch this.isFavorite
             this.$store.dispatch({ type: 'toggleFavorite', boardId })
         },
         async removeBoard(boardId) {
