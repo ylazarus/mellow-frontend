@@ -1,13 +1,31 @@
 <template>
   <section v-if="board" class="board-container">
     <p>Board Details</p>
-    <p>Title: {{ board.title }}</p>
+    <header class="board-header flex">
+      <div class="board-title-container flex">
+        <button class="shows-options-btn">Board</button>
+        <p>Title: {{ board.title }}</p>
+        <button class="isStarred">⭐</button>
+      </div>
+      |
+      <div class="board-members-container flex">
+        <user-avatar
+          :v-if="board.members"
+          v-for="member in board.members"
+          :key="member._id"
+          :user="member"
+        />
+        <button>Invite</button>
+      </div>
+    </header>
     <div class="groups-container flex">
       <board-group
         v-for="group in board.groups"
         :key="group.id"
         :group="group"
+        @saveGroup="saveGroup"
       />
+      <div class="add-group" @click="addGroup">+ Add another list</div>
     </div>
   </section>
 </template>
@@ -15,6 +33,7 @@
 <script>
 import { boardService } from "../../services/board-service";
 import boardGroup from "../components/board-group.vue";
+import userAvatar from "../components/user-avatar.vue";
 export default {
   name: "board-details",
   data() {
@@ -24,13 +43,48 @@ export default {
   },
   components: {
     boardGroup,
+    userAvatar,
   },
-  async created() {
+  created() {
     const { boardId } = this.$route.params;
-    this.board = await boardService.getById(boardId);
+    this.$store.commit({ type: "setCurrBoard", boardId });
+    this.loadBoard(boardId);
+  },
+  methods: {
+    async loadBoard(boardId) {
+      this.board = await boardService.getById(boardId);
+    },
+    addGroup() {
+      this.$store.dispatch({ type: "saveGroup" });
+    },
+    async saveGroup({ groupId, type, newValue }) {
+      const updatingGroup = this.board.groups.find(
+        (group) => group.id === groupId
+      );
+      switch (type) {
+        case "saveGroupTitle":
+          updatingGroup.title = newValue;
+          break;
+        case "addTask":
+          updatingGroup.tasks.push(newValue);
+          break;
+      }
+      await this.$store.dispatch({ type: "saveGroup", updatingGroup });
+      this.board = this.$store.getters.getCurrBoard;
+      // const idx = this.board.groups.findIndex((group) => group.id === groupId);
+      // this.board.groups.splice(idx, 1, updatingGroup);
+    },
+  },
+  computed: {
+    isStarred() {
+      return this.board.isFavorite ? "filled" : "stroke";
+    },
   },
 };
 </script>
-
 <style>
+/* .filled {
+}
+.stroke {
+} */
 </style>
