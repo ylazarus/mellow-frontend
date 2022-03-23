@@ -4,12 +4,40 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    width: 25vw;
+    width: 200px;
+    height: 150px;
+    border-radius: 3px;
     border: solid 1px $clr1;
-    margin-bottom: 2rem;
+    margin-right: 1.0625rem;
+    margin-bottom: 2.0625rem;
     background-color: $clr2;
     cursor: pointer;
-
-    
-
 }
+
+.saved-boards{
+    display: flex;
+    flex-wrap: wrap;
+    // height: 80px;
+}
+
+.justify-center{
+    justify-content: center;
+}
+
+
+.all-boards-container{
+    margin: 10px;
+}
+
+// color for label cmp
+// $labe0: #61bd4f;
+// $labe1: #f2d600;;
+// $labe2: #ff9f1a;
+// $labe3: #eb5a46;
+// $labe4: #c377e0;
+// $labe5: #0079bf;
+// $labe6: #00c2e0;
+// $labe7: #51e898;
+// $labe8: #ff78cb;
+// $labe9: #344563;
+// $labe10: #b3bac5;
