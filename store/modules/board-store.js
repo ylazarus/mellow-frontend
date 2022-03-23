@@ -10,10 +10,10 @@ export default {
         boards({ boards }) {
             return JSON.parse(JSON.stringify(boards))
         },
-        favoriteBoards({ boards }) {
-            const favoriteBoards = JSON.parse(JSON.stringify(boards))
-            console.log(favoriteBoards);
-        },
+        // favoriteBoards({ boards }) {
+        //     const favoriteBoards = JSON.parse(JSON.stringify(boards))
+        //     console.log(favoriteBoards);
+        // },
         getCurrBoard({ currBoard }) {
             return JSON.parse(JSON.stringify(currBoard))
         }
@@ -29,7 +29,7 @@ export default {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
         setCurrBoard(state, { board }) {
-            
+
             state.currBoard = board
         },
         setFavorite(state, { updatedBoard }) {
@@ -63,10 +63,10 @@ export default {
                 console.log("board module loadBoards cant load boards now", err)
             }
         },
-        async loadBoard({commit}, {boardId}){
-          const board =  await boardService.getById(boardId)
-          commit ({type: 'setCurrBoard', board})
-          return board
+        async loadBoard({ commit }, { boardId }) {
+            const board = await boardService.getById(boardId)
+            commit({ type: 'setCurrBoard', board })
+            return board
         },
         async addBoard({ commit }) {
             try {
