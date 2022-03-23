@@ -32,6 +32,13 @@ export default {
             
             state.currBoard = board
         },
+        setFavorite(state, { updatedBoard }) {
+            const boardIdx = state.boards.findIndex(board => board._id === updatedBoard._id)
+            // console.log(boardIdx);
+            state.boards.splice(boardIdx, 1, updatedBoard)
+            console.log(state.boards);
+            // console.log('updatedBoard', updatedBoard);
+        },
         // saveGroup(state, { updatingGroup }) {
         //     if (updatingGroup) {
         //         const idx = state.currBoard.groups.findIndex(g => g.id === updatingGroup.id)
@@ -80,13 +87,19 @@ export default {
                 console.log("board module removeBoard cant load boards now", err)
             }
         },
-        async toggleFavorite({ commit }, { boardId }) {
+        async toggleFavorite({ commit }, { board }) {
             try {
-                await boardService.save(boardId);
-                commit({ type: "removeBoard", boardId })
+                // console.log(board.boardId);
+                const boardToUpdate = await boardService.getById(board.boardId)
+                boardToUpdate.isFavorite = board.status
+                // console.log('boardToUpdate from store action', boardToUpdate);
+                const updatedBoard = await boardService.save(boardToUpdate)
+                // console.log('updatedBoard', updatedBoard);
+                // console.log();
+                commit({ type: "setFavorite", updatedBoard })
 
             } catch (err) {
-                console.log("board module removeBoard cant load boards now", err)
+                console.log("board module toggleFavorite cant load boards now", err)
             }
         },
         async saveBoard({ commit }, { board }) {
