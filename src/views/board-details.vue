@@ -45,14 +45,14 @@ export default {
     boardGroup,
     userAvatar,
   },
-  created() {
+  async created() {
     const { boardId } = this.$route.params;
-    this.$store.commit({ type: "setCurrBoard", boardId });
     this.loadBoard(boardId);
   },
   methods: {
     async loadBoard(boardId) {
-      this.board = await boardService.getById(boardId);
+      this.board = await this.$store.dispatch({ type: "loadBoard", boardId });
+
     },
     async addGroup() {
       const newGroup = boardService.getEmptyGroup();

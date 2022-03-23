@@ -28,9 +28,9 @@ export default {
         removeBoard(state, { boardId }) {
             state.boards = state.boards.filter(board => board._id !== boardId)
         },
-        setCurrBoard(state, { boardId }) {
-            const currBoard = state.boards.find(b => b._id === boardId)
-            state.currBoard = currBoard
+        setCurrBoard(state, { board }) {
+            
+            state.currBoard = board
         },
         setFavorite(state, { updatedBoard }) {
             const boardIdx = state.boards.findIndex(board => board._id === updatedBoard._id)
@@ -62,6 +62,11 @@ export default {
             } catch (err) {
                 console.log("board module loadBoards cant load boards now", err)
             }
+        },
+        async loadBoard({commit}, {boardId}){
+          const board =  await boardService.getById(boardId)
+          commit ({type: 'setCurrBoard', board})
+          return board
         },
         async addBoard({ commit }) {
             try {
