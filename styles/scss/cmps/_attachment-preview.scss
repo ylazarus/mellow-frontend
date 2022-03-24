@@ -1,0 +1,21 @@
+.attachment-preview{
+    // text-align: center;
+    margin-top: 10px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    background-color: white;
+
+    .attach-from{
+        text-align: center;
+    }
+
+    .pointer{
+        cursor: pointer;
+    }
+}
+
+.attach-preview img{
+    width: 40px;
+}
