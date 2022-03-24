@@ -76,7 +76,7 @@ export default {
       if (!this.task.attachments) this.task.attachments = []
       this.task.attachments.push(img.url)
       this.saveTask()
-      // this.imgUrls.push(img.url)
+      this.imgUrls.push(img.url)
     },
 
 

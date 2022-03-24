@@ -9,7 +9,6 @@ const BOARD_URL = (process.env.NODE_ENV !== 'development')
     : '//localhost:3030/api/board/';
 const KEY = "boards_db"
 
-// _createBoards()
 
 export const boardService = {
     query,
@@ -21,6 +20,8 @@ export const boardService = {
     getEmptyTask,
     uploadImg
 }
+
+_createBoards()
 
 async function query(filterBy) {
     //   const res = await axios.get(BOARD_URL, { params: filterBy })
@@ -122,7 +123,9 @@ function _createBoards() {
                     "fullname": "Abi Abambi",
                     "imgUrl": ""
                 },
-                "style": {},
+                "style": {
+                    'bgImg': '',
+                },
                 "labels": [
                     {
                         "id": "l101",
@@ -244,106 +247,95 @@ function _createBoards() {
                 ],
             },
             {
-                "_id": "b201",
+                "_id": utilService.makeId(),
                 "title": "Second Project",
                 "isFavorite": true,
                 "createdAt": Date.now(),
                 "createdBy": {
-                    "_id": "u101",
-                    "fullname": "Abi Abambi",
+                    "_id": utilService.makeId(),
+                    "fullname": "Jo Abramovich",
                     "imgUrl": ""
                 },
-                "style": {},
+                "style": {
+                    'bgImg': '',
+                },
                 "labels": [
                     {
-                        "id": "l101",
+                        "id": 'L321',
                         "title": "Done",
                         "color": "#61bd4f"
                     },
                     {
-                        "id": "l102",
+                        "id": 'L654',
                         "title": "Progress",
                         "color": "#61bd33"
+                    },
+                    {
+                        "id": 'L681',
+                        "title": "Progress",
+                        "color": "#88888"
                     }
+
                 ],
                 "members": [
                     {
-                        "_id": "u102a",
+                        "_id": "u1012",
                         "fullname": "Tal Tarablus",
                         "imgUrl": ""
                     }
                 ],
                 "groups": [
                     {
-                        "id": "g201",
+                        "id": utilService.makeId(),
                         "title": "Group 1",
                         "tasks": [
                             {
-                                "id": "c201",
+                                "id": utilService.makeId(),
                                 "title": "Replace logo"
                             },
                             {
-                                "id": "c202",
+                                "id": utilService.makeId(),
                                 "title": "Add Samples"
                             }
                         ],
                         "style": {}
                     },
                     {
-                        "id": "g202",
+                        "id": utilService.makeId(),
                         "title": "Group 2",
                         "tasks": [
                             {
-                                "id": "c203",
+                                "id": utilService.makeId(),
                                 "title": "Do this"
                             },
                             {
-                                "id": "c204",
+                                "id": utilService.makeId(),
                                 "title": "Do that"
                             },
                             {
-                                "id": "c205",
+                                "id": utilService.makeId(),
                                 "title": "Help me",
                                 "status": "in-progress",
                                 "description": "description",
                                 "comments": [
                                     {
-                                        "id": "ZdPnm",
+                                        "id": utilService.makeId(),
                                         "txt": "also @yaronb please CR this",
                                         "createdAt": 1590999817436.0,
                                         "byMember": {
-                                            "_id": "u101",
+                                            "_id": "u1012",
                                             "fullname": "Tal Tarablus",
                                             "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                                         }
                                     }
                                 ],
-                                "checklists": [
-                                    {
-                                        "id": "YEhasdF",
-                                        "title": "Checklist",
-                                        "todos": [
-                                            {
-                                                "id": "212jX",
-                                                "title": "To Do 1",
-                                                "isDone": false
-                                            }
-                                        ]
-                                    }
-                                ],
-                                "members": [
-                                    {
-                                        "_id": "u101",
-                                        "username": "Tal",
-                                        "fullname": "Tal Tarablus",
-                                        "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-                                    }
-                                ],
-                                "labelIds": ["l101", "l102"],
+                                "checklists": [],
+                                "members": [],
+                                "labelIds": [],
                                 "createdAt": 1590999730348,
                                 "dueDate": 16156215211,
                                 "byMember": {
-                                    "_id": "u101",
+                                    "_id": "u1012",
                                     "username": "Tal",
                                     "fullname": "Tal Tarablus",
                                     "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
@@ -358,123 +350,98 @@ function _createBoards() {
                     }
                 ],
                 "activities": [
-                    {
-                        "id": "a101",
-                        "txt": "Changed Color",
-                        "createdAt": 154514,
-                        "byMember": {
-                            "_id": "u101",
-                            "fullname": "Abi Abambi",
-                            "imgUrl": ""
-                        },
-                        "task": {
-                            "id": "c101",
-                            "title": "Replace Logo"
-                        }
-                    }
                 ],
             },
             {
-                "_id": "b101",
-                "title": "Robot dev proj",
-                "isFavorite": false,
+                "_id": utilService.makeId(),
+                "title": "Third Project",
+                "isFavorite": true,
                 "createdAt": Date.now(),
                 "createdBy": {
-                    "_id": "u101",
-                    "fullname": "Abi Abambi",
+                    "_id": utilService.makeId(),
+                    "fullname": "Jo Abramovich",
                     "imgUrl": ""
                 },
-                "style": {},
+                "style": {
+                    'bgImg': '',
+                },
                 "labels": [
                     {
-                        "id": "l101",
+                        "id": 'L951',
                         "title": "Done",
                         "color": "#61bd4f"
                     },
                     {
-                        "id": "l102",
+                        "id": 'L753',
                         "title": "Progress",
                         "color": "#61bd33"
+                    },
+                    {
+                        "id": 'L482',
+                        "title": "Progress",
+                        "color": "#88888"
                     }
+
                 ],
                 "members": [
                     {
-                        "_id": "u102a",
+                        "_id": "u1012",
                         "fullname": "Tal Tarablus",
                         "imgUrl": ""
                     }
                 ],
                 "groups": [
                     {
-                        "id": "g101",
+                        "id": utilService.makeId(),
                         "title": "Group 1",
                         "tasks": [
                             {
-                                "id": "c101",
+                                "id": utilService.makeId(),
                                 "title": "Replace logo"
                             },
                             {
-                                "id": "c102",
+                                "id": utilService.makeId(),
                                 "title": "Add Samples"
                             }
                         ],
                         "style": {}
                     },
                     {
-                        "id": "g102",
+                        "id": utilService.makeId(),
                         "title": "Group 2",
                         "tasks": [
                             {
-                                "id": "c103",
+                                "id": utilService.makeId(),
                                 "title": "Do this"
                             },
                             {
-                                "id": "c104",
+                                "id": utilService.makeId(),
                                 "title": "Do that"
                             },
                             {
-                                "id": "c104",
+                                "id": utilService.makeId(),
                                 "title": "Help me",
                                 "status": "in-progress",
                                 "description": "description",
                                 "comments": [
                                     {
-                                        "id": "ZdPnm",
+                                        "id": utilService.makeId(),
                                         "txt": "also @yaronb please CR this",
                                         "createdAt": 1590999817436.0,
                                         "byMember": {
-                                            "_id": "u101",
+                                            "_id": "u1012",
                                             "fullname": "Tal Tarablus",
                                             "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                                         }
                                     }
                                 ],
-                                "checklists": [
-                                    {
-                                        "id": "YEhmF",
-                                        "title": "Checklist",
-                                        "todos": [
-                                            {
-                                                "id": "212jX",
-                                                "title": "To Do 1",
-                                                "isDone": false
-                                            }
-                                        ]
-                                    }
-                                ],
-                                "members": [
-                                    {
-                                        "_id": "u101",
-                                        "username": "Tal",
-                                        "fullname": "Tal Tarablus",
-                                        "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-                                    }
-                                ],
-                                "labelIds": ["l101", "l102"],
+                                "checklists": [],
+                                "members": [],
+                                "labelIds": [],
                                 "createdAt": 1590999730348,
                                 "dueDate": 16156215211,
                                 "byMember": {
-                                    "_id": "u101",
+                                    "_id": "u1012",
                                     "username": "Tal",
                                     "fullname": "Tal Tarablus",
                                     "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
@@ -489,22 +456,115 @@ function _createBoards() {
                     }
                 ],
                 "activities": [
+                ],
+            },
+            {
+                "_id": utilService.makeId(),
+                "title": "Fourth Project",
+                "isFavorite": true,
+                "createdAt": Date.now(),
+                "createdBy": {
+                    "_id": utilService.makeId(),
+                    "fullname": "Jo Abramovich",
+                    "imgUrl": ""
+                },
+                "style": {
+                    'bgImg': '',
+                },
+                "labels": [
                     {
-                        "id": "a101",
-                        "txt": "Changed Color",
-                        "createdAt": 154514,
-                        "byMember": {
-                            "_id": "u101",
-                            "fullname": "Abi Abambi",
-                            "imgUrl": ""
-                        },
-                        "task": {
-                            "id": "c101",
-                            "title": "Replace Logo"
-                        }
+                        "id": 'L951',
+                        "title": "Done",
+                        "color": "#61bd4f"
+                    },
+                    {
+                        "id": 'L753',
+                        "title": "Progress",
+                        "color": "#61bd33"
+                    },
+                    {
+                        "id": 'L482',
+                        "title": "Progress",
+                        "color": "#88888"
+                    }
+
+                ],
+                "members": [
+                    {
+                        "_id": "u1012",
+                        "fullname": "Tal Tarablus",
+                        "imgUrl": ""
                     }
                 ],
-            }
+                "groups": [
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Group 1",
+                        "tasks": [
+                            {
+                                "id": utilService.makeId(),
+                                "title": "Replace logo"
+                            },
+                            {
+                                "id": utilService.makeId(),
+                                "title": "Add Samples"
+                            }
+                        ],
+                        "style": {}
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Group 2",
+                        "tasks": [
+                            {
+                                "id": utilService.makeId(),
+                                "title": "Do this"
+                            },
+                            {
+                                "id": utilService.makeId(),
+                                "title": "Do that"
+                            },
+                            {
+                                "id": utilService.makeId(),
+                                "title": "Help me",
+                                "status": "in-progress",
+                                "description": "description",
+                                "comments": [
+                                    {
+                                        "id": utilService.makeId(),
+                                        "txt": "also @yaronb please CR this",
+                                        "createdAt": 1590999817436.0,
+                                        "byMember": {
+                                            "_id": "u1012",
+                                            "fullname": "Tal Tarablus",
+                                            "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                        }
+                                    }
+                                ],
+                                "checklists": [],
+                                "members": [],
+                                "labelIds": [],
+                                "createdAt": 1590999730348,
+                                "dueDate": 16156215211,
+                                "byMember": {
+                                    "_id": "u1012",
+                                    "username": "Tal",
+                                    "fullname": "Tal Tarablus",
+                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                },
+                                "style": {
+                                    "bgColor": "#26de81"
+                                }
+                            }
+
+                        ],
+                        "style": {}
+                    }
+                ],
+                "activities": [
+                ],
+            },
+
         ]
         utilService.saveToStorage(KEY, boards)
     }

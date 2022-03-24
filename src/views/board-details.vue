@@ -6,17 +6,12 @@
         <button class="shows-options-btn">Board</button>
         <p contenteditable="true" @blur="saveBoardTitle">{{ board.title }}</p>
         <button class="star-btn" @click.stop="toggleFavorite(board._id)">
-          <img
-            class="star"
-            v-if="board.isFavorite"
-            src="src/assets/icons/full-star.png"
-          />
+          <img class="star" v-if="board.isFavorite" src="src/assets/icons/full-star.png" />
           <img class="star" v-else src="src/assets/icons/empty-star.png" />
           <!-- <img src="src/assets/icons/empty-star.png" /> -->
           <!-- <img :src="changeImgUrl" /> -->
         </button>
-      </div>
-      |
+      </div>|
       <div class="board-members-container flex">
         <user-avatar
           :v-if="board.members"
@@ -25,8 +20,7 @@
           :user="member"
         />
         <button>Invite</button>
-      </div>
-      |
+      </div>|
       <nav class="board-header-nav flex">
         <button>Filter</button>
         <button>Show menu</button>
@@ -68,6 +62,7 @@ export default {
   methods: {
     async loadBoard(boardId) {
       this.board = await this.$store.dispatch({ type: "loadBoard", boardId });
+      console.log(this.board);
     },
     async saveBoard() {
       this.board = await this.$store.dispatch({
