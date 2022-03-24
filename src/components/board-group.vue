@@ -85,7 +85,6 @@ export default {
     },
     saveTitle(ev) {
       const newTitle = ev.currentTarget.textContent;
-      console.log(newTitle);
       this.$emit("saveGroup", {
         groupId: this.group.id,
         type: "save group title",
