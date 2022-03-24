@@ -67,7 +67,7 @@
 
 // Buttons
 
-@mixin btn($type: regular, $bg: $clr3, $clr: $clr1, $padding: em(16px) em(24px), $hover: darken($bg, 8%)) {
+@mixin btn($type: regular, $bg: $trello-blue, $clr: $clr1, $padding: em(16px) em(24px), $hover: darken($bg, 8%)) {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
@@ -100,28 +100,31 @@
       background-color: $clr1;
       color: $clr3;
     }
+  } @else if $type == noBg {
+    background-color: none;
+    color: $text-color;
+    &:hover {
+      color: $clr1;
+    }
   }
 }
 
 // Type
 
 @mixin type($type: bold) {
-  // type options: 
-  // 1.bold 
-  // 2.boldCondensed 
+  // type options:
+  // 1.bold
+  // 2.boldCondensed
   // 3.condensed
   @if $type == bold {
     font-variation-settings: "wght" 430;
-  } 
-  @else if $type == boldCondensed {
+  } @else if $type == boldCondensed {
     font-variation-settings: "wght" 430, "wdth" 80;
     letter-spacing: em(6.72px);
-  } 
-  @else if $type == condensed {
+  } @else if $type == condensed {
     font-variation-settings: "wdth" 80;
     letter-spacing: em(6.72px);
-  }
-  @else if $type == light {
+  } @else if $type == light {
     font-variation-settings: "wght" 200;
   }
 }

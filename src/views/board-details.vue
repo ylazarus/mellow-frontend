@@ -3,17 +3,22 @@
     <p>Board Details</p>
     <header class="board-header flex">
       <div class="board-title-container flex">
-        <button class="shows-options-btn">Board</button>
+        <button class="shows-options-btn btn">Board</button>
         <p class="board-title" contenteditable="true" @blur="saveBoardTitle">
           {{ board.title }}
         </p>
-        <button class="star-btn" @click.stop="toggleFavorite(board._id)">
-          <img class="star" v-if="board.isFavorite" src="src/assets/icons/full-star.png" />
+        <button class="star-btn btn" @click.stop="toggleFavorite(board._id)">
+          <img
+            class="star"
+            v-if="board.isFavorite"
+            src="src/assets/icons/full-star.png"
+          />
           <img class="star" v-else src="src/assets/icons/empty-star.png" />
           <!-- <img src="src/assets/icons/empty-star.png" /> -->
           <!-- <img :src="changeImgUrl" /> -->
         </button>
-      </div>|
+      </div>
+      |
       <div class="board-members-container flex">
         <user-avatar
           :v-if="board.members"
@@ -21,11 +26,12 @@
           :key="member._id"
           :user="member"
         />
-        <button>Invite</button>
-      </div>|
+        <button class="btn">Invite</button>
+      </div>
+      |
       <nav class="board-header-nav flex">
-        <button>Filter</button>
-        <button>Show menu</button>
+        <button class="btn">Filter</button>
+        <button class="btn">Show menu</button>
       </nav>
     </header>
     <!-- <div class="article-container"> -->

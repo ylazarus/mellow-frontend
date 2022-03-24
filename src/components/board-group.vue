@@ -18,8 +18,8 @@
         placeholder="Enter a title for this card..."
       />
       <div class="add-task-buttons-container flex">
-        <button class="btn" @click="addTask">Save</button>
-        <button class="btn" @click="clearForm">X</button>
+        <button class="adding-task-btn btn" @click="addTask">Add card</button>
+        <button class="delete-task-btn btn" @click="clearForm">X</button>
       </div>
     </div>
   </section>
