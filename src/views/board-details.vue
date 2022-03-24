@@ -4,8 +4,17 @@
     <header class="board-header flex">
       <div class="board-title-container flex">
         <button class="shows-options-btn">Board</button>
-        <p contenteditable="true" @blur="saveTitle">{{ board.title }}</p>
-        <button>⭐</button>
+        <p contenteditable="true" @blur="saveBoardTitle">{{ board.title }}</p>
+        <button class="star-btn" @click.stop="toggleFavorite(board._id)">
+          <img
+            class="star"
+            v-if="board.isFavorite"
+            src="src/assets/icons/full-star.png"
+          />
+          <img class="star" v-else src="src/assets/icons/empty-star.png" />
+          <!-- <img src="src/assets/icons/empty-star.png" /> -->
+          <!-- <img :src="changeImgUrl" /> -->
+        </button>
       </div>
       |
       <div class="board-members-container flex">
@@ -17,8 +26,14 @@
         />
         <button>Invite</button>
       </div>
+      |
+      <nav class="board-header-nav flex">
+        <button>Filter</button>
+        <button>Show menu</button>
+      </nav>
     </header>
-    <div class="groups-container flex">
+    <!-- <div class="article-container"> -->
+    <article class="groups-container flex">
       <board-group
         v-for="group in board.groups"
         :key="group.id"
@@ -26,7 +41,8 @@
         @saveGroup="saveGroup"
       />
       <div class="add-group" @click="addGroup">+ Add another list</div>
-    </div>
+    </article>
+    <!-- </div> -->
   </section>
 </template>
 
@@ -59,9 +75,13 @@ export default {
         board: this.board,
       });
     },
-    async saveTitle(ev) {
+    async saveBoardTitle(ev) {
       const newTitle = ev.currentTarget.textContent;
       this.board.title = newTitle;
+      this.saveBoard();
+    },
+    async toggleFavorite() {
+      this.board.isFavorite = !this.board.isFavorite;
       this.saveBoard();
     },
     async addGroup() {

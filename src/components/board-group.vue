@@ -28,6 +28,7 @@
 
 
 <script>
+import { boardService } from "../../services/board-service";
 import taskPreview from "./task-preview.vue";
 import { utilService } from "../../services/util-service";
 export default {
@@ -67,7 +68,7 @@ export default {
         this.isAdding = false;
         return;
       } else {
-        const task = {};
+        const task = boardService.getEmptyTask();
         task.title = this.newTaskTitle;
         this.$emit("saveGroup", {
           groupId: this.group.id,
