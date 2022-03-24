@@ -1,12 +1,33 @@
-.app-header {
-    height: 100px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: $clr2;
-    padding: 1rem;
+// .app-header {
+//     height: 100px;
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     background-color: $clr2;
+//     padding: 1rem;
 
-    a {
-        @include btn
+//     a {
+//         @include btn
+//     }
+//   }
+
+.app-header-container{
+    background-color: $clr6;
+    font-weight: 700;
+    line-height: 20px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+
+    .app-header-inner{
+    z-index: 1;
+    // display: flex;
+    align-items: center;
+    max-height: 44px;
+    padding: 6px 4px;
+    background-color: #026aa7;
+    color: $clr7;
+    // width: 100%;
+    width: 1000px;
     }
-  }
+}

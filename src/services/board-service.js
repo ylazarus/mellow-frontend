@@ -21,7 +21,7 @@ export const boardService = {
     uploadImg
 }
 
-_createBoards()
+// _createBoards()
 
 async function query(filterBy) {
     //   const res = await axios.get(BOARD_URL, { params: filterBy })
@@ -124,7 +124,7 @@ function _createBoards() {
                     "imgUrl": ""
                 },
                 "style": {
-                    'bgImg': '',
+                    'bgImg': 'src/assets/imgs/1.jpg',
                 },
                 "labels": [
                     {
@@ -257,7 +257,7 @@ function _createBoards() {
                     "imgUrl": ""
                 },
                 "style": {
-                    'bgImg': '',
+                    'bgImg': 'src/assets/imgs/2.jpg',
                 },
                 "labels": [
                     {
@@ -363,7 +363,7 @@ function _createBoards() {
                     "imgUrl": ""
                 },
                 "style": {
-                    'bgImg': '',
+                    'bgImg': 'src/assets/imgs/3.jpg',
                 },
                 "labels": [
                     {
@@ -469,7 +469,7 @@ function _createBoards() {
                     "imgUrl": ""
                 },
                 "style": {
-                    'bgImg': '',
+                    'bgImg': 'src/assets/imgs/4.jpg',
                 },
                 "labels": [
                     {

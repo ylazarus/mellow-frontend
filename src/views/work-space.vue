@@ -1,28 +1,34 @@
 <template>
-    <section class="all-boards-container">
-        <h1>Work Space</h1>
+    <main class="main-layout">
+        <section class="all-boards-container">
+            <!-- <h1>Work Space</h1> -->
 
-        <article v-if="favoriteBoards"></article>
+            <!-- <article v-if="favoriteBoards"></article> -->
 
-        <article class="saved-boards">
-            <div
-                v-for="board in boards"
-                :key="board._id"
-                @click="toBoardDetails(board._id)"
-                class="board-preview"
-            >
-                {{ board.title }}
-                <a @click.stop="toggleFavorite(board._id)">
-                    <img v-if="board.isFavorite" src="src/assets/icons/full-star.png" />
-                    <img v-else src="src/assets/icons/empty-star.png" />
-                    <!-- <img src="src/assets/icons/empty-star.png" /> -->
-                    <!-- <img :src="changeImgUrl" /> -->
-                </a>
-                <button @click.stop="removeBoard(board._id)">remove</button>
-            </div>
-            <button @click="addBoard" class="board-preview justify-center">Create new board</button>
-        </article>
-    </section>
+            <article class="saved-boards">
+                <div
+                    v-for="board in boards"
+                    :key="board._id"
+                    @click="toBoardDetails(board._id)"
+                    class="board-preview img-pos style-font"
+                    :style="{ backgroundImage: `url(${board.style.bgImg})` }"
+                >
+                    {{ board.title }}
+                    <a @click.stop="toggleFavorite(board._id)">
+                        <img v-if="board.isFavorite" src="src/assets/icons/full-star.png" />
+                        <img v-else src="src/assets/icons/empty-star.png" />
+                        <!-- <img src="src/assets/icons/empty-star.png" /> -->
+                        <!-- <img :src="changeImgUrl" /> -->
+                    </a>
+                    <button @click.stop="removeBoard(board._id)">remove</button>
+                </div>
+                <button
+                    @click="addBoard"
+                    class="board-preview justify-center add-card"
+                >Create new board</button>
+            </article>
+        </section>
+    </main>
 </template>
 
 <script>
@@ -70,6 +76,9 @@ export default {
             // for favorite (like is pinned)
             return this.$store.getters.favoriteBoards
         },
+        // imgPos() {
+        //     return {}
+        // }
     },
 
 }
