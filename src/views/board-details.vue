@@ -3,21 +3,14 @@
     <header class="board-header flex">
       <div class="board-title-container flex">
         <button class="shows-options-btn btn">Board</button>
-        <p class="board-title" contenteditable="true" @blur="saveBoardTitle">
-          {{ board.title }}
-        </p>
+        <p class="board-title" contenteditable="true" @blur="saveBoardTitle">{{ board.title }}</p>
         <button class="star-btn btn" @click.stop="toggleFavorite(board._id)">
-          <img
-            class="star"
-            v-if="board.isFavorite"
-            src="src/assets/icons/full-star.png"
-          />
+          <img class="star" v-if="board.isFavorite" src="src/assets/icons/full-star.png" />
           <img class="star" v-else src="src/assets/icons/empty-star.png" />
           <!-- <img src="src/assets/icons/empty-star.png" /> -->
           <!-- <img :src="changeImgUrl" /> -->
         </button>
-      </div>
-      |
+      </div>|
       <div class="board-members-container flex">
         <user-avatar
           :v-if="board.members"
@@ -26,8 +19,7 @@
           :user="member"
         />
         <button class="btn">Invite</button>
-      </div>
-      |
+      </div>|
       <nav class="board-header-nav flex">
         <button class="btn">Filter</button>
         <button class="btn">Show menu</button>
@@ -126,8 +118,7 @@ export default {
     },
     bgImg() {
       const backGroundImg =
-        this.board.style?.bgImg ||
-        "https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2286x1600/24baa6609b89fb8eb0cc0aceb70eaf36/photo-1557682250-33bd709cbe85.jpg";
+        this.board.style?.bgImg || '';
       return { backgroundImage: `url(${backGroundImg})` };
     },
   },
