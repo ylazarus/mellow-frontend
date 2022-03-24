@@ -57,7 +57,8 @@
     <div @click.stop class="add-task-buttons-container">
       <p>Add to card</p>
       <button class="btn">Members</button>
-      <button class="btn">Labels</button>
+      <button @click="toggleLabel" class="btn">Labels</button>
+      <label-preview v-if="isLabel" :boardLabels="currBoard.labels" />
       <button class="btn">Checklist</button>
       <button @click.stop="toggleDates" class="btn">Dates</button>
       <date-preview v-if="isDatesOn" />
@@ -72,6 +73,7 @@
 import userAvatar from "../components/user-avatar.vue";
 import attachmentPreview from "../components/attachment-preview.vue";
 import datePreview from "../components/date-preview.vue";
+import labelPreview from "../components/label-preview.vue";
 import { utilService } from "../services/util-service";
 
 export default {
@@ -86,6 +88,7 @@ export default {
       addingDescription: false,
       newDescription: "",
       detailsShown: false,
+      isLabel: false,
     };
   },
   created() {
@@ -171,6 +174,9 @@ export default {
       console.log(img.url);
       this.imgUrls.push(img.url);
     },
+    toggleLabel() {
+      this.isLabel = !this.isLabel;
+    },
   },
   computed: {
     areDetailsShown() {
@@ -180,7 +186,8 @@ export default {
   components: {
     userAvatar,
     attachmentPreview,
-    datePreview
+    datePreview,
+    labelPreview,
   },
 };
 </script>

@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      isAdding: true,
+      isAdding: false,
       newTaskTitle: "",
     };
   },

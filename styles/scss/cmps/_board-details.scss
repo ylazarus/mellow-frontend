@@ -1,44 +1,47 @@
-.groups-container {
-    gap: 9px;
-    .add-group {
-        color: white;
-        background-color: #ffffff33;
-        padding: 1em;
-        cursor: pointer;
-        align-self: baseline;
-        min-width: fit-content;
-    }
-}
-
 .board-header,
 .board-header > *,
 .board-header > * > * {
-    color: white;
-    gap: 9px;
+    color: $text-color;
+    // gap: 9px;
     justify-content: space-between;
     align-items: center;
 }
 .board-header {
-    padding: 0px 8px;
-
+    padding: 8px 4px 2px 5px;
+    background-color: #0000001a;
+    flex-wrap: wrap;
     .star-btn {
         width: 32px;
         display: flex;
         justify-content: center;
         .star {
             width: 16px;
-            // transition: ease-in-out 0.2s;
         }
         .star:hover {
-            // width: 19.2px;
         }
     }
     .board-title {
+        margin: 0;
+        padding: 0 12px;
         font-size: 18px;
+        font-family: segoeui-bold;
     }
 }
+
 .groups-container {
     padding: 8px;
+    overflow-x: auto;
     overflow-y: hidden;
     height: 90vh;
+    gap: 8px;
+    .add-group {
+        color: $text-color;
+        background-color: #0000001a;
+        padding: 1em;
+        cursor: pointer;
+        align-self: baseline;
+        min-width: fit-content;
+        width: 272px;
+        flex-shrink: 0;
+    }
 }
