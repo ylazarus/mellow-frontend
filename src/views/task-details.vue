@@ -49,7 +49,7 @@
       <div v-if="task.checklists">Checklists will be here{{ task.checklists }}</div>
       <div v-if="task.attachments">Attachments will be here{{ task.attachments }}</div>
       <div v-if="task.dueDate">Due date will be here{{ task.dueDate }}</div>
-      <button class="go-back-btn btn" @click="goBack">Go Back</button>
+      <button class="go-back-btn btn" @click="goBack">Back</button>
     </div>
 
     <div v-else>Loading...</div>
