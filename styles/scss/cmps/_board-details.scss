@@ -6,9 +6,11 @@
     justify-content: space-between;
     align-items: center;
 }
+
 .board-header {
-    padding: 8px 4px 2px 5px;
-    background-color: #0000001a;
+    padding: 8px 4px 4px 32px;
+    height: auto;
+    // background-color: #0000001a;
     flex-wrap: wrap;
     .star-btn {
         width: 32px;
@@ -28,12 +30,40 @@
     }
 }
 
+.btn-board-details{
+    border-radius: 3px;
+    font-size: rem(16px);
+    height: 32px;
+    position: relative;
+    border: none;
+    background-color: $clr5;
+    width: 40px;
+
+    img{
+        width: 20px;
+        position: absolute;
+
+    }
+}
+
+.board-title-container button:nth-child(1)::before{
+    font-family: trellicons;
+    width: 20px;
+}
+
+.board-container{
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0px 28px 8px 28px;
+}
+
 .groups-container {
     padding: 8px;
     overflow-x: auto;
     overflow-y: hidden;
     height: 90vh;
-    gap: 8px;
+    gap: 9px;
+    // margin-left: 27px;
     .add-group {
         color: $text-color;
         background-color: #0000001a;
@@ -45,3 +75,8 @@
         flex-shrink: 0;
     }
 }
+
+// .shows-options-btn img{
+//     width: 15px;
+//     // color: white;
+// }

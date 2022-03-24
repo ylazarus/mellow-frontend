@@ -1,15 +1,8 @@
 <template>
   <section class="group-container">
-    <div contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
-    <task-preview
-      v-for="task in group.tasks"
-      :key="task.id"
-      :task="task"
-      :groupId="group.id"
-    />
-    <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">
-      Add a card
-    </div>
+    <div class="group-title" contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
+    <task-preview v-for="task in group.tasks" :key="task.id" :task="task" :groupId="group.id" />
+    <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">Add a card</div>
     <div v-else class="add-task-container">
       <textarea
         v-focus
@@ -85,6 +78,7 @@ export default {
     },
     saveTitle(ev) {
       const newTitle = ev.currentTarget.textContent;
+      console.log(newTitle);
       this.$emit("saveGroup", {
         groupId: this.group.id,
         type: "save group title",

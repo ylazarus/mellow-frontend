@@ -2,7 +2,7 @@
     <header class="app-header-container">
         <div class="app-header-inner">
             <h3>
-                <i class="fa-brands fa-trello"></i> Mellow
+                <img src="src/assets/svgs/trello.svg" /> Mellow
             </h3>
         </div>
     </header>
