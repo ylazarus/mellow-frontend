@@ -94,25 +94,17 @@
     }
 
     .go-back-btn{
-        background-color: $btn-color;
-        color: $text-color;
+        
         width: 52px;
-        height: 32px;
 
-        &:hover {
-            background-color: $btn-hover;
-          }
+     
     }
 
     .details-shown-btn{
-        background-color: $btn-color;
-        color: $text-color;
+      
         width: 52px;
-        height: 32px;
         
-        &:hover {
-            background-color: $btn-hover;
-          }
+        
 
     }
   }
@@ -124,22 +116,15 @@
     .btn {
       display: flex;
       align-items: center;
-      background-color: $btn-color;
-      color: $text-color;
-      height: 32px;
       width: 167px;
       // max-width: 300px;
       overflow: hidden;
       white-space: nowrap;
       padding: 6px 12px;
-      text-decoration: none;
       text-overflow: ellipsis;
       margin-top: 8px;
-      position: relative;
 
-      &:hover {
-        background-color: $btn-hover;
-      }
+     
     }
   }
 }
