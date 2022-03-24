@@ -1,16 +1,43 @@
 <template>
   <section class="task-details-page flex">
     <div v-if="task" class="task-details-container">
-      <h2>title: {{ task.title }}</h2>
+      <!-- title needs to become text area in the future -->
+      <p class="task-title">{{ task.title }}</p>
+      <p>in list {{ currGroup.title }}</p>
+      <p class="members-header" v-if="task.members">Members</p>
       <user-avatar
         :v-if="task.members"
         v-for="member in task.members"
         :key="member._id"
         :user="member"
       />
-      <div v-if="task.img">{{ task.img }}</div>
-      <div v-if="task.labelIds">{{ task.labelIds }}</div>
-      <div v-if="task.img">{{ task.img }}</div>
+
+      <p class="description-header">Description</p>
+      <div
+        class="fake-text-area"
+        v-if="!addingDescription"
+        @click="addDescription"
+      >
+        Add a more detailed description...
+      </div>
+      <div v-else class="add-description-container">
+        <textarea v-focus v-model="description" class="description-text-area" />
+        <div class="add-task-buttons-container flex">
+          <button class="save-description-btn btn" @click="saveDescription">
+            Save
+          </button>
+          <button class="delete-description-btn btn" @click="clearForm">
+            X
+          </button>
+        </div>
+      </div>
+
+      <div class="activity-details-header">
+        <p class="activity-header">Activity</p>
+        <button>{{ detailsShown }}</button>
+      </div>
+      <div v-if="task.img">Images: {{ task.img }}</div>
+      <div v-if="task.labelIds">Label ids: {{ task.labelIds }}</div>
 
       <div v-if="task.checklists">{{ task.checklists }}</div>
       <div v-if="task.attachments">{{ task.attachments }}</div>
@@ -50,6 +77,8 @@ export default {
       imgUrls: [],
       currBoard: null,
       currGroup: null,
+      addingDescription: false,
+      detailsShown: false,
     };
   },
   async created() {
@@ -85,6 +114,15 @@ export default {
         activity,
       });
     },
+    addDescription() {
+      this.addingDescription = true;
+    },
+    clearForm() {
+      this.addingDescription = false;
+      this.newTaskTitle = "";
+    },
+    saveDescription() {},
+
     toggleAttachment() {
       this.isAttachOn = !this.isAttachOn;
       console.log(this.isAttachOn);
@@ -100,7 +138,11 @@ export default {
       this.imgUrls.push(img.url);
     },
   },
-  computed: {},
+  computed: {
+    detailsShown() {
+      return this.detailsShown ? "Hide Details" : "Show Details";
+    },
+  },
   components: {
     userAvatar,
     attachmentPreview,
