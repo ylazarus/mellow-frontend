@@ -26,7 +26,11 @@
     .add-task-container {
         height: 80px;
 
+<<<<<<< HEAD
         input {
+=======
+        textarea {
+>>>>>>> cd45b6f60d473cf031677695f335425046283e13
             height: 54px;
             width: 100%;
             margin: 0 0 4px;
@@ -34,6 +38,11 @@
             padding: 6px 8px 2px;
             box-shadow: 0 1px 0 #091e4240;
             border: 0;
+            outline: none;
+            font-family: segoeui, Roboto, Arial, Helvetica, sans-serif;
+            color: $text-color;
+            font-size: 14px;
+            resize: none
         }
     }
 }

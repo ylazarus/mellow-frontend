@@ -34,24 +34,29 @@
 
 <script>
 // import { boardService } from "../../services/board-service";
-import userAvatar from "../components/user-avatar.vue"
+import userAvatar from "../components/user-avatar.vue";
 import attachmentPreview from "../components/attachment-preview.vue";
+import { utilService } from "../services/util-service";
 
 export default {
-
   data() {
     return {
       task: null,
       isAttachOn: false,
       imgUrls: [],
+      currBoard: null,
+      currGroup: null,
     };
   },
   async created() {
     const { boardId, groupId, taskId } = this.$route.params;
-    const board = await this.$store.dispatch({ type: "loadBoard", boardId });
-    console.log('board', board);
-    const group = board.groups.find((group) => group.id === groupId);
-    const task = group.tasks.find((task) => task.id === taskId);
+    this.currBoard = await this.$store.dispatch({ type: "loadBoard", boardId });
+    console.log(this.currBoard, "board");
+    this.currGroup = this.currBoard.groups.find(
+      (group) => group.id === groupId
+    );
+    console.log(this.currGroup, "group");
+    const task = this.currGroup.tasks.find((task) => task.id === taskId);
     this.task = JSON.parse(JSON.stringify(task));
   },
   methods: {
@@ -59,37 +64,42 @@ export default {
       const currBoard = this.$store.getters.getCurrBoard;
       this.$router.push(`/board/${currBoard._id}`);
     },
-    async saveTask() {
-      await this.$store.dispatch({ type: "saveTask", task: this.task });
-      //   this.goBack()
+    async saveTask(type) {
+      const activity = {
+        id: utilService.makeId(),
+        txt: type,
+        groupId: this.currGroup.id,
+        createdAt: Date.now(),
+        byMember: userService.getLoggedinUser() || "Guest",
+        task: { id: this.task.id, title: this.task.title }, // take out details and extract only mini task
+      };
+      await this.$store.dispatch({
+        type: "saveTask",
+        boardId: this.currBoard._id,
+        groupId: this.currGroup.id,
+        task: this.task,
+        activity,
+      });
     },
+
     toggleAttachment() {
-      this.isAttachOn = !this.isAttachOn
+      this.isAttachOn = !this.isAttachOn;
       console.log(this.isAttachOn);
     },
     async attachImg(ev) {
-      const img = await this.$store.dispatch({ type: "attachImg", ev })
-      console.log('img task', img);
-      if (!this.task.attachments) this.task.attachments = []
-      this.task.attachments.push(img.url)
-      this.saveTask()
-      this.imgUrls.push(img.url)
+      const img = await this.$store.dispatch({ type: "attachImg", ev });
+      console.log("img task", img);
+      if (!this.task.attachments) this.task.attachments = [];
+      this.task.attachments.push(img.url);
+      this.saveTask("added image");
+      // this.imgUrls.push(img.url)
     },
-
-
   },
-  computed: {
-    board() {
-      const board = this.$store.getters.getCurrBoard;
-      console.log(board);
-      return board
-    }
-  },
+  computed: {},
   components: {
     userAvatar,
-    attachmentPreview
-
-  }
+    attachmentPreview,
+  },
 };
 </script>
 
