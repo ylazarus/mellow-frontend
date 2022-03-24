@@ -1,15 +1,62 @@
 .groups-container {
-    padding: 1rem;
-    gap: 10px;
-    .board-header {
-        button {
-            // align-self: baseline;
-        }
-    }
+    gap: 9px;
     .add-group {
-        background-color: rgba(128, 128, 128, 0.144);
+        color: white;
+        background-color: #ffffff33;
         padding: 1em;
         cursor: pointer;
         align-self: baseline;
+        min-width: fit-content;
     }
+}
+
+.board-header,
+.board-header > *,
+.board-header > * > * {
+    color: white;
+    gap: 9px;
+    justify-content: space-between;
+    align-items: center;
+}
+.board-header {
+    padding: 0px 8px;
+    button {
+        background-color: #ffffff33;
+        border-radius: 3px;
+        color: #fff;
+        // cursor: default;
+        // float: left;
+        font-size: 14px;
+        height: 32px;
+        line-height: 32px;
+        // margin: 0 4px 4px 0;
+        overflow: hidden;
+        // padding-left: 32px;
+        position: relative;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        border: none;
+    }
+    button:hover {
+        background-color: #ffffff4d;
+        cursor: pointer;
+    }
+    .star-btn {
+        width: 32px;
+        display: flex;
+        justify-content: center;
+        .star {
+            width: 16px;
+            transition: ease-in-out 0.2s;
+        }
+        .star:hover {
+            width: 19.2px;
+        }
+    }
+}
+.groups-container {
+    padding: 8px;
+
+    position: absolute;
+    overflow-y: hidden;
 }
