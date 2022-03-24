@@ -50,7 +50,8 @@
     <div class="add-task-buttons-container">
       <p>Add to card</p>
       <button class="btn">Members</button>
-      <button class="btn">Labels</button>
+      <button @click="toggleLabel" class="btn">Labels</button>
+      <label-preview v-if="isLabel" :boardLabels="currBoard.labels" />
       <button class="btn">Checklist</button>
       <button class="btn">Dates</button>
       <button @click="toggleAttachment" class="btn">Attachment</button>
@@ -67,6 +68,7 @@
 // import { boardService } from "../../services/board-service";
 import userAvatar from "../components/user-avatar.vue";
 import attachmentPreview from "../components/attachment-preview.vue";
+import labelPreview from "../components/label-preview.vue";
 import { utilService } from "../services/util-service";
 
 export default {
@@ -79,6 +81,7 @@ export default {
       currGroup: null,
       addingDescription: false,
       detailsShown: false,
+      isLabel: false,
     };
   },
   async created() {
@@ -137,6 +140,9 @@ export default {
       console.log(img.url);
       this.imgUrls.push(img.url);
     },
+    toggleLabel() {
+      this.isLabel = !this.isLabel;
+    },
   },
   computed: {
     detailsShown() {
@@ -146,6 +152,7 @@ export default {
   components: {
     userAvatar,
     attachmentPreview,
+    labelPreview,
   },
 };
 </script>

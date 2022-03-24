@@ -1,0 +1,14 @@
+.label-preview {
+    margin-top: 10px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    background-color: white;
+    position: absolute;
+
+    .label-option {
+        width: 150px;
+        height: 50px;
+    }
+}

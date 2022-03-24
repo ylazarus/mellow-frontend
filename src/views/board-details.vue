@@ -1,6 +1,5 @@
 <template>
   <section v-if="board" class="board-container" :style="bgImg">
-    <p>Board Details</p>
     <header class="board-header flex">
       <div class="board-title-container flex">
         <button class="shows-options-btn btn">Board</button>

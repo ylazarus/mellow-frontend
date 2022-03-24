@@ -130,18 +130,31 @@ export default {
             }
         },
         async attachImg({ commit }, { ev }) {
-            const img = await boardService.uploadImg(ev)
-            return img
+            try {
+                const img = await boardService.uploadImg(ev)
+                return img
+            } catch (err) {
+                console.log("board module attachImg cant attach img now", err)
+            }
         },
         async saveTask({ commit, state }, { boardId, groupId, task, activity }) {
-            await commit({ type: 'saveTask', boardId, groupId, task })
-            const savedBoard = await boardService.save(JSON.parse(JSON.stringify(state.currBoard)))
-            return savedBoard
+            try {
+                await commit({ type: 'saveTask', boardId, groupId, task })
+                const savedBoard = await boardService.save(JSON.parse(JSON.stringify(state.currBoard)))
+                commit({ type: 'saveBoard', savedBoard })
+                return JSON.parse(JSON.stringify(savedBoard))
+            } catch (err) {
+                console.log("board module saveTask cant save task now", err)
+            }
         },
         async saveGroup({ commit, state }, { boardId, group, activity }) {
-            await commit({ type: 'saveGroup', boardId, group })
-            const savedBoard = await boardService.save(JSON.parse(JSON.stringify(state.currBoard)))
-            return savedBoard
+            try {
+                await commit({ type: 'saveGroup', boardId, group })
+                commit({ type: 'saveBoard', savedBoard })
+                return JSON.parse(JSON.stringify(savedBoard))
+            } catch (err) {
+                console.log("board module saveGroup cant save group now", err)
+            }
         },
     }
 }
