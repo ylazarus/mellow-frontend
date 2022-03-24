@@ -55,7 +55,11 @@ export default {
         },
         saveGroup(state, { boardId, group }) {
             const updatingBoard = state.boards.find(b => b._id === boardId)
-            const idx = updatingBoard.groups.findIndex(g => g.id = group.id)
+            console.log('boardId', boardId);
+            console.log('group', group);
+            console.log(updatingBoard);
+            const idx = updatingBoard.groups.findIndex(g => g.id === group.id)
+            console.log(idx);
             if (idx === -1) return updatingBoard.groups.push(group)
             updatingBoard.groups.splice(idx, 1, group)
             state.currBoard = updatingBoard
@@ -148,8 +152,10 @@ export default {
             }
         },
         async saveGroup({ commit, state }, { boardId, group, activity }) {
+            console.log(group);
             try {
                 await commit({ type: 'saveGroup', boardId, group })
+                const savedBoard = await boardService.save(JSON.parse(JSON.stringify(state.currBoard)))
                 commit({ type: 'saveBoard', savedBoard })
                 return JSON.parse(JSON.stringify(savedBoard))
             } catch (err) {
