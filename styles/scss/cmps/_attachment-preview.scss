@@ -1,4 +1,4 @@
-.attachment-preview{
+.attachment-preview {
     // text-align: center;
     margin-top: 10px;
     border-radius: 3px;
@@ -8,18 +8,14 @@
     background-color: white;
     position: absolute;
     top: 305px;
-    border:1px solid black;
+    border: 1px solid black;
     padding: 1px;
 
-    .attach-from{
+    .attach-from {
         text-align: center;
-    }
-
-    .pointer{
-        cursor: pointer;
     }
 }
 
-.attach-preview img{
+.attach-preview img {
     width: 40px;
 }

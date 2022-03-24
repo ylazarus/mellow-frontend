@@ -126,16 +126,18 @@ function _createBoards() {
                     'bgImg': 'src/assets/imgs/1.jpg',
                 },
                 "labels": [
-                    {
-                        "id": "l101",
-                        "title": "Done",
-                        "color": "#61bd4f"
-                    },
-                    {
-                        "id": "l102",
-                        "title": "Progress",
-                        "color": "#61bd33"
-                    }
+
+                    { id: "l101", color: "#61bd4f", title: "Done" },
+                    { id: "l102", color: "#f2d600", title: "Urgent" },
+                    { id: "l103", color: "#ff9f1a", title: "Immediate" },
+                    { id: "l104", color: "#eb5a46", title: "" },
+                    { id: "l105", color: "#c377e0", title: "" },
+                    { id: "l106", color: "#0079bf", title: "" },
+                    { id: "l107", color: "#00c2e0", title: "" },
+                    { id: "l108", color: "#51e898", title: "" },
+                    { id: "l109", color: "#ff78cb", title: "" },
+                    { id: "l110", color: "#344563", title: "" },
+                    { id: "l111", color: "#b3bac5", title: "" },
                 ],
                 "members": [
                     {
@@ -262,17 +264,17 @@ function _createBoards() {
                     {
                         "id": 'L321',
                         "title": "Done",
-                        "color": "#61bd4f"
+                        "color": "#0079bf"
                     },
                     {
                         "id": 'L654',
                         "title": "Progress",
-                        "color": "#61bd33"
+                        "color": "#ff78cb"
                     },
                     {
                         "id": 'L681',
                         "title": "Progress",
-                        "color": "#88888"
+                        "color": "#b3bac5"
                     }
 
                 ],
@@ -373,12 +375,12 @@ function _createBoards() {
                     {
                         "id": 'L753',
                         "title": "Progress",
-                        "color": "#61bd33"
+                        "color": "#00c2e0"
                     },
                     {
                         "id": 'L482',
                         "title": "Progress",
-                        "color": "#88888"
+                        "color": "#b3bac5"
                     }
 
                 ],
@@ -474,17 +476,17 @@ function _createBoards() {
                     {
                         "id": 'L951',
                         "title": "Done",
-                        "color": "#61bd4f"
+                        "color": "#ff78cb"
                     },
                     {
                         "id": 'L753',
                         "title": "Progress",
-                        "color": "#61bd33"
+                        "color": "#eb5a46"
                     },
                     {
                         "id": 'L482',
                         "title": "Progress",
-                        "color": "#88888"
+                        "color": "#f2d600"
                     }
 
                 ],
