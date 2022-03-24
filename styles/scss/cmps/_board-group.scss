@@ -40,5 +40,19 @@
             font-size: 14px;
             resize: none;
         }
+
+        .adding-task-btn {
+            background-color: $trello-blue;
+            color: $card-grey;
+        }
+        .delete-task-btn {
+            font-size: 16px;
+            color: $text-color;
+            padding-left: 8px;
+        }
+        .delete-task-btn:hover {
+            color: $clr1;
+            background-color: none;
+        }
     }
 }
