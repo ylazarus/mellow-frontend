@@ -13,14 +13,15 @@
                     class="board-preview img-pos style-font"
                     :style="{ backgroundImage: `url(${board.style.bgImg})` }"
                 >
-                    {{ board.title }}
+                    <h2 class="title">{{ board.title }}</h2>
+
                     <a @click.stop="toggleFavorite(board._id)">
                         <img v-if="board.isFavorite" src="src/assets/icons/full-star.png" />
                         <img v-else src="src/assets/icons/empty-star.png" />
                         <!-- <img src="src/assets/icons/empty-star.png" /> -->
                         <!-- <img :src="changeImgUrl" /> -->
                     </a>
-                    <button @click.stop="removeBoard(board._id)">remove</button>
+                    <!-- <button @click.stop="removeBoard(board._id)">remove</button> -->
                 </div>
                 <button
                     @click="addBoard"

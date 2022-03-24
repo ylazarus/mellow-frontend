@@ -107,7 +107,7 @@ export default {
       );
       const task = this.currGroup.tasks.find((task) => task.id === taskId);
       this.task = JSON.parse(JSON.stringify(task));
-      this.newDescription = JSON.parse(JSON.stringify(this.task.description));
+      this.newDescription = this.task.description;
     },
     goBack() {
       const currBoard = this.$store.getters.getCurrBoard;

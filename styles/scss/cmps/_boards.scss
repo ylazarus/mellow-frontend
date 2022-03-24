@@ -13,8 +13,13 @@
     background-color: $clr2;
     cursor: pointer;
     border-color: white;
+    padding: 5px;
     // background-color: black;
 
+    .title{
+        margin: 0;
+        align-self: flex-start;
+    }
 }
 
 .board-preview:hover{
@@ -50,6 +55,10 @@
 
 .justify-center{
     justify-content: center;
+}
+
+.saved-boards a{
+    align-self: flex-end;
 }
 
 .saved-boards a img{
