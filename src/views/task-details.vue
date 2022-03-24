@@ -18,7 +18,7 @@
             <button class="avatar-btn flex" @click="toggleIsLabel">+</button>
           </div>
         </div>
-        <div class="edit-labels-container">
+        <div v-if="task.labelIds?.length" class="edit-labels-container">
           <p class="labels-header" v-if="task.labelIds">Labels</p>
           <div class="labels-container flex">
             <div
@@ -27,12 +27,8 @@
               class="label-show flex"
               @click="toggleIsLabel"
               :style="{ backgroundColor: label.color }"
-            >
-              {{ label.title }}
-            </div>
-            <button class="label-show-btn flex" @click="toggleIsLabel">
-              +
-            </button>
+            >{{ label.title }}</div>
+            <button class="label-show-btn flex" @click="toggleIsLabel">+</button>
           </div>
         </div>
       </section>
@@ -41,9 +37,7 @@
         <div v-if="task.description" class="description-container">
           <div class="description-header-container flex">
             <p class="description-header">Description</p>
-            <button @click="addDescription" class="edit-description-btn btn">
-              Edit
-            </button>
+            <button @click="addDescription" class="edit-description-btn btn">Edit</button>
           </div>
           <p class="task-description">{{ task.description }}</p>
         </div>
@@ -53,9 +47,7 @@
             class="fake-text-area"
             v-if="!addingDescription"
             @click="addDescription"
-          >
-            Add a more detailed description...
-          </div>
+          >Add a more detailed description...</div>
           <div v-else class="add-description-container">
             <textarea
               v-focus
@@ -64,12 +56,8 @@
               placeholder="Add a more detailed description..."
             />
             <div class="add-description-buttons-container flex">
-              <button class="save-description-btn btn" @click="saveDescription">
-                Save
-              </button>
-              <button class="delete-description-btn btn" @click="clearForm">
-                X
-              </button>
+              <button class="save-description-btn btn" @click="saveDescription">Save</button>
+              <button class="delete-description-btn btn" @click="clearForm">X</button>
             </div>
           </div>
         </div>
@@ -82,12 +70,8 @@
       <div v-if="task.img">Images: {{ task.img }}</div>
       <div v-if="task.labelIds">Label ids: {{ task.labelIds }}</div>
 
-      <div v-if="task.checklists">
-        Checklists will be here{{ task.checklists }}
-      </div>
-      <div v-if="task.attachments">
-        Attachments will be here{{ task.attachments }}
-      </div>
+      <div v-if="task.checklists">Checklists will be here{{ task.checklists }}</div>
+      <div v-if="task.attachments">Attachments will be here{{ task.attachments }}</div>
       <div v-if="task.dueDate">Due date will be here{{ task.dueDate }}</div>
       <button class="go-back-btn btn" @click="goBack">Back</button>
     </div>
@@ -109,11 +93,7 @@
       <button @click.stop="toggleDates" class="btn">Dates</button>
       <date-preview v-if="isDatesOn" />
       <button @click.stop="toggleAttachment" class="btn">Attachment</button>
-      <attachment-preview
-        :imgUrls="imgUrls"
-        @attachImg="attachImg"
-        v-if="isAttachOn"
-      />
+      <attachment-preview :imgUrls="imgUrls" @attachImg="attachImg" v-if="isAttachOn" />
     </nav>
   </section>
 </template>
