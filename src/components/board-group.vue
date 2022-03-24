@@ -11,10 +11,9 @@
       Add a card
     </div>
     <div v-else class="add-task-container">
-      <input
-        ref="add"
+      <textarea
+        v-focus
         @blur.stop="saveIfTxt"
-        type="textarea"
         v-model="newTaskTitle"
         placeholder="Enter a title for this card..."
       />
@@ -28,9 +27,9 @@
 
 
 <script>
-import { boardService } from "../../services/board-service";
+import { boardService } from "../services/board-service";
 import taskPreview from "./task-preview.vue";
-import { utilService } from "../../services/util-service";
+import { utilService } from "../services/util-service";
 export default {
   props: {
     group: Object,
@@ -40,7 +39,7 @@ export default {
   },
   data() {
     return {
-      isAdding: false,
+      isAdding: true,
       newTaskTitle: "",
     };
   },
@@ -55,6 +54,11 @@ export default {
       this.newTaskTitle = "";
     },
     async openAddTask() {
+      // element.scrollTo({
+      //   top: 100,
+      //   left: 100,
+      //   behavior: "smooth",
+      // });
       this.isAdding = true;
       await utilService.delay(50);
       this.focusOnInput();
@@ -88,7 +92,7 @@ export default {
       });
     },
     focusOnInput() {
-       this.$refs.add.focus()
+      //  this.$refs.add.focus()
       // inputRef.focus();
     },
   },

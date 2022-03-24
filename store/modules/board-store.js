@@ -1,4 +1,4 @@
-import { boardService } from '../../services/board-service'
+import { boardService } from "../../src/services/board-service"
 // should be boardService
 
 export default {
@@ -115,23 +115,25 @@ export default {
                 console.log("board module saveBoard cant save board now", err)
             }
         },
-        async attachImg({ commmit }, { ev }) {
+        async attachImg({ commit }, { ev }) {
             const img = await boardService.uploadImg(ev)
 
             //maybe commit ???
             return img
             console.log(img);
         },
-        async saveTask({ commit, state }, { task }) {
-            // console.log('task from store', task);
-            // console.log('currBoard from store', state.currBoard);
+        // async saveTask({ commit, state }, { boardId, groupId, task, activity  }) {
+        //     // console.log('task from store', task);
+        //     // console.log('currBoard from store', state.currBoard);
 
-            // ASK AVIOR ABOUT THE FLOW OF SAVE TASK 
-            // ASK ABOUT THIS ATTACH IMG AND SAVE THE TASK
+        //     await 
+
+        //     // ASK AVIOR ABOUT THE FLOW OF SAVE TASK 
+        //     // ASK ABOUT THIS ATTACH IMG AND SAVE THE TASK
 
 
-            // const task = boardService.save(task)
-        }
+        //     // const task = boardService.save(task)
+        // }
 
 
         // async saveGroup({state, commit}, { updatingGroup }) {
