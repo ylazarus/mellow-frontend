@@ -53,10 +53,12 @@
             width: 19.2px;
         }
     }
+    .board-title {
+        font-size: 18px;
+    }
 }
 .groups-container {
     padding: 8px;
-
-    position: absolute;
     overflow-y: hidden;
+    height: 90vh;
 }

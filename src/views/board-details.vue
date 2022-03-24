@@ -1,10 +1,12 @@
 <template>
-  <section v-if="board" class="board-container">
+  <section v-if="board" class="board-container" :style="bgImg">
     <p>Board Details</p>
     <header class="board-header flex">
       <div class="board-title-container flex">
         <button class="shows-options-btn">Board</button>
-        <p contenteditable="true" @blur="saveBoardTitle">{{ board.title }}</p>
+        <p class="board-title" contenteditable="true" @blur="saveBoardTitle">
+          {{ board.title }}
+        </p>
         <button class="star-btn" @click.stop="toggleFavorite(board._id)">
           <img
             class="star"
@@ -132,6 +134,12 @@ export default {
   computed: {
     isStarred() {
       return this.board.isFavorite ? "filled" : "stroke";
+    },
+    bgImg() {
+      const backGroundImg =
+        this.board.style?.bgImg ||
+        "https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2286x1600/24baa6609b89fb8eb0cc0aceb70eaf36/photo-1557682250-33bd709cbe85.jpg";
+      return { backgroundImage: `url(${backGroundImg})` };
     },
   },
 };

@@ -1,8 +1,9 @@
-.group-container{
+.group-container {
     width: 272px;
     height: fit-content;
-    max-height: 50vh;
-    overflow-y:scroll;
+    flex-shrink: 0;
+    // max-height: 50vh;
+    overflow-y: scroll;
     padding: 8px;
     display: flex;
     flex-direction: column;
@@ -12,20 +13,20 @@
     background-color: $card-grey;
     cursor: pointer;
 
-    .add-task-btn{
+    .add-task-btn {
         background-color: $card-grey;
         padding: 4px 8px;
         height: 100%;
 
-        &:hover{
+        &:hover {
             background-color: $card-grey-hover;
         }
     }
 
-    .add-task-container{
+    .add-task-container {
         height: 80px;
 
-        input{
+        input {
             height: 54px;
             width: 100%;
             margin: 0 0 4px;
@@ -36,4 +37,3 @@
         }
     }
 }
-
