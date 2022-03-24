@@ -1,4 +1,4 @@
-.attachment-preview{
+.date-preview{
     // text-align: center;
     margin-top: 10px;
     border-radius: 3px;
@@ -7,19 +7,16 @@
     width: 200px;
     background-color: white;
     position: absolute;
-    top: 305px;
+    top: 265px;
     border:1px solid black;
     padding: 1px;
+    z-index: 10;
 
-    .attach-from{
-        text-align: center;
-    }
+    // .attach-from{
+    //     text-align: center;
+    // }
 
     .pointer{
         cursor: pointer;
     }
-}
-
-.attach-preview img{
-    width: 40px;
 }

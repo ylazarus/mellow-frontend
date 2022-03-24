@@ -17,18 +17,12 @@
         class="fake-text-area"
         v-if="!addingDescription"
         @click="addDescription"
-      >
-        Add a more detailed description...
-      </div>
+      >Add a more detailed description...</div>
       <div v-else class="add-description-container">
         <textarea v-focus v-model="description" class="description-text-area" />
         <div class="add-task-buttons-container flex">
-          <button class="save-description-btn btn" @click="saveDescription">
-            Save
-          </button>
-          <button class="delete-description-btn btn" @click="clearForm">
-            X
-          </button>
+          <button class="save-description-btn btn" @click="saveDescription">Save</button>
+          <button class="delete-description-btn btn" @click="clearForm">X</button>
         </div>
       </div>
 
@@ -47,18 +41,15 @@
 
     <div v-else>Loading...</div>
 
-    <div class="add-task-buttons-container">
+    <div @click.stop class="add-task-buttons-container">
       <p>Add to card</p>
       <button class="btn">Members</button>
       <button class="btn">Labels</button>
       <button class="btn">Checklist</button>
-      <button class="btn">Dates</button>
-      <button @click="toggleAttachment" class="btn">Attachment</button>
-      <attachment-preview
-        :imgUrls="imgUrls"
-        @attachImg="attachImg"
-        v-if="isAttachOn"
-      />
+      <button @click.stop="toggleDates" class="btn">Dates</button>
+      <date-preview v-if="isDatesOn" />
+      <button @click.stop="toggleAttachment" class="btn">Attachment</button>
+      <attachment-preview :imgUrls="imgUrls" @attachImg="attachImg" v-if="isAttachOn" />
     </div>
   </section>
 </template>
@@ -67,6 +58,7 @@
 // import { boardService } from "../../services/board-service";
 import userAvatar from "../components/user-avatar.vue";
 import attachmentPreview from "../components/attachment-preview.vue";
+import datePreview from "../components/date-preview.vue";
 import { utilService } from "../services/util-service";
 
 export default {
@@ -74,6 +66,7 @@ export default {
     return {
       task: null,
       isAttachOn: false,
+      isDatesOn: false,
       imgUrls: [],
       currBoard: null,
       currGroup: null,
@@ -84,11 +77,11 @@ export default {
   async created() {
     const { boardId, groupId, taskId } = this.$route.params;
     this.currBoard = await this.$store.dispatch({ type: "loadBoard", boardId });
-    console.log(this.currBoard, "board");
+    // console.log(this.currBoard, "board");
     this.currGroup = this.currBoard.groups.find(
       (group) => group.id === groupId
     );
-    console.log(this.currGroup, "group");
+    // console.log(this.currGroup, "group");
     const task = this.currGroup.tasks.find((task) => task.id === taskId);
     this.task = JSON.parse(JSON.stringify(task));
   },
@@ -121,12 +114,27 @@ export default {
       this.addingDescription = false;
       this.newTaskTitle = "";
     },
-    saveDescription() {},
+    saveDescription() { },
 
     toggleAttachment() {
       this.isAttachOn = !this.isAttachOn;
+      if (this.isAttachOn) this.isDatesOn = false
       console.log(this.isAttachOn);
     },
+
+
+    toggleDates() {
+      this.isDatesOn = !this.isDatesOn;
+      if (this.isDatesOn) this.isAttachOn = false
+      console.log('isDatesOn', this.isDatesOn);
+      console.log('isAttachOn', this.isAttachOn);
+    },
+
+    // closeAllModals() {
+    //   if (this.isAttachOn) this.isDatesOn = false
+
+    // },
+
     async attachImg(ev) {
       const img = await this.$store.dispatch({ type: "attachImg", ev });
       console.log("img task", img);
@@ -146,6 +154,7 @@ export default {
   components: {
     userAvatar,
     attachmentPreview,
+    datePreview
   },
 };
 </script>
