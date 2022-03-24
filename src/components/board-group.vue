@@ -1,6 +1,6 @@
 <template>
   <section class="group-container">
-    <div contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
+    <div contenteditable="true" @blur="saveIfTxt">{{ group.title }}</div>
     <task-preview
       v-for="task in group.tasks"
       :key="task.id"
@@ -12,6 +12,7 @@
     </div>
     <div v-else class="add-task-container">
       <input
+        ref="add"
         @blur.stop="saveIfTxt"
         type="textarea"
         v-model="newTaskTitle"
@@ -25,8 +26,10 @@
   </section>
 </template>
 
+
 <script>
 import taskPreview from "./task-preview.vue";
+import { utilService } from "../../services/util-service";
 export default {
   props: {
     group: Object,
@@ -41,8 +44,8 @@ export default {
     };
   },
   methods: {
-    saveIfTxt() {
-      console.log("blur");
+    async saveIfTxt() {
+      await utilService.delay(100);
       if (this.newTaskTitle) this.addTask();
       else this.clearForm();
     },
@@ -50,8 +53,11 @@ export default {
       this.isAdding = false;
       this.newTaskTitle = "";
     },
-    openAddTask() {
+    async openAddTask() {
       this.isAdding = true;
+      await utilService.delay(50);
+      this.focusOnInput();
+
       //   console.log(this.$refs);
       //   this.$refs.input.focus()
     },
@@ -79,6 +85,10 @@ export default {
         type: "saveGroupTitle",
         newValue: newTitle,
       });
+    },
+    focusOnInput() {
+       this.$refs.add.focus()
+      // inputRef.focus();
     },
   },
 };
