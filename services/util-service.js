@@ -2,7 +2,8 @@ export const utilService = {
     saveToStorage,
     loadFromStorage,
     makeId,
-    getRandomIntInclusive
+    getRandomIntInclusive,
+    delay
   }
   
   function saveToStorage(key, value) {
@@ -13,6 +14,12 @@ export const utilService = {
     let data = localStorage.getItem(key)
     return data ? JSON.parse(data) : undefined
   }
+
+  function delay(ms = 1500) {
+    return new Promise(resolve => {
+        setTimeout(resolve, ms)
+    })
+}
   
   function makeId(length = 8) {
     var txt = ''
