@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { boardService } from "../../services/board-service";
+import { boardService } from "../services/board-service";
 import boardGroup from "../components/board-group.vue";
 import userAvatar from "../components/user-avatar.vue";
 export default {
