@@ -63,17 +63,17 @@ p {
   margin: 0 0 1em;
 }
 
-.btn {
-  @include btn;
+// .btn {
+//   @include btn;
 
-  &-dark {
-    @include btn($type: dark);
-  }
+//   &-dark {
+//     @include btn($type: dark);
+//   }
 
-  &-light {
-    @include btn($type: light);
-  }
-}
+//   &-light {
+//     @include btn($type: light);
+//   }
+// }
 
 // links
 a {
