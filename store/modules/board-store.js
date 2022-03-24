@@ -52,6 +52,24 @@ export default {
         saveBoard(state, { savedBoard }) {
             const idx = state.boards.findIndex(b => b._id === savedBoard._id)
             state.boards.splice(idx, 1, savedBoard)
+        },
+        saveGroup(state, { boardId, group }) {
+            const updatingBoard = state.boards.find(b => b._id === boardId)
+            const idx = updatingBoard.groups.findIndex(g => g.id = group.id)
+            if (idx === -1) return updatingBoard.groups.push(group)
+            updatingBoard.groups.splice(idx, 1, group)
+            state.currBoard = updatingBoard
+        },
+        saveTask(state, { boardId, groupId, task }) {
+            console.log(boardId, groupId, task);
+            const updatingBoard = state.boards.find(b => b._id === boardId)
+            const updatingGroup = updatingBoard.groups.find(g => g.id === groupId)
+            console.log(updatingGroup);
+            const idx = updatingGroup.tasks.findIndex(t => t.id === task.id)
+            console.log(idx);
+            if (idx === -1) return updatingGroup.tasks.push(task)
+            updatingGroup.tasks.splice(idx, 1, task)
+            state.currBoard = updatingBoard
         }
     },
     actions: {
@@ -93,13 +111,9 @@ export default {
         },
         async toggleFavorite({ commit }, { board }) {
             try {
-                // console.log(board.boardId);
                 const boardToUpdate = await boardService.getById(board.boardId)
                 boardToUpdate.isFavorite = board.status
-                // console.log('boardToUpdate from store action', boardToUpdate);
                 const updatedBoard = await boardService.save(boardToUpdate)
-                // console.log('updatedBoard', updatedBoard);
-                // console.log();
                 commit({ type: "setFavorite", updatedBoard })
 
             } catch (err) {
@@ -117,38 +131,17 @@ export default {
         },
         async attachImg({ commit }, { ev }) {
             const img = await boardService.uploadImg(ev)
-
-            //maybe commit ???
             return img
-            console.log(img);
         },
-        // async saveTask({ commit, state }, { boardId, groupId, task, activity  }) {
-        //     // console.log('task from store', task);
-        //     // console.log('currBoard from store', state.currBoard);
-
-        //     await 
-
-        //     // ASK AVIOR ABOUT THE FLOW OF SAVE TASK 
-        //     // ASK ABOUT THIS ATTACH IMG AND SAVE THE TASK
-
-
-        //     // const task = boardService.save(task)
-        // }
-
-
-        // async saveGroup({state, commit}, { updatingGroup }) {
-        //     var savedGroup;
-        //     if (updatingGroup) {
-        //         savedGroup = await boardService.save(updatingGroup)
-        //         commit({ type: 'saveGroup', savedGroup })
-        //     }
-        //     else {
-        //         console.log();
-        //         savedGroup = boardService.getEmptyGroup()
-        //         console.log('add', savedGroup);
-        //         commit({ type: 'saveGroup', savedGroup })
-        //     }
-        //     // return savedGroup
-        // }
+        async saveTask({ commit, state }, { boardId, groupId, task, activity }) {
+            await commit({ type: 'saveTask', boardId, groupId, task })
+            const savedBoard = await boardService.save(JSON.parse(JSON.stringify(state.currBoard)))
+            return savedBoard
+        },
+        async saveGroup({ commit, state }, { boardId, group, activity }) {
+            await commit({ type: 'saveGroup', boardId, group })
+            const savedBoard = await boardService.save(JSON.parse(JSON.stringify(state.currBoard)))
+            return savedBoard
+        },
     }
 }

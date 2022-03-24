@@ -1,6 +1,6 @@
 <template>
   <section class="group-container">
-    <div contenteditable="true" @blur="saveIfTxt">{{ group.title }}</div>
+    <div contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
     <task-preview
       v-for="task in group.tasks"
       :key="task.id"
@@ -45,6 +45,7 @@ export default {
   },
   methods: {
     async saveIfTxt() {
+      console.log("blur");
       await utilService.delay(100);
       if (this.newTaskTitle) this.addTask();
       else this.clearForm();
@@ -76,7 +77,7 @@ export default {
         task.title = this.newTaskTitle;
         this.$emit("saveGroup", {
           groupId: this.group.id,
-          type: "addTask",
+          type: "add task",
           newValue: task,
         });
         this.clearForm();
@@ -87,7 +88,7 @@ export default {
       console.log(newTitle);
       this.$emit("saveGroup", {
         groupId: this.group.id,
-        type: "saveGroupTitle",
+        type: "save group title",
         newValue: newTitle,
       });
     },

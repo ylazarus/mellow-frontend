@@ -103,7 +103,7 @@ export default {
         txt: type,
         groupId: this.currGroup.id,
         createdAt: Date.now(),
-        byMember: userService.getLoggedinUser() || "Guest",
+        // byMember: userService.getLoggedinUser() || "Guest",
         task: { id: this.task.id, title: this.task.title }, // take out details and extract only mini task
       };
       await this.$store.dispatch({
@@ -121,9 +121,7 @@ export default {
       this.addingDescription = false;
       this.newTaskTitle = "";
     },
-    saveDescription(){
-
-    },
+    saveDescription() {},
 
     toggleAttachment() {
       this.isAttachOn = !this.isAttachOn;
@@ -134,8 +132,10 @@ export default {
       console.log("img task", img);
       if (!this.task.attachments) this.task.attachments = [];
       this.task.attachments.push(img.url);
-      this.saveTask("added image");
-      // this.imgUrls.push(img.url)
+      await this.saveTask("added image");
+      console.log(img);
+      console.log(img.url);
+      this.imgUrls.push(img.url);
     },
   },
   computed: {
