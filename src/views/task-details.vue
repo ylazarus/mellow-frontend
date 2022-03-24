@@ -1,14 +1,6 @@
 <template>
-  <section>
-    <div class="add-task-buttons-container">
-      <p>Add to card</p>
-      <button class="btn">Members</button>
-      <button class="btn">Labels</button>
-      <button class="btn">Checklist</button>
-      <button class="btn">Dates</button>
-      <button @click="toggleAttachment" class="btn">Attachment</button>
-      <attachment-preview :imgUrls="imgUrls" @attachImg="attachImg" v-if="isAttachOn" />
-    </div>
+  <section class="task-details-page flex">
+    
 
     <div v-if="task" class="task-details-container">
       <h2>title: {{ task.title }}</h2>
@@ -25,10 +17,21 @@
       <div v-if="task.checklists">{{ task.checklists }}</div>
       <div v-if="task.attachments">{{ task.attachments }}</div>
       <div v-if="task.dueDate">{{ task.dueDate }}</div>
+    <button @click="goBack">Go Back</button>
+
     </div>
 
     <div v-else>Loading...</div>
-    <button @click="goBack">Go Back</button>
+
+    <div class="add-task-buttons-container">
+      <p>Add to card</p>
+      <button class="btn">Members</button>
+      <button class="btn">Labels</button>
+      <button class="btn">Checklist</button>
+      <button class="btn">Dates</button>
+      <button @click="toggleAttachment" class="btn">Attachment</button>
+      <attachment-preview :imgUrls="imgUrls" @attachImg="attachImg" v-if="isAttachOn" />
+    </div>
   </section>
 </template>
 
