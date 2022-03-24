@@ -50,6 +50,9 @@
 
 <script>
 import { boardService } from "../services/board-service";
+import { utilService } from "../services/util-service";
+import { userService } from "../services/user-service";
+
 import boardGroup from "../components/board-group.vue";
 import userAvatar from "../components/user-avatar.vue";
 export default {
@@ -70,7 +73,6 @@ export default {
   methods: {
     async loadBoard(boardId) {
       this.board = await this.$store.dispatch({ type: "loadBoard", boardId });
-      console.log(this.board);
     },
     async saveBoard() {
       this.board = await this.$store.dispatch({
@@ -93,44 +95,31 @@ export default {
       this.saveBoard();
     },
     async saveGroup({ groupId, type, newValue }) {
-      const updatingGroup = this.board.groups.find(
-        (group) => group.id === groupId
+      const updatingGroup = JSON.parse(
+        JSON.stringify(this.board.groups.find((group) => group.id === groupId))
       );
       switch (type) {
-        case "saveGroupTitle":
+        case "save group title":
           updatingGroup.title = newValue;
           break;
-        case "addTask":
+        case "add task":
           updatingGroup.tasks.push(newValue);
           break;
       }
-      const idx = this.board.groups.findIndex((group) => group.id === groupId);
-      this.board.groups.splice(idx, 1, updatingGroup);
-      this.saveBoard();
+      const activity = {
+        id: utilService.makeId(),
+        txt: type,
+        createdAt: Date.now(),
+        // byMember: userService.getLoggedinUser() || "Guest",
+        group: { id: updatingGroup.id, title: updatingGroup.title }, // take out details and extract only mini task
+      };
+      this.board = await this.$store.dispatch({
+        type: "saveGroup",
+        boardId: this.board._id,
+        group: updatingGroup,
+        activity,
+      });
     },
-    // async addGroup() {
-    //   this.$store.dispatch({ type: "saveGroup" });
-    //   // await this.$store.commit({ type: "saveGroup" });
-    //   this.board = this.$store.getters.getCurrBoard;
-    // },
-    // async saveGroup({ groupId, type, newValue }) {
-    //   const updatingGroup = this.board.groups.find(
-    //     (group) => group.id === groupId
-    //   );
-    //   switch (type) {
-    //     case "saveGroupTitle":
-    //       updatingGroup.title = newValue;
-    //       break;
-    //     case "addTask":
-    //       updatingGroup.tasks.push(newValue);
-    //       break;
-    //   }
-    //   // await this.$store.dispatch({ type: "saveGroup", updatingGroup });
-    //   await this.$store.commit({ type: "saveGroup", updatingGroup });
-    //   this.board = this.$store.getters.getCurrBoard;
-    //   // const idx = this.board.groups.findIndex((group) => group.id === groupId);
-    //   // this.board.groups.splice(idx, 1, updatingGroup);
-    // },
   },
   computed: {
     isStarred() {
@@ -146,8 +135,4 @@ export default {
 };
 </script>
 <style>
-/* .filled {
-}
-.stroke {
-} */
 </style>

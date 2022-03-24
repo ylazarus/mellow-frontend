@@ -1,7 +1,5 @@
 <template>
   <section class="task-details-page flex">
-    
-
     <div v-if="task" class="task-details-container">
       <h2>title: {{ task.title }}</h2>
       <user-avatar
@@ -17,8 +15,7 @@
       <div v-if="task.checklists">{{ task.checklists }}</div>
       <div v-if="task.attachments">{{ task.attachments }}</div>
       <div v-if="task.dueDate">{{ task.dueDate }}</div>
-    <button @click="goBack">Go Back</button>
-
+      <button @click="goBack">Go Back</button>
     </div>
 
     <div v-else>Loading...</div>
@@ -30,7 +27,11 @@
       <button class="btn">Checklist</button>
       <button class="btn">Dates</button>
       <button @click="toggleAttachment" class="btn">Attachment</button>
-      <attachment-preview :imgUrls="imgUrls" @attachImg="attachImg" v-if="isAttachOn" />
+      <attachment-preview
+        :imgUrls="imgUrls"
+        @attachImg="attachImg"
+        v-if="isAttachOn"
+      />
     </div>
   </section>
 </template>
@@ -73,7 +74,7 @@ export default {
         txt: type,
         groupId: this.currGroup.id,
         createdAt: Date.now(),
-        byMember: userService.getLoggedinUser() || "Guest",
+        // byMember: userService.getLoggedinUser() || "Guest",
         task: { id: this.task.id, title: this.task.title }, // take out details and extract only mini task
       };
       await this.$store.dispatch({
@@ -84,7 +85,6 @@ export default {
         activity,
       });
     },
-
     toggleAttachment() {
       this.isAttachOn = !this.isAttachOn;
       console.log(this.isAttachOn);
@@ -94,8 +94,10 @@ export default {
       console.log("img task", img);
       if (!this.task.attachments) this.task.attachments = [];
       this.task.attachments.push(img.url);
-      this.saveTask("added image");
-      // this.imgUrls.push(img.url)
+      await this.saveTask("added image");
+      console.log(img);
+      console.log(img.url);
+      this.imgUrls.push(img.url);
     },
   },
   computed: {},
