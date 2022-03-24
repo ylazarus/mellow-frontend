@@ -13,8 +13,12 @@
     background-color: $clr2;
     cursor: pointer;
     color: black;
+
 }
 
+.board-preview:hover{
+    background-color: #aaaaaa4d;
+}
 .saved-boards{
     display: flex;
     flex-wrap: wrap;

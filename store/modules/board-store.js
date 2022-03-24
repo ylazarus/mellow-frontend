@@ -55,7 +55,7 @@ export default {
         }
     },
     actions: {
-        async loadBoards({ commit, state }) {
+        async loadBoards({ commit }) {
             try {
                 const boards = await boardService.query()
                 commit({ type: "setBoards", boards })
@@ -115,6 +115,25 @@ export default {
                 console.log("board module saveBoard cant save board now", err)
             }
         },
+        async attachImg({ commmit }, { ev }) {
+            const img = await boardService.uploadImg(ev)
+
+            //maybe commit ???
+            return img
+            console.log(img);
+        },
+        async saveTask({ commit, state }, { task }) {
+            // console.log('task from store', task);
+            // console.log('currBoard from store', state.currBoard);
+
+            // ASK AVIOR ABOUT THE FLOW OF SAVE TASK 
+            // ASK ABOUT THIS ATTACH IMG AND SAVE THE TASK
+
+
+            // const task = boardService.save(task)
+        }
+
+
         // async saveGroup({state, commit}, { updatingGroup }) {
         //     var savedGroup;
         //     if (updatingGroup) {
