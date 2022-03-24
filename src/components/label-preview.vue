@@ -1,21 +1,30 @@
 <template>
   <section class="label-preview">
-    <input
-      type="text"
-      @input="onSearchLabel"
-      v-model="filterTxt"
-      placeholder="Search labels.."
-    />
-    <p class="attach-from">Label</p>
+    <div class="labels-header flex">
+      <h3>labels</h3>
+      <button class="add-task-close-cmp-btn btn" @click="closeCmp">X</button>
+    </div>
+    <hr />
+    <input type="text" v-model="filterTxt" placeholder="Search labels.." />
     <div class="labels-container"></div>
-    <ul class="labels-list">
+    <p class="labels-container">labels</p>
+    <ul class="labels-list flex">
       <li
-        class="label-option"
-        v-for="label in labels"
+        class="label-option-container flex"
+        v-for="label in getLabels"
         :key="label.id"
-        :style="`backgroundColor: ${label.color}`"
-      ></li>
+      >
+        <div
+          class="label-option flex pointer"
+          :style="{ backgroundColor: label.color }"
+          @click="toggleLabel(label.id)"
+        >
+          <span class="label-title"> {{ label.title }} </span><a>v</a>
+        </div>
+        <a>🖋️</a>
+      </li>
     </ul>
+    <button class="create=label-btn btn">Create a new label</button>
   </section>
 </template>
 
@@ -24,11 +33,11 @@ import { utilService } from "@/services/util-service";
 export default {
   props: {
     boardLabels: Array,
+    taskLabels: Array,
   },
   components: {},
   data() {
     return {
-      isLoading: false,
       filterTxt: "",
       defaultLabels: {
         $labe0: { id: "l101", color: "#61bd4f", title: "" },
@@ -47,11 +56,19 @@ export default {
   },
   created() {},
   methods: {
-    onSearchLabel() {
-      console.log(this.filterTxt);
+    toggleLabel(labelId) {
+      this.$emit("saveLabel", labelId);
+    },
+    closeCmp() {
+      this.$emit("close");
     },
   },
-  computed: {},
+  computed: {
+    getLabels() {
+      const regex = new RegExp(this.filterTxt, "i");
+      return this.boardLabels.filter((label) => regex.test(label.title));
+    },
+  },
   unmounted() {},
 };
 </script>
