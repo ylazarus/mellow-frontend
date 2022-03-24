@@ -51,9 +51,10 @@ export default {
   async created() {
     const { boardId, groupId, taskId } = this.$route.params;
     this.currBoard = await this.$store.dispatch({ type: "loadBoard", boardId });
-    console.log(this.currBoard);
+    console.log(this.currBoard, 'board');
     this.currGroup = this.currBoard.groups.find((group) => group.id === groupId);
-    const task = group.tasks.find((task) => task.id === taskId);
+    console.log(this.currGroup, 'group');
+    const task = this.currGroup.tasks.find((task) => task.id === taskId);
     this.task = JSON.parse(JSON.stringify(task));
   },
   methods: {
