@@ -44,13 +44,15 @@ export default {
       task: null,
       isAttachOn: false,
       imgUrls: [],
+      currBoard: null,
+      currGroup: null,
     };
   },
   async created() {
     const { boardId, groupId, taskId } = this.$route.params;
-    const board = await this.$store.dispatch({ type: "loadBoard", boardId });
-    console.log('board', board);
-    const group = board.groups.find((group) => group.id === groupId);
+    this.currBoard = await this.$store.dispatch({ type: "loadBoard", boardId });
+    console.log(this.currBoard);
+    this.currGroup = this.currBoard.groups.find((group) => group.id === groupId);
     const task = group.tasks.find((task) => task.id === taskId);
     this.task = JSON.parse(JSON.stringify(task));
   },
@@ -73,7 +75,7 @@ export default {
       if (!this.task.attachments) this.task.attachments = []
       this.task.attachments.push(img.url)
       this.saveTask()
-      this.imgUrls.push(img.url)
+      // this.imgUrls.push(img.url)
     },
 
 
