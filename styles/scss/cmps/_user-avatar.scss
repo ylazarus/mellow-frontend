@@ -1,10 +1,14 @@
 .user-avatar {
+    position: absolute;
+    right: 10px;
+    bottom:5px;
     border-radius: 50%;
     background-color: blue;
     color: aliceblue;
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     justify-content: center;
     align-items: center;
     font-family: segoeui-bold;
 }
+
