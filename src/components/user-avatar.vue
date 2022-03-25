@@ -1,7 +1,8 @@
 <template>
   <div class="user-avatar flex">
     <div>
-      {{ avatar }}
+      <img v-if="user.imgUrl" :src="imgAvatar" />
+      <span v-else>{{ nameAvatar }}</span>
     </div>
   </div>
 </template>
@@ -13,11 +14,16 @@ export default {
   },
   methods: {},
   computed: {
-    avatar() {
+    imgAvatar() {
       if (this.user.imgUrl) return this.user.imgUrl;
-      var avatar = this.user.fullname.slice(0, 2);
-      return avatar.toUpperCase();
       //   return avatar;
+    },
+    nameAvatar() {
+      if (!this.user.imgUrl) {
+        var avatar = this.user.fullname.slice(0, 2);
+        return avatar.toUpperCase();
+        //   return avatar;
+      }
     },
   },
 };
