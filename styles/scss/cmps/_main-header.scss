@@ -13,7 +13,7 @@
 
 .app-header-container{
     background-color: $clr6;
-    font-weight: 700;
+    position: relative;
     line-height: 20px;
     font-size: 18px;
     display: flex;
@@ -21,13 +21,25 @@
 
     .app-header-inner{
     z-index: 1;
-    // display: flex;
-    align-items: center;
+    display: flex;
+    // align-items: center;
+    font-weight: 700;
     max-height: 44px;
     padding: 6px 4px;
     background-color: #026aa7;
     color: $clr7;
-    // width: 100%;
-    width: 1000px;
+    width: 100%;
+    margin-left: 67px;
+    align-items: center;
+    }
+
+    img{
+        width: 18px;
+        position: absolute;
+        left: 43px;
+        
+
+        // align-items: center;
+        
     }
 }

@@ -13,6 +13,15 @@
     background-color: $card-grey;
     cursor: pointer;
 
+    .group-title{
+        font-size: 16px;
+        font-weight: 600;
+        font-family: segoeui,sans-serif;
+        min-height: 28px;
+        padding: 4px;
+        margin-left: 3px;
+    }
+
     .add-task-btn {
         background-color: $card-grey;
         padding: 4px 8px;

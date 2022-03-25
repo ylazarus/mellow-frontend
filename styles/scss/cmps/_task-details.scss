@@ -5,6 +5,7 @@
   min-height: 600px;
   background-color: $bg-grey;
   gap: 16px;
+  overflow: auto;
 
   .task-details-container {
     flex-grow: 1;
@@ -13,13 +14,74 @@
       font-size: 20px;
       color: $text-color;
     }
+    .show-member-label {
+      gap: 16px;
 
-    .members-header {
-      font-size: 12px;
-      color: $light-text;
+      .edit-members-container {
+        .members-header {
+          font-size: 12px;
+          color: $light-text;
+        }
+
+        .members-container {
+          gap: 4px;
+          .user-avatar {
+            cursor: pointer;
+          }
+          .avatar-btn {
+            justify-content: center;
+            align-items: center;
+            border: none;
+            width: 30px;
+            height: 30px;
+            background-color: $btn-color;
+            border-radius: 50%;
+            font-size: 2rem;
+            cursor: pointer;
+          }
+          .avatar-btn:hover {
+            background-color: $btn-hover;
+          }
+        }
+      }
+
+      .edit-labels-container {
+        .labels-header {
+          font-size: 12px;
+          color: $light-text;
+        }
+        .labels-container {
+          gap: 4px;
+
+          .label-show {
+            font-family: segoeui-bold;
+            color: white;
+            min-width: 40px;
+            height: 30px;
+            border-radius: 3px;
+            cursor: pointer;
+            justify-content: center;
+            align-items: center;
+            padding: 0 12px;
+          }
+
+          .label-show-btn {
+            justify-content: center;
+            align-items: center;
+            border: none;
+            width: 30px;
+            height: 30px;
+            background-color: $btn-color;
+            border-radius: 3px;
+            font-size: 2rem;
+            cursor: pointer;
+          }
+          .label-show-btn:hover {
+            background-color: $btn-hover;
+          }
+        }
+      }
     }
-
-    
 
     .activity-header {
       font-size: 16px;
@@ -73,18 +135,18 @@
       align-items: center;
       justify-content: baseline;
 
-      .description-header-container{
-          align-items: center;
+      .description-header-container {
+        align-items: center;
 
-          .description-header{
-              font-family: segoeui-bold;
-              font-size: 16px;
-          }
+        .description-header {
+          font-family: segoeui-bold;
+          font-size: 16px;
+        }
       }
 
       button {
-          display: flex;
-          align-items: center;
+        display: flex;
+        align-items: center;
         margin-left: 8px;
         background-color: $btn-color;
         color: $text-color;
@@ -93,19 +155,12 @@
       }
     }
 
-    .go-back-btn{
-        
-        width: 52px;
-
-     
+    .go-back-btn {
+      width: 52px;
     }
 
-    .details-shown-btn{
-      
-        width: 52px;
-        
-        
-
+    .details-shown-btn {
+      width: 52px;
     }
   }
 
@@ -123,8 +178,6 @@
       padding: 6px 12px;
       text-overflow: ellipsis;
       margin-top: 8px;
-
-     
     }
   }
 }

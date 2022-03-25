@@ -2,22 +2,17 @@
   <section v-if="board" class="board-container" :style="bgImg">
     <header class="board-header flex">
       <div class="board-title-container flex">
-        <button class="shows-options-btn btn">Board</button>
-        <p class="board-title" contenteditable="true" @blur="saveBoardTitle">
-          {{ board.title }}
-        </p>
+        <button class="btn-board-details">
+          <img src="src/assets/imgs/5.png" /> Board
+        </button>
+        <p class="board-title" contenteditable="true" @blur="saveBoardTitle">{{ board.title }}</p>
         <button class="star-btn btn" @click.stop="toggleFavorite(board._id)">
-          <img
-            class="star"
-            v-if="board.isFavorite"
-            src="src/assets/icons/full-star.png"
-          />
+          <img class="star" v-if="board.isFavorite" src="src/assets/icons/full-star.png" />
           <img class="star" v-else src="src/assets/icons/empty-star.png" />
           <!-- <img src="src/assets/icons/empty-star.png" /> -->
           <!-- <img :src="changeImgUrl" /> -->
         </button>
-      </div>
-      |
+      </div>|
       <div class="board-members-container flex">
         <user-avatar
           :v-if="board.members"
@@ -26,8 +21,7 @@
           :user="member"
         />
         <button class="btn">Invite</button>
-      </div>
-      |
+      </div>|
       <nav class="board-header-nav flex">
         <button class="btn">Filter</button>
         <button class="btn">Show menu</button>

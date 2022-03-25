@@ -1,6 +1,6 @@
 <template>
   <section class="group-container">
-    <div contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
+    <div class="group-title" contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
     <Container :group-name="'group'" :get-child-payload="getPayload(group.id)" @drop="onDrop">
       <Draggable
         class="draggable-container"
@@ -104,7 +104,6 @@ export default {
     },
     saveTitle(ev) {
       const newTitle = ev.currentTarget.textContent;
-      console.log('saving group');
       this.$emit("saveGroup", {
         groupId: this.group.id,
         type: "save group title",

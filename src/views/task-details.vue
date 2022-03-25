@@ -4,40 +4,64 @@
       <!-- title needs to become text area in the future -->
       <p class="task-title">{{ task.title }}</p>
       <p>in list {{ currGroup.title }}</p>
-      <p class="members-header" v-if="task.members">Members</p>
-      <user-avatar
-        :v-if="task.members"
-        v-for="member in task.members"
-        :key="member._id"
-        :user="member"
-      />
-      <div v-if="task.description" class="description-container">
-        <div class="description-header-container flex">
-          <p class="description-header">Description</p>
-          <button @click="addDescription" class="edit-description-btn btn">Edit</button>
-        </div>
-        <p class="task-description">{{ task.description }}</p>
-      </div>
-      <div v-else class="add-edit-description-container">
-        <p class="description-header">Description</p>
-        <div
-          class="fake-text-area"
-          v-if="!addingDescription"
-          @click="addDescription"
-        >Add a more detailed description...</div>
-        <div v-else class="add-description-container">
-          <textarea
-            v-focus
-            v-model="newDescription"
-            class="description-text-area"
-            placeholder="Add a more detailed description..."
-          />
-          <div class="add-description-buttons-container flex">
-            <button class="save-description-btn btn" @click="saveDescription">Save</button>
-            <button class="delete-description-btn btn" @click="clearForm">X</button>
+
+      <section class="show-member-label flex">
+        <div class="edit-members-container">
+          <p class="members-header" v-if="task.members">Members</p>
+          <div class="members-container flex">
+            <user-avatar
+              :v-if="task.members"
+              v-for="member in task.members"
+              :key="member._id"
+              :user="member"
+            />
+            <button class="avatar-btn flex" @click="toggleIsLabel">+</button>
           </div>
         </div>
-      </div>
+        <div v-if="task.labelIds?.length" class="edit-labels-container">
+          <p class="labels-header" v-if="task.labelIds">Labels</p>
+          <div class="labels-container flex">
+            <div
+              v-for="label in labelsToDisplay"
+              :key="label.id"
+              class="label-show flex"
+              @click="toggleIsLabel"
+              :style="{ backgroundColor: label.color }"
+            >{{ label.title }}</div>
+            <button class="label-show-btn flex" @click="toggleIsLabel">+</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="edit-description-container">
+        <div v-if="task.description" class="description-container">
+          <div class="description-header-container flex">
+            <p class="description-header">Description</p>
+            <button @click="addDescription" class="edit-description-btn btn">Edit</button>
+          </div>
+          <p class="task-description">{{ task.description }}</p>
+        </div>
+        <div v-else class="add-edit-description-container">
+          <p class="description-header">Description</p>
+          <div
+            class="fake-text-area"
+            v-if="!addingDescription"
+            @click="addDescription"
+          >Add a more detailed description...</div>
+          <div v-else class="add-description-container">
+            <textarea
+              v-focus
+              v-model="newDescription"
+              class="description-text-area"
+              placeholder="Add a more detailed description..."
+            />
+            <div class="add-description-buttons-container flex">
+              <button class="save-description-btn btn" @click="saveDescription">Save</button>
+              <button class="delete-description-btn btn" @click="clearForm">X</button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <div class="activity-details-header">
         <p class="activity-header">Activity</p>
@@ -54,17 +78,23 @@
 
     <div v-else>Loading...</div>
 
-    <div @click.stop class="add-task-buttons-container">
+    <nav @click.stop class="add-task-buttons-container">
       <p>Add to card</p>
       <button class="btn">Members</button>
-      <button @click="toggleLabel" class="btn">Labels</button>
-      <label-preview v-if="isLabel" :boardLabels="currBoard.labels" />
+      <button @click.stop="toggleIsLabel" class="btn">Labels</button>
+      <label-preview
+        v-if="isLabel"
+        :boardLabels="currBoard.labels"
+        :taskLabels="task.labels"
+        @close="toggleIsLabel"
+        @saveLabel="saveLabel"
+      />
       <button class="btn">Checklist</button>
       <button @click.stop="toggleDates" class="btn">Dates</button>
       <date-preview v-if="isDatesOn" />
       <button @click.stop="toggleAttachment" class="btn">Attachment</button>
       <attachment-preview :imgUrls="imgUrls" @attachImg="attachImg" v-if="isAttachOn" />
-    </div>
+    </nav>
   </section>
 </template>
 
@@ -144,19 +174,34 @@ export default {
       await this.saveTask("Updated Description");
       this.loadTask();
     },
+    async saveLabel(labelId) {
+      console.log(labelId);
+      if (!this.task.labelIds) this.task.labelIds = [];
+      console.log(this.task.labelIds);
+      if (this.task.labelIds.includes(labelId)) {
+        console.log("includes");
+        this.task.labelIds = this.task.labelIds.filter(
+          (lId) => lId !== labelId
+        );
+      } else {
+        console.log("push");
+        this.task.labelIds.push(labelId);
+      }
+      await this.saveTask("Change Labels");
+      this.loadTask();
+    },
 
     toggleAttachment() {
       this.isAttachOn = !this.isAttachOn;
-      if (this.isAttachOn) this.isDatesOn = false
+      if (this.isAttachOn) this.isDatesOn = false;
       console.log(this.isAttachOn);
     },
 
-
     toggleDates() {
       this.isDatesOn = !this.isDatesOn;
-      if (this.isDatesOn) this.isAttachOn = false
-      console.log('isDatesOn', this.isDatesOn);
-      console.log('isAttachOn', this.isAttachOn);
+      if (this.isDatesOn) this.isAttachOn = false;
+      console.log("isDatesOn", this.isDatesOn);
+      console.log("isAttachOn", this.isAttachOn);
     },
 
     // closeAllModals() {
@@ -174,13 +219,20 @@ export default {
       console.log(img.url);
       this.imgUrls.push(img.url);
     },
-    toggleLabel() {
+    toggleIsLabel() {
       this.isLabel = !this.isLabel;
     },
   },
   computed: {
     areDetailsShown() {
       return this.detailsShown ? "Hide Details" : "Show Details";
+    },
+    labelsToDisplay() {
+      const labels = this.currBoard.labels.filter((label) => {
+        if (this.task.labelIds.includes(label.id)) return label;
+      });
+      console.log(labels);
+      return labels;
     },
   },
   components: {

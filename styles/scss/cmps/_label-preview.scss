@@ -1,4 +1,5 @@
 .label-preview {
+    background-color: white;
     margin-top: 10px;
     border-radius: 3px;
     display: flex;
@@ -6,9 +7,19 @@
     width: 200px;
     background-color: white;
     position: absolute;
-
-    .label-option {
-        width: 150px;
-        height: 50px;
+    z-index: 10;
+    .labels-list {
+        flex-direction: column;
+        gap: 4px;
+        .label-option {
+            width: 244px;
+            height: 32px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 12px;
+            font-family: segoeui-bold;
+            color: white;
+            border-radius: 3px;
+        }
     }
 }
