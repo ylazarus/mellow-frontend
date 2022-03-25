@@ -1,5 +1,4 @@
 .groups-border{
-    font-size: 16px;
     // font-weight: 600;
     font-family: segoeui,sans-serif;
     min-height: 28px;
@@ -13,6 +12,7 @@
 }
 
 .outside-group{
+    font-size: 16px;
     display: flex;
     margin: 5px 0px 0px 9px;
     align-items: center;
@@ -23,13 +23,14 @@
 
 .draggable-container{
     width: 272px;
+    padding-bottom: 0;
 }
 
 .bottom-outside-group{
     display: flex;
-    margin: 10px 4px 10px 10px;
+    margin: 0 5px;
     align-items: center;
-    font-weight: 600;
+    // font-weight: 600;
 }
 
 .add-task-container {
@@ -38,8 +39,8 @@
 
 textarea {
     height: 54px;
-    width: 240px;
-    margin: 0 0 4px;
+    width: 268px;
+    margin: 0 0 5px;
     border-radius: 3px;
     padding: 6px 8px 2px;
     box-shadow: 0 1px 0 #091e4240;
@@ -54,25 +55,58 @@ textarea {
 .adding-task-btn {
     background-color: $trello-blue;
     color: $card-grey;
+    border-radius: 3px;
+    border: none;
+    font-size: rem(16px);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: segoeui,sans-serif;
+    margin: 0;
+    padding: 6px 12px;
+}
+
+.adding-task-btn:hover {
+    background-color: #026aa7;
+}
+
+.delete-task-btn::before{
+    font-family: trellicons;
+    font-size: 25px;
+    // margin-inline-end: 4px;
+    // margin-inline-start: 10px;
+    content: "";
 }
 
 .delete-task-btn {
-    font-size: 16px;
-    color: $text-color;
+    color: $clr9;
     padding-left: 8px;
+    border-radius: 3px;
+    border: none;
+    font-size: rem(16px);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .delete-task-btn:hover {
     color: $clr1;
-    background-color: none;
+    color: $text-color;
 }
 
 .add-task-btn {
     background-color: $card-grey;
-    padding: 4px 8px;
+    padding: 4px 0px;
     height: 100%;
+    width: 268px;
+    margin-block-end: 5px;
+    display: flex;
+    cursor: pointer;
     
     &:hover {
+        border-radius: 3px;
         background-color: $card-grey-hover;
     }
 }
@@ -96,8 +130,12 @@ textarea {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    background-color: #fff;
+    // background-color: #fff;
     border-radius: 3px;
     background-color: $card-grey;
     cursor: pointer;
+}
+
+.group-container:last-child{
+    padding-bottom: 0;
 }
