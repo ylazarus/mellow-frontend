@@ -5,8 +5,9 @@
   cursor: pointer;
   position: relative;
   // box-shadow: 0 1px 0 #091e4240;
-  .task-preview-label {
-  }
+  // .task-preview-label {
+  // }
+
   .user-avatar-pos {
     position: absolute;
     right: 3px;
@@ -51,6 +52,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+}
+
+.task-content{
+  margin-bottom: 2px
 }
 
 // .user-avatar{

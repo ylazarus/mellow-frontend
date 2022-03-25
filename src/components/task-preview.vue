@@ -5,13 +5,9 @@
   >
     <div v-if="task.img">{{ task.img }}</div>
     <div v-if="task.labelIds?.length">
-      <div
-        v-for="label in labelsToDisplay"
-        :key="label.id"
-        class="task-preview-label"
-      ></div>
+      <div v-for="label in labelsToDisplay" :key="label.id" class="task-preview-label"></div>
     </div>
-    <div>{{ task.title }}</div>
+    <div class="task-content">{{ task.title }}</div>
     <!-- <div v-if="task.img">{{ task.img }}</div> -->
     <div class="user-avatar-pos">
       <user-avatar
@@ -27,9 +23,11 @@
       <div class="description-img" v-if="task.description?.length"></div>
       <div class="checklists-img" v-if="task.checklists?.length"></div>
       <div class="attachment-img" v-if="task.attachments?.length"></div>
-      <div class="date-img" v-if="task.dueDate?.dueDate" :style="isTaskOverdue">
-        ⏰ {{ formattedDate }}
-      </div>
+      <div
+        class="date-img"
+        v-if="task.dueDate?.dueDate"
+        :style="isTaskOverdue"
+      >⏰ {{ formattedDate }}</div>
     </div>
   </div>
 </template>
