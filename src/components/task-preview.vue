@@ -50,9 +50,9 @@ export default {
 
   },
   computed: {
-    isTaskOverdue(){
-      return (this.task.dueDate.dueDate < date.now()) ?  {"background-color": "red"} : {"background-color": "green"}
-    }
+    // isTaskOverdue(){
+    //   return (this.task.dueDate.dueDate < date.now()) ?  {"background-color": "red"} : {"background-color": "green"}
+    // }
   }
 };
 </script>
