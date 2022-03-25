@@ -8,9 +8,23 @@
     background-color: white;
     position: absolute;
     z-index: 10;
+
+    .labels-header {
+        text-align: center;
+        position: relative;
+        .add-task-close-cmp-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background-color: #00000000;
+            border: none;
+            cursor: pointer;
+        }
+    }
     .labels-list {
         flex-direction: column;
         gap: 4px;
+
         .label-option {
             width: 244px;
             height: 32px;

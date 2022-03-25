@@ -1,30 +1,41 @@
 <template>
   <section class="label-preview">
-    <div class="labels-header flex">
-      <h3>labels</h3>
-      <button class="add-task-close-cmp-btn btn" @click="closeCmp">X</button>
+    <div class="labels-header">
+      <button v-if="isCreate" @click="isCreate = !isCreate">></button>
+      <h3 class="labels-title">labels</h3>
+      <button class="add-task-close-cmp-btn" @click="closeCmp">X</button>
     </div>
     <hr />
-    <input type="text" v-model="filterTxt" placeholder="Search labels.." />
-    <div class="labels-container"></div>
-    <p class="labels-container">labels</p>
-    <ul class="labels-list flex">
-      <li
-        class="label-option-container flex"
-        v-for="label in getLabels"
-        :key="label.id"
-      >
-        <div
-          class="label-option flex pointer"
-          :style="{ backgroundColor: label.color }"
-          @click="toggleLabel(label.id)"
+    <section v-if="!isCreated" class="select-label-container">
+      <input type="text" v-model="filterTxt" placeholder="Search labels.." />
+      <div class="labels-container"></div>
+      <p class="labels-container">labels</p>
+      <ul class="labels-list flex">
+        <li
+          class="label-option-container flex"
+          v-for="label in getLabels"
+          :key="label.id"
         >
-          <span class="label-title"> {{ label.title }} </span><a>v</a>
-        </div>
-        <a>🖋️</a>
-      </li>
-    </ul>
-    <button class="create=label-btn btn">Create a new label</button>
+          <div
+            class="label-option flex pointer"
+            :style="{ backgroundColor: label.color }"
+            @click="toggleLabel(label.id)"
+          >
+            <span class="label-title"> {{ label.title }} </span>
+            <span v-if="label.inTask">v</span>
+          </div>
+          <a @click="openCreate(label.id)">🖋️</a>
+        </li>
+      </ul>
+      <button class="create=label-btn btn" @click="openCreate">
+        Create a new label
+      </button>
+      <label>
+        <p>Name</p>
+        <input type="text" v-model="newLabelTitle" />
+      </label>
+    </section>
+    <section v-else class="create-label-container"></section>
   </section>
 </template>
 
@@ -33,11 +44,12 @@ import { utilService } from "@/services/util-service";
 export default {
   props: {
     boardLabels: Array,
-    taskLabels: Array,
+    taskLabelIds: Array,
   },
   components: {},
   data() {
     return {
+      labels: [],
       filterTxt: "",
       defaultLabels: {
         $labe0: { id: "l101", color: "#61bd4f", title: "" },
@@ -52,9 +64,14 @@ export default {
         $labe9: { id: "l110", color: "#344563", title: "" },
         $labe10: { id: "l111", color: "#b3bac5", title: "" },
       },
+      newLabelTitle: "",
+      isCreate: false,
     };
   },
-  created() {},
+  created() {
+    // this.labels = this.boardLabels;
+    this.aggregatLabels();
+  },
   methods: {
     toggleLabel(labelId) {
       this.$emit("saveLabel", labelId);
@@ -62,11 +79,28 @@ export default {
     closeCmp() {
       this.$emit("close");
     },
+    aggregatLabels() {
+      this.labels = this.boardLabels.map((label) => {
+        if (this.taskLabelIds.includes(label.id)) {
+          label.inTask = true;
+        }
+        return label;
+      });
+    },
+    openCreate(labelId) {
+      this.isCreate = true;
+    },
   },
   computed: {
     getLabels() {
       const regex = new RegExp(this.filterTxt, "i");
-      return this.boardLabels.filter((label) => regex.test(label.title));
+      return this.labels.filter((label) => regex.test(label.title));
+    },
+    // labelSelected() {},
+  },
+  watch: {
+    taskLabelIds() {
+      this.aggregatLabels();
     },
   },
   unmounted() {},
