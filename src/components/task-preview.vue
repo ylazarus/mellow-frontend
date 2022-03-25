@@ -17,7 +17,7 @@
     <div class="task-snapshot flex">
       <div v-if="task.checklists">📃</div>
       <div v-if="task.attachments">📎</div>
-      <div v-if="task.dueDate">⏰</div>
+      <div v-if="task.dueDate" class="btn" :style="isTaskOverdue">⏰ {{task.dueDate.dueDate.slice(0,5)}}</div>
     </div>
   </div>
 </template>
@@ -48,6 +48,11 @@ export default {
     const { boardId } = this.$route.params;
     this.boardId = boardId
 
+  },
+  computed: {
+    isTaskOverdue(){
+      return (this.task.dueDate.dueDate < date.now()) ?  {"background-color": "red"} : {"background-color": "green"}
+    }
   }
 };
 </script>
