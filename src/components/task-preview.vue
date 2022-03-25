@@ -4,7 +4,13 @@
     class="task-preview-container"
   >
     <div v-if="task.img">{{ task.img }}</div>
-    <div v-if="task.labelIds">{{ task.labelIds }}</div>
+    <div v-if="task.labelIds?.length">
+      <div
+        v-for="label in labelsToDisplay"
+        :key="label.id"
+        class="task-preview-label"
+      ></div>
+    </div>
     <div>{{ task.title }}</div>
     <!-- <div v-if="task.img">{{ task.img }}</div> -->
     <div class="user-avatar-pos">
@@ -32,27 +38,25 @@ import userAvatar from "./user-avatar.vue";
 export default {
   props: {
     task: Object,
-    groupId: String
+    groupId: String,
   },
   data() {
     return {
-      boardId: null
-    }
-
+      boardId: null,
+    };
   },
   components: {
-    userAvatar
+    userAvatar,
   },
   methods: {
     toTaskDetails(boardId, groupId, taskId) {
-      this.$router.push(`/board/${boardId}/${groupId}/${taskId}`)
-    }
+      this.$router.push(`/board/${boardId}/${groupId}/${taskId}`);
+    },
   },
   created() {
     const { boardId } = this.$route.params;
-    this.boardId = boardId
-
-  }
+    this.boardId = boardId;
+  },
 };
 </script>
 
