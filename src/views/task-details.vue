@@ -185,13 +185,14 @@ export default {
         // byMember: userService.getLoggedinUser() || "Guest",
         task: { id: this.task.id, title: this.task.title }, // take out details and extract only mini task
       };
-      await this.$store.dispatch({
+      const board = await this.$store.dispatch({
         type: "saveTask",
         boardId: this.currBoard._id,
         groupId: this.currGroup.id,
         task: this.task,
         activity,
       });
+      this.$emit("updateBoard", board);
     },
     addDescription() {
       this.task.description = "";

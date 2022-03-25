@@ -1,6 +1,6 @@
 <template>
   <section v-if="board" class="board-container" :style="bgImg">
-    <router-view></router-view>
+    <router-view @updateBoard="updateBoard"></router-view>
 
     <header class="board-header flex">
       <div class="board-title-container flex">
@@ -93,6 +93,9 @@ export default {
     this.loadBoard(boardId);
   },
   methods: {
+    updateBoard(board) {
+      this.board = board;
+    },
     onDrop(ev) {
       const group = this.board.groups.splice(ev.removedIndex, 1)[0];
       this.board.groups.splice(ev.addedIndex, 0, group);

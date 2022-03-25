@@ -6,9 +6,10 @@
     <div v-if="task.img">{{ task.img }}</div>
     <div v-if="task.labelIds?.length">
       <div
-        v-for="label in labelsToDisplay"
-        :key="label.id"
+        v-for="labelId in task.labelIds"
+        :key="labelId"
         class="task-preview-label"
+        :class="labelId + '-label'"
       ></div>
     </div>
     <div>{{ task.title }}</div>
@@ -27,7 +28,7 @@
       <div class="description-img" v-if="task.description?.length"></div>
       <div class="checklists-img" v-if="task.checklists?.length"></div>
       <div class="attachment-img" v-if="task.attachments?.length"></div>
-      <div class="date-img" v-if="task.dueDate?.dueDate" :style="isTaskOverdue">
+      <div class="date-img" v-if="task.dueDate?.dueDate" :class="isTaskOverdue">
         ⏰ {{ formattedDate }}
       </div>
     </div>
@@ -73,10 +74,19 @@ export default {
       const date = new Date(this.task.dueDate.dueDate);
       const ms = date.getTime();
       if (ms < Date.now()) {
-        return this.task.dueDate.isCompleted
-          ? { "background-color": "green" }
-          : { "background-color": "red" };
-      } else return {};
+        return this.task.dueDate.isCompleted ? "green-label" : "red-label";
+      } else return;
+      // return this.task.dueDate.isCompleted
+      //   ? { "background-color": "green" }
+      //   : { "background-color": "red" };
+      // } else return {};
+    },
+    labelsToDisplay() {
+      const labels = this.board.labels.filter((label) => {
+        if (this.task.labelIds.includes(label.id)) return label;
+      });
+      console.log(labels);
+      return labels;
     },
   },
 };
