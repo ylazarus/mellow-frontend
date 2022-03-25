@@ -1,8 +1,32 @@
 <template>
+  <!-- <section class="groups-border"> -->
+  <!-- <div class="outside-group" contenteditable="true" @blur="saveTitle">{{ group.title }}</div> -->
+  <!-- <div class="group-container"> -->
+  <!-- <task-preview v-for="task in group.tasks" :key="task.id" :task="task" :groupId="group.id" /> -->
+  <!-- </div> -->
+  <!-- <div class="bottom-outside-group"> -->
+  <!-- <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">Add a card</div>
+      <div v-else class="add-task-container">
+        <textarea v-focus @blur.stop="saveIfTxt" v-model="newTaskTitle" placeholder="Enter a title for this card..." />
+        <div class="add-task-buttons-container flex">
+          <button class="adding-task-btn btn" @click="addTask">Add card</button>
+          <button class="delete-task-btn btn" @click="clearForm">X</button>
+  </div>-->
+
   <section class="groups-border">
-    <div class="outside-group" contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
+    <!-- </section>   -->
     <div class="group-container">
-      <task-preview v-for="task in group.tasks" :key="task.id" :task="task" :groupId="group.id" />
+      <div class="outside-group" contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
+      <Container :group-name="'group'" :get-child-payload="getPayload(group.id)" @drop="onDrop">
+        <!-- <Draggable class="draggable-container group-container" v-for="task in group.tasks" :key="task.id" :groupId="group.id"> -->
+        <Draggable
+          class="draggable-container group-container"
+          v-for="task in group.tasks"
+          :key="task.id"
+        >
+          <task-preview :task="task" :groupId="group.id" />
+        </Draggable>
+      </Container>
     </div>
     <div class="bottom-outside-group">
       <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">Add a card</div>
@@ -20,6 +44,25 @@
       </div>
     </div>
   </section>
+  <!-- <section class="group-container">
+          <div class="group-title" contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
+          <Container :group-name="'group'" :get-child-payload="getPayload(group.id)" @drop="onDrop">
+            <Draggable class="draggable-container" v-for="task in group.tasks" :key="task.id" :groupId="group.id">
+              <task-preview :task="task" :groupId="group.id" />
+            </Draggable>
+          </Container>
+          <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">
+            Add a card
+          </div>
+          <div v-else class="add-task-container">
+            <textarea v-focus @blur.stop="saveIfTxt" v-model="newTaskTitle"
+              placeholder="Enter a title for this card..." />
+            <div class="add-task-buttons-container flex">
+              <button class="adding-task-btn btn" @click="addTask">Add card</button>
+              <button class="delete-task-btn btn" @click="clearForm">X</button>
+            </div>
+          </div>
+  </section>-->
 </template>
 
 
@@ -27,12 +70,16 @@
 import { boardService } from "../services/board-service";
 import taskPreview from "./task-preview.vue";
 import { utilService } from "../services/util-service";
+import { Container, Draggable } from "vue3-smooth-dnd";
+
 export default {
   props: {
     group: Object,
   },
   components: {
     taskPreview,
+    Container,
+    Draggable,
   },
   data() {
     return {
@@ -41,6 +88,17 @@ export default {
     };
   },
   methods: {
+    getPayload(groupId) {
+      return () => groupId
+    },
+    onDrop(ev) {
+      if (typeof (ev.removedIndex) !== 'number' && typeof (ev.addedIndex) !== 'number') return
+
+      this.$emit("dropped", {
+        ev,
+        groupToId: this.group.id,
+      });
+    },
     async saveIfTxt() {
       console.log("blur");
       await utilService.delay(100);
@@ -82,7 +140,6 @@ export default {
     },
     saveTitle(ev) {
       const newTitle = ev.currentTarget.textContent;
-      console.log(newTitle);
       this.$emit("saveGroup", {
         groupId: this.group.id,
         type: "save group title",
