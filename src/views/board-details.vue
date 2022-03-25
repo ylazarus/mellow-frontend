@@ -2,29 +2,29 @@
   <section v-if="board" class="board-container" :style="bgImg">
     <header class="board-header flex">
       <div class="board-title-container flex">
-        <button class="btn-board-details">
-          <img src="src/assets/imgs/5.png" /> Board
-        </button>
-        <p class="board-title" contenteditable="true" @blur="saveBoardTitle">{{ board.title }}</p>
-        <button class="star-btn btn" @click.stop="toggleFavorite(board._id)">
+        <button class="btn-board-details btn-board">Board</button>
+        <div class="board-title" contenteditable="true" @blur="saveBoardTitle">{{ board.title }}</div>
+        <button class="star-btn btn-board btn" @click.stop="toggleFavorite(board._id)">
           <img class="star" v-if="board.isFavorite" src="src/assets/icons/full-star.png" />
           <img class="star" v-else src="src/assets/icons/empty-star.png" />
           <!-- <img src="src/assets/icons/empty-star.png" /> -->
           <!-- <img :src="changeImgUrl" /> -->
         </button>
-      </div>|
-      <div class="board-members-container flex">
-        <user-avatar
-          :v-if="board.members"
-          v-for="member in board.members"
-          :key="member._id"
-          :user="member"
-        />
-        <button class="btn">Invite</button>
-      </div>|
+      </div>
+      <div class="members-nav-bar flex">
+        <div class="board-members-container flex">
+          <user-avatar
+            :v-if="board.members"
+            v-for="member in board.members"
+            :key="member._id"
+            :user="member"
+          />
+          <button class="invite-btn btn-board btn">Invite</button>
+        </div>
+      </div>
       <nav class="board-header-nav flex">
-        <button class="btn">Filter</button>
-        <button class="btn">Show menu</button>
+        <button class="filter-btn btn-board btn">Filter</button>
+        <button class="show-menu-btn btn-board btn">Show menu</button>
       </nav>
     </header>
     <!-- <div class="article-container"> -->

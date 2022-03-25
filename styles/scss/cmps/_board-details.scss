@@ -1,14 +1,14 @@
 .board-header,
 .board-header > *,
 .board-header > * > * {
-    color: $text-color;
+    // color: $text-color;
     // gap: 9px;
-    justify-content: space-between;
+    // justify-content: space-between;
     align-items: center;
 }
 
 .board-header {
-    padding: 8px 4px 4px 32px;
+    padding: 8px 4px 4px 13px; 
     height: auto;
     // background-color: #0000001a;
     flex-wrap: wrap;
@@ -27,29 +27,97 @@
         padding: 0 12px;
         font-size: 18px;
         font-family: segoeui-bold;
+        width: 432px;
+        height: 32px;
+        display: flex;
+    }
+    
+    .star-btn{
+        margin-right: 10px;
+    }
+
+    .user-avatar{
+        margin-right: 5px;
     }
 }
 
-.btn-board-details{
+.invite-btn{
+    padding: 6px 12px;
+}
+
+.invite-btn::before{
+    font-family: trellicons;
+    font-size: 16px;
+    margin-inline-end: 4px;
+    content: "\e902";
+}
+
+.show-menu-btn::before{
+    font-family: trellicons;
+    margin-inline-end: 4px;
+    content: "";
+}
+
+.btn-board{
     border-radius: 3px;
-    font-size: rem(16px);
-    height: 32px;
-    position: relative;
     border: none;
     background-color: $clr5;
-    width: 40px;
+    font-size: rem(16px);
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // font-family: segoeui,sans-serif;
+    // font-weight: 400;
+
+}
+
+.btn-board-details{
+    font-size: rem(16px);
+    // display: flex;
+    // position: relative;
+    width: 93px;
+    margin-right: 5px;
 
     img{
         width: 20px;
         position: absolute;
+        left: 5px;
 
     }
+}
+
+.btn-board-details::before{
+    font-family: trellicons;
+    font-size: 16px;
+    margin-inline-end: 4px;
+    content: "";
+}
+
+.filter-btn{
+    padding: 6px 12px;
+
+}
+
+.filter-btn::before{
+    font-family: trellicons;
+    font-size: 16px;
+    margin-inline-end: 5px;
+    content: "";
 }
 
 .board-title-container button:nth-child(1)::before{
     font-family: trellicons;
     width: 20px;
+
 }
+
+// .invite-btn::before{
+//     font-family: trellicons;
+//     content: "\e902";
+//     width: 30px;
+// }
 
 .board-container{
     background-repeat: no-repeat;
