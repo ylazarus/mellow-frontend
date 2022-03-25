@@ -7,13 +7,15 @@
     <div v-if="task.labelIds">{{ task.labelIds }}</div>
     <div>{{ task.title }}</div>
     <!-- <div v-if="task.img">{{ task.img }}</div> -->
-    <user-avatar
-      class="user-avatar"
-      :v-if="task.members"
-      v-for="member in task.members"
-      :key="member._id"
-      :user="member"
-    />
+    <div class="user-avatar-pos">
+      <user-avatar
+        class="user-avatar"
+        :v-if="task.members?.length"
+        v-for="member in task.members"
+        :key="member._id"
+        :user="member"
+      />
+    </div>
 
     <div class="task-snapshot flex">
       <div class="description-img" v-if="task.description?.length"></div>
