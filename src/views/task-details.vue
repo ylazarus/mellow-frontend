@@ -107,7 +107,12 @@
       <button class="btn">Checklist</button>
 
       <button @click.stop="toggleDates" class="btn">Dates</button>
-      <date-preview v-if="isDatesOn" :dueDate="task.dueDate?.dueDate || Date.now()" @saveDate="saveDate" @closeDate="toggleDates" />
+      <date-preview
+        v-if="isDatesOn"
+        :dueDate="task.dueDate?.dueDate || Date.now()"
+        @saveDate="saveDate"
+        @closeDate="toggleDates"
+      />
 
       <button @click.stop="toggleAttachment" class="btn">Attachment</button>
       <attachment-preview
@@ -143,6 +148,7 @@ export default {
     };
   },
   created() {
+    console.log("created");
     this.loadTask();
   },
   methods: {
@@ -164,10 +170,10 @@ export default {
       const currBoard = this.$store.getters.getCurrBoard;
       this.$router.push(`/board/${currBoard._id}`);
     },
-    async saveDate(newDateInfo){
-      this.task.dueDate = newDateInfo
-      await this.saveTask('Updated due date')
-      this.toggleDates()
+    async saveDate(newDateInfo) {
+      this.task.dueDate = newDateInfo;
+      await this.saveTask("Updated due date");
+      this.toggleDates();
       this.loadTask();
     },
     async saveTask(type) {
@@ -263,7 +269,7 @@ export default {
     formattedDate() {
       // const date = this.task.dueDate.dueDate
       var d = new Date(this.task.dueDate.dueDate);
-      console.log(d, 'this is teh date in th eformatter computed');
+      console.log(d, "this is teh date in th eformatter computed");
       return d.toString().slice(4, 21);
     },
     // isTaskOverdue(){

@@ -6,6 +6,11 @@
   background-color: $bg-grey;
   gap: 16px;
   overflow: auto;
+  z-index: 100;
+  position: fixed;
+  // left: 50%;
+  // top: 50%;
+  // transform: translate (-50%, -50%);
 
   .task-details-container {
     flex-grow: 1;

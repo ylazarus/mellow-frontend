@@ -36,6 +36,7 @@
 
 <script>
 import userAvatar from "./user-avatar.vue";
+import taskDetails from "../views/task-details.vue";
 
 export default {
   props: {
@@ -49,9 +50,11 @@ export default {
   },
   components: {
     userAvatar,
+    taskDetails,
   },
   methods: {
     toTaskDetails(boardId, groupId, taskId) {
+      console.log(taskId);
       this.$router.push(`/board/${boardId}/${groupId}/${taskId}`);
     },
   },

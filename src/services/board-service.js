@@ -21,7 +21,7 @@ export const boardService = {
     uploadImg
 }
 
-// _createBoards()
+_createBoards()
 
 async function query(filterBy) {
     //   const res = await axios.get(BOARD_URL, { params: filterBy })
@@ -214,7 +214,7 @@ function _createBoards() {
                                 ],
                                 "labelIds": ["l101", "l102"],
                                 "createdAt": 1590999730348,
-                                
+
                                 "byMember": {
                                     "_id": "u101",
                                     "username": "Tal",
@@ -334,7 +334,7 @@ function _createBoards() {
                                 "members": [],
                                 "labelIds": [],
                                 "createdAt": 1590999730348,
-                                
+
                                 "byMember": {
                                     "_id": "u1012",
                                     "username": "Tal",
@@ -440,7 +440,7 @@ function _createBoards() {
                                 "members": [],
                                 "labelIds": [],
                                 "createdAt": 1590999730348,
-                                
+
                                 "byMember": {
                                     "_id": "u1012",
                                     "username": "Tal",
@@ -546,7 +546,7 @@ function _createBoards() {
                                 "members": [],
                                 "labelIds": [],
                                 "createdAt": 1590999730348,
-                                
+
                                 "byMember": {
                                     "_id": "u1012",
                                     "username": "Tal",

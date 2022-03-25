@@ -1,11 +1,22 @@
 <template>
   <section v-if="board" class="board-container" :style="bgImg">
+    <router-view></router-view>
+
     <header class="board-header flex">
       <div class="board-title-container flex">
         <button class="btn-board-details btn-board">Board</button>
-        <div class="board-title" contenteditable="true" @blur="saveBoardTitle">{{ board.title }}</div>
-        <button class="star-btn btn-board btn" @click.stop="toggleFavorite(board._id)">
-          <img class="star" v-if="board.isFavorite" src="src/assets/icons/full-star.png" />
+        <div class="board-title" contenteditable="true" @blur="saveBoardTitle">
+          {{ board.title }}
+        </div>
+        <button
+          class="star-btn btn-board btn"
+          @click.stop="toggleFavorite(board._id)"
+        >
+          <img
+            class="star"
+            v-if="board.isFavorite"
+            src="src/assets/icons/full-star.png"
+          />
           <img class="star" v-else src="src/assets/icons/empty-star.png" />
           <!-- <img src="src/assets/icons/empty-star.png" /> -->
           <!-- <img :src="changeImgUrl" /> -->
@@ -35,7 +46,11 @@
           v-for="group in board.groups"
           :key="group.id"
         >
-          <board-group :group="group" @dropped="dropCard" @saveGroup="saveGroup" />
+          <board-group
+            :group="group"
+            @dropped="dropCard"
+            @saveGroup="saveGroup"
+          />
         </Draggable>
       </Container>
       <!-- <board-group
@@ -88,21 +103,36 @@ export default {
 
       if (ev.payload !== groupToId) this.dndInfo.groupToId = groupToId; // won't update toId on subsequent passes through the function
 
-      if (ev.removedIndex || typeof(ev.removedIndex) === 'number') this.dndInfo.removedIndex = ev.removedIndex;
+      if (ev.removedIndex || typeof ev.removedIndex === "number")
+        this.dndInfo.removedIndex = ev.removedIndex;
 
-      if (ev.addedIndex || typeof(ev.addedIndex) === 'number') this.dndInfo.addedIndex = ev.addedIndex;
-      
-      if ((this.dndInfo.addedIndex || typeof(this.dndInfo.addedIndex) === 'number') && (this.dndInfo.removedIndex || typeof(this.dndInfo.removedIndex) === 'number')) this.moveTask();
+      if (ev.addedIndex || typeof ev.addedIndex === "number")
+        this.dndInfo.addedIndex = ev.addedIndex;
+
+      if (
+        (this.dndInfo.addedIndex ||
+          typeof this.dndInfo.addedIndex === "number") &&
+        (this.dndInfo.removedIndex ||
+          typeof this.dndInfo.removedIndex === "number")
+      )
+        this.moveTask();
     },
     moveTask() {
       console.log(this.dndInfo);
-      const fromGroup = this.board.groups.find(g=> g.id === this.dndInfo.groupFromId)
-      const toGroup = (!this.dndInfo.groupToId)  ? fromGroup : this.board.groups.find(g=> g.id === this.dndInfo.groupToId) // if moving within same group, make to group same as from group
-      const cardToMove = fromGroup.tasks.splice(this.dndInfo.removedIndex, 1)[0];
+      const fromGroup = this.board.groups.find(
+        (g) => g.id === this.dndInfo.groupFromId
+      );
+      const toGroup = !this.dndInfo.groupToId
+        ? fromGroup
+        : this.board.groups.find((g) => g.id === this.dndInfo.groupToId); // if moving within same group, make to group same as from group
+      const cardToMove = fromGroup.tasks.splice(
+        this.dndInfo.removedIndex,
+        1
+      )[0];
       console.log(fromGroup.title);
       // if (fromGroup.tasks[0] === null) fromGroup.tasks = []
       toGroup.tasks.splice(this.dndInfo.addedIndex, 0, cardToMove);
-      this.dndInfo = {}
+      this.dndInfo = {};
       this.saveBoard();
     },
 
@@ -130,7 +160,7 @@ export default {
       this.saveBoard();
     },
     async saveGroup({ groupId, type, newValue }) {
-      console.log('in save group');
+      console.log("in save group");
       const updatingGroup = JSON.parse(
         JSON.stringify(this.board.groups.find((group) => group.id === groupId))
       );

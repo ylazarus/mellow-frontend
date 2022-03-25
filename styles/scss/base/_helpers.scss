@@ -44,8 +44,6 @@
     cursor: pointer;
 }
 
-
-
 .pointer {
     cursor: pointer;
 }
@@ -66,4 +64,38 @@
 
 .ratio-poster {
     @include aspect-ratio(100, 150);
+}
+
+.green-label {
+    background-color: #61bd4f;
+}
+.yellow-label {
+    background-color: #f2d600;
+}
+.orange-label {
+    background-color: #ff9f1a;
+}
+.red-label {
+    background-color: #eb5a46;
+}
+.purple-label {
+    background-color: #c377e0;
+}
+.blue-label {
+    background-color: #0079bf;
+}
+.lightblue-label {
+    background-color: #00c2e0;
+}
+.lightgreen-label {
+    background-color: #51e898;
+}
+.pink-label {
+    background-color: #ff78cb;
+}
+.darkblue-label {
+    background-color: #344563;
+}
+.grey-label {
+    background-color: #b3bac5;
 }
