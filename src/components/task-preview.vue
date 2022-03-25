@@ -19,7 +19,7 @@
       <div class="description-img" v-if="task.description?.length"></div>
       <div class="checklists-img" v-if="task.checklists?.length"></div>
       <div class="attachment-img" v-if="task.attachments?.length"></div>
-      <div class="date-img" v-if="task.dueDate?.length" :style="isTaskOverdue">⏰ {{task.dueDate.dueDate.slice(6,10)}}</div>
+      <div class="date-img" v-if="task.dueDate?.dueDate" :style="isTaskOverdue">⏰ {{formattedDate}}</div>
     </div>
   </div>
 </template>
@@ -52,9 +52,20 @@ export default {
 
   },
   computed: {
-    // isTaskOverdue(){
-    //   return (this.task.dueDate.dueDate < date.now()) ?  {"background-color": "red"} : {"background-color": "green"}
-    // }
+    formattedDate() {
+      // const date = this.task.dueDate.dueDate
+      var d = new Date(this.task.dueDate.dueDate);
+      console.log(d, 'this is teh date in th eformatter computed');
+      return d.toString().slice(4,10);
+    },
+    isTaskOverdue(){
+      const date = new Date(this.task.dueDate.dueDate)
+      const ms = date.getTime()
+      if ( ms < Date.now()) {
+       return  this.task.dueDate.isCompleted ? {"background-color": "green"} : {"background-color": "red"}
+      }
+      else return {}
+    }
   }
 };
 </script>
