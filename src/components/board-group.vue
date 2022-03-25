@@ -1,12 +1,16 @@
 <template>
   <section class="group-container">
     <div contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
-    <task-preview
-      v-for="task in group.tasks"
-      :key="task.id"
-      :task="task"
-      :groupId="group.id"
-    />
+    <Container :group-name="'group'" :get-child-payload="getPayload(group.id)" @drop="onDrop">
+      <Draggable
+        class="draggable-container"
+        v-for="task in group.tasks"
+        :key="task.id"
+        :groupId="group.id"
+      >
+        <task-preview :task="task" :groupId="group.id"/>
+      </Draggable>
+    </Container>
     <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">
       Add a card
     </div>
@@ -30,12 +34,16 @@
 import { boardService } from "../services/board-service";
 import taskPreview from "./task-preview.vue";
 import { utilService } from "../services/util-service";
+import { Container, Draggable } from "vue3-smooth-dnd";
+
 export default {
   props: {
     group: Object,
   },
   components: {
     taskPreview,
+    Container,
+    Draggable,
   },
   data() {
     return {
@@ -44,6 +52,17 @@ export default {
     };
   },
   methods: {
+    getPayload(groupId){
+      return () => groupId
+    },
+    onDrop(ev) {
+      if (typeof(ev.removedIndex) !== 'number' && typeof(ev.addedIndex) !== 'number') return
+      
+      this.$emit("dropped", {
+        ev,
+        groupToId: this.group.id,
+      });
+    },
     async saveIfTxt() {
       console.log("blur");
       await utilService.delay(100);
@@ -85,6 +104,7 @@ export default {
     },
     saveTitle(ev) {
       const newTitle = ev.currentTarget.textContent;
+      console.log('saving group');
       this.$emit("saveGroup", {
         groupId: this.group.id,
         type: "save group title",

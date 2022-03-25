@@ -35,12 +35,21 @@
     </header>
     <!-- <div class="article-container"> -->
     <article class="groups-container flex">
-      <board-group
+      <Container @drop="onDrop" orientation="horizontal">
+        <Draggable
+          class="draggable-container flex"
+          v-for="group in board.groups"
+          :key="group.id"
+        >
+          <board-group :group="group" @dropped="dropCard" @saveGroup="saveGroup" />
+        </Draggable>
+      </Container>
+      <!-- <board-group
         v-for="group in board.groups"
         :key="group.id"
         :group="group"
         @saveGroup="saveGroup"
-      />
+      /> -->
       <div class="add-group" @click="addGroup">+ Add another list</div>
     </article>
     <!-- </div> -->
@@ -54,22 +63,52 @@ import { userService } from "../services/user-service";
 
 import boardGroup from "../components/board-group.vue";
 import userAvatar from "../components/user-avatar.vue";
+import { Container, Draggable } from "vue3-smooth-dnd";
+
 export default {
   name: "board-details",
   data() {
     return {
       board: null,
+      dndInfo: {},
     };
   },
   components: {
     boardGroup,
     userAvatar,
+    Container,
+    Draggable,
   },
   async created() {
     const { boardId } = this.$route.params;
     this.loadBoard(boardId);
   },
   methods: {
+    onDrop(ev) {
+      const group = this.board.groups.splice(ev.removedIndex, 1)[0];
+      this.board.groups.splice(ev.addedIndex, 0, group);
+      this.saveBoard();
+    },
+    dropCard({ ev, groupToId }) {
+      this.dndInfo.groupFromId = ev.payload; // groupFrom is always correct, update immediately
+
+      if (ev.payload !== groupToId) this.dndInfo.groupToId = groupToId; // won't update toId on subsequent passes through the function
+
+      if (ev.removedIndex || typeof(ev.removedIndex) === 'number') this.dndInfo.removedIndex = ev.removedIndex;
+
+      if (ev.addedIndex || typeof(ev.addedIndex) === 'number') this.dndInfo.addedIndex = ev.addedIndex;
+      
+      if (ev.addedIndex || typeof(ev.addedIndex) === 'number' && this.dndInfo.removedIndex || typeof(ev.removedIndex) === 'number') this.moveTask();
+    },
+    moveTask() {
+      const fromGroup = this.board.groups.find(g=> g.id === this.dndInfo.groupFromId)
+      const toGroup = (!this.dndInfo.groupToId)  ? fromGroup : this.board.groups.find(g=> g.id === this.dndInfo.groupToId) // if moving within same group, make to group same as from group
+      const cardToMove = fromGroup.tasks.splice(this.dndInfo.removedIndex, 1)[0];
+      toGroup.tasks.splice(this.dndInfo.addedIndex, 0, cardToMove);
+      this.dndInfo = {}
+      this.saveBoard();
+    },
+
     async loadBoard(boardId) {
       this.board = await this.$store.dispatch({ type: "loadBoard", boardId });
     },
@@ -94,6 +133,7 @@ export default {
       this.saveBoard();
     },
     async saveGroup({ groupId, type, newValue }) {
+      console.log('in save group');
       const updatingGroup = JSON.parse(
         JSON.stringify(this.board.groups.find((group) => group.id === groupId))
       );

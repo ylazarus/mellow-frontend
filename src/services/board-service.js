@@ -21,7 +21,7 @@ export const boardService = {
     uploadImg
 }
 
-// _createBoards()
+_createBoards()
 
 async function query(filterBy) {
     //   const res = await axios.get(BOARD_URL, { params: filterBy })
