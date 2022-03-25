@@ -144,7 +144,10 @@ export default {
         async saveTask({ commit, state }, { boardId, groupId, task, activity }) {
             try {
                 await commit({ type: 'saveTask', boardId, groupId, task })
-                const savedBoard = await boardService.save(JSON.parse(JSON.stringify(state.currBoard)))
+                const updatingBoard = JSON.parse(JSON.stringify(state.currBoard))
+                updatingBoard.activities.push(activity)
+                console.log(updatingBoard);
+                const savedBoard = await boardService.save(updatingBoard)
                 commit({ type: 'saveBoard', savedBoard })
                 return JSON.parse(JSON.stringify(savedBoard))
             } catch (err) {
@@ -155,7 +158,10 @@ export default {
             console.log(group);
             try {
                 await commit({ type: 'saveGroup', boardId, group })
-                const savedBoard = await boardService.save(JSON.parse(JSON.stringify(state.currBoard)))
+                const updatingBoard = JSON.parse(JSON.stringify(state.currBoard))
+                updatingBoard.activities.push(activity)
+                console.log(updatingBoard);
+                const savedBoard = await boardService.save(updatingBoard)
                 commit({ type: 'saveBoard', savedBoard })
                 return JSON.parse(JSON.stringify(savedBoard))
             } catch (err) {
