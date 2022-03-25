@@ -5,9 +5,10 @@
   cursor: pointer;
   position: relative;
   // box-shadow: 0 1px 0 #091e4240;
-  // .task-preview-label {
-  // }
-
+  .task-preview-label {
+    width: 100px;
+    height: 20px;
+  }
   .user-avatar-pos {
     position: absolute;
     right: 3px;
