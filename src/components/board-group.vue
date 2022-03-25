@@ -1,7 +1,7 @@
 <template>
   <section class="group-container">
     <div class="group-title" contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
-    <Container :group-name="'group'" :get-child-payload="getPayload(group.id)" @drop="onDrop">
+    <Container :group-name="'group'" orientation="vertical" :get-child-payload="getPayload(group.id)" @drop="onDrop">
       <Draggable
         class="draggable-container"
         v-for="task in group.tasks"

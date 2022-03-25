@@ -92,12 +92,15 @@ export default {
 
       if (ev.addedIndex || typeof(ev.addedIndex) === 'number') this.dndInfo.addedIndex = ev.addedIndex;
       
-      if (ev.addedIndex || typeof(ev.addedIndex) === 'number' && this.dndInfo.removedIndex || typeof(ev.removedIndex) === 'number') this.moveTask();
+      if ((this.dndInfo.addedIndex || typeof(this.dndInfo.addedIndex) === 'number') && (this.dndInfo.removedIndex || typeof(this.dndInfo.removedIndex) === 'number')) this.moveTask();
     },
     moveTask() {
+      console.log(this.dndInfo);
       const fromGroup = this.board.groups.find(g=> g.id === this.dndInfo.groupFromId)
       const toGroup = (!this.dndInfo.groupToId)  ? fromGroup : this.board.groups.find(g=> g.id === this.dndInfo.groupToId) // if moving within same group, make to group same as from group
       const cardToMove = fromGroup.tasks.splice(this.dndInfo.removedIndex, 1)[0];
+      console.log(fromGroup.title);
+      if (fromGroup.tasks[0] === null) fromGroup.tasks = []
       toGroup.tasks.splice(this.dndInfo.addedIndex, 0, cardToMove);
       this.dndInfo = {}
       this.saveBoard();
