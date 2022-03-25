@@ -87,7 +87,7 @@
       <div v-if="task.attachments">
         Attachments will be here{{ task.attachments }}
       </div>
-      <div v-if="task.dueDate">Due date will be here{{ task.dueDate }}</div>
+      <div v-if="task.dueDate">{{ formattedDate }}</div>
       <button class="go-back-btn btn" @click="goBack">Back</button>
     </div>
 
@@ -105,8 +105,10 @@
         @addLabelToTask="addLabelToTask"
       />
       <button class="btn">Checklist</button>
+
       <button @click.stop="toggleDates" class="btn">Dates</button>
-      <date-preview v-if="isDatesOn" />
+      <date-preview v-if="isDatesOn" :dueDate="task.dueDate?.dueDate || Date.now()" @saveDate="saveDate" @closeDate="toggleDates" />
+
       <button @click.stop="toggleAttachment" class="btn">Attachment</button>
       <attachment-preview
         :imgUrls="imgUrls"
@@ -161,6 +163,12 @@ export default {
     goBack() {
       const currBoard = this.$store.getters.getCurrBoard;
       this.$router.push(`/board/${currBoard._id}`);
+    },
+    async saveDate(newDateInfo){
+      this.task.dueDate = newDateInfo
+      await this.saveTask('Updated due date')
+      this.toggleDates()
+      this.loadTask();
     },
     async saveTask(type) {
       const activity = {
@@ -252,6 +260,15 @@ export default {
       console.log(labels);
       return labels;
     },
+    formattedDate() {
+      // const date = this.task.dueDate.dueDate
+      var d = new Date(this.task.dueDate.dueDate);
+      console.log(d, 'this is teh date in th eformatter computed');
+      return d.toString().slice(4, 21);
+    },
+    // isTaskOverdue(){
+    //   return (this.task.dueDate.dueDate < date.now()) ?  {"background-color": "red"} : {"background-color": "green"}
+    // }
   },
   components: {
     userAvatar,
