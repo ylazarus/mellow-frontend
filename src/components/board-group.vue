@@ -2,7 +2,12 @@
   <section class="groups-border">
     <div class="group-container">
       <div class="outside-group" contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
-      <Container :group-name="'group'" :get-child-payload="getPayload(group.id)" @drop="onDrop">
+      <Container
+        :group-name="'group'"
+        orientation="vertical"
+        :get-child-payload="getPayload(group.id)"
+        @drop="onDrop"
+      >
         <Draggable
           class="draggable-container group-container"
           v-for="task in group.tasks"
