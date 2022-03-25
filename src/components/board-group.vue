@@ -1,24 +1,8 @@
 <template>
-  <!-- <section class="groups-border"> -->
-  <!-- <div class="outside-group" contenteditable="true" @blur="saveTitle">{{ group.title }}</div> -->
-  <!-- <div class="group-container"> -->
-  <!-- <task-preview v-for="task in group.tasks" :key="task.id" :task="task" :groupId="group.id" /> -->
-  <!-- </div> -->
-  <!-- <div class="bottom-outside-group"> -->
-  <!-- <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">Add a card</div>
-      <div v-else class="add-task-container">
-        <textarea v-focus @blur.stop="saveIfTxt" v-model="newTaskTitle" placeholder="Enter a title for this card..." />
-        <div class="add-task-buttons-container flex">
-          <button class="adding-task-btn btn" @click="addTask">Add card</button>
-          <button class="delete-task-btn btn" @click="clearForm">X</button>
-  </div>-->
-
   <section class="groups-border">
-    <!-- </section>   -->
     <div class="group-container">
       <div class="outside-group" contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
       <Container :group-name="'group'" :get-child-payload="getPayload(group.id)" @drop="onDrop">
-        <!-- <Draggable class="draggable-container group-container" v-for="task in group.tasks" :key="task.id" :groupId="group.id"> -->
         <Draggable
           class="draggable-container group-container"
           v-for="task in group.tasks"
