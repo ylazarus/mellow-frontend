@@ -1,32 +1,57 @@
 <template>
-  <section class="group-container">
-    <div class="group-title" contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
-    <Container :group-name="'group'" orientation="vertical" :get-child-payload="getPayload(group.id)" @drop="onDrop">
-      <Draggable
-        class="draggable-container"
-        v-for="task in group.tasks"
-        :key="task.id"
-        :groupId="group.id"
+  <section class="groups-border">
+    <div class="group-container">
+      <div class="outside-group" contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
+      <Container
+        :group-name="'group'"
+        orientation="vertical"
+        :get-child-payload="getPayload(group.id)"
+        @drop="onDrop"
       >
-        <task-preview :task="task" :groupId="group.id"/>
-      </Draggable>
-    </Container>
-    <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">
-      Add a card
+        <Draggable
+          class="draggable-container group-container"
+          v-for="task in group.tasks"
+          :key="task.id"
+        >
+          <task-preview :task="task" :groupId="group.id" />
+        </Draggable>
+      </Container>
     </div>
-    <div v-else class="add-task-container">
-      <textarea
-        v-focus
-        @blur.stop="saveIfTxt"
-        v-model="newTaskTitle"
-        placeholder="Enter a title for this card..."
-      />
-      <div class="add-task-buttons-container flex">
-        <button class="adding-task-btn btn" @click="addTask">Add card</button>
-        <button class="delete-task-btn btn" @click="clearForm">X</button>
+    <div class="bottom-outside-group">
+      <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">Add a card</div>
+      <div v-else class="add-task-container">
+        <textarea
+          v-focus
+          @blur.stop="saveIfTxt"
+          v-model="newTaskTitle"
+          placeholder="Enter a title for this card..."
+        />
+        <div class="add-task-buttons-container flex">
+          <button class="adding-task-btn btn" @click="addTask">Add card</button>
+          <button class="delete-task-btn btn" @click="clearForm">X</button>
+        </div>
       </div>
     </div>
   </section>
+  <!-- <section class="group-container">
+          <div class="group-title" contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
+          <Container :group-name="'group'" :get-child-payload="getPayload(group.id)" @drop="onDrop">
+            <Draggable class="draggable-container" v-for="task in group.tasks" :key="task.id" :groupId="group.id">
+              <task-preview :task="task" :groupId="group.id" />
+            </Draggable>
+          </Container>
+          <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">
+            Add a card
+          </div>
+          <div v-else class="add-task-container">
+            <textarea v-focus @blur.stop="saveIfTxt" v-model="newTaskTitle"
+              placeholder="Enter a title for this card..." />
+            <div class="add-task-buttons-container flex">
+              <button class="adding-task-btn btn" @click="addTask">Add card</button>
+              <button class="delete-task-btn btn" @click="clearForm">X</button>
+            </div>
+          </div>
+  </section>-->
 </template>
 
 
@@ -52,12 +77,12 @@ export default {
     };
   },
   methods: {
-    getPayload(groupId){
+    getPayload(groupId) {
       return () => groupId
     },
     onDrop(ev) {
-      if (typeof(ev.removedIndex) !== 'number' && typeof(ev.addedIndex) !== 'number') return
-      
+      if (typeof (ev.removedIndex) !== 'number' && typeof (ev.addedIndex) !== 'number') return
+
       this.$emit("dropped", {
         ev,
         groupToId: this.group.id,
