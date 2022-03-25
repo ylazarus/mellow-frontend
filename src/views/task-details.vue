@@ -102,7 +102,7 @@
         :boardLabels="currBoard.labels"
         :taskLabelIds="task.labelIds"
         @close="toggleIsLabel"
-        @saveLabel="saveLabel"
+        @addLabelToTask="addLabelToTask"
       />
       <button class="btn">Checklist</button>
       <button @click.stop="toggleDates" class="btn">Dates</button>
@@ -171,7 +171,6 @@ export default {
         // byMember: userService.getLoggedinUser() || "Guest",
         task: { id: this.task.id, title: this.task.title }, // take out details and extract only mini task
       };
-      console.log(this.task);
       await this.$store.dispatch({
         type: "saveTask",
         boardId: this.currBoard._id,
@@ -193,7 +192,7 @@ export default {
       await this.saveTask("Updated Description");
       this.loadTask();
     },
-    async saveLabel(labelId) {
+    async addLabelToTask(labelId) {
       console.log(labelId);
       if (!this.task.labelIds) this.task.labelIds = [];
       console.log(this.task.labelIds);

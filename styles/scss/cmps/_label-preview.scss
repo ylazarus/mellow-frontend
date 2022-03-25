@@ -4,36 +4,119 @@
     border-radius: 3px;
     display: flex;
     flex-direction: column;
-    width: 200px;
     background-color: white;
     position: absolute;
+    right: 10px;
+    padding: 12px;
     z-index: 10;
 
     .labels-header {
         text-align: center;
-        position: relative;
+        // position: relative;
+        .labels-container-title {
+            margin: 0;
+        }
+
         .add-task-close-cmp-btn {
             position: absolute;
-            top: 16px;
-            right: 16px;
-            background-color: #00000000;
-            border: none;
+            top: 12px;
+            right: 12px;
             cursor: pointer;
+            & span {
+                padding: 6px;
+                font-family: trellicons;
+                width: 16px;
+                height: 16px;
+            }
+            & span::before {
+                content: "";
+            }
+        }
+        .back-to-label-btn {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            cursor: pointer;
+            & span {
+                padding: 6px;
+                font-family: trellicons;
+                width: 16px;
+                height: 16px;
+            }
+            & span::before {
+                content: "";
+            }
         }
     }
-    .labels-list {
-        flex-direction: column;
-        gap: 4px;
+    .choose-labels-container {
+        .labels-list {
+            flex-direction: column;
+            gap: 4px;
+            .label-option-container {
+                gap: 4px;
+                .label-option {
+                    width: 244px;
+                    height: 32px;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 6px 12px;
+                    font-family: segoeui-bold;
+                    color: white;
+                    border-radius: 3px;
 
-        .label-option {
-            width: 244px;
-            height: 32px;
-            justify-content: space-between;
-            align-items: center;
-            padding: 6px 12px;
-            font-family: segoeui-bold;
-            color: white;
-            border-radius: 3px;
+                    & .v-icon {
+                        font-family: trellicons;
+                        width: 20px;
+                        height: 20px;
+                        color: white;
+                        padding: 0;
+                    }
+                    & .v-icon::before {
+                        content: "";
+                    }
+                }
+                .change-label-btn {
+                    padding: 6px;
+                    & a {
+                        font-family: trellicons;
+                        width: 16px;
+                        height: 16px;
+                    }
+                    & a::before {
+                        content: "";
+                    }
+                }
+                .change-label-btn:hover {
+                    border-radius: 3px;
+                    background-color: $btn-hover;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    .create-label-container {
+        .create-label-options-container {
+            display: grid;
+            grid-template-columns: repeat(5, 50px);
+            gap: 8px;
+            .label-option {
+                width: 50px;
+                height: 30px;
+                border-radius: 3px;
+                justify-content: center;
+                align-items: center;
+
+                & .v-icon {
+                    font-family: trellicons;
+                    width: 20px;
+                    height: 20px;
+                    color: white;
+                    padding: 0;
+                }
+                & .v-icon::before {
+                    content: "";
+                }
+            }
         }
     }
 }
