@@ -19,8 +19,8 @@
         .star {
             width: 16px;
         }
-        .star:hover {
-        }
+        // .star:hover {
+        // }
     }
     .board-title {
         margin: 0;
@@ -37,7 +37,7 @@
     }
 
     .user-avatar{
-        margin-right: 5px;
+        margin-right: 10px;
     }
 }
 
@@ -122,6 +122,8 @@
     background-repeat: no-repeat;
     background-size: cover;
     padding: 0px 28px 8px 28px;
+    min-height: 900px;
+    max-height: 100%;
 }
 
 .groups-container {
@@ -129,7 +131,7 @@
     overflow-x: auto;
     overflow-y: hidden;
     // height: calc(100vh - 5vh - 48px);
-    height: 95vh;
+    height: 93vh;
     gap: 9px;
     // margin-left: 27px;
     .add-group {
@@ -144,7 +146,28 @@
     }
 }
 
+.dark-mode{
+    // font-size: 30px;
+    // position: absolute;
+    // inset: 0;
+    // background-color: rgba(0, 0, 0, 0.726);
+    // cursor: pointer;
+    // opacity: 0;
+    // pointer-events: none;
+    // transition: opacity .6s;
+    // z-index: 1;
+  }
+  
+//   body.dark-mode .main-screen {
+//     pointer-events: auto;
+//     opacity: 1;
+//   }
+
 // .shows-options-btn img{
 //     width: 15px;
 //     // color: white;
+// }
+
+// .groups-layout{
+
 // }

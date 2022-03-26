@@ -1,19 +1,26 @@
 <template>
     <section class="attachment-preview">
-        <label v-if="!isLoading">
+        <label>
             <input type="file" @change="onAttachImg" hidden />
             <p class="attach-from">Attach from...</p>
             <hr />
             <div class="pointer">Computer</div>
         </label>
-        <div v-else>LOADING...</div>
+        <!-- <div>LOADING...</div> -->
 
-        <hr />
+        <hr class="seperate-line" />
 
-        <p>Attach a link</p>
-        <input type="text" placeholder="Paste any link here..." />
+        <div class="attach-link-title">Attach a link</div>
+        <input
+            v-model="input"
+            class="attach-input"
+            type="text"
+            placeholder="Paste any link here..."
+        />
+        <button @click="showLink">Attach</button>
         <div class="attach-preview">
-            <img v-for="imgUrl in imgUrls" :key="imgUrl" :src="imgUrl" />
+            <!-- <p>{{ imgUrls }}</p> -->
+            <!-- <img v-for="imgUrl in imgUrls" :key="imgUrl" :src="imgUrl" /> -->
         </div>
     </section>
 </template>
@@ -27,6 +34,7 @@ export default {
     data() {
         return {
             isLoading: false,
+            input: null,
         }
     },
     created() { },
@@ -37,6 +45,10 @@ export default {
             this.isLoading = true
             this.$emit('attachImg', ev)
             this.isLoading = false
+        },
+        showLink() {
+            console.log(this.input);
+            console.log('not working till we fix img upload on second time');
         }
     },
     computed: {},

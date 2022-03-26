@@ -52,6 +52,8 @@ export default {
         saveBoard(state, { savedBoard }) {
             const idx = state.boards.findIndex(b => b._id === savedBoard._id)
             state.boards.splice(idx, 1, savedBoard)
+            //////// ask avior ///////
+            // state.currBoard = JSON.parse(JSON.stringify(savedBoard))
         },
         saveGroup(state, { boardId, group }) {
             const updatingBoard = state.boards.find(b => b._id === boardId)
@@ -126,7 +128,9 @@ export default {
         },
         async saveBoard({ commit }, { board }) {
             try {
+                console.log(board);
                 const savedBoard = await boardService.save(board)
+                console.log('savedBoard', savedBoard);
                 commit({ type: 'saveBoard', savedBoard })
                 return JSON.parse(JSON.stringify(savedBoard))
             } catch (err) {

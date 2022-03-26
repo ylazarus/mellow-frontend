@@ -5,14 +5,24 @@
   cursor: pointer;
   position: relative;
   // box-shadow: 0 1px 0 #091e4240;
-  .task-preview-label {
-    width: 100px;
-    height: 20px;
+  .labels-container{
+    display: flex;
+    flex-wrap: wrap;
   }
+
+  .task-preview-label {
+    border-radius: 4px;
+    margin: 0 4px 4px 0;
+    max-width: 40px;
+    min-width: 40px;
+    width: auto;
+    height: 8px;
+  }
+
   .user-avatar-pos {
     position: absolute;
     right: 3px;
-    bottom: 0px;
+    bottom: -1px;
   }
 
   &:hover {
@@ -20,36 +30,51 @@
   }
 }
 
-.attachment-img::before {
+.attachment-img-preview::before {
   font-family: trellicons;
-  font-size: 16px;
-  margin-inline-end: 5px;
+  font-size: 18px;
+  // margin-inline-end: 5px;
   content: "";
 }
 
-.date-img::before {
-  font-family: trellicons;
-  font-size: 16px;
-  margin-inline-end: 5px;
-  content: "";
+.attachment-img-preview{
+  margin-right: 1px;
 }
 
-.checklists-img::before {
+.date-img-preview::before {
   font-family: trellicons;
-  font-size: 16px;
+  font-size: 18px;
+  margin-inline-end: 5px;
+  content: "\e91a";
+}
+
+.date-img-preview:hover:before {
+  font-family: trellicons;
+  font-size: 18px;
   margin-inline-end: 5px;
   content: "";
 }
 
-.description-img::before {
+.checklists-img-preview::before {
   font-family: trellicons;
-  font-size: 16px;
-  margin-inline-end: 5px;
+  font-size: 18px;
+  // margin-inline-end: 5px;
+  content: "";
+}
+
+.description-img-preview::before {
+  font-family: trellicons;
+  font-size: 18px;
+  // margin-inline-end: 5px;
   content: "";
 }
 
+.task-snapshot{
+  margin: 4px 0;
+}
+
 .task-snapshot > * {
-  margin-right: 5px;
+  margin-right: 10px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -58,6 +83,8 @@
 .task-content{
   margin-bottom: 2px
 }
+
+
 
 // .user-avatar{
 //   position: absolute;

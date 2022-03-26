@@ -24,7 +24,7 @@
     display: flex;
     // align-items: center;
     font-weight: 700;
-    max-height: 44px;
+    height: 44px;
     padding: 6px 4px;
     background-color: #026aa7;
     color: $clr7;
@@ -37,9 +37,17 @@
         width: 18px;
         position: absolute;
         left: 43px;
-        
-
-        // align-items: center;
-        
     }
+}
+
+.logo{
+    text-decoration: none; 
+}
+
+.logo:visited{
+    color:#ffffff
+}
+
+.logo-img{
+    margin: 0;
 }

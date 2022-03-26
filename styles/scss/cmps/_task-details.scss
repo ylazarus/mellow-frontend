@@ -1,38 +1,65 @@
+
 .task-details-page {
-  margin: auto;
-  max-width: 770px;
+  display: flex;
+  justify-content: space-between;
+  width: 768px;
   padding: 16px;
+  height: 780px;
   min-height: 600px;
   background-color: $bg-grey;
+  border-radius: 3px;
   gap: 16px;
-  overflow: auto;
   z-index: 100;
-  position: fixed;
-  // left: 50%;
-  // top: 50%;
-  // transform: translate (-50%, -50%);
-
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  
   .task-details-container {
-    flex-grow: 1;
+    width: 549px;
+    .task-title::before{
+      font-family: trellicons;
+      margin-inline-end: 15px;
+      margin-top: 1px;
+      font-size: 25px;
+      content: "";
+    }
 
     .task-title {
+      display: flex;
+      justify-content: flex-start;
+      margin: 0;
+      // align-items: center;
+      align-content: center;
+      font-family: segoeui-bold,sans-serif;
       font-size: 20px;
       color: $text-color;
     }
+
+    .task-group-title{
+      margin-left: 40px;
+      margin-top: 5px;
+    }
+
     .show-member-label {
-      gap: 16px;
-
+      flex-direction: column;
+      font-family: segoeui,sans-serif;
+      font-weight: bold;
+      margin-left: 40px;
       .edit-members-container {
-        .members-header {
-          font-size: 12px;
-          color: $light-text;
-        }
+        color: $light-text;
 
+        .members-header{
+          margin-bottom: 6px;
+        }
         .members-container {
-          gap: 4px;
-          .user-avatar {
-            cursor: pointer;
-          }
+          margin-left: 2px;
+          margin-bottom: 17px;
+          gap: 5px;
+
+          // .user-avatar {
+          //   cursor: pointer;
+          // }
           .avatar-btn {
             justify-content: center;
             align-items: center;
@@ -54,10 +81,10 @@
         .labels-header {
           font-size: 12px;
           color: $light-text;
+          margin-bottom: 4px;
         }
         .labels-container {
-          gap: 4px;
-
+          
           .label-show {
             font-family: segoeui-bold;
             color: white;
@@ -68,6 +95,8 @@
             justify-content: center;
             align-items: center;
             padding: 0 12px;
+            margin: 0 4px 4px 0;
+            width: auto;
           }
 
           .label-show-btn {
@@ -88,34 +117,68 @@
       }
     }
 
+    .activity-header::before{
+      font-family: trellicons;
+      margin-inline-end: 16px;
+      content: "";
+      font-size: 24px;
+    }
+
     .activity-header {
+      display: flex;
       font-size: 16px;
       color: $text-color;
       font-family: segoeui-bold;
+      width: 460px;
     }
 
     .fake-text-area {
       color: $text-color;
       background-color: $btn-color;
-      width: 100%;
+      width: 92%;
       height: 56px;
       padding: 8px 12px;
       border-radius: 3px;
+      margin-left: 40px;
+      margin-bottom: 20px;
+    }
+
+    .add-edit-description-container{
+      .description-header::before{
+        font-family: trellicons;
+        margin-inline-end: 15px;
+        margin-top: 1px;
+        font-size: 25px;
+        content: "";
+      }
+      .description-header{
+        display: flex;
+        margin-block-start: 25px;
+        font-family: segoeui-bold;
+        font-size: 16px;
+      }
+      
     }
     .add-description-container {
+      margin-inline-start: 40px;
+      margin-bottom: 20px;
+
       .description-text-area {
         height: 110px;
         width: 100%;
-        margin: 0 0 4px;
+        // margin: 0 0 4px;
         border-radius: 3px;
         padding: 8px 12px;
-        box-shadow: 0 1px 0 #091e4240;
-        border: 0;
-        outline: $trello-blue;
+        // box-shadow: 0 1px 0 #091e4240;
+        // border: 0;
         font-family: segoeui, Roboto, Arial, Helvetica, sans-serif;
         color: $text-color;
         font-size: 14px;
         resize: none;
+      }
+
+      .description-text-area:focus{
+        outline: 2px solid $trello-blue;
       }
 
       .save-description-btn {
@@ -123,30 +186,72 @@
         color: $card-grey;
         width: 52px;
         height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: segoeui,sans-serif;
+        margin:0;
+        padding: 6px 12px;
+      }
+
+      .save-description-btn:hover {
+        background-color: #026aa7;
+      }
+
+      .delete-description-btn::before{
+        font-family: trellicons;
+        font-size: 25px;
+        // margin-inline-end: 4px;
+        // margin-inline-start: 10px;
+        content: "";
       }
 
       .delete-description-btn {
-        font-size: 16px;
-        color: $text-color;
-        padding-left: 8px;
+        background-color: $bg-grey;
+        color: $clr9;
+        border-radius: 3px;
+        border: none;
+        font-size: rem(14px);
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       .delete-description-btn:hover {
         color: $clr1;
-        background-color: none;
-      }
+        color: $text-color;
     }
+    }
+
     .description-container {
-      align-items: center;
-      justify-content: baseline;
+      // align-items: center;
+      // justify-content: baseline;
+      // margin-inline-start: 40px;
+      margin-block-start: 25px;
+
+      .description-header-container::before{
+        font-family: trellicons;
+        margin-inline-end: 15px;
+        margin-top: 1px;
+        font-size: 25px;
+        content: "";
+      }
 
       .description-header-container {
         align-items: center;
 
         .description-header {
+          margin: 0;
           font-family: segoeui-bold;
           font-size: 16px;
         }
+
+        .edit-description-btn{
+          margin-bottom: 0;
+        }
+
+        
       }
 
       button {
@@ -165,13 +270,26 @@
     }
 
     .details-shown-btn {
-      width: 52px;
+      width: 120px;
+      margin-inline-start: 40px;
     }
+  }
+
+  .task-description{
+    margin-block-start: 15px;
+    margin-inline-start: 40px;
   }
 
   .add-task-buttons-container {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    margin: 60px auto;
+    // font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    & p{
+      margin: 0;
+    }
 
     .btn {
       display: flex;
@@ -186,3 +304,74 @@
     }
   }
 }
+.img-container{
+  margin-left: 40px;
+}
+
+.img-preview {
+  width: 100px;
+  margin-right: 5px;
+}
+
+.activity-details-header{
+  display: flex;
+}
+
+.attachment-img::before{
+  font-family: trellicons;
+  content: "\e908";
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.dates-btn::before{
+  font-family: trellicons;
+  content: "";
+  margin-right: 10px;
+  font-size: 16px;
+}
+.checklist-btn::before{
+  font-family: trellicons;
+  content: "";
+  font-size: 16px;
+  margin-right: 10px;
+}
+.members-btn::before{
+  font-family: trellicons;
+  content: "";
+  margin-right: 10px;
+  font-size: 16px;
+}
+.labels-btn::before{
+  font-family: trellicons;
+  content: "\e93f";
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+
+
+// .grid-container{
+//   display: grid;
+//   grid-template-columns: minmax(auto, 70%) 1fr;
+//   grid-template-rows: repeat(6,1fr);
+
+//   grid-template-areas: 
+//     "grid-title  ."
+//     "grid-labels grid-cmp"
+//     "grid-desc    grid-cmp"
+//     "grid-desc    grid-cmp"
+//     "grid-activity    grid-cmp"
+//     "grid-activity    ."
+// }
+
+// .grid-title{
+//   grid-area: grid-title;
+// }
+
+// .grid-labels{
+//   grid-area: grid-labels;
+// }
+// .grid-desc{
+//   grid-area: grid-desc;
+// }

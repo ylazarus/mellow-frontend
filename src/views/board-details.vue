@@ -5,18 +5,9 @@
     <header class="board-header flex">
       <div class="board-title-container flex">
         <button class="btn-board-details btn-board">Board</button>
-        <div class="board-title" contenteditable="true" @blur="saveBoardTitle">
-          {{ board.title }}
-        </div>
-        <button
-          class="star-btn btn-board btn"
-          @click.stop="toggleFavorite(board._id)"
-        >
-          <img
-            class="star"
-            v-if="board.isFavorite"
-            src="src/assets/icons/full-star.png"
-          />
+        <div class="board-title" contenteditable="true" @blur="saveBoardTitle">{{ board.title }}</div>
+        <button class="star-btn btn-board btn" @click.stop="toggleFavorite(board._id)">
+          <img class="star" v-if="board.isFavorite" src="src/assets/icons/full-star.png" />
           <img class="star" v-else src="src/assets/icons/empty-star.png" />
           <!-- <img src="src/assets/icons/empty-star.png" /> -->
           <!-- <img :src="changeImgUrl" /> -->
@@ -39,28 +30,22 @@
       </nav>
     </header>
     <!-- <div class="article-container"> -->
-    <article class="groups-container flex">
-      <Container @drop="onDrop" orientation="horizontal">
-        <Draggable
-          class="draggable-container flex"
-          v-for="group in board.groups"
-          :key="group.id"
-        >
-          <board-group
-            :group="group"
-            @dropped="dropCard"
-            @saveGroup="saveGroup"
-          />
-        </Draggable>
-      </Container>
-      <!-- <board-group
+    <div class="groups-layout">
+      <article class="groups-container flex">
+        <Container @drop="onDrop" orientation="horizontal">
+          <Draggable class="draggable-container flex" v-for="group in board.groups" :key="group.id">
+            <board-group :group="group" @dropped="dropCard" @saveGroup="saveGroup" />
+          </Draggable>
+        </Container>
+        <!-- <board-group
         v-for="group in board.groups"
         :key="group.id"
         :group="group"
         @saveGroup="saveGroup"
-      /> -->
-      <div class="add-group" @click="addGroup">+ Add another list</div>
-    </article>
+        />-->
+        <div class="add-group" @click="addGroup">+ Add another list</div>
+      </article>
+    </div>
     <!-- </div> -->
   </section>
 </template>
@@ -80,6 +65,7 @@ export default {
     return {
       board: null,
       dndInfo: {},
+      // isDarkMode: '',
     };
   },
   components: {
@@ -93,8 +79,12 @@ export default {
     this.loadBoard(boardId);
   },
   methods: {
-    updateBoard(board) {
-      this.board = board;
+    async updateBoard(board) {
+      // this.board = board;
+      console.log('board', board);
+      const updatedBoard = await this.$store.dispatch({ type: 'saveBoard', board })
+      console.log('updatedBoard', updatedBoard);
+      this.board = updatedBoard;
     },
     onDrop(ev) {
       const group = this.board.groups.splice(ev.removedIndex, 1)[0];
@@ -189,6 +179,10 @@ export default {
         activity,
       });
     },
+    // darkModeStatus(status) {
+    //   console.log('status from board details', status);
+    //   this.isDarkMode = status
+    // }
   },
   computed: {
     isStarred() {
@@ -198,6 +192,12 @@ export default {
       const backGroundImg = this.board.style?.bgImg || "";
       return { backgroundImage: `url(${backGroundImg})` };
     },
+    updatedBoardFromStore() {
+      return this.$store.getters.boards
+    },
+    // darkMode() {
+    //   return { 'dark-mode': this.isDarkMode }
+    // }
   },
 };
 </script>

@@ -4,7 +4,7 @@
     class="task-preview-container"
   >
     <div v-if="task.img">{{ task.img }}</div>
-    <div v-if="task.labelIds?.length">
+    <div class="labels-container" v-if="task.labelIds?.length">
       <div
         v-for="labelId in task.labelIds"
         :key="labelId"
@@ -25,14 +25,22 @@
     </div>
 
     <div class="task-snapshot flex">
-      <div class="description-img" v-if="task.description?.length"></div>
-      <div class="checklists-img" v-if="task.checklists?.length"></div>
-      <div class="attachment-img" v-if="task.attachments?.length"></div>
+      <div class="description-img-preview" v-if="task.description?.length" title="Card description"></div>
       <div
-        class="date-img"
+        class="checklists-img-preview"
+        v-if="task.checklists?.length"
+        title="Checklists items"
+      >{{ checkListsCount }}</div>
+      <div
+        class="attachment-img-preview"
+        v-if="task.attachments?.length"
+        title="Attachment"
+      >{{ attachmentCount }}</div>
+      <div
+        class="date-img-preview"
         v-if="task.dueDate?.dueDate"
         :class="isTaskOverdue"
-      >⏰ {{ formattedDate }}</div>
+      >{{ formattedDate }}</div>
     </div>
   </div>
 </template>
@@ -49,6 +57,7 @@ export default {
   data() {
     return {
       boardId: null,
+      // isDarkMode: false,
     };
   },
   components: {
@@ -59,7 +68,14 @@ export default {
     toTaskDetails(boardId, groupId, taskId) {
       console.log(taskId);
       this.$router.push(`/board/${boardId}/${groupId}/${taskId}`);
+      // this.toggleDarkMode()
     },
+    // toggleDarkMode() {
+    //   console.log('dark mode');
+    //   // document.body.classList.add('dark-mode')
+    //   this.isDarkMode = true
+    //   this.$emit('darkMode', this.isDarkMode)
+    // }
   },
   created() {
     const { boardId } = this.$route.params;
@@ -69,7 +85,7 @@ export default {
     formattedDate() {
       // const date = this.task.dueDate.dueDate
       var d = new Date(this.task.dueDate.dueDate);
-      console.log(d, "this is teh date in th eformatter computed");
+      // console.log(d, "this is teh date in th eformatter computed");
       return d.toString().slice(4, 10);
     },
     isTaskOverdue() {
@@ -90,6 +106,24 @@ export default {
       console.log(labels);
       return labels;
     },
+    attachmentCount() {
+      return this.task.attachments?.length
+    },
+    checkListsCount() {
+
+
+      // const checkClistCount = this.task?.checklists?.forEach(todos => todos.length)
+      const checklistCount = this.task.checklists?.length
+      console.log('checkClistCount', checklistCount);
+      // const isDoneCount = this.task?.checklists?.forEach(todos => todos.isDone.length)
+      // console.log('isDoneCount', isDoneCount);
+      // return `${isDoneCount}/${checkClistCount}`
+      // this.task.checklists?.forEach(t => console.log(t.todos))
+      // if(this.task.checklists){
+      // return console.log('task from task preview', this.task.checklists[0].todos);
+      // }
+    }
+
   },
 };
 </script>

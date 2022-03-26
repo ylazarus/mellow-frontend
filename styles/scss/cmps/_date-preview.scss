@@ -1,22 +1,92 @@
 .date-preview{
-    // text-align: center;
+    
+    display: flex;
+    align-items: center;
     margin-top: 10px;
     border-radius: 3px;
     display: flex;
     flex-direction: column;
-    width: 200px;
+    width: 316px;
+    height: 485px;
     background-color: white;
     position: absolute;
-    top: 265px;
+    top: 100px;
+    right: -200px;
     border:1px solid black;
     padding: 1px;
     z-index: 10;
 
+    .date-header{
+        display: flex;
+    }
     // .attach-from{
     //     text-align: center;
     // }
+    .add-task-close-cmp-btn::before{
+        font-family: trellicons;
+
+        content: "";
+    }
+
+    .date-title{
+        display: flex;
+        font-family: segoeui, sans-serif;
+        color: $light-text;
+        font-size: 16px;
+        width: 272px;
+        justify-content: center;
+    }
+
+    .add-task-close-cmp-btn{
+        background-color: white;
+        color: $clr9;
+        border-radius: 3px;
+        border: none;
+        font-size: rem(24px);
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+
+    .add-task-close-cmp-btn:hover {
+        color: $clr1;
+        color: $text-color;
+    }
 
     .pointer{
         cursor: pointer;
     }
+}
+
+
+.date-btn{
+    height: 32px;
+    width: 280px;
+    border-radius: 3px;
+    border: none;
+    background-color: $clr10;
+    font-size: rem(16px);
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: segoeui,sans-serif;
+    font-size: 16px;
+}
+
+.save-btn{
+    background-color: $trello-blue;
+    color: white;
+    
+    margin-top: 6px;
+}
+
+.remove-date-btn{
+    margin-top: 6px;
+}
+.remove-date-btn:hover{
+    background-color:$card-grey ;
 }

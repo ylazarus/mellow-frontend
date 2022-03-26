@@ -56,6 +56,7 @@ export default {
     return {
       isAdding: true,
       newTaskTitle: "",
+      // isDarkMode: ''
     };
   },
   methods: {
@@ -121,7 +122,17 @@ export default {
       //  this.$refs.add.focus()
       // inputRef.focus();
     },
+    // darkMode(status) {
+    //   console.log('status', status);
+    //   // this.darkMode = status
+    //   this.$emit('darkMode', status)
+    // }
   },
+  computed: {
+    // darkMode() {
+    //   return { 'dark-mode': this.isDarkMode }
+    // }
+  }
 };
 </script>
 

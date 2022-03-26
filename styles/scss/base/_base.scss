@@ -1,7 +1,7 @@
-::selection {
-  background-color: $clr1;
-  color: $clr2;
-}
+// ::selection {
+//   background-color: $clr1;
+//   color: $clr2;
+// }
 
 * {
   box-sizing: border-box;
@@ -24,7 +24,7 @@ body {
   //     overflow: hidden;
   //   }
   // }
-  overflow-y: hidden;
+  // overflow-y: hidden;
 }
 
 // h1,
@@ -38,9 +38,7 @@ body {
 //   line-height: lh(40px, 29px);
 // }
 
-h1 {
-  // font-size: rem(60px);
-}
+
 
 h2 {
   font-size: em(16px);
@@ -51,9 +49,6 @@ h2 {
   // @include type(boldCondensed);
 }
 
-h3 {
-  // font-size: em(29px);
-}
 
 img {
   width: 100%;
@@ -76,8 +71,7 @@ p {
 // }
 
 // links
-a {
-}
+
 
 ::-webkit-scrollbar{
   width: 10px;

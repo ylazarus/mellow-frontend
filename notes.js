@@ -142,6 +142,11 @@ const board = {
                                     "id": "212jX",
                                     "title": "To Do 1",
                                     "isDone": false
+                                },
+                                {
+                                    "id": "333jX",
+                                    "title": "To Do 2",
+                                    "isDone": false
                                 }
                             ]
                         }

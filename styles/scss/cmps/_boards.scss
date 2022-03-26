@@ -18,20 +18,23 @@
 
     .title{
         margin: 0;
+        color: white;
+        padding: 1px 0px 0px 7px;
         align-self: flex-start;
     }
 }
 
 .board-preview:hover{
     opacity: 0.5;
+    // background-color: darken($color: white, $amount: 40%);
     
 }
 
 
 .style-font{
     font-size: 16px;
-    font-weight: 700;
-    color: white;
+    // font-weight: 700;
+    // color: white;
     font-family: segoeui-bold,sans-serif;
 }
 

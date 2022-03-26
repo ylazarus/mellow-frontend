@@ -172,7 +172,21 @@ function _createBoards() {
                             },
                             {
                                 "id": "c104",
-                                "title": "Do that"
+                                "title": "Do that",
+                                "checklists": [
+                                    {
+                                        "id": "YEtgF",
+                                        "title": "Checklist",
+                                        "todos": [
+                                            {
+                                                "id": "325jX",
+                                                "title": "To Do 1",
+                                                "isDone": false
+                                            }
+                                        ]
+                                    }
+                                ],
+
                             },
                             {
                                 "id": "c105",

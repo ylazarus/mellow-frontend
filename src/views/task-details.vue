@@ -1,9 +1,9 @@
 <template>
-  <section class="task-details-page flex">
+  <section class="task-details-page">
     <div v-if="task" class="task-details-container">
       <!-- title needs to become text area in the future -->
-      <p class="task-title">{{ task.title }}</p>
-      <p>in list {{ currGroup.title }}</p>
+      <h3 class="task-title">{{ task.title }}</h3>
+      <p class="task-group-title">in list {{ currGroup.title }}</p>
 
       <section class="show-member-label flex">
         <div v-if="task.members?.length" class="edit-members-container">
@@ -27,12 +27,8 @@
               class="label-show flex"
               @click="isLabel = true"
               :style="{ backgroundColor: label.color }"
-            >
-              {{ label.title }}
-            </div>
-            <button class="label-show-btn flex" @click="isLabel = true">
-              +
-            </button>
+            >{{ label.title }}</div>
+            <button class="label-show-btn flex" @click="isLabel = true">+</button>
           </div>
         </div>
       </section>
@@ -41,9 +37,7 @@
         <div v-if="task.description" class="description-container">
           <div class="description-header-container flex">
             <p class="description-header">Description</p>
-            <button @click="addDescription" class="edit-description-btn btn">
-              Edit
-            </button>
+            <button @click="addDescription" class="edit-description-btn btn">Edit</button>
           </div>
           <p class="task-description">{{ task.description }}</p>
         </div>
@@ -53,9 +47,7 @@
             class="fake-text-area"
             v-if="!addingDescription"
             @click="addDescription"
-          >
-            Add a more detailed description...
-          </div>
+          >Add a more detailed description...</div>
           <div v-else class="add-description-container">
             <textarea
               v-focus
@@ -64,28 +56,24 @@
               placeholder="Add a more detailed description..."
             />
             <div class="add-description-buttons-container flex">
-              <button class="save-description-btn btn" @click="saveDescription">
-                Save
-              </button>
-              <button class="delete-description-btn btn" @click="clearForm">
-                X
-              </button>
+              <button class="save-description-btn btn" @click="saveDescription">Save</button>
+              <button class="delete-description-btn" @click="clearForm"></button>
             </div>
           </div>
         </div>
       </section>
 
-      <div class="activity-details-header">
+      <div class="activities activity-details-header">
         <p class="activity-header">Activity</p>
-        <button class="details-shown-btn btn">{{ areDetailsShown }}</button>
+        <button v-if="task.activity?.length" class="details-shown-btn btn">{{ areDetailsShown }}</button>
       </div>
       <div v-if="task.img">Images: {{ task.img }}</div>
 
-      <div v-if="task.checklists">
-        Checklists will be here{{ task.checklists }}
-      </div>
-      <div v-if="task.attachments">
-        Attachments will be here{{ task.attachments }}
+      <div v-if="task.checklists">Checklists will be here{{ task.checklists }}</div>
+      <!-- <div v-if="task.attachments">Attachments will be here{{ task.attachments }}</div> -->
+      <div class="img-container" v-if="task.attachments">
+        <img class="img-preview" v-for="imgUrl in imgUrls" :key="imgUrl" :src="imgUrl" />
+        <p></p>
       </div>
       <div v-if="task.dueDate">{{ formattedDate }}</div>
       <button class="go-back-btn btn" @click="goBack">Back</button>
@@ -95,8 +83,8 @@
 
     <nav @click.stop class="add-task-buttons-container">
       <p>Add to card</p>
-      <button class="btn">Members</button>
-      <button @click.stop="toggleIsLabel" class="btn">Labels</button>
+      <button class="members-btn btn" title="Members">Members</button>
+      <button @click.stop="toggleIsLabel" class="labels-btn btn" title="Labels">Labels</button>
       <label-preview
         v-if="isLabel"
         :boardLabels="currBoard.labels"
@@ -104,9 +92,9 @@
         @close="toggleIsLabel"
         @addLabelToTask="addLabelToTask"
       />
-      <button class="btn">Checklist</button>
+      <button class="checklist-btn btn" title="Checklist">Checklist</button>
 
-      <button @click.stop="toggleDates" class="btn">Dates</button>
+      <button @click.stop="toggleDates" class="dates-btn btn" title="Dates">Dates</button>
       <date-preview
         v-if="isDatesOn"
         :dueDate="task.dueDate?.dueDate || Date.now()"
@@ -114,12 +102,12 @@
         @closeDate="toggleDates"
       />
 
-      <button @click.stop="toggleAttachment" class="btn">Attachment</button>
-      <attachment-preview
-        :imgUrls="imgUrls"
-        @attachImg="attachImg"
-        v-if="isAttachOn"
-      />
+      <button
+        @click.stop="toggleAttachment"
+        class="attachment-img btn"
+        title="Attachment"
+      >Attachment</button>
+      <attachment-preview :imgUrls="imgUrls" @attachImg="attachImg" v-if="isAttachOn" />
     </nav>
   </section>
 </template>
@@ -133,6 +121,9 @@ import labelPreview from "../components/label-preview.vue";
 import { utilService } from "../services/util-service";
 
 export default {
+  // props: {
+  //   board: Object
+  // },
   data() {
     return {
       task: null,
@@ -148,7 +139,7 @@ export default {
     };
   },
   created() {
-    console.log("created");
+    // console.log("created");
     this.loadTask();
   },
   methods: {
@@ -158,7 +149,7 @@ export default {
         type: "loadBoard",
         boardId,
       });
-      console.log(this.currBoard, "board");
+      // console.log(this.currBoard, "board");
       this.currGroup = this.currBoard.groups.find(
         (group) => group.id === groupId
       );
@@ -169,6 +160,7 @@ export default {
     goBack() {
       const currBoard = this.$store.getters.getCurrBoard;
       this.$router.push(`/board/${currBoard._id}`);
+      document.body.classList.remove('dark-mode')
     },
     async saveDate(newDateInfo) {
       this.task.dueDate = newDateInfo;
@@ -185,6 +177,7 @@ export default {
         // byMember: userService.getLoggedinUser() || "Guest",
         task: { id: this.task.id, title: this.task.title }, // take out details and extract only mini task
       };
+      console.log('task with img', this.task);
       const board = await this.$store.dispatch({
         type: "saveTask",
         boardId: this.currBoard._id,
@@ -208,11 +201,11 @@ export default {
       this.loadTask();
     },
     async addLabelToTask(labelId) {
-      console.log(labelId);
+      // console.log(labelId);
       if (!this.task.labelIds) this.task.labelIds = [];
-      console.log(this.task.labelIds);
+      // console.log(this.task.labelIds);
       if (this.task.labelIds.includes(labelId)) {
-        console.log("includes");
+        // console.log("includes");
         this.task.labelIds = this.task.labelIds.filter(
           (lId) => lId !== labelId
         );
@@ -248,9 +241,12 @@ export default {
       if (!this.task.attachments) this.task.attachments = [];
       this.task.attachments.push(img.url);
       await this.saveTask("added image");
-      console.log(img);
-      console.log(img.url);
-      this.imgUrls.push(img.url);
+      // console.log(img);
+      console.log("img url", img.url);
+      console.log('task attachment', this.task.attachments);
+      // console.log('task with img', task);
+      this.imgUrls.push(...this.task.attachments);
+      // this.imgUrls.push(img.url);
     },
     toggleIsLabel() {
       this.isLabel = !this.isLabel;
