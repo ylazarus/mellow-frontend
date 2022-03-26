@@ -17,7 +17,7 @@
             type="text"
             placeholder="Paste any link here..."
         />
-        <button @click="showLink">Attach</button>
+        <button class="attach-link-btn" @click="showLink">Attach</button>
         <div class="attach-preview">
             <!-- <p>{{ imgUrls }}</p> -->
             <!-- <img v-for="imgUrl in imgUrls" :key="imgUrl" :src="imgUrl" /> -->

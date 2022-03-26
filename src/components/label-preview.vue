@@ -1,9 +1,9 @@
 <template>
   <section class="label-preview">
     <div class="labels-header">
-      <a class="back-to-label-btn" v-if="isCreate" @click="isCreate = !isCreate"
-        ><span></span
-      ></a>
+      <a class="back-to-label-btn" v-if="isCreate" @click="isCreate = !isCreate">
+        <span></span>
+      </a>
       <p class="labels-container-title">Labels</p>
       <a class="add-task-close-cmp-btn" @click="closeCmp">
         <span></span>
@@ -12,25 +12,22 @@
     <hr />
     <section v-if="!isCreate" class="select-label-container">
       <input
+        class="label-input"
         type="text"
         v-model="filterTxt"
         v-focus
         placeholder="Search labels.."
       />
       <div class="choose-labels-container">
-        <p class="labels-container-title">Labels</p>
+        <p class="labels-title">Labels</p>
         <ul class="labels-list flex clean-list">
-          <li
-            class="label-option-container flex"
-            v-for="label in getLabels"
-            :key="label.id"
-          >
+          <li class="label-option-container flex" v-for="label in getLabels" :key="label.id">
             <div
               class="label-option flex pointer"
               :style="{ backgroundColor: label.color }"
               @click="toggleLabel(label.id)"
             >
-              <span class="label-title"> {{ label.title }} </span>
+              <span class="label-title">{{ label.title }}</span>
               <span v-if="label.inTask" class="v-icon"></span>
             </div>
             <span class="change-label-btn">
@@ -39,9 +36,7 @@
           </li>
         </ul>
       </div>
-      <button class="open-create-label-btn btn" @click="openCreate">
-        Create a new label
-      </button>
+      <button class="open-create-label-btn" @click="openCreate">Create a new label</button>
     </section>
     <section v-else class="create-label-container">
       <label>
@@ -150,7 +145,7 @@ export default {
       this.aggregateLabels();
     },
   },
-  unmounted() {},
+  unmounted() { },
 };
 </script>
 

@@ -76,7 +76,7 @@
         <p></p>
       </div>
       <div v-if="task.dueDate">{{ formattedDate }}</div>
-      <button class="go-back-btn btn" @click="goBack">Back</button>
+      <button class="go-back-btn" @click="goBack"></button>
     </div>
 
     <div v-else>Loading...</div>

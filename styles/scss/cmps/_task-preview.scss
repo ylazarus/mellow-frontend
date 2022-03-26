@@ -5,6 +5,7 @@
   cursor: pointer;
   position: relative;
   // box-shadow: 0 1px 0 #091e4240;
+
   .labels-container{
     display: flex;
     flex-wrap: wrap;
@@ -13,15 +14,19 @@
   .task-preview-label {
     border-radius: 4px;
     margin: 0 4px 4px 0;
-    max-width: 40px;
+    max-width: 60px;
     min-width: 40px;
     width: auto;
     height: 8px;
   }
 
+  .labels-container:hover .task-preview-label{
+    transition: height 60px 1s;
+  }
+
   .user-avatar-pos {
     position: absolute;
-    right: 3px;
+    right: 8px;
     bottom: -1px;
   }
 

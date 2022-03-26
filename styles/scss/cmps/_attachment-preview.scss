@@ -17,6 +17,9 @@
 
     .attach-from {
         text-align: center;
+        color: $light-text;
+        // font-weight: 500;
+
     }
 
     .attach-link-title{
@@ -48,8 +51,30 @@
     box-shadow:none
 }
 
-hr{
+.attachment-preview hr{
     border-color: #091e4221;
     margin: 20px 0;
+}
+
+.attach-link-btn{
+    height: 32px;
+    border-radius: 3px;
+    border: none;
+    background-color: $clr10;
+    font-size: rem(16px);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: segoeui,sans-serif;
+    color: $text-color;
+    width: 38%;
+    margin-block-start: 15px;
+    letter-spacing: 0.4px;
+}
+
+.attach-link-btn:hover {
+    color: $clr1;
+    color: $text-color;
 }
 

@@ -265,9 +265,32 @@
       }
     }
 
-    .go-back-btn {
-      width: 52px;
+    .go-back-btn::before{
+      font-family: trellicons;
+      // margin-inline-end: 15px;
+      // margin-top: 1px;
+      font-size: 23px;
+      content: "";
     }
+    
+    .go-back-btn {
+      background-color: $bg-grey;
+      position: absolute;
+      top: 3px;
+      right: 5px;
+      color: $clr9;
+      padding: 12px;
+      border-radius: 3px;
+      border: none;
+      font-size: rem(16px);
+      cursor: pointer;
+      
+    }
+
+    .go-back-btn:hover {
+      border-radius: 50%;
+      background-color: #091e4214;
+  }
 
     .details-shown-btn {
       width: 120px;
@@ -347,6 +370,10 @@
   content: "\e93f";
   margin-right: 10px;
   font-size: 16px;
+}
+
+.labels{
+  position: relative;
 }
 
 
