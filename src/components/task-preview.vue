@@ -117,7 +117,7 @@ export default {
       this.task.checklists?.forEach(checkList => {
         const doneTodos = checkList.todos.filter(todo => todo.isDone)
         totalDoneTodosCount += doneTodos.length
-        })
+      })
 
       return `${totalDoneTodosCount}/${totalTodosCount}`
     }
