@@ -123,8 +123,7 @@
 .board-container {
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 0px 28px 8px 28px;
-    min-height: 900px;
+    padding: 0px 28px 0 28px;
     max-height: 100%;
 }
 
@@ -132,9 +131,8 @@
     padding: 8px;
     overflow-x: auto;
     overflow-y: hidden;
-    // height: calc(100vh - 5vh - 48px);
-    height: 93vh;
-    gap: 9px;
+    height: calc(100vh - 44px - 48px);
+    // height: 93vh;
     // margin-left: 27px;
     .add-group {
         color: $text-color;

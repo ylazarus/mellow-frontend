@@ -1,10 +1,11 @@
 <template>
   <section class="groups-border">
+    <div class="outside-group" contenteditable="true" @blur="saveTitle">
+      {{ group.title }}
+    </div>
     <div class="group-container">
-      <div class="outside-group" contenteditable="true" @blur="saveTitle">
-        {{ group.title }}
-      </div>
       <Container
+        class="tasks-container"
         v-if="group.tasks?.length"
         :group-name="'group'"
         orientation="vertical"
@@ -12,7 +13,7 @@
         @drop="onDrop"
       >
         <Draggable
-          class="draggable-container group-container"
+          class="draggable-container middle-group-list"
           v-for="task in group.tasks"
           :key="task.id"
         >
