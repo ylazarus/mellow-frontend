@@ -122,6 +122,8 @@ export default {
       // if(this.task.checklists){
       // return console.log('task from task preview', this.task.checklists[0].todos);
       // }
+
+
     }
 
   },
