@@ -4,13 +4,20 @@
     class="task-preview-container"
   >
     <div v-if="task.img">{{ task.img }}</div>
-    <div class="labels-container" v-if="task.labelIds?.length">
+    <div
+      class="labels-container"
+      v-if="task.labelIds?.length"
+      @click.stop="showLabelTitle"
+    >
       <div
-        v-for="labelId in task.labelIds"
-        :key="labelId"
+        v-for="label in labelsToDisplay"
+        :key="label.id"
         class="task-preview-label"
-        :class="labelId + '-label'"
-      ></div>
+        :class="[label.id + '-label', open]"
+        @click.stop="toggleLabelTitle"
+      >
+        <span v-if="isLabelTitle" :class="open">{{ label.title }}</span>
+      </div>
     </div>
     <div class="task-content">{{ task.title }}</div>
     <!-- <div v-if="task.img">{{ task.img }}</div> -->
@@ -25,22 +32,32 @@
     </div>
 
     <div class="task-snapshot flex">
-      <div class="description-img-preview" v-if="task.description?.length" title="Card description"></div>
+      <div
+        class="description-img-preview"
+        v-if="task.description?.length"
+        title="Card description"
+      ></div>
       <div
         class="checklists-img-preview"
         v-if="task.checklists?.length"
         title="Checklists items"
-      >{{ checkListsCount }}</div>
+      >
+        {{ checkListsCount }}
+      </div>
       <div
         class="attachment-img-preview"
         v-if="task.attachments?.length"
         title="Attachment"
-      >{{ attachmentCount }}</div>
+      >
+        {{ attachmentCount }}
+      </div>
       <div
         class="date-img-preview"
         v-if="task.dueDate?.dueDate"
         :class="isTaskOverdue"
-      >{{ formattedDate }}</div>
+      >
+        {{ formattedDate }}
+      </div>
     </div>
   </div>
 </template>
@@ -53,6 +70,7 @@ export default {
   props: {
     task: Object,
     groupId: String,
+    isLabelTitle: Boolean,
   },
   data() {
     return {
@@ -92,7 +110,7 @@ export default {
       const date = new Date(this.task.dueDate.dueDate);
       const ms = date.getTime();
       if (ms < Date.now()) {
-        return this.task.dueDate.isCompleted ? "green-label" : "red-label";
+        return this.task.dueDate.isCompleted ? "l101-label" : "l104-label";
       } else return;
       // return this.task.dueDate.isCompleted
       //   ? { "background-color": "green" }
@@ -100,28 +118,37 @@ export default {
       // } else return {};
     },
     labelsToDisplay() {
-      const labels = this.board.labels.filter((label) => {
+      const labels = this.$store.getters.getCurrBoard.labels.filter((label) => {
         if (this.task.labelIds.includes(label.id)) return label;
       });
-      console.log(labels);
       return labels;
     },
     attachmentCount() {
-      return this.task.attachments?.length
+      return this.task.attachments?.length;
     },
     checkListsCount() {
-      var totalTodosCount = 0
-      this.task.checklists?.forEach(checkList => totalTodosCount += checkList.todos.length)
+      var totalTodosCount = 0;
+      this.task.checklists?.forEach(
+        (checkList) => (totalTodosCount += checkList.todos.length)
+      );
 
-      var totalDoneTodosCount = 0
-      this.task.checklists?.forEach(checkList => {
-        const doneTodos = checkList.todos.filter(todo => todo.isDone)
-        totalDoneTodosCount += doneTodos.length
-      })
+      var totalDoneTodosCount = 0;
+      this.task.checklists?.forEach((checkList) => {
+        const doneTodos = checkList.todos.filter((todo) => todo.isDone);
+        totalDoneTodosCount += doneTodos.length;
+      });
 
-      return `${totalDoneTodosCount}/${totalTodosCount}`
-    }
-
+      return `${totalDoneTodosCount}/${totalTodosCount}`;
+    },
+    open() {
+      console.log(this.isLabelTitle);
+      return { open: this.isLabelTitle };
+    },
+  },
+  methods: {
+    toggleLabelTitle() {
+      this.$emit("toggleLabelTitle");
+    },
   },
 };
 </script>

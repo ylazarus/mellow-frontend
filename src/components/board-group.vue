@@ -1,7 +1,9 @@
 <template>
   <section class="groups-border">
     <div class="group-container">
-      <div class="outside-group" contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
+      <div class="outside-group" contenteditable="true" @blur="saveTitle">
+        {{ group.title }}
+      </div>
       <Container
         v-if="group.tasks?.length"
         :group-name="'group'"
@@ -14,12 +16,19 @@
           v-for="task in group.tasks"
           :key="task.id"
         >
-          <task-preview :task="task" :groupId="group.id" />
+          <task-preview
+            :task="task"
+            :groupId="group.id"
+            :isLabelTitle="isLabelTitle"
+            @toggleLabelTitle="toggleLabelTitle"
+          />
         </Draggable>
       </Container>
     </div>
     <div class="bottom-outside-group">
-      <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">Add a card</div>
+      <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">
+        Add a card
+      </div>
       <div v-else class="add-task-container">
         <textarea
           v-focus
@@ -46,6 +55,7 @@ import { Container, Draggable } from "vue3-smooth-dnd";
 export default {
   props: {
     group: Object,
+    isLabelTitle: Boolean,
   },
   components: {
     taskPreview,
@@ -61,10 +71,14 @@ export default {
   },
   methods: {
     getPayload(groupId) {
-      return () => groupId
+      return () => groupId;
     },
     onDrop(ev) {
-      if (typeof (ev.removedIndex) !== 'number' && typeof (ev.addedIndex) !== 'number') return
+      if (
+        typeof ev.removedIndex !== "number" &&
+        typeof ev.addedIndex !== "number"
+      )
+        return;
 
       this.$emit("dropped", {
         ev,
@@ -127,12 +141,15 @@ export default {
     //   // this.darkMode = status
     //   this.$emit('darkMode', status)
     // }
+    toggleLabelTitle() {
+      this.$emit("toggleLabelTitle");
+    },
   },
   computed: {
     // darkMode() {
     //   return { 'dark-mode': this.isDarkMode }
     // }
-  }
+  },
 };
 </script>
 
