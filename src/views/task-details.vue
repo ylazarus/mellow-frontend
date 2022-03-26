@@ -309,10 +309,13 @@ export default {
     },
     // dueDateCheckBox{
     //   // return this.task.dueDate.isDone ? 
-    // }
-    // isTaskOverdue(){
-    //   return (this.task.dueDate.dueDate < date.now()) ?  {"background-color": "red"} : {"background-color": "green"}
-    // }
+    // },
+    isTaskOverdue(){
+const date = new Date(this.task.dueDate.dueDate);
+      const ms = date.getTime();
+      if (ms < Date.now()) {
+        return this.task.dueDate.isCompleted ? "l101-label" : "l104-label";
+      } else return;    }
   },
   components: {
     userAvatar,
