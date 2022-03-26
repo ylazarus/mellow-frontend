@@ -1,8 +1,11 @@
 <template>
   <section class="groups-border">
+    <div class="outside-group" contenteditable="true" @blur="saveTitle">
+      {{ group.title }}
+    </div>
     <div class="group-container">
-      <div class="outside-group" contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
       <Container
+        class="tasks-container"
         v-if="group.tasks?.length"
         :group-name="'group'"
         orientation="vertical"
@@ -10,7 +13,7 @@
         @drop="onDrop"
       >
         <Draggable
-          class="draggable-container group-container"
+          class="draggable-container middle-group-list"
           v-for="task in group.tasks"
           :key="task.id"
         >
@@ -19,7 +22,9 @@
       </Container>
     </div>
     <div class="bottom-outside-group">
-      <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">Add a card</div>
+      <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">
+        Add a card
+      </div>
       <div v-else class="add-task-container">
         <textarea
           v-focus
@@ -61,10 +66,14 @@ export default {
   },
   methods: {
     getPayload(groupId) {
-      return () => groupId
+      return () => groupId;
     },
     onDrop(ev) {
-      if (typeof (ev.removedIndex) !== 'number' && typeof (ev.addedIndex) !== 'number') return
+      if (
+        typeof ev.removedIndex !== "number" &&
+        typeof ev.addedIndex !== "number"
+      )
+        return;
 
       this.$emit("dropped", {
         ev,
@@ -132,7 +141,7 @@ export default {
     // darkMode() {
     //   return { 'dark-mode': this.isDarkMode }
     // }
-  }
+  },
 };
 </script>
 

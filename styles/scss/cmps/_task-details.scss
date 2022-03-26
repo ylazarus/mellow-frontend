@@ -42,10 +42,21 @@
     }
 
     .show-member-label {
-      flex-direction: column;
+      // flex-direction: column;
+      flex-wrap: wrap;
       font-family: segoeui,sans-serif;
       font-weight: bold;
       margin-left: 40px;
+
+      >*{
+        margin: 0 8px 8px 0;
+      }
+      p{
+        font-size: 12px;
+        font-family: segoeui-bold;
+        color: $light-text;
+        margin: 0 8px 4px 0;
+      }
       .edit-members-container {
         color: $light-text;
 
@@ -113,6 +124,14 @@
           .label-show-btn:hover {
             background-color: $btn-hover;
           }
+        }
+      }
+
+      .due-date-container{
+        .displayed-date-checkbox{
+          color: $text-color;
+          font-weight: normal;
+
         }
       }
     }

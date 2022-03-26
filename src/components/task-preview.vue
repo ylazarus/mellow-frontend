@@ -92,7 +92,7 @@ export default {
       const date = new Date(this.task.dueDate.dueDate);
       const ms = date.getTime();
       if (ms < Date.now()) {
-        return this.task.dueDate.isCompleted ? "green-label" : "red-label";
+        return this.task.dueDate.isCompleted ? "l101-label" : "l104-label";
       } else return;
       // return this.task.dueDate.isCompleted
       //   ? { "background-color": "green" }

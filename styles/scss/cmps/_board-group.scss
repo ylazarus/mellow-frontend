@@ -3,7 +3,7 @@
     font-family: segoeui,sans-serif;
     min-height: 28px;
     min-width: 272px;
-    // padding: 4px;
+    padding: 4px;
     // margin-left: 3px;
     height: fit-content;
     background-color: $card-grey;
@@ -12,12 +12,13 @@
 }
 
 .outside-group{
+    padding: 4px;
     font-size: 16px;
     display: flex;
     margin: 5px 0px 0px 9px;
     align-items: center;
     font-weight: 600;
-    height: 32px;
+    height: 40px;
     margin-inline-end: 15px;
 }
 
@@ -36,12 +37,12 @@
 .add-task-container {
     height: 120px;
     // margin-block-end: 10px;
-    padding-top: 10px;
+    padding: 0 3px;
 }
 
 textarea {
     height: 54px;
-    width: 268px;
+    width: 272px;
     margin: 0 0 5px;
     border-radius: 3px;
     padding: 6px 8px 2px;
@@ -66,7 +67,7 @@ textarea {
     align-items: center;
     font-family: segoeui,sans-serif;
     margin: 0;
-    margin-left: 4px;
+    // margin-left: 4px;
     padding: 6px 12px;
     // margin-top: 10px;
 }
@@ -104,8 +105,9 @@ textarea {
     background-color: $card-grey;
     padding: 4px 0px;
     height: 100%;
-    width: 268px;
-    margin-block-end: 5px;
+    width: 272px;
+    margin-inline-start: 4px;
+    // margin-block-end: 5px;
     display: flex;
     cursor: pointer;
     
@@ -126,11 +128,30 @@ textarea {
 .group-container {
     // width: 272px;
     // height: fit-content;
-    max-height: 905px;
-    flex-shrink: 0;
+    // max-height: 905px;
+    max-height: calc(100vh - 290px);
+    // flex-shrink: 0;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 0 3px 8px 3px;
+    padding: 0 8px;
+    // display: flex;
+    // flex-direction: column;
+    // gap: 8px;
+    // // background-color: #fff;
+    // border-radius: 3px;
+    // background-color: $card-grey;
+    // cursor: pointer;
+}
+
+.group-container:last-child{
+    padding-bottom: 0;
+}
+
+.middle-group-list{
+    flex-shrink: 0;
+    // overflow-x: hidden;
+    // overflow-y: auto;
+    padding-bottom: 8px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -138,10 +159,6 @@ textarea {
     border-radius: 3px;
     background-color: $card-grey;
     cursor: pointer;
-}
-
-.group-container:last-child{
-    padding-bottom: 0;
 }
 
 
