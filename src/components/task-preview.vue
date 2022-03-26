@@ -110,20 +110,16 @@ export default {
       return this.task.attachments?.length
     },
     checkListsCount() {
+      var totalTodosCount = 0
+      this.task.checklists?.forEach(checkList => totalTodosCount += checkList.todos.length)
 
+      var totalDoneTodosCount = 0
+      this.task.checklists?.forEach(checkList => {
+        const doneTodos = checkList.todos.filter(todo => todo.isDone)
+        totalDoneTodosCount += doneTodos.length
+      })
 
-      // const checkClistCount = this.task?.checklists?.forEach(todos => todos.length)
-      const checklistCount = this.task.checklists?.length
-      console.log('checkClistCount', checklistCount);
-      // const isDoneCount = this.task?.checklists?.forEach(todos => todos.isDone.length)
-      // console.log('isDoneCount', isDoneCount);
-      // return `${isDoneCount}/${checkClistCount}`
-      // this.task.checklists?.forEach(t => console.log(t.todos))
-      // if(this.task.checklists){
-      // return console.log('task from task preview', this.task.checklists[0].todos);
-      // }
-
-
+      return `${totalDoneTodosCount}/${totalTodosCount}`
     }
 
   },
