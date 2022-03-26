@@ -8,7 +8,7 @@
 }
 
 .board-header {
-    padding: 8px 4px 4px 13px; 
+    padding: 8px 4px 4px 13px;
     height: auto;
     // background-color: #0000001a;
     flex-wrap: wrap;
@@ -22,43 +22,48 @@
         // .star:hover {
         // }
     }
+
+    .members-nav-bar {
+        flex-grow: 1;
+    }
+
     .board-title {
         margin: 0;
         padding: 0 12px;
         font-size: 18px;
         font-family: segoeui-bold;
-        width: 432px;
+        // width: 432px;
         height: 32px;
         display: flex;
     }
-    
-    .star-btn{
+
+    .star-btn {
         margin-right: 10px;
     }
 
-    .user-avatar{
+    .user-avatar {
         margin-right: 10px;
     }
 }
 
-.invite-btn{
+.invite-btn {
     padding: 6px 12px;
 }
 
-.invite-btn::before{
+.invite-btn::before {
     font-family: trellicons;
     font-size: 16px;
     margin-inline-end: 4px;
     content: "\e902";
 }
 
-.show-menu-btn::before{
+.show-menu-btn::before {
     font-family: trellicons;
     margin-inline-end: 4px;
     content: "";
 }
 
-.btn-board{
+.btn-board {
     border-radius: 3px;
     border: none;
     background-color: $clr5;
@@ -72,44 +77,41 @@
     // font-weight: 400;
 }
 
-.btn-board-details{
+.btn-board-details {
     font-size: rem(16px);
     // display: flex;
     // position: relative;
     width: 93px;
     margin-right: 5px;
 
-    img{
+    img {
         width: 20px;
         position: absolute;
         left: 5px;
-
     }
 }
 
-.btn-board-details::before{
+.btn-board-details::before {
     font-family: trellicons;
     font-size: 16px;
     margin-inline-end: 4px;
     content: "";
 }
 
-.filter-btn{
+.filter-btn {
     padding: 6px 12px;
-
 }
 
-.filter-btn::before{
+.filter-btn::before {
     font-family: trellicons;
     font-size: 16px;
     margin-inline-end: 5px;
     content: "";
 }
 
-.board-title-container button:nth-child(1)::before{
+.board-title-container button:nth-child(1)::before {
     font-family: trellicons;
     width: 20px;
-
 }
 
 // .invite-btn::before{
@@ -118,7 +120,7 @@
 //     width: 30px;
 // }
 
-.board-container{
+.board-container {
     background-repeat: no-repeat;
     background-size: cover;
     padding: 0px 28px 8px 28px;
@@ -146,7 +148,7 @@
     }
 }
 
-.dark-mode{
+.dark-mode {
     // font-size: 30px;
     // position: absolute;
     // inset: 0;
@@ -156,8 +158,8 @@
     // pointer-events: none;
     // transition: opacity .6s;
     // z-index: 1;
-  }
-  
+}
+
 //   body.dark-mode .main-screen {
 //     pointer-events: auto;
 //     opacity: 1;
