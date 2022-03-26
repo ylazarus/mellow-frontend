@@ -207,13 +207,29 @@ function _createBoards() {
                                 ],
                                 "checklists": [
                                     {
-                                        "id": "YEhmF",
+                                        "id": "YEhmFk111",
                                         "title": "Checklist",
                                         "todos": [
                                             {
-                                                "id": "212jX",
+                                                "id": "212jX111",
                                                 "title": "To Do 1",
+                                                "isDone": true
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": "YEhmF222",
+                                        "title": "Checklist",
+                                        "todos": [
+                                            {
+                                                "id": "212jX222",
+                                                "title": "To Do 2",
                                                 "isDone": false
+                                            },
+                                            {
+                                                "id": "212jX333",
+                                                "title": "To Do 3 is done",
+                                                "isDone": true
                                             }
                                         ]
                                     }

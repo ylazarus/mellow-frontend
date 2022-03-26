@@ -111,10 +111,21 @@ export default {
     },
     checkListsCount() {
 
+      var totalTodosCount = 0
+      this.task.checklists?.forEach(checkList => totalTodosCount += checkList.todos.length)
+      console.log('total todos count', totalTodosCount);
 
-      // const checkClistCount = this.task?.checklists?.forEach(todos => todos.length)
-      const checklistCount = this.task.checklists?.length
-      console.log('checkClistCount', checklistCount);
+      var totalDoneTodosCount = 0
+      this.task.checklists?.forEach(checkList => {
+        const doneTodos = checkList.todos.filter(todo => todo.isDone)
+        totalDoneTodosCount += doneTodos.length
+        })
+      console.log('total todos done count', totalDoneTodosCount);
+
+      return `${totalDoneTodosCount}/${totalTodosCount}`
+
+      // const checklistCount = this.task.checklists?.length
+      // console.log('checkClistCount', checkListCount);
       // const isDoneCount = this.task?.checklists?.forEach(todos => todos.isDone.length)
       // console.log('isDoneCount', isDoneCount);
       // return `${isDoneCount}/${checkClistCount}`
