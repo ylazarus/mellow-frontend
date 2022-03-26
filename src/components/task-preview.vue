@@ -13,10 +13,10 @@
         v-for="label in labelsToDisplay"
         :key="label.id"
         class="task-preview-label"
-        :class="[label.id + '-label', open]"
+        :class="[label.id + '-label', openLabel]"
         @click.stop="toggleLabelTitle"
       >
-        <span v-if="isLabelTitle" :class="open">{{ label.title }}</span>
+        <span v-if="isLabelTitle" :class="openLabel">{{ label.title }}</span>
       </div>
     </div>
     <div class="task-content">{{ task.title }}</div>
@@ -93,7 +93,10 @@ export default {
     //   // document.body.classList.add('dark-mode')
     //   this.isDarkMode = true
     //   this.$emit('darkMode', this.isDarkMode)
-    // }
+    // },
+    toggleLabelTitle() {
+      this.$emit("toggleLabelTitle");
+    },
   },
   created() {
     const { boardId } = this.$route.params;
@@ -136,16 +139,15 @@ export default {
 
       return `${totalDoneTodosCount}/${totalTodosCount}`;
     },
-    open() {
-      console.log(this.isLabelTitle);
+    openLabel() {
       return { open: this.isLabelTitle };
     },
   },
-  methods: {
-    toggleLabelTitle() {
-      this.$emit("toggleLabelTitle");
-    },
-  },
+  // methods: {
+  //   toggleLabelTitle() {
+  //     this.$emit("toggleLabelTitle");
+  //   },
+  // },
 };
 </script>
 
