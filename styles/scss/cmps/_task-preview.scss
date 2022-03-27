@@ -36,15 +36,22 @@
   }
 
   .user-avatar-pos {
-    position: absolute;
+    // position: absolute;
     right: 8px;
     bottom: -1px;
     gap: 4px;
+    flex-grow: 1;
+    justify-content: end;
   }
 
   &:hover {
     background-color: $card-grey-hover;
   }
+
+}
+
+.user-avatar-pos >*{
+  object-fit: cover;
 }
 
 .attachment-img-preview::before {
@@ -93,6 +100,8 @@
 
 .task-snapshot {
   margin: 4px 0;
+  flex-wrap: wrap;
+  
 }
 
 .task-snapshot > * {

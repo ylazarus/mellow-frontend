@@ -1,5 +1,4 @@
 <template>
-  <!-- <div class="task-details-dark"> -->
   <div class="task-details-dark" @click="goBack"></div>
   <section class="task-details-page">
     <div v-if="task" class="task-details-container">
@@ -101,41 +100,6 @@
               <button class="save-description-btn btn" @click="saveDescription">
                 Save
               </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="edit-description-container">
-        <div v-if="task.description" class="description-container">
-          <div class="description-header-container flex">
-            <p class="description-header">Description</p>
-            <button @click="addDescription" class="edit-description-btn btn">
-              Edit
-            </button>
-          </div>
-          <p class="task-description">{{ task.description }}</p>
-        </div>
-        <div v-else class="add-edit-description-container">
-          <p class="description-header">Description</p>
-          <div
-            class="fake-text-area"
-            v-if="!addingDescription"
-            @click="addDescription"
-          >
-            Add a more detailed description...
-          </div>
-          <div v-else class="add-description-container">
-            <textarea
-              v-focus
-              v-model="newDescription"
-              class="description-text-area"
-              placeholder="Add a more detailed description..."
-            />
-            <div class="add-description-buttons-container flex">
-              <button class="save-description-btn btn" @click="saveDescription">
-                Save
-              </button>
               <button
                 class="delete-description-btn"
                 @click="clearForm"
@@ -145,18 +109,6 @@
         </div>
       </section>
 
-      <div class="activities activity-details-header">
-        <p class="activity-header">Activity</p>
-        <button v-if="task.activity?.length" class="details-shown-btn btn">
-          {{ areDetailsShown }}
-        </button>
-      </div>
-      <div v-if="task.img">Images: {{ task.img }}</div>
-
-      <div v-if="task.checklists">
-        Checklists will be here{{ task.checklists }}
-      </div>
-      <!-- <div v-if="task.attachments">Attachments will be here{{ task.attachments }}</div> -->
       <div class="img-container" v-if="task.attachments">
         <img
           class="img-preview"
@@ -166,7 +118,13 @@
         />
         <p></p>
       </div>
-      <!-- <div v-if="task.dueDate">{{ formattedDate }}</div> -->
+
+      <div class="activities activity-details-header">
+        <p class="activity-header">Activity</p>
+        <button v-if="task.activity?.length" class="details-shown-btn btn">
+          {{ areDetailsShown }}
+        </button>
+      </div>
       <button class="go-back-btn" @click="goBack"></button>
     </div>
 
@@ -175,9 +133,6 @@
     <nav @click.stop class="add-task-buttons-container">
       <p>Add to card</p>
       <button class="members-btn btn" title="Members">Members</button>
-      <!-- <button @click.stop="toggleIsLabel" class="labels-btn btn" title="Labels">
-        Labels
-      </button> -->
       <button
         @click.stop="openCmp('isLabel')"
         class="labels-btn btn"
@@ -192,12 +147,7 @@
         @closeCmp="closeCmp"
         @addLabelToTask="addLabelToTask"
       />
-
       <button class="checklist-btn btn" title="Checklist">Checklist</button>
-
-      <!-- <button @click.stop="toggleDates" class="dates-btn btn" title="Dates">
-        Dates
-      </button> -->
       <button
         @click.stop="openCmp('isDatesOn')"
         class="dates-btn btn"
@@ -211,7 +161,6 @@
         @saveDate="saveDate"
         @closeCmp="closeCmp"
       />
-
       <button
         @click.stop="openCmp('isAttachOn')"
         class="attachment-img btn"
@@ -219,13 +168,6 @@
       >
         Attachment
       </button>
-      <!-- <button
-        @click.stop="toggleAttachment"
-        class="attachment-img btn"
-        title="Attachment"
-      >
-        Attachment
-      </button> -->
       <attachment-preview
         :imgUrls="imgUrls"
         @attachImg="attachImg"
@@ -234,11 +176,9 @@
       />
     </nav>
   </section>
-  <!-- </div> -->
 </template>
 
 <script>
-// import { boardService } from "../../services/board-service";
 import userAvatar from "../components/user-avatar.vue";
 import attachmentPreview from "../components/attachment-preview.vue";
 import datePreview from "../components/date-preview.vue";
@@ -246,21 +186,15 @@ import labelPreview from "../components/label-preview.vue";
 import { utilService } from "../services/util-service";
 
 export default {
-  // props: {
-  //   board: Object
-  // },
   data() {
     return {
       task: null,
-      // isAttachOn: false,
-      // isDatesOn: false,
       imgUrls: [],
       currBoard: null,
       currGroup: null,
       addingDescription: false,
       newDescription: "",
       detailsShown: false,
-      // isLabel: false,
       handles: {
         isLabel: false,
         isAttachOn: false,
@@ -306,7 +240,6 @@ export default {
     async saveDate(newDateInfo) {
       this.task.dueDate = newDateInfo;
       await this.saveTask("Updated due date");
-      // this.toggleDates();
       this.closeCmp();
       this.loadTask();
     },
@@ -354,44 +287,17 @@ export default {
       this.loadTask();
     },
 
-    toggleAttachment() {
-      this.isAttachOn = !this.isAttachOn;
-      if (this.isAttachOn) this.isDatesOn = false;
-    },
-
-    toggleDates() {
-      this.isDatesOn = !this.isDatesOn;
-      if (this.isDatesOn) this.isAttachOn = false;
-      console.log("isDatesOn", this.isDatesOn);
-      console.log("isAttachOn", this.isAttachOn);
-    },
     async toggleDueDateDone() {
       this.task.dueDate.isCompleted = !this.task.dueDate.isCompleted;
       await this.saveTask("updated due date status");
       this.loadTask();
     },
-
-    // closeAllModals() {
-    //   if (this.isAttachOn) this.isDatesOn = false
-
-    // },
-
     async attachImg(ev) {
       const img = await this.$store.dispatch({ type: "attachImg", ev });
-      console.log("img task", img);
       if (!this.task.attachments) this.task.attachments = [];
       this.task.attachments.push(img.url);
       await this.saveTask("added image");
       this.loadTask();
-      // console.log(img);
-      console.log("img url", img.url);
-      console.log("task attachment", this.task.attachments);
-      // console.log('task with img', task);
-      // this.imgUrls.push(...this.task.attachments); // yoni removed this temporarily
-      // this.imgUrls.push(img.url);
-    },
-    toggleIsLabel() {
-      this.isLabel = !this.isLabel;
     },
   },
   computed: {
