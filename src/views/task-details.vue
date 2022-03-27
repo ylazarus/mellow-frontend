@@ -1,155 +1,165 @@
 <template>
-  <section class="task-details-page">
-    <div v-if="task" class="task-details-container">
-      <!-- title needs to become text area in the future -->
-      <h3 class="task-title">{{ task.title }}</h3>
-      <p class="task-group-title">in list {{ currGroup.title }}</p>
+  <div class="task-details-dark">
+    <!-- <div class="task-details-dark" @click="goBack"> -->
+    <section class="task-details-page">
+      <div v-if="task" class="task-details-container">
+        <!-- title needs to become text area in the future -->
+        <h3 class="task-title">{{ task.title }}</h3>
+        <p class="task-group-title">in list {{ currGroup.title }}</p>
 
-      <section class="show-member-label flex">
-        <div v-if="task.members?.length" class="edit-members-container">
-          <p class="members-header">Members</p>
-          <div class="members-container flex">
-            <user-avatar
-              :v-if="task.members"
-              v-for="member in task.members"
-              :key="member._id"
-              :user="member"
-            />
-            <button class="avatar-btn flex" @click="toggleIsLabel">+</button>
-          </div>
-        </div>
-        <div v-if="task.labelIds?.length" class="edit-labels-container">
-          <p class="labels-header">Labels</p>
-          <div class="labels-container flex">
-            <div
-              v-for="label in labelsToDisplay"
-              :key="label.id"
-              class="label-show flex"
-              @click="isLabel = true"
-              :style="{ backgroundColor: label.color }"
-            >
-              {{ label.title }}
+        <section class="show-member-label flex">
+          <div v-if="task.members?.length" class="edit-members-container">
+            <p class="members-header">Members</p>
+            <div class="members-container flex">
+              <user-avatar
+                :v-if="task.members"
+                v-for="member in task.members"
+                :key="member._id"
+                :user="member"
+              />
+              <button class="avatar-btn flex" @click="toggleIsLabel">+</button>
             </div>
-            <button class="label-show-btn flex" @click="isLabel = true">
-              +
-            </button>
           </div>
-        </div>
-        <div class="due-date-container" v-if="task.dueDate">
-          <p class="due-date-title">Due date</p>
-          <div class="displayed-date-checkbox" >
-            <span>{{dueDateCheckBox}}</span>
-            <span>{{ formattedDate }}</span>
-            <span>{{completeOverdue}}</span>
-            </div>
-        </div>
-      </section>
-
-      <section class="edit-description-container">
-        <div v-if="task.description" class="description-container">
-          <div class="description-header-container flex">
-            <p class="description-header">Description</p>
-            <button @click="addDescription" class="edit-description-btn btn">
-              Edit
-            </button>
-          </div>
-          <p class="task-description">{{ task.description }}</p>
-        </div>
-        <div v-else class="add-edit-description-container">
-          <p class="description-header">Description</p>
-          <div
-            class="fake-text-area"
-            v-if="!addingDescription"
-            @click="addDescription"
-          >
-            Add a more detailed description...
-          </div>
-          <div v-else class="add-description-container">
-            <textarea
-              v-focus
-              v-model="newDescription"
-              class="description-text-area"
-              placeholder="Add a more detailed description..."
-            />
-            <div class="add-description-buttons-container flex">
-              <button class="save-description-btn btn" @click="saveDescription">
-                Save
+          <div v-if="task.labelIds?.length" class="edit-labels-container">
+            <p class="labels-header">Labels</p>
+            <div class="labels-container flex">
+              <div
+                v-for="label in labelsToDisplay"
+                :key="label.id"
+                class="label-show flex"
+                @click="isLabel = true"
+                :style="{ backgroundColor: label.color }"
+              >
+                {{ label.title }}
+              </div>
+              <button class="label-show-btn flex" @click="isLabel = true">
+                +
               </button>
-              <button
-                class="delete-description-btn"
-                @click="clearForm"
-              ></button>
             </div>
           </div>
+          <div class="due-date-container" v-if="task.dueDate">
+            <p class="due-date-title">Due date</p>
+            <div class="displayed-date-checkbox">
+              <span>{{ dueDateCheckBox }}</span>
+              <span>{{ formattedDate }}</span>
+              <span>{{ completeOverdue }}</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="edit-description-container">
+          <div v-if="task.description" class="description-container">
+            <div class="description-header-container flex">
+              <p class="description-header">Description</p>
+              <button @click="addDescription" class="edit-description-btn btn">
+                Edit
+              </button>
+            </div>
+            <p class="task-description">{{ task.description }}</p>
+          </div>
+          <div v-else class="add-edit-description-container">
+            <p class="description-header">Description</p>
+            <div
+              class="fake-text-area"
+              v-if="!addingDescription"
+              @click="addDescription"
+            >
+              Add a more detailed description...
+            </div>
+            <div v-else class="add-description-container">
+              <textarea
+                v-focus
+                v-model="newDescription"
+                class="description-text-area"
+                placeholder="Add a more detailed description..."
+              />
+              <div class="add-description-buttons-container flex">
+                <button
+                  class="save-description-btn btn"
+                  @click="saveDescription"
+                >
+                  Save
+                </button>
+                <button
+                  class="delete-description-btn"
+                  @click="clearForm"
+                ></button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="activities activity-details-header">
+          <p class="activity-header">Activity</p>
+          <button v-if="task.activity?.length" class="details-shown-btn btn">
+            {{ areDetailsShown }}
+          </button>
         </div>
-      </section>
+        <div v-if="task.img">Images: {{ task.img }}</div>
 
-      <div class="activities activity-details-header">
-        <p class="activity-header">Activity</p>
-        <button v-if="task.activity?.length" class="details-shown-btn btn">
-          {{ areDetailsShown }}
+        <div v-if="task.checklists">
+          Checklists will be here{{ task.checklists }}
+        </div>
+        <!-- <div v-if="task.attachments">Attachments will be here{{ task.attachments }}</div> -->
+        <div class="img-container" v-if="task.attachments">
+          <img
+            class="img-preview"
+            v-for="imgUrl in imgUrls"
+            :key="imgUrl"
+            :src="imgUrl"
+          />
+          <p></p>
+        </div>
+        <!-- <div v-if="task.dueDate">{{ formattedDate }}</div> -->
+        <button class="go-back-btn" @click="goBack"></button>
+      </div>
+
+      <div v-else>Loading...</div>
+
+      <nav @click.stop class="add-task-buttons-container">
+        <p>Add to card</p>
+        <button class="members-btn btn" title="Members">Members</button>
+        <button
+          @click.stop="toggleIsLabel"
+          class="labels-btn btn"
+          title="Labels"
+        >
+          Labels
         </button>
-      </div>
-      <div v-if="task.img">Images: {{ task.img }}</div>
-
-      <div v-if="task.checklists">
-        Checklists will be here{{ task.checklists }}
-      </div>
-      <!-- <div v-if="task.attachments">Attachments will be here{{ task.attachments }}</div> -->
-      <div class="img-container" v-if="task.attachments">
-        <img
-          class="img-preview"
-          v-for="imgUrl in imgUrls"
-          :key="imgUrl"
-          :src="imgUrl"
+        <label-preview
+          v-if="isLabel"
+          :boardLabels="currBoard.labels"
+          :taskLabelIds="task.labelIds"
+          @close="toggleIsLabel"
+          @addLabelToTask="addLabelToTask"
         />
-        <p></p>
-      </div>
-      <!-- <div v-if="task.dueDate">{{ formattedDate }}</div> -->
-      <button class="go-back-btn" @click="goBack"></button>
-    </div>
+        <button class="checklist-btn btn" title="Checklist">Checklist</button>
 
-    <div v-else>Loading...</div>
+        <button @click.stop="toggleDates" class="dates-btn btn" title="Dates">
+          Dates
+        </button>
+        <date-preview
+          v-if="isDatesOn"
+          :dueDate="task.dueDate?.dueDate || Date.now()"
+          @saveDate="saveDate"
+          @closeDate="toggleDates"
+        />
 
-    <nav @click.stop class="add-task-buttons-container">
-      <p>Add to card</p>
-      <button class="members-btn btn" title="Members">Members</button>
-      <button @click.stop="toggleIsLabel" class="labels-btn btn" title="Labels">
-        Labels
-      </button>
-      <label-preview
-        v-if="isLabel"
-        :boardLabels="currBoard.labels"
-        :taskLabelIds="task.labelIds"
-        @close="toggleIsLabel"
-        @addLabelToTask="addLabelToTask"
-      />
-      <button class="checklist-btn btn" title="Checklist">Checklist</button>
-
-      <button @click.stop="toggleDates" class="dates-btn btn" title="Dates">
-        Dates
-      </button>
-      <date-preview
-        v-if="isDatesOn"
-        :dueDate="task.dueDate?.dueDate || Date.now()"
-        @saveDate="saveDate"
-        @closeDate="toggleDates"
-      />
-
-      <button
-        @click.stop="toggleAttachment"
-        class="attachment-img btn"
-        title="Attachment"
-      >
-        Attachment
-      </button>
-      <attachment-preview
-        :imgUrls="imgUrls"
-        @attachImg="attachImg"
-        v-if="isAttachOn"
-      />
-    </nav>
-  </section>
+        <button
+          @click.stop="toggleAttachment"
+          class="attachment-img btn"
+          title="Attachment"
+        >
+          Attachment
+        </button>
+        <attachment-preview
+          :imgUrls="imgUrls"
+          @attachImg="attachImg"
+          v-if="isAttachOn"
+        />
+      </nav>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -308,7 +318,7 @@ export default {
       return d.toString().slice(4, 21);
     },
     // dueDateCheckBox{
-    //   // return this.task.dueDate.isDone ? 
+    //   // return this.task.dueDate.isDone ?
     // }
     // isTaskOverdue(){
     //   return (this.task.dueDate.dueDate < date.now()) ?  {"background-color": "red"} : {"background-color": "green"}
