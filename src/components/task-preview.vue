@@ -1,9 +1,11 @@
 <template>
   <div
     @click="toTaskDetails(this.boardId, this.groupId, this.task.id)"
-    class="task-preview-container"
+    class="task-preview-container" :class="isFullImage"
   >
-    <div v-if="task.img">{{ task.img }}</div>
+  <div v-if="task.style.coverSize" :style="coverBg" class="task-preview-cover">
+
+  </div>
     <div
       class="labels-container"
       v-if="task.labelIds?.length"
@@ -144,6 +146,16 @@ export default {
     },
     openLabel() {
       return { open: this.isLabelTitle };
+    },
+    isCoverSizeTop(){
+      if (task.style.coverSize === 'top') return true
+    },
+    coverBg() {
+      console.log("background info",this.task.style);
+      return { "background-color": this.task.style.bgColor};
+    },
+    coverBgImg() {
+      return  { "background-image": this.task.style.bgImg}
     },
   },
   // methods: {

@@ -8,9 +8,10 @@
 }
 .task-details-page {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   width: 768px;
-  padding: 16px;
+  // padding: 16px;
   // height: 780px;
   min-height: 600px;
   background-color: $bg-grey;
@@ -22,6 +23,11 @@
   top: 50px;
   transform: translate(-50%, 0%);
   // pointer-events: none;
+
+  .task-details-main-content{
+    display: flex;
+    padding: 16px
+  }
 
   .task-details-container {
     width: 549px;
@@ -322,21 +328,20 @@
     }
 
     .go-back-btn {
-      background-color: $bg-grey;
+      background-color: #091e4214;
       position: absolute;
       top: 3px;
       right: 5px;
       color: $clr9;
       padding: 12px;
-      border-radius: 3px;
+      border-radius: 50%;
       border: none;
       font-size: rem(16px);
       cursor: pointer;
     }
 
     .go-back-btn:hover {
-      border-radius: 50%;
-      background-color: #091e4214;
+      background-color: #00000029;
     }
 
     .details-shown-btn {

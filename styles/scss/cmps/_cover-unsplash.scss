@@ -1,0 +1,27 @@
+.cover-unsplash-preview {
+  width: 306px;
+}
+
+.task-cover-img{
+    height: 160px;
+    display: flex;
+    justify-content: center;
+
+    img{
+        height: 100%;
+        width: auto;
+    }
+}
+
+
+  .select-solid-bgc-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 305px;
+    .bgc-option {
+      width: 50px;
+      height: 32px;
+      border-radius: 3px;
+    }
+  }

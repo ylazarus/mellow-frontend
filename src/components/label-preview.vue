@@ -1,6 +1,6 @@
 <template>
-  <section class="label-preview">
-    <div class="labels-header">
+  <section class="cmp-preview">
+    <div class="cmp-header">
       <a
         class="back-to-label-btn"
         v-if="isCreate || isChange"
