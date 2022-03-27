@@ -143,9 +143,15 @@
         min-width: fit-content;
         width: 272px;
         flex-shrink: 0;
+        border-radius: 3px;
+        transition: ease-in-out 0.3s;
     }
+
 }
 
+.add-group:hover {
+    background-color: #00000029;
+}
 .dark-mode {
     // font-size: 30px;
     // position: absolute;
