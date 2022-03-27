@@ -162,9 +162,7 @@
         </div>
         <div v-if="task.img">Images: {{ task.img }}</div>
 
-        <div v-if="task.checklists">
-          Checklists will be here{{ task.checklists }}
-        </div>
+        
         <!-- <div v-if="task.attachments">Attachments will be here{{ task.attachments }}</div> -->
         <div class="img-container" v-if="task.attachments">
           <img

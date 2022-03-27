@@ -35,7 +35,7 @@ const users = [
     },
     {
         "_id": 'u105',
-        "fullname": "Yoni Lzarus",
+        "fullname": "Yoni Lazarus",
         "username": "Yoni",
         "password": "123",
         "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",

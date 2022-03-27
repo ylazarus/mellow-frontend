@@ -12,68 +12,38 @@
         "bgImg": "src/assets/imgs/1.jpg"
     },
     "labels": [
-        {
-            "id": "l101",
-            "color": "#61bd4f",
-            "title": "Done"
-        },
-        {
-            "id": "l102",
-            "color": "#f2d600",
-            "title": "Urgent"
-        },
-        {
-            "id": "l103",
-            "color": "#ff9f1a",
-            "title": "Immediate"
-        },
-        {
-            "id": "l104",
-            "color": "#eb5a46",
-            "title": ""
-        },
-        {
-            "id": "l105",
-            "color": "#c377e0",
-            "title": ""
-        },
-        {
-            "id": "l106",
-            "color": "#0079bf",
-            "title": ""
-        },
-        {
-            "id": "l107",
-            "color": "#00c2e0",
-            "title": ""
-        },
-        {
-            "id": "l108",
-            "color": "#51e898",
-            "title": ""
-        },
-        {
-            "id": "l109",
-            "color": "#ff78cb",
-            "title": ""
-        },
-        {
-            "id": "l110",
-            "color": "#344563",
-            "title": ""
-        },
-        {
-            "id": "l111",
-            "color": "#b3bac5",
-            "title": ""
-        }
+        { id: "l101", color: "#61bd4f", title: "Done" },
+                    { id: "l102", color: "#f2d600", title: "Urgent" },
+                    { id: "l103", color: "#ff9f1a", title: "Immediate" },
+                    { id: "l104", color: "#eb5a46", title: "" },
+                    { id: "l105", color: "#c377e0", title: "" },
+                    { id: "l106", color: "#0079bf", title: "" },
     ],
     "members": [
         {
-            "_id": "u102a",
-            "fullname": "Tal Tarablus",
-            "imgUrl": ""
-        }
+            "_id": 'u105',
+            "fullname": "Yoni Lazarus",
+            "username": "Yoni",
+            "password": "123",
+            "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
+            "mentions": []
+        },
+        {
+            "_id": 'u106',
+            "fullname": "Almog Ben-Binyamin",
+            "username": "Almog",
+            "password": "123",
+            "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2021-12-10_at_16.38.26_sft38h.jpg",
+            "mentions": []
+        },
+        {
+            "_id": 'u107',
+            "fullname": "Zviki zaks",
+            "username": "Zviki",
+            "password": "123",
+            "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
+            "mentions": []
+        },
     ],
     "groups": [
         {
@@ -134,6 +104,27 @@
                             ]
                         }
                     ],
+                    "members": [
+                        {
+                            {
+                                "_id": 'u105',
+                                "fullname": "Yoni Lazarus",
+                                "username": "Yoni",
+                                "password": "123",
+                                "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
+                                "mentions": []
+                            },
+                           
+                            {
+                                "_id": 'u107',
+                                "fullname": "Zviki zaks",
+                                "username": "Zviki",
+                                "password": "123",
+                                "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
+                                "mentions": []
+                            },
+                        }
+                    ],
                     "labelIds": [
                         "l105"
                     ],
@@ -187,10 +178,30 @@
                     ],
                     "members": [
                         {
-                            "_id": "u101",
-                            "username": "Tal",
-                            "fullname": "Tal Tarablus",
-                            "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                            {
+                                "_id": 'u105',
+                                "fullname": "Yoni Lazarus",
+                                "username": "Yoni",
+                                "password": "123",
+                                "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
+                                "mentions": []
+                            },
+                            {
+                                "_id": 'u106',
+                                "fullname": "Almog Ben-Binyamin",
+                                "username": "Almog",
+                                "password": "123",
+                                "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2021-12-10_at_16.38.26_sft38h.jpg",
+                                "mentions": []
+                            },
+                            {
+                                "_id": 'u107',
+                                "fullname": "Zviki zaks",
+                                "username": "Zviki",
+                                "password": "123",
+                                "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
+                                "mentions": []
+                            },
                         }
                     ],
                     "labelIds": [
@@ -231,6 +242,27 @@
                     "id": "t-KkqBkx4T",
                     "title": "Checklists, super important to be next on our list, it adds a lot of value",
                     "createdAt": 1648369395722,
+                    "members": [
+                        {
+                            {
+                                "_id": 'u105',
+                                "fullname": "Yoni Lazarus",
+                                "username": "Yoni",
+                                "password": "123",
+                                "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
+                                "mentions": []
+                            },
+                            {
+                                "_id": 'u106',
+                                "fullname": "Almog Ben-Binyamin",
+                                "username": "Almog",
+                                "password": "123",
+                                "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2021-12-10_at_16.38.26_sft38h.jpg",
+                                "mentions": []
+                            },
+                            
+                        }
+                    ],
                     "style": {},
                     "attachments": []
                 },
@@ -273,6 +305,34 @@
                     "createdAt": 1648369464026,
                     "style": {},
                     "attachments": [],
+                    "members": [
+                        {
+                            {
+                                "_id": 'u105',
+                                "fullname": "Yoni Lazarus",
+                                "username": "Yoni",
+                                "password": "123",
+                                "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
+                                "mentions": []
+                            },
+                            {
+                                "_id": 'u106',
+                                "fullname": "Almog Ben-Binyamin",
+                                "username": "Almog",
+                                "password": "123",
+                                "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2021-12-10_at_16.38.26_sft38h.jpg",
+                                "mentions": []
+                            },
+                            {
+                                "_id": 'u107',
+                                "fullname": "Zviki zaks",
+                                "username": "Zviki",
+                                "password": "123",
+                                "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
+                                "mentions": []
+                            },
+                        }
+                    ],
                     "labelIds": [
                         "l105",
                         "l106"
