@@ -178,11 +178,11 @@ export default {
   },
   async created() {
     await this.loadTask();
-    if (!this.task.style.bgImg) {
-      this.task.style.bgImg = this.task.attachments
-        ? this.task.attachments[0]
-        : "";
-    }
+    // if (!this.task.style.bgImg) {
+    //   this.task.style.bgImg = this.task.attachments
+    //     ? this.task.attachments[0]
+    //     : "";
+    // }
     this.loading = false;
   },
   methods: {
