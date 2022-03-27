@@ -3,18 +3,18 @@
     <div class="labels-header">
       <a
         class="back-to-label-btn"
-        v-if="isCreate"
-        @click="isCreate = !isCreate"
+        v-if="isCreate || isChange"
+        @click="(isCreate = false), (isChange = false)"
       >
         <span></span>
       </a>
-      <p class="labels-container-title">Labels</p>
+      <p class="labels-container-title">{{ cmpTitle }}</p>
       <a class="add-task-close-cmp-btn" @click="closeCmp">
         <span></span>
       </a>
     </div>
     <hr />
-    <section v-if="!isCreate" class="select-label-container">
+    <section v-if="!isCreate && !isChange" class="select-label-container">
       <input
         class="label-input"
         type="text"
@@ -38,8 +38,8 @@
               <span class="label-title">{{ label.title }}</span>
               <span v-if="label.inTask" class="v-icon"></span>
             </div>
-            <span class="change-label-btn">
-              <a @click="openCreate(label.id)"></a>
+            <span class="change-label-btn" @click="openCreate(label.id)">
+              <a></a>
             </span>
           </li>
         </ul>
@@ -51,7 +51,7 @@
     <section v-else class="create-label-container">
       <label>
         <p>Name</p>
-        <input type="text" v-model="newLabelTitle" v-focus />
+        <input type="text" v-model="labelToChange.title" v-focus />
       </label>
       <p class="labels-container-title">Select a color</p>
       <div class="create-label-options-container">
@@ -65,13 +65,23 @@
           <span v-if="label.isSelected" class="v-icon"></span>
         </div>
       </div>
-      <button class="create-label-btn" @click="addLabelToBoard">Create</button>
+      <button class="create-label-btn" @click.stop="changeBoardLabels('edit')">
+        {{ createBtn }}
+      </button>
+      <button
+        v-if="isChange"
+        class="delete-label-btn"
+        @click.stop="changeBoardLabels('delete')"
+      >
+        Delete
+      </button>
     </section>
   </section>
 </template>
 
 <script>
 import { utilService } from "@/services/util-service";
+import { userService } from "../services/user-service";
 export default {
   props: {
     boardLabels: Array,
@@ -96,8 +106,10 @@ export default {
         { id: "l111", color: "#b3bac5", title: "", isSelected: false },
       ],
       isCreate: false,
-      newLabelTitle: "",
+      isChange: false,
+      // newLabelTitle: "",
       selectedLabel: null,
+      labelToChange: { color: null, title: "" },
     };
   },
   created() {
@@ -119,17 +131,55 @@ export default {
       });
     },
     openCreate(labelId) {
+      if (typeof labelId === "string") {
+        this.labelToChange = JSON.parse(
+          JSON.stringify(this.boardLabels.find((label) => label.id === labelId))
+        );
+        const defaultLabel = this.defaultLabels.find(
+          (label) => label.color === this.labelToChange.color
+        );
+        this.selectLabel(defaultLabel.id);
+        // this.newLabelTitle = this.labelToChange.title;
+        this.isChange = true;
+        return;
+      }
       this.isCreate = true;
     },
     selectLabel(labelId) {
       this.defaultLabels.forEach((label) => {
         label.isSelected = label.id === labelId ? true : false;
       });
+      const defaultLabel = this.defaultLabels.find(
+        (label) => label.id === labelId
+      );
+      this.labelToChange.color = defaultLabel.color;
     },
-    // addLabelToBoard() {
-    //   delete this.selectedLabel.isSelected;
-    //   const newLabel = JSON.parse(JSON.stringify(this.selectedLabel));
+    // async changeBoardLabels(type) {
+    //   const newLabel = JSON.parse(
+    //     JSON.stringify(this.labelToChange));
+    //     switch (type) {
+    //       case 'edit':
+    //         if (newLabel.id)
+    //         break;
+
+    //       default:
+    //         break;
+    //     }
+    //   newLabel.id = "l" + utilService.makeId();
     //   newLabel.title = this.newLabelTitle;
+    //   delete newLabel.isSelected;
+    //   if (this.isCreate) {
+    //     console.log(newLabel);
+    //     await this.$emit(
+    //       "addLabelToBoard",
+    //       JSON.parse(JSON.stringify(newLabel))
+    //     );
+    //     console.log("await");
+    //   } else {
+    //     await this.$emit("updateBoardLabels", newLabel);
+    //   }
+    //   this.isCreate = false;
+    //   this.isChange = false;
     // },
   },
   computed: {
@@ -137,7 +187,26 @@ export default {
       const regex = new RegExp(this.filterTxt, "i");
       return this.labels.filter((label) => regex.test(label.title));
     },
-    // isSelected(labelId) {},
+    // defaultLabelsToDisplay() {
+    //   let unusedLabels = [];
+    //   let usedLabelIds = this.boardLabels.map((l) => l.id);
+    //   this.defaultLabels.forEach((label) => {
+    //     if (!usedLabelIds.includes(label.id)) unusedLabels.push(label);
+    //     // if (this.isChange) {
+    //     //   if (label.isSelected) unusedLabels.push(label);
+    //     // }
+    //   });
+    //   return unusedLabels;
+    // },
+    cmpTitle() {
+      if (this.isChange) return "Change label";
+      else if (this.isCreate) return "Create label";
+      else return "Labels";
+    },
+    createBtn() {
+      if (this.isCreate) return "Create";
+      else if (this.isChange) return "Change";
+    },
   },
   watch: {
     taskLabelIds() {

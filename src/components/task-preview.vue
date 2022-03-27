@@ -13,15 +13,17 @@
         v-for="label in labelsToDisplay"
         :key="label.id"
         class="task-preview-label"
-        :class="[label.id + '-label', openLabel]"
+        :class="openLabel"
+        :style="{ backgroundColor: label.color }"
         @click.stop="toggleLabelTitle"
       >
         <span v-if="isLabelTitle" :class="openLabel">{{ label.title }}</span>
       </div>
     </div>
-    <div><img  v-if="task.attachments?.length" :src="task.attachments[0]" alt=""></div>
+    <div>
+      <img v-if="task.attachments?.length" :src="task.attachments[0]" alt="" />
+    </div>
     <div class="task-content">{{ task.title }}</div>
-    
 
     <div class="task-snapshot flex">
       <div
@@ -51,14 +53,14 @@
         {{ formattedDate }}
       </div>
       <div class="user-avatar-pos flex">
-      <user-avatar
-        class="user-avatar"
-        :v-if="task.members?.length"
-        v-for="member in task.members"
-        :key="member._id"
-        :user="member"
-      />
-    </div>
+        <user-avatar
+          class="user-avatar"
+          :v-if="task.members?.length"
+          v-for="member in task.members"
+          :key="member._id"
+          :user="member"
+        />
+      </div>
     </div>
   </div>
 </template>

@@ -1,6 +1,10 @@
 <template>
   <section v-if="board" class="board-container" :style="bgImg">
-    <router-view @updateBoard="updateBoard"></router-view>
+    <router-view
+      @updateBoard="updateBoard"
+      @addLabelToBoard="addLabelToBoard"
+      @updateBoardLabels="updateBoardLabels"
+    ></router-view>
 
     <header class="board-header flex">
       <div class="board-title-container flex">
@@ -99,13 +103,10 @@ export default {
   },
   methods: {
     async updateBoard(board) {
-      console.log("updateBoard");
-      console.log("board", board);
       const updatedBoard = await this.$store.dispatch({
         type: "saveBoard",
         board,
       });
-      console.log("updatedBoard", updatedBoard);
       this.board = updatedBoard;
     },
     onDrop(ev) {
@@ -148,31 +149,37 @@ export default {
       // if (fromGroup.tasks[0] === null) fromGroup.tasks = []
       toGroup.tasks.splice(this.dndInfo.addedIndex, 0, cardToMove);
       this.dndInfo = {};
-      this.saveBoard();
     },
 
     async loadBoard(boardId) {
       this.board = await this.$store.dispatch({ type: "loadBoard", boardId });
     },
-    async saveBoard() {
+    async saveBoard(type) {
+      const activity = {
+        id: utilService.makeId(),
+        txt: type,
+        createdAt: Date.now(),
+        // byMember: userService.getLoggedinUser() || "Guest",
+      };
+      this.board.activities.push(activity);
       this.board = await this.$store.dispatch({
         type: "saveBoard",
-        board: this.board,
+        board: JSON.parse(JSON.stringify(this.board)),
       });
     },
     async saveBoardTitle(ev) {
       const newTitle = ev.currentTarget.textContent;
       this.board.title = newTitle;
-      this.saveBoard();
+      this.saveBoard("Change board title");
     },
     async toggleFavorite() {
       this.board.isFavorite = !this.board.isFavorite;
-      this.saveBoard();
+      this.saveBoard("Toggle favorite");
     },
     async addGroup() {
       const newGroup = boardService.getEmptyGroup();
       this.board.groups.push(newGroup);
-      this.saveBoard();
+      this.saveBoard("Added a new group");
     },
     async saveGroup({ groupId, type, newValue }) {
       const updatingGroup = JSON.parse(
@@ -202,6 +209,17 @@ export default {
     },
     toggleLabelTitle() {
       this.isLabelTitle = !this.isLabelTitle;
+    },
+    async addLabelToBoard(newLabel) {
+      console.log(newLabel);
+      this.board.labels.push(newLabel);
+      await this.saveBoard("Added a new label");
+    },
+    async updateBoardLabels(newLabel) {
+      console.log(newLabel);
+      const idx = this.board.labels.findIndex((l) => l.id === newLabel.id);
+      this.board.labels.splice(idx, 1, newLabel);
+      await this.saveBoard("Added a new label");
     },
   },
   computed: {

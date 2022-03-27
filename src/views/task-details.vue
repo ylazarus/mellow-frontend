@@ -150,6 +150,8 @@
         :taskLabelIds="task.labelIds"
         @closeCmp="closeCmp"
         @addLabelToTask="addLabelToTask"
+        @addLabelToBoard="addLabelToBoard"
+        @updateBoardLabels="updateBoardLabels"
       />
       <button class="checklist-btn btn" title="Checklist">Checklist</button>
       <button
@@ -243,10 +245,7 @@ export default {
     },
     async saveTaskTitle(ev) {
       const newTitle = ev.currentTarget.textContent;
-      // this.board.title = newTitle;
-      // this.saveBoard();
       this.task.title = newTitle;
-      console.log(this.task);
       await this.saveTask("Change task title");
       this.loadTask();
     },
@@ -299,7 +298,14 @@ export default {
       await this.saveTask("Change Labels");
       this.loadTask();
     },
-
+    async addLabelToBoard(newLabel) {
+      console.log("task", newLabel);
+      await this.$emit("addLabelToBoard", newLabel);
+    },
+    async updateBoardLabels(newLabel) {
+      console.log("task", newLabel);
+      await this.$emit("updateBoardLabels", newLabel);
+    },
     async toggleDueDateDone() {
       this.task.dueDate.isCompleted = !this.task.dueDate.isCompleted;
       await this.saveTask("updated due date status");

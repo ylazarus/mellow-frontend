@@ -128,9 +128,7 @@ export default {
         },
         async saveBoard({ commit }, { board }) {
             try {
-                console.log(board);
                 const savedBoard = await boardService.save(board)
-                console.log('savedBoard', savedBoard);
                 commit({ type: 'saveBoard', savedBoard })
                 return JSON.parse(JSON.stringify(savedBoard))
             } catch (err) {
