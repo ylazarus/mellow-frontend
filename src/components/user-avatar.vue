@@ -20,9 +20,13 @@ export default {
     },
     nameAvatar() {
       if (!this.user.imgUrl) {
-        var avatar = this.user.fullname.slice(0, 2);
+        const userName = this.user.fullname.split(" ");
+        console.log(userName);
+        var avatar = "";
+        userName.forEach((w) => {
+          avatar += w.charAt(0);
+        });
         return avatar.toUpperCase();
-        //   return avatar;
       }
     },
   },

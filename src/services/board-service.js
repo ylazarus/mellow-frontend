@@ -133,18 +133,19 @@ function _createBoards() {
                     { id: "l104", color: "#eb5a46", title: "" },
                     { id: "l105", color: "#c377e0", title: "" },
                     { id: "l106", color: "#0079bf", title: "" },
-                    { id: "l107", color: "#00c2e0", title: "" },
-                    { id: "l108", color: "#51e898", title: "" },
-                    { id: "l109", color: "#ff78cb", title: "" },
-                    { id: "l110", color: "#344563", title: "" },
-                    { id: "l111", color: "#b3bac5", title: "" },
                 ],
                 "members": [
                     {
                         "_id": "u102a",
                         "fullname": "Tal Tarablus",
                         "imgUrl": ""
-                    }
+                    },
+                    {
+                        "_id": "u102a",
+                        "fullname": "Zvi zaks",
+                        "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
+                    },
+
                 ],
                 "groups": [
                     {
@@ -240,7 +241,12 @@ function _createBoards() {
                                         "username": "Tal",
                                         "fullname": "Tal Tarablus",
                                         "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-                                    }
+                                    },
+                                    {
+                                        "_id": "u102a",
+                                        "fullname": "Zvi zaks",
+                                        "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
+                                    },
                                 ],
                                 "labelIds": [
                                     "l107",
@@ -273,7 +279,7 @@ function _createBoards() {
                     {
                         "id": "a101",
                         "txt": "Changed Color",
-                        "createdAt": 154514,
+                        "createdAt": Date.now() - 154514,
                         "byMember": {
                             "_id": "u101",
                             "fullname": "Abi Abambi",
@@ -292,7 +298,7 @@ function _createBoards() {
                 "isFavorite": true,
                 "createdAt": Date.now(),
                 "createdBy": {
-                    "_id": utilService.makeId(),
+                    "_id": "u104a",
                     "fullname": "Jo Abramovich",
                     "imgUrl": ""
                 },
@@ -300,22 +306,11 @@ function _createBoards() {
                     'bgImg': 'src/assets/imgs/2.jpg',
                 },
                 "labels": [
-                    {
-                        "id": 'L321',
-                        "title": "Done",
-                        "color": "#0079bf"
-                    },
-                    {
-                        "id": 'L654',
-                        "title": "Progress",
-                        "color": "#ff78cb"
-                    },
-                    {
-                        "id": 'L681',
-                        "title": "Progress",
-                        "color": "#b3bac5"
-                    }
-
+                    { id: "l101", color: "#61bd4f", title: "Done" },
+                    { id: "l102", color: "#f2d600", title: "Urgent" },
+                    { id: "l103", color: "#ff9f1a", title: "Immediate" },
+                    { id: "l106", color: "#0079bf", title: "progress" },
+                    { id: "l107", color: "#00c2e0", title: "" },
                 ],
                 "members": [
                     {
@@ -371,7 +366,7 @@ function _createBoards() {
                                 ],
                                 "checklists": [],
                                 "members": [],
-                                "labelIds": [],
+                                "labelIds": ['l106', 'l107'],
                                 "createdAt": 1590999730348,
 
                                 "byMember": {
@@ -398,7 +393,7 @@ function _createBoards() {
                 "isFavorite": true,
                 "createdAt": Date.now(),
                 "createdBy": {
-                    "_id": utilService.makeId(),
+                    "_id": "u104a",
                     "fullname": "Jo Abramovich",
                     "imgUrl": ""
                 },
@@ -406,21 +401,11 @@ function _createBoards() {
                     'bgImg': 'src/assets/imgs/3.jpg',
                 },
                 "labels": [
-                    {
-                        "id": 'L951',
-                        "title": "Done",
-                        "color": "#61bd4f"
-                    },
-                    {
-                        "id": 'L753',
-                        "title": "Progress",
-                        "color": "#00c2e0"
-                    },
-                    {
-                        "id": 'L482',
-                        "title": "Progress",
-                        "color": "#b3bac5"
-                    }
+                    { id: "l105", color: "#c377e0", title: "Done" },
+                    { id: "l106", color: "#0079bf", title: "" },
+                    { id: "l107", color: "#00c2e0", title: "Urgent" },
+                    { id: "l108", color: "#51e898", title: "" },
+                    { id: "l109", color: "#ff78cb", title: "" },
 
                 ],
                 "members": [
@@ -441,7 +426,8 @@ function _createBoards() {
                             },
                             {
                                 "id": utilService.makeId(),
-                                "title": "Add Samples"
+                                "title": "Add Samples",
+                                labelIds: ['l105', 'l109'],
                             }
                         ],
                         "style": {}
@@ -452,7 +438,9 @@ function _createBoards() {
                         "tasks": [
                             {
                                 "id": utilService.makeId(),
-                                "title": "Do this"
+                                "title": "Do this",
+                                labelIds: ['l103', 'l107']
+
                             },
                             {
                                 "id": utilService.makeId(),
@@ -477,7 +465,7 @@ function _createBoards() {
                                 ],
                                 "checklists": [],
                                 "members": [],
-                                "labelIds": [],
+                                labelIds: ['l108', 'l106'],
                                 "createdAt": 1590999730348,
 
                                 "byMember": {
@@ -504,7 +492,7 @@ function _createBoards() {
                 "isFavorite": true,
                 "createdAt": Date.now(),
                 "createdBy": {
-                    "_id": utilService.makeId(),
+                    "_id": "u104a",
                     "fullname": "Jo Abramovich",
                     "imgUrl": ""
                 },
@@ -512,22 +500,11 @@ function _createBoards() {
                     'bgImg': 'src/assets/imgs/4.jpg',
                 },
                 "labels": [
-                    {
-                        "id": 'L951',
-                        "title": "Done",
-                        "color": "#ff78cb"
-                    },
-                    {
-                        "id": 'L753',
-                        "title": "Progress",
-                        "color": "#eb5a46"
-                    },
-                    {
-                        "id": 'L482',
-                        "title": "Progress",
-                        "color": "#f2d600"
-                    }
-
+                    { id: "l107", color: "#00c2e0", title: "" },
+                    { id: "l108", color: "#51e898", title: "" },
+                    { id: "l109", color: "#ff78cb", title: "" },
+                    { id: "l110", color: "#344563", title: "" },
+                    { id: "l111", color: "#b3bac5", title: "" },
                 ],
                 "members": [
                     {
@@ -583,7 +560,7 @@ function _createBoards() {
                                 ],
                                 "checklists": [],
                                 "members": [],
-                                "labelIds": [],
+                                "labelIds": ['l110', 'l109'],
                                 "createdAt": 1590999730348,
 
                                 "byMember": {
