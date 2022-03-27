@@ -25,7 +25,7 @@
 
   .task-details-container {
     width: 549px;
-    .task-title::before {
+    .task-title-container::before {
       font-family: trellicons;
       margin-inline-end: 15px;
       margin-top: 1px;
@@ -33,7 +33,7 @@
       content: "";
     }
 
-    .task-title {
+    .task-title-container {
       display: flex;
       justify-content: flex-start;
       margin: 0;
@@ -42,6 +42,13 @@
       font-family: segoeui-bold, sans-serif;
       font-size: 20px;
       color: $text-color;
+
+      .task-title {
+        padding: 4px;
+        height: 32px;
+        margin: 0;
+        flex-grow: 1;
+      }
     }
 
     .task-group-title {
