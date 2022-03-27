@@ -19,7 +19,7 @@
         :key="bgc.id"
         class="bgc-option flex pointer"
         :style="{ backgroundColor: bgc.color }"
-        @click="selectBg(bgc.color)"
+        @click.stop="selectBg(bgc.color)"
       ></div>
     </div>
   </section>
@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      currBg: {},
+      currStyle: {},
       bgColors: [
         { id: "l101", color: "#61bd4f", isSelected: false },
         { id: "l102", color: "#f2d600", isSelected: false },
@@ -51,8 +51,8 @@ export default {
     };
   },
   created() {
-    this.currBg = this?.bg || {};
-    if (!this.currBg.coverSize) this.currBg.coverSize = "full";
+    this.currStyle = this?.bg || {};
+    if (!this.currStyle.coverSize) this.currStyle.coverSize = "top";
   },
 
   setup(props, context) {
@@ -68,14 +68,14 @@ export default {
   },
   methods: {
     selectBg(bgColor) {
-      this.currBg.bgColor = bgColor;
-      this.$emit("addBg", this.currBg);
+      this.currStyle.bgColor = bgColor;
+      this.$emit("addBg", this.currStyle);
     },
     closeCmp() {
       this.$emit("closeCmp");
     },
     selectCoverSize(size) {
-      this.currTask.bg.coverSize = size;
+      this.currStyle.coverSize = size;
     },
   },
 };

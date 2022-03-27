@@ -154,11 +154,12 @@ import labelPreview from "../components/label-preview.vue";
 import membersPreview from "../components/members-preview.vue";
 import { utilService } from "../services/util-service";
 import { useThrottledRefHistory } from "@vueuse/core";
-import CoverUnsplash from "../components/cover-unsplash.vue";
+import coverUnsplash from "../components/cover-unsplash.vue";
 
 export default {
   data() {
     return {
+      loading: true,
       task: null,
       imgUrls: [],
       currBoard: null,
@@ -171,14 +172,18 @@ export default {
         isAttachOn: false,
         isDatesOn: false,
         isMembers: false,
-        isCover: false
+        isCover: false,
       },
     };
   },
   async created() {
     await this.loadTask();
-    if (!this.task.bg) this.task.bg = {}
-    this.task.bg.bgImg = this.task?.attachments[0] || ''
+    if (!this.task.style.bgImg) {
+      this.task.style.bgImg = this.task.attachments
+        ? this.task.attachments[0]
+        : "";
+    }
+    this.loading = false;
   },
   methods: {
     async loadTask() {
@@ -200,12 +205,11 @@ export default {
       this.$router.push(`/board/${currBoard._id}`);
       document.body.classList.remove("dark-mode");
     },
-    async addBg(bg) {
-      this.task.bg = bg
-      await this.saveTask("Added background");
+    async addBg(style) {
+      this.task.style = style;
+      await this.saveTask("Updated background");
       this.closeCmp();
       this.loadTask();
-
     },
     openCmp(type) {
       for (let key in this.handles) {
@@ -333,12 +337,15 @@ export default {
         return true;
       }
     },
+    // need to continue here tomorrow, if bgcolor is selected, return it, otherwise img
+    // need to add to object which  is selected
+    // need to update the css and need to figure out how to make it work, is it a prob of syncronous loading?
     coverBg() {
-      return { "background-color": this.task?.bg?.bgImg || '#FFF' }
+      return { "background-color": this.task?.style?.bgColor || "#FFF", "height": "100px" };
     },
     coverBgImg() {
-      return this.task?.bg?.bgImg || ''
-    }
+      return ({ "background-image": this.task?.style?.bgImg || "", "height": "160px" })
+    },
   },
   components: {
     userAvatar,
@@ -346,7 +353,7 @@ export default {
     datePreview,
     labelPreview,
     membersPreview,
-    CoverUnsplash
+    coverUnsplash
   },
 }
 // };

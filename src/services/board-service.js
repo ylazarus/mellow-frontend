@@ -190,11 +190,12 @@ function _createBoards() {
                         "tasks": [
                             {
                                 "id": "c101",
-                                "title": "Replace logo"
+                                "title": "Replace logo",
+                                "style": {}
                             },
                             {
                                 "id": "t-nMLMX279",
-                                "title": "Remove exess pixels between group-list and scroll bar",
+                                "title": "Remove excess pixels between group-list and scroll bar",
                                 "createdAt": 1648369020184,
                                 "style": {},
                                 "attachments": [],
@@ -229,7 +230,8 @@ function _createBoards() {
                         "tasks": [
                             {
                                 "id": "c103",
-                                "title": "Archive instead of Delete"
+                                "title": "Archive instead of Delete",
+                                "style": {}
                             },
                             {
                                 "id": "c104",
@@ -247,6 +249,7 @@ function _createBoards() {
                                         ]
                                     }
                                 ],
+                                "style": {},
                                 "members": [
                                     {
                                         "_id": "u105",
@@ -368,9 +371,7 @@ function _createBoards() {
                                     "fullname": "Tal Tarablus",
                                     "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                                 },
-                                "style": {
-                                    "bgColor": "#26de81"
-                                },
+                                "style": {},
                                 "dueDate": {
                                     "dueDate": "2022-03-29T21:40:27.228Z",
                                     "isCompleted": false
