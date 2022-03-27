@@ -215,6 +215,9 @@ function _createBoards() {
                                 "style": {},
                                 "attachments": [
                                     "http://res.cloudinary.com/cajan22a/image/upload/v1648373054/books-g629e7f9c8_640_ihanz0.jpg"
+                                ],
+                                "labelIds": [
+                                    "l101"
                                 ]
                             }
                         ],
@@ -263,13 +266,23 @@ function _createBoards() {
                                     }
                                 ],
                                 "labelIds": [
-                                    "l105",
                                     "l102",
                                     "l103",
-                                    "l104",
-                                    "l106"
+                                    "l104"
                                 ],
                                 "description": "Toggle should change image on task preview"
+                            },
+                            {
+                                "id": "t-PiYcSy3j",
+                                "title": "Cover photo, make sure the first added is the default, subsequent ones can be changed manually to be the cover photos",
+                                "createdAt": 1648369148256,
+                                "style": {},
+                                "attachments": [],
+                                "description": "Trello has this as its default, looks really nice",
+                                "dueDate": {
+                                    "dueDate": "2022-03-27T09:30:00.000Z",
+                                    "isCompleted": false
+                                }
                             },
                             {
                                 "id": "c105",
@@ -345,7 +358,8 @@ function _createBoards() {
                                 ],
                                 "labelIds": [
                                     "l107",
-                                    "l108"
+                                    "l108",
+                                    "l103"
                                 ],
                                 "createdAt": 1590999730348,
                                 "byMember": {
@@ -364,18 +378,6 @@ function _createBoards() {
                                 "attachments": [
                                     "http://res.cloudinary.com/cajan22a/image/upload/v1648363384/Headshot_Yoni_2021_gkcpbo.jpg"
                                 ]
-                            },
-                            {
-                                "id": "t-PiYcSy3j",
-                                "title": "Cover photo, make sure the first added is the default, subsequent ones can be changed manually to be the cover photos",
-                                "createdAt": 1648369148256,
-                                "style": {},
-                                "attachments": [],
-                                "description": "Trello has this as its default, looks really nice",
-                                "dueDate": {
-                                    "dueDate": "2022-03-27T09:30:00.000Z",
-                                    "isCompleted": false
-                                }
                             },
                             {
                                 "id": "t-KkqBkx4T",
@@ -435,7 +437,7 @@ function _createBoards() {
                         "tasks": [
                             {
                                 "id": "t-J6zOG2sn",
-                                "title": "Take a few pi",
+                                "title": "Take a few pictures from the internet for demo data",
                                 "createdAt": 1648368936226,
                                 "style": {},
                                 "attachments": [],
@@ -534,6 +536,20 @@ function _createBoards() {
                                 "attachments": [],
                                 "labelIds": [
                                     "l105"
+                                ]
+                            },
+                            {
+                                "id": "t-U5qT2Gud",
+                                "title": "Full working filter",
+                                "createdAt": 1648373985129,
+                                "style": {},
+                                "attachments": [],
+                                "dueDate": {
+                                    "dueDate": "2022-03-28T14:00:00.000Z",
+                                    "isCompleted": false
+                                },
+                                "labelIds": [
+                                    "l102"
                                 ]
                             }
                         ],
@@ -1187,6 +1203,135 @@ function _createBoards() {
                         "txt": "Change Labels",
                         "groupId": "g102",
                         "createdAt": 1648373186906,
+                        "task": {
+                            "id": "c104",
+                            "title": "Proper layout and full CRUD of images"
+                        }
+                    },
+                    {
+                        "id": "ZTDq4Kag",
+                        "txt": "Change Labels",
+                        "groupId": "g-Wen1SpyZ",
+                        "createdAt": 1648373683999,
+                        "task": {
+                            "id": "t-yNkTEECH",
+                            "title": "Reduce number of default labels on the boards to maximim of 6"
+                        }
+                    },
+                    {
+                        "id": "5UCdn61P",
+                        "txt": "Change Labels",
+                        "groupId": "g-Wen1SpyZ",
+                        "createdAt": 1648373687858,
+                        "task": {
+                            "id": "t-yNkTEECH",
+                            "title": "Reduce number of default labels on the boards to maximim of 6"
+                        }
+                    },
+                    {
+                        "id": "DLtWg9TA",
+                        "txt": "Change Labels",
+                        "groupId": "g101",
+                        "createdAt": 1648373886086,
+                        "task": {
+                            "id": "t-TI4ANfXQ",
+                            "title": "Render the photos to task preview"
+                        }
+                    },
+                    {
+                        "id": "hgAfsbaq",
+                        "txt": "updated due date status",
+                        "groupId": "g-Wen1SpyZ",
+                        "createdAt": 1648373919422,
+                        "task": {
+                            "id": "t-yNkTEECH",
+                            "title": "Reduce number of default labels on the boards to maximim of 6"
+                        }
+                    },
+                    {
+                        "id": "Zgxes34w",
+                        "txt": "updated due date status",
+                        "groupId": "g-Wen1SpyZ",
+                        "createdAt": 1648373921247,
+                        "task": {
+                            "id": "t-yNkTEECH",
+                            "title": "Reduce number of default labels on the boards to maximim of 6"
+                        }
+                    },
+                    {
+                        "id": "cpklmrLH",
+                        "txt": "updated due date status",
+                        "groupId": "g-Wen1SpyZ",
+                        "createdAt": 1648373941156,
+                        "task": {
+                            "id": "t-yNkTEECH",
+                            "title": "Reduce number of default labels on the boards to maximim of 6"
+                        }
+                    },
+                    {
+                        "id": "2HzfmzeT",
+                        "txt": "updated due date status",
+                        "groupId": "g-Wen1SpyZ",
+                        "createdAt": 1648373950964,
+                        "task": {
+                            "id": "t-yNkTEECH",
+                            "title": "Reduce number of default labels on the boards to maximim of 6"
+                        }
+                    },
+                    {
+                        "id": "PFGtTe2z",
+                        "txt": "add task",
+                        "createdAt": 1648373985130,
+                        "group": {
+                            "id": "g-va8kuIE2",
+                            "title": "For later this week"
+                        }
+                    },
+                    {
+                        "id": "GvqmcnAR",
+                        "txt": "Updated due date",
+                        "groupId": "g-va8kuIE2",
+                        "createdAt": 1648374000642,
+                        "task": {
+                            "id": "t-U5qT2Gud",
+                            "title": "Full working filter"
+                        }
+                    },
+                    {
+                        "id": "EEOxWqqY",
+                        "txt": "Change Labels",
+                        "groupId": "g-va8kuIE2",
+                        "createdAt": 1648374006294,
+                        "task": {
+                            "id": "t-U5qT2Gud",
+                            "title": "Full working filter"
+                        }
+                    },
+                    {
+                        "id": "hEqZEU2e",
+                        "txt": "Change Labels",
+                        "groupId": "g102",
+                        "createdAt": 1648375093084,
+                        "task": {
+                            "id": "c105",
+                            "title": "Render and add comments"
+                        }
+                    },
+                    {
+                        "id": "ptnvPaty",
+                        "txt": "Change Labels",
+                        "groupId": "g102",
+                        "createdAt": 1648375269313,
+                        "task": {
+                            "id": "c104",
+                            "title": "Proper layout and full CRUD of images"
+                        }
+                    },
+                    {
+                        "id": "pSWmQ9Gt",
+                        "txt": "Change Labels",
+                        "groupId": "g102",
+                        "createdAt": 1648375269877,
                         "task": {
                             "id": "c104",
                             "title": "Proper layout and full CRUD of images"
