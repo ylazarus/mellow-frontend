@@ -47,6 +47,11 @@
   &:hover {
     background-color: $card-grey-hover;
   }
+
+}
+
+.user-avatar-pos >*{
+  object-fit: cover;
 }
 
 .attachment-img-preview::before {
