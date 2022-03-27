@@ -4,9 +4,7 @@
     <div v-if="task" class="task-details-container">
       <!-- title needs to become text area in the future -->
       <h3 class="task-title-container">
-        <p class="task-title" contenteditable="true" @blur="saveTaskTitle">
-          {{ task.title }}
-        </p>
+        <p class="task-title" contenteditable="true" @blur="saveTaskTitle">{{ task.title }}</p>
       </h3>
       <p class="task-group-title">in list {{ currGroup.title }}</p>
 
@@ -101,7 +99,13 @@
     <nav @click.stop class="add-task-buttons-container">
       <p>Add to card</p>
       <button @click.stop="openCmp('isMembers')" class="members-btn btn" title="Members">Members</button>
-      <members-preview />
+      <members-preview
+        v-if="handles.isMembers"
+        :boardMembers="currBoard.members"
+        :task="task"
+        @closeCmp="closeCmp"
+        @toggleMemberInTask="toggleMemberInTask"
+      />
       <button @click.stop="openCmp('isLabel')" class="labels-btn btn" title="Labels">Labels</button>
       <label-preview
         v-if="handles.isLabel"
@@ -138,7 +142,9 @@ import userAvatar from "../components/user-avatar.vue";
 import attachmentPreview from "../components/attachment-preview.vue";
 import datePreview from "../components/date-preview.vue";
 import labelPreview from "../components/label-preview.vue";
+import membersPreview from "../components/members-preview.vue";
 import { utilService } from "../services/util-service";
+import { useThrottledRefHistory } from "@vueuse/core";
 
 export default {
   data() {
@@ -250,7 +256,14 @@ export default {
       await this.saveTask("Change Labels");
       this.loadTask();
     },
-
+    async toggleMemberInTask(memberToAdd) {
+      if (!this.task.members) this.task.members = [];
+      const idx = this.task.members.findIndex(member => member._id === memberToAdd._id)
+      if (idx === -1) this.task.members.push(memberToAdd)
+      else this.task.members.splice(idx, 1)
+      await this.saveTask("Added member");
+      this.loadTask();
+    },
     async toggleDueDateDone() {
       this.task.dueDate.isCompleted = !this.task.dueDate.isCompleted;
       await this.saveTask("updated due date status");
