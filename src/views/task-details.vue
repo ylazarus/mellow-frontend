@@ -40,9 +40,74 @@
           <div class="due-date-container" v-if="task.dueDate">
             <p class="due-date-title">Due date</p>
             <div class="displayed-date-checkbox">
-              <span>{{ dueDateCheckBox }}</span>
+              <img
+                @click="toggleDueDateDone"
+                class="due-date-checkbox"
+                :src="dueDateCheckBox"
+                alt=""
+              />
               <span>{{ formattedDate }}</span>
-              <span>{{ completeOverdue }}</span>
+              <span
+                class="completed-overdue-label l101-label"
+                v-if="task.dueDate.isCompleted"
+                >Completed</span
+              >
+              <span
+                class="completed-overdue-label l104-label"
+                v-if="overdue && !task.dueDate.isCompleted"
+                >Overdue</span
+              >
+              <img
+                @click="toggleDates"
+                src="src/assets/svgs/arrow-down.svg"
+                alt=""
+              />
+            </div>
+          </div>
+        </section>
+
+        <section class="edit-description-container">
+          <div v-if="task.description" class="description-container">
+            <div class="description-header-container flex">
+              <p class="description-header">Description</p>
+              <button @click="addDescription" class="edit-description-btn btn">
+                Edit
+              </button>
+            </div>
+            <p class="task-description">{{ task.description }}</p>
+          </div>
+          <div v-else class="add-edit-description-container">
+            <p class="description-header">Description</p>
+            <div
+              class="fake-text-area"
+              v-if="!addingDescription"
+              @click="addDescription"
+            >
+              Add a more detailed description...
+            </div>
+            <div v-else class="add-description-container">
+              <textarea
+                v-focus
+                v-model="newDescription"
+                class="description-text-area"
+                placeholder="Add a more detailed description..."
+              />
+              <div class="add-description-buttons-container flex">
+                <button
+                  class="save-description-btn btn"
+                  @click="saveDescription"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+            <div class="due-date-container" v-if="task.dueDate">
+              <p class="due-date-title">Due date</p>
+              <div class="displayed-date-checkbox">
+                <span>{{ dueDateCheckBox }}</span>
+                <span>{{ formattedDate }}</span>
+                <span>{{ completeOverdue }}</span>
+              </div>
             </div>
           </div>
         </section>
@@ -133,6 +198,7 @@
           @close="toggleIsLabel"
           @addLabelToTask="addLabelToTask"
         />
+
         <button class="checklist-btn btn" title="Checklist">Checklist</button>
 
         <button @click.stop="toggleDates" class="dates-btn btn" title="Dates">
@@ -206,6 +272,7 @@ export default {
       const task = this.currGroup.tasks.find((task) => task.id === taskId);
       this.task = JSON.parse(JSON.stringify(task));
       this.newDescription = this.task.description;
+      this.imgUrls = this.task.attachments;
     },
     goBack() {
       const currBoard = this.$store.getters.getCurrBoard;
@@ -279,6 +346,11 @@ export default {
       console.log("isDatesOn", this.isDatesOn);
       console.log("isAttachOn", this.isAttachOn);
     },
+    async toggleDueDateDone() {
+      this.task.dueDate.isCompleted = !this.task.dueDate.isCompleted;
+      await this.saveTask("updated due date status");
+      this.loadTask();
+    },
 
     // closeAllModals() {
     //   if (this.isAttachOn) this.isDatesOn = false
@@ -291,11 +363,12 @@ export default {
       if (!this.task.attachments) this.task.attachments = [];
       this.task.attachments.push(img.url);
       await this.saveTask("added image");
+      this.loadTask();
       // console.log(img);
       console.log("img url", img.url);
       console.log("task attachment", this.task.attachments);
       // console.log('task with img', task);
-      this.imgUrls.push(...this.task.attachments);
+      // this.imgUrls.push(...this.task.attachments); // yoni removed this temporarily
       // this.imgUrls.push(img.url);
     },
     toggleIsLabel() {
@@ -317,12 +390,18 @@ export default {
       var d = new Date(this.task.dueDate.dueDate);
       return d.toString().slice(4, 21);
     },
-    // dueDateCheckBox{
-    //   // return this.task.dueDate.isDone ?
-    // }
-    // isTaskOverdue(){
-    //   return (this.task.dueDate.dueDate < date.now()) ?  {"background-color": "red"} : {"background-color": "green"}
-    // }
+    dueDateCheckBox() {
+      return this.task.dueDate.isCompleted
+        ? "src/assets/svgs/full-checkbox.svg"
+        : "src/assets/svgs/empty-checkbox.svg";
+    },
+    overdue() {
+      const date = new Date(this.task.dueDate.dueDate);
+      const ms = date.getTime();
+      if (ms < Date.now()) {
+        return true;
+      }
+    },
   },
   components: {
     userAvatar,

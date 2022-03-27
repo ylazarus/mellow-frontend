@@ -115,10 +115,6 @@ export default {
       if (ms < Date.now()) {
         return this.task.dueDate.isCompleted ? "l101-label" : "l104-label";
       } else return;
-      // return this.task.dueDate.isCompleted
-      //   ? { "background-color": "green" }
-      //   : { "background-color": "red" };
-      // } else return {};
     },
     labelsToDisplay() {
       const labels = this.$store.getters.getCurrBoard.labels.filter((label) => {
