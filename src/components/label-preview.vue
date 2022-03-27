@@ -1,15 +1,15 @@
 <template>
-  <section class="label-preview">
-    <div class="labels-header">
+  <section class="cmp-preview">
+    <div class="cmp-header">
       <a
-        class="back-to-label-btn"
+        class="back-to-cmp-btn"
         v-if="isCreate"
         @click="isCreate = !isCreate"
       >
         <span></span>
       </a>
-      <p class="labels-container-title">Labels</p>
-      <a class="add-task-close-cmp-btn" @click="closeCmp">
+      <p class="cmp-container-title">Labels</p>
+      <a class="close-cmp-btn" @click="closeCmp">
         <span></span>
       </a>
     </div>
