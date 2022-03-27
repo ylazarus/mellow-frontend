@@ -21,7 +21,7 @@
     </div>
     <div class="task-content">{{ task.title }}</div>
     <!-- <div v-if="task.img">{{ task.img }}</div> -->
-    <div class="user-avatar-pos">
+    <div class="user-avatar-pos flex">
       <user-avatar
         class="user-avatar"
         :v-if="task.members?.length"

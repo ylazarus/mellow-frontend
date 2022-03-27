@@ -133,11 +133,6 @@ function _createBoards() {
                     { id: "l104", color: "#eb5a46", title: "" },
                     { id: "l105", color: "#c377e0", title: "" },
                     { id: "l106", color: "#0079bf", title: "" },
-                    { id: "l107", color: "#00c2e0", title: "" },
-                    { id: "l108", color: "#51e898", title: "" },
-                    { id: "l109", color: "#ff78cb", title: "" },
-                    { id: "l110", color: "#344563", title: "" },
-                    { id: "l111", color: "#b3bac5", title: "" },
                 ],
                 "members": [
                     {
@@ -148,7 +143,7 @@ function _createBoards() {
                     {
                         "_id": "u102a",
                         "fullname": "Zvi zaks",
-                        "imgUrl": ""
+                        "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
                     },
 
                 ],
@@ -246,7 +241,12 @@ function _createBoards() {
                                         "username": "Tal",
                                         "fullname": "Tal Tarablus",
                                         "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-                                    }
+                                    },
+                                    {
+                                        "_id": "u102a",
+                                        "fullname": "Zvi zaks",
+                                        "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
+                                    },
                                 ],
                                 "labelIds": ["l101", "l102"],
                                 "createdAt": 1590999730348,
@@ -300,8 +300,6 @@ function _createBoards() {
                     { id: "l101", color: "#61bd4f", title: "Done" },
                     { id: "l102", color: "#f2d600", title: "Urgent" },
                     { id: "l103", color: "#ff9f1a", title: "Immediate" },
-                    { id: "l104", color: "#eb5a46", title: "" },
-                    { id: "l105", color: "#c377e0", title: "" },
                     { id: "l106", color: "#0079bf", title: "progress" },
                     { id: "l107", color: "#00c2e0", title: "" },
                 ],
@@ -359,7 +357,7 @@ function _createBoards() {
                                 ],
                                 "checklists": [],
                                 "members": [],
-                                "labelIds": ['l106', 'l105'],
+                                "labelIds": ['l106', 'l107'],
                                 "createdAt": 1590999730348,
 
                                 "byMember": {
@@ -399,8 +397,6 @@ function _createBoards() {
                     { id: "l107", color: "#00c2e0", title: "Urgent" },
                     { id: "l108", color: "#51e898", title: "" },
                     { id: "l109", color: "#ff78cb", title: "" },
-                    { id: "l110", color: "#344563", title: "" },
-                    { id: "l111", color: "#b3bac5", title: "" },
 
                 ],
                 "members": [
@@ -460,7 +456,7 @@ function _createBoards() {
                                 ],
                                 "checklists": [],
                                 "members": [],
-                                labelIds: ['l104', 'l106'],
+                                labelIds: ['l108', 'l106'],
                                 "createdAt": 1590999730348,
 
                                 "byMember": {
@@ -495,12 +491,6 @@ function _createBoards() {
                     'bgImg': 'src/assets/imgs/4.jpg',
                 },
                 "labels": [
-                    { id: "l101", color: "#61bd4f", title: "Done" },
-                    { id: "l102", color: "#f2d600", title: "Urgent" },
-                    { id: "l103", color: "#ff9f1a", title: "Immediate" },
-                    { id: "l104", color: "#eb5a46", title: "" },
-                    { id: "l105", color: "#c377e0", title: "" },
-                    { id: "l106", color: "#0079bf", title: "" },
                     { id: "l107", color: "#00c2e0", title: "" },
                     { id: "l108", color: "#51e898", title: "" },
                     { id: "l109", color: "#ff78cb", title: "" },
@@ -561,7 +551,7 @@ function _createBoards() {
                                 ],
                                 "checklists": [],
                                 "members": [],
-                                "labelIds": ['l101', 'l103'],
+                                "labelIds": ['l110', 'l109'],
                                 "createdAt": 1590999730348,
 
                                 "byMember": {
