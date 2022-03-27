@@ -277,10 +277,20 @@ export default {
       this.loadTask();
     },
     async toggleMemberInTask(memberToAdd) {
+      console.log('memberToAdd', memberToAdd);
+      // console.log('task', this.task);
       if (!this.task.members) this.task.members = [];
+      // if (!this.task.members.isCheck) this.task.members.isCheck = [];
+      console.log('task', this.task);
       const idx = this.task.members.findIndex(member => member._id === memberToAdd._id)
-      if (idx === -1) this.task.members.push(memberToAdd)
-      else this.task.members.splice(idx, 1)
+      if (idx === -1) {
+        this.task.members.push(memberToAdd)
+        this.task.members.isCheck = true
+      }
+      else {
+        this.task.members.splice(idx, 1)
+        this.task.members.isCheck = false
+      }
       await this.saveTask("Added member");
       this.loadTask();
     },

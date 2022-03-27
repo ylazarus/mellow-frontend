@@ -1,29 +1,26 @@
 <template>
     <section class="members-preview">
-        <div>
-            <span>Members</span>
-            <a @click="closeCmp" class="pointer">X</a>
+        <div class="members-preview-header flex">
+            <span class="cmp-header-title">Members</span>
+            <a @click="closeCmp" class="close-members-preview pointer">X</a>
         </div>
-        <div>
-            <div>
-                <input type="text" placeholder="Search Members" />
+        <hr />
+        <div class="members-container">
+            <div class="input-container">
+                <input class="members-filter" type="text" placeholder="Search Members" />
             </div>
-            <h4>Board members</h4>
-            <ul v-for="member in boardMembers" :key="member._id">
-                <li>
-                    <!-- <div class="board-members-container flex">
-                        <user-avatar
-                            :v-if="task.members"
-                            v-for="member in task.member"
-                            :key="member._id"
-                            :user="member"
-                        />
-                    </div>-->
-                    <!-- <pre>{{ member }}</pre> -->
-                    <div
-                        @click="toggleMemberInTask(member)"
-                        class="pointer"
-                    >{{ member.fullname }}{{ ` (${member.username})` }}</div>
+            <h4 class="members-preview-title">Board members</h4>
+            <ul class="board-members-container">
+                <li
+                    class="board-member pointer"
+                    v-for="member in boardMembers"
+                    :key="member._id"
+                    @click="toggleMemberInTask(member)"
+                >
+                    <user-avatar :user="member" />
+                    <div>{{ member.fullname }}{{ ` (${member.username})` }}</div>
+                    <!-- <pre>{{ task }}</pre> -->
+                    <!-- <div v-if="member.isCheck" class="member-check"></div> -->
                 </li>
                 <div></div>
             </ul>
@@ -43,7 +40,9 @@ export default {
         userAvatar
     },
     data() {
-        return {}
+        return {
+            isCheck: false
+        }
     },
     created() { },
     methods: {
@@ -53,6 +52,8 @@ export default {
         },
         toggleMemberInTask(member) {
             // console.log(' from members-preview', member);
+            this.isCheck = !this.isCheck
+            console.log();
             this.$emit('toggleMemberInTask', member)
         }
     },

@@ -57,22 +57,22 @@ export default {
         },
         saveGroup(state, { boardId, group }) {
             const updatingBoard = state.boards.find(b => b._id === boardId)
-            console.log('boardId', boardId);
-            console.log('group', group);
-            console.log(updatingBoard);
+            // console.log('boardId', boardId);
+            // console.log('group', group);
+            // console.log(updatingBoard);
             const idx = updatingBoard.groups.findIndex(g => g.id === group.id)
-            console.log(idx);
+            // console.log(idx);
             if (idx === -1) return updatingBoard.groups.push(group)
             updatingBoard.groups.splice(idx, 1, group)
             state.currBoard = updatingBoard
         },
         saveTask(state, { boardId, groupId, task }) {
-            console.log(boardId, groupId, task);
+            // console.log(boardId, groupId, task);
             const updatingBoard = state.boards.find(b => b._id === boardId)
             const updatingGroup = updatingBoard.groups.find(g => g.id === groupId)
-            console.log(updatingGroup);
+            // console.log(updatingGroup);
             const idx = updatingGroup.tasks.findIndex(t => t.id === task.id)
-            console.log(idx);
+            // console.log(idx);
             if (idx === -1) return updatingGroup.tasks.push(task)
             updatingGroup.tasks.splice(idx, 1, task)
             state.currBoard = updatingBoard
@@ -128,9 +128,9 @@ export default {
         },
         async saveBoard({ commit }, { board }) {
             try {
-                console.log(board);
+                // console.log(board);
                 const savedBoard = await boardService.save(board)
-                console.log('savedBoard', savedBoard);
+                // console.log('savedBoard', savedBoard);
                 commit({ type: 'saveBoard', savedBoard })
                 return JSON.parse(JSON.stringify(savedBoard))
             } catch (err) {
@@ -150,7 +150,7 @@ export default {
                 await commit({ type: 'saveTask', boardId, groupId, task })
                 const updatingBoard = JSON.parse(JSON.stringify(state.currBoard))
                 updatingBoard.activities.push(activity)
-                console.log(updatingBoard);
+                // console.log(updatingBoard);
                 const savedBoard = await boardService.save(updatingBoard)
                 commit({ type: 'saveBoard', savedBoard })
                 return JSON.parse(JSON.stringify(savedBoard))

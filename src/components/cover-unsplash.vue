@@ -1,13 +1,11 @@
 <template>
   <section class="cmp-preview cover-unsplash-preview">
-      <div class="cmp-header">
-
-      
-    <p class="cmp-container-title">Cover</p>
+    <div class="cmp-header">
+      <p class="cmp-container-title">Cover</p>
       <a class="close-cmp-btn" @click="closeCmp">
         <span></span>
       </a>
-      </div>
+    </div>
     <hr />
     <p>Size</p>
     <div class="cover-size-select">
@@ -70,7 +68,6 @@ export default {
   },
   methods: {
     selectBg(bgColor) {
-        console.log('bg info' , bg);
       this.currBg.bgColor = bgColor;
       this.$emit("addBg", this.currBg);
     },
