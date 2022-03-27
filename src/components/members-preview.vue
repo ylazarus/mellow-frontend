@@ -1,6 +1,5 @@
 <template>
     <section class="members-preview">
-        <!-- <h1>{{ boardMembers }}</h1> -->
         <div>
             <span>Members</span>
             <a @click="closeCmp" class="pointer">X</a>
