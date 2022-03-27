@@ -126,16 +126,40 @@ function _createBoards() {
                     "bgImg": "src/assets/imgs/1.jpg"
                 },
                 "labels": [
-                    { id: "l101", color: "#61bd4f", title: "Done" },
-                                { id: "l102", color: "#f2d600", title: "Urgent" },
-                                { id: "l103", color: "#ff9f1a", title: "Immediate" },
-                                { id: "l104", color: "#eb5a46", title: "" },
-                                { id: "l105", color: "#c377e0", title: "" },
-                                { id: "l106", color: "#0079bf", title: "" },
+                    {
+                        "id": "l101",
+                        "color": "#61bd4f",
+                        "title": "Done"
+                    },
+                    {
+                        "id": "l102",
+                        "color": "#f2d600",
+                        "title": "Urgent"
+                    },
+                    {
+                        "id": "l103",
+                        "color": "#ff9f1a",
+                        "title": "Immediate"
+                    },
+                    {
+                        "id": "l104",
+                        "color": "#eb5a46",
+                        "title": ""
+                    },
+                    {
+                        "id": "l105",
+                        "color": "#c377e0",
+                        "title": ""
+                    },
+                    {
+                        "id": "l106",
+                        "color": "#0079bf",
+                        "title": ""
+                    }
                 ],
                 "members": [
                     {
-                        "_id": 'u105',
+                        "_id": "u105",
                         "fullname": "Yoni Lazarus",
                         "username": "Yoni",
                         "password": "123",
@@ -143,7 +167,7 @@ function _createBoards() {
                         "mentions": []
                     },
                     {
-                        "_id": 'u106',
+                        "_id": "u106",
                         "fullname": "Almog Ben-Binyamin",
                         "username": "Almog",
                         "password": "123",
@@ -151,13 +175,13 @@ function _createBoards() {
                         "mentions": []
                     },
                     {
-                        "_id": 'u107',
+                        "_id": "u107",
                         "fullname": "Zviki zaks",
                         "username": "Zviki",
                         "password": "123",
                         "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
                         "mentions": []
-                    },
+                    }
                 ],
                 "groups": [
                     {
@@ -189,7 +213,9 @@ function _createBoards() {
                                 "title": "Render the photos to task preview",
                                 "createdAt": 1648369100551,
                                 "style": {},
-                                "attachments": []
+                                "attachments": [
+                                    "http://res.cloudinary.com/cajan22a/image/upload/v1648373054/books-g629e7f9c8_640_ihanz0.jpg"
+                                ]
                             }
                         ],
                         "style": {}
@@ -219,28 +245,29 @@ function _createBoards() {
                                     }
                                 ],
                                 "members": [
-                                    
-                                        {
-                                            "_id": 'u105',
-                                            "fullname": "Yoni Lazarus",
-                                            "username": "Yoni",
-                                            "password": "123",
-                                            "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
-                                            "mentions": []
-                                        },
-                                       
-                                        {
-                                            "_id": 'u107',
-                                            "fullname": "Zviki zaks",
-                                            "username": "Zviki",
-                                            "password": "123",
-                                            "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
-                                            "mentions": []
-                                        },
-                                    
+                                    {
+                                        "_id": "u105",
+                                        "fullname": "Yoni Lazarus",
+                                        "username": "Yoni",
+                                        "password": "123",
+                                        "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
+                                        "mentions": []
+                                    },
+                                    {
+                                        "_id": "u107",
+                                        "fullname": "Zviki zaks",
+                                        "username": "Zviki",
+                                        "password": "123",
+                                        "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
+                                        "mentions": []
+                                    }
                                 ],
                                 "labelIds": [
-                                    "l105"
+                                    "l105",
+                                    "l102",
+                                    "l103",
+                                    "l104",
+                                    "l106"
                                 ],
                                 "description": "Toggle should change image on task preview"
                             },
@@ -291,32 +318,30 @@ function _createBoards() {
                                     }
                                 ],
                                 "members": [
-                                    
-                                        {
-                                            "_id": 'u105',
-                                            "fullname": "Yoni Lazarus",
-                                            "username": "Yoni",
-                                            "password": "123",
-                                            "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
-                                            "mentions": []
-                                        },
-                                        {
-                                            "_id": 'u106',
-                                            "fullname": "Almog Ben-Binyamin",
-                                            "username": "Almog",
-                                            "password": "123",
-                                            "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2021-12-10_at_16.38.26_sft38h.jpg",
-                                            "mentions": []
-                                        },
-                                        {
-                                            "_id": 'u107',
-                                            "fullname": "Zviki zaks",
-                                            "username": "Zviki",
-                                            "password": "123",
-                                            "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
-                                            "mentions": []
-                                        }
-                                    
+                                    {
+                                        "_id": "u105",
+                                        "fullname": "Yoni Lazarus",
+                                        "username": "Yoni",
+                                        "password": "123",
+                                        "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
+                                        "mentions": []
+                                    },
+                                    {
+                                        "_id": "u106",
+                                        "fullname": "Almog Ben-Binyamin",
+                                        "username": "Almog",
+                                        "password": "123",
+                                        "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2021-12-10_at_16.38.26_sft38h.jpg",
+                                        "mentions": []
+                                    },
+                                    {
+                                        "_id": "u107",
+                                        "fullname": "Zviki zaks",
+                                        "username": "Zviki",
+                                        "password": "123",
+                                        "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
+                                        "mentions": []
+                                    }
                                 ],
                                 "labelIds": [
                                     "l107",
@@ -357,28 +382,35 @@ function _createBoards() {
                                 "title": "Checklists, super important to be next on our list, it adds a lot of value",
                                 "createdAt": 1648369395722,
                                 "members": [
-                                    
-                                        {
-                                            "_id": 'u105',
-                                            "fullname": "Yoni Lazarus",
-                                            "username": "Yoni",
-                                            "password": "123",
-                                            "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
-                                            "mentions": []
-                                        },
-                                        {
-                                            "_id": 'u106',
-                                            "fullname": "Almog Ben-Binyamin",
-                                            "username": "Almog",
-                                            "password": "123",
-                                            "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2021-12-10_at_16.38.26_sft38h.jpg",
-                                            "mentions": []
-                                        },
-                                        
-                                    
+                                    {
+                                        "_id": "u105",
+                                        "fullname": "Yoni Lazarus",
+                                        "username": "Yoni",
+                                        "password": "123",
+                                        "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
+                                        "mentions": []
+                                    },
+                                    {
+                                        "_id": "u106",
+                                        "fullname": "Almog Ben-Binyamin",
+                                        "username": "Almog",
+                                        "password": "123",
+                                        "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2021-12-10_at_16.38.26_sft38h.jpg",
+                                        "mentions": []
+                                    }
                                 ],
                                 "style": {},
                                 "attachments": []
+                            },
+                            {
+                                "id": "t-QzjP3br7",
+                                "title": "Full CRUD of name and cards, without exception",
+                                "createdAt": 1648371305685,
+                                "style": {},
+                                "attachments": [],
+                                "labelIds": [
+                                    "l102"
+                                ]
                             },
                             {
                                 "id": "t-VCawXr0K",
@@ -418,40 +450,44 @@ function _createBoards() {
                                 "title": "Make sure to relax before the meeting with Asaf, and do a good job",
                                 "createdAt": 1648369464026,
                                 "style": {},
-                                "attachments": [],
+                                "attachments": [
+                                    "http://res.cloudinary.com/cajan22a/image/upload/v1648373021/dog-gd9e48bc3a_640_xonhij.jpg"
+                                ],
                                 "members": [
-                                    
-                                        {
-                                            "_id": 'u105',
-                                            "fullname": "Yoni Lazarus",
-                                            "username": "Yoni",
-                                            "password": "123",
-                                            "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
-                                            "mentions": []
-                                        },
-                                        {
-                                            "_id": 'u106',
-                                            "fullname": "Almog Ben-Binyamin",
-                                            "username": "Almog",
-                                            "password": "123",
-                                            "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2021-12-10_at_16.38.26_sft38h.jpg",
-                                            "mentions": []
-                                        },
-                                        {
-                                            "_id": 'u107',
-                                            "fullname": "Zviki zaks",
-                                            "username": "Zviki",
-                                            "password": "123",
-                                            "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
-                                            "mentions": []
-                                        },
-                                    
+                                    {
+                                        "_id": "u105",
+                                        "fullname": "Yoni Lazarus",
+                                        "username": "Yoni",
+                                        "password": "123",
+                                        "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
+                                        "mentions": []
+                                    },
+                                    {
+                                        "_id": "u106",
+                                        "fullname": "Almog Ben-Binyamin",
+                                        "username": "Almog",
+                                        "password": "123",
+                                        "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2021-12-10_at_16.38.26_sft38h.jpg",
+                                        "mentions": []
+                                    },
+                                    {
+                                        "_id": "u107",
+                                        "fullname": "Zviki zaks",
+                                        "username": "Zviki",
+                                        "password": "123",
+                                        "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
+                                        "mentions": []
+                                    }
                                 ],
                                 "labelIds": [
                                     "l105",
                                     "l106"
                                 ],
-                                "description": "The meeting will be short, give a quick run through of the flow, get good feedback"
+                                "description": "The meeting will be short, give a quick run through of the flow, get good feedback",
+                                "dueDate": {
+                                    "dueDate": "2022-03-27T09:30:00.000Z",
+                                    "isCompleted": false
+                                }
                             }
                         ],
                         "style": {}
@@ -465,7 +501,9 @@ function _createBoards() {
                                 "title": "Reduce number of default labels on the boards to maximim of 6",
                                 "createdAt": 1648369068557,
                                 "style": {},
-                                "attachments": [],
+                                "attachments": [
+                                    "http://res.cloudinary.com/cajan22a/image/upload/v1648373005/code-g6edc9f26e_640_bznsbp.jpg"
+                                ],
                                 "labelIds": [
                                     "l101"
                                 ],
@@ -497,6 +535,24 @@ function _createBoards() {
                                 "labelIds": [
                                     "l105"
                                 ]
+                            }
+                        ],
+                        "style": {}
+                    },
+                    {
+                        "id": "g-HIKOO3fg",
+                        "title": "Plan for Backend",
+                        "tasks": [
+                            {
+                                "id": "t-UEohipxO",
+                                "title": "Make list of all potential bugs",
+                                "createdAt": 1648373155582,
+                                "style": {},
+                                "attachments": [],
+                                "dueDate": {
+                                    "dueDate": "2022-03-31T09:25:01.470Z",
+                                    "isCompleted": false
+                                }
                             }
                         ],
                         "style": {}
@@ -987,6 +1043,153 @@ function _createBoards() {
                         "task": {
                             "id": "c104",
                             "title": "Do that"
+                        }
+                    },
+                    {
+                        "id": "r5smZnq2",
+                        "txt": "add task",
+                        "createdAt": 1648371305686,
+                        "group": {
+                            "id": "g102",
+                            "title": "Components to Build"
+                        }
+                    },
+                    {
+                        "id": "xbx7PIlZ",
+                        "txt": "Change Labels",
+                        "groupId": "g102",
+                        "createdAt": 1648371313288,
+                        "task": {
+                            "id": "t-QzjP3br7",
+                            "title": "Full CRUD of name and cards, without exception"
+                        }
+                    },
+                    {
+                        "id": "n2Hh1vdy",
+                        "txt": "updated due date status",
+                        "groupId": "g102",
+                        "createdAt": 1648372421123,
+                        "task": {
+                            "id": "c105",
+                            "title": "Render and add comments"
+                        }
+                    },
+                    {
+                        "id": "nZsE6loT",
+                        "txt": "updated due date status",
+                        "groupId": "g102",
+                        "createdAt": 1648372423456,
+                        "task": {
+                            "id": "c105",
+                            "title": "Render and add comments"
+                        }
+                    },
+                    {
+                        "id": "wdOYGCff",
+                        "txt": "Updated due date",
+                        "groupId": "g-05mqUAOd",
+                        "createdAt": 1648372610248,
+                        "task": {
+                            "id": "t-FlDqD6BG",
+                            "title": "Make sure to relax before the meeting with Asaf, and do a good job"
+                        }
+                    },
+                    {
+                        "id": "Hd2beyNT",
+                        "txt": "added image",
+                        "groupId": "g-Wen1SpyZ",
+                        "createdAt": 1648373006079,
+                        "task": {
+                            "id": "t-yNkTEECH",
+                            "title": "Reduce number of default labels on the boards to maximim of 6"
+                        }
+                    },
+                    {
+                        "id": "sFpDOclC",
+                        "txt": "added image",
+                        "groupId": "g-05mqUAOd",
+                        "createdAt": 1648373021964,
+                        "task": {
+                            "id": "t-FlDqD6BG",
+                            "title": "Make sure to relax before the meeting with Asaf, and do a good job"
+                        }
+                    },
+                    {
+                        "id": "dX3EetsR",
+                        "txt": "added image",
+                        "groupId": "g101",
+                        "createdAt": 1648373055028,
+                        "task": {
+                            "id": "t-TI4ANfXQ",
+                            "title": "Render the photos to task preview"
+                        }
+                    },
+                    {
+                        "id": "hM8PG5Pw",
+                        "txt": "save group title",
+                        "createdAt": 1648373139535,
+                        "group": {
+                            "id": "g-HIKOO3fg",
+                            "title": "Plan for Backend"
+                        }
+                    },
+                    {
+                        "id": "t8LDFpAF",
+                        "txt": "add task",
+                        "createdAt": 1648373155582,
+                        "group": {
+                            "id": "g-HIKOO3fg",
+                            "title": "Plan for Backend"
+                        }
+                    },
+                    {
+                        "id": "LUSVaFui",
+                        "txt": "Updated due date",
+                        "groupId": "g-HIKOO3fg",
+                        "createdAt": 1648373163955,
+                        "task": {
+                            "id": "t-UEohipxO",
+                            "title": "Make list of all potential bugs"
+                        }
+                    },
+                    {
+                        "id": "YB2j4QxX",
+                        "txt": "Change Labels",
+                        "groupId": "g102",
+                        "createdAt": 1648373182175,
+                        "task": {
+                            "id": "c104",
+                            "title": "Proper layout and full CRUD of images"
+                        }
+                    },
+                    {
+                        "id": "avUgqMSz",
+                        "txt": "Change Labels",
+                        "groupId": "g102",
+                        "createdAt": 1648373185066,
+                        "task": {
+                            "id": "c104",
+                            "title": "Proper layout and full CRUD of images"
+                        }
+                    },
+                    {
+                        "id": "1oxnrHrf",
+                        "txt": "Change Labels",
+                        "groupId": "g102",
+                        "createdAt": 1648373185950,
+                        "task": {
+                            "id": "c104",
+                            "title": "Proper layout and full CRUD of images"
+                        }
+                    },
+                    {
+                        "id": "I8AfnCeK",
+                        "txt": "Change Labels",
+                        "groupId": "g102",
+                        "createdAt": 1648373186906,
+                        "task": {
+                            "id": "c104",
+                            "title": "Proper layout and full CRUD of images"
                         }
                     }
                 ]
