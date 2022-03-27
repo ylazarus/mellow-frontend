@@ -60,7 +60,7 @@
                 @click="toggleDueDateDone"
                 class="due-date-checkbox"
                 :src="dueDateCheckBox"
-                alt=""
+                alt
               />
               <span>{{ formattedDate }}</span>
               <span
@@ -76,7 +76,7 @@
               <img
                 @click="toggleDates"
                 src="src/assets/svgs/arrow-down.svg"
-                alt=""
+                alt
               />
             </div>
           </div>
@@ -147,7 +147,20 @@
 
       <nav @click.stop class="add-task-buttons-container">
         <p>Add to card</p>
-        <button class="members-btn btn" title="Members">Members</button>
+        <button
+          @click.stop="openCmp('isMembers')"
+          class="members-btn btn"
+          title="Members"
+        >
+          Members
+        </button>
+        <members-preview
+          v-if="handles.isMembers"
+          :boardMembers="currBoard.members"
+          :task="task"
+          @closeCmp="closeCmp"
+          @toggleMemberInTask="toggleMemberInTask"
+        />
         <button
           @click.stop="openCmp('isLabel')"
           class="labels-btn btn"
@@ -214,7 +227,9 @@ import userAvatar from "../components/user-avatar.vue";
 import attachmentPreview from "../components/attachment-preview.vue";
 import datePreview from "../components/date-preview.vue";
 import labelPreview from "../components/label-preview.vue";
+import membersPreview from "../components/members-preview.vue";
 import { utilService } from "../services/util-service";
+import { useThrottledRefHistory } from "@vueuse/core";
 import coverUnsplash from "../components/cover-unsplash.vue";
 
 export default {
@@ -239,11 +254,11 @@ export default {
   },
   async created() {
     await this.loadTask();
-    if (!this.task.style.bgImg) {
-      this.task.style.bgImg = this.task.attachments
-        ? this.task.attachments[0]
-        : "";
-    }
+    // if (!this.task.style.bgImg) {
+    //   this.task.style.bgImg = this.task.attachments
+    //     ? this.task.attachments[0]
+    //     : "";
+    // }
     this.loading = false;
   },
   methods: {
@@ -346,6 +361,25 @@ export default {
       console.log("task", newLabel);
       await this.$emit("updateBoardLabels", newLabel);
     },
+    async toggleMemberInTask(memberToAdd) {
+      console.log("memberToAdd", memberToAdd);
+      // console.log('task', this.task);
+      if (!this.task.members) this.task.members = [];
+      // if (!this.task.members.isCheck) this.task.members.isCheck = [];
+      console.log("task", this.task);
+      const idx = this.task.members.findIndex(
+        (member) => member._id === memberToAdd._id
+      );
+      if (idx === -1) {
+        this.task.members.push(memberToAdd);
+        this.task.members.isCheck = true;
+      } else {
+        this.task.members.splice(idx, 1);
+        this.task.members.isCheck = false;
+      }
+      await this.saveTask("Added member");
+      this.loadTask();
+    },
     async toggleDueDateDone() {
       this.task.dueDate.isCompleted = !this.task.dueDate.isCompleted;
       await this.saveTask("updated due date status");
@@ -406,8 +440,10 @@ export default {
     attachmentPreview,
     datePreview,
     labelPreview,
+    membersPreview,
     coverUnsplash,
   },
 };
+// };
 </script>
 
