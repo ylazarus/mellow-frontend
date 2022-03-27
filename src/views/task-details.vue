@@ -16,9 +16,7 @@
               :key="member._id"
               :user="member"
             />
-            <button class="avatar-btn flex" @click.stop="openCmp('isMembers')">
-              +
-            </button>
+            <button class="avatar-btn flex" @click.stop="openCmp('isMembers')">+</button>
           </div>
         </div>
         <div v-if="task.labelIds?.length" class="edit-labels-container">
@@ -30,42 +28,24 @@
               class="label-show flex"
               @click.stop="openCmp('isLabel')"
               :style="{ backgroundColor: label.color }"
-            >
-              {{ label.title }}
-            </div>
-            <button
-              class="label-show-btn flex"
-              @click.stop="openCmp('isLabel')"
-            >
-              +
-            </button>
+            >{{ label.title }}</div>
+            <button class="label-show-btn flex" @click.stop="openCmp('isLabel')">+</button>
           </div>
         </div>
         <div class="due-date-container" v-if="task.dueDate">
           <p class="due-date-title">Due date</p>
           <div class="displayed-date-checkbox">
-            <img
-              @click="toggleDueDateDone"
-              class="due-date-checkbox"
-              :src="dueDateCheckBox"
-              alt=""
-            />
+            <img @click="toggleDueDateDone" class="due-date-checkbox" :src="dueDateCheckBox" alt />
             <span>{{ formattedDate }}</span>
             <span
               class="completed-overdue-label l101-label"
               v-if="task.dueDate.isCompleted"
-              >Completed</span
-            >
+            >Completed</span>
             <span
               class="completed-overdue-label l104-label"
               v-if="overdue && !task.dueDate.isCompleted"
-              >Overdue</span
-            >
-            <img
-              @click="toggleDates"
-              src="src/assets/svgs/arrow-down.svg"
-              alt=""
-            />
+            >Overdue</span>
+            <img @click="toggleDates" src="src/assets/svgs/arrow-down.svg" alt />
           </div>
         </div>
       </section>
@@ -74,9 +54,7 @@
         <div v-if="task.description" class="description-container">
           <div class="description-header-container flex">
             <p class="description-header">Description</p>
-            <button @click="addDescription" class="edit-description-btn btn">
-              Edit
-            </button>
+            <button @click="addDescription" class="edit-description-btn btn">Edit</button>
           </div>
           <p class="task-description">{{ task.description }}</p>
         </div>
@@ -86,9 +64,7 @@
             class="fake-text-area"
             v-if="!addingDescription"
             @click="addDescription"
-          >
-            Add a more detailed description...
-          </div>
+          >Add a more detailed description...</div>
           <div v-else class="add-description-container">
             <textarea
               v-focus
@@ -97,33 +73,21 @@
               placeholder="Add a more detailed description..."
             />
             <div class="add-description-buttons-container flex">
-              <button class="save-description-btn btn" @click="saveDescription">
-                Save
-              </button>
-              <button
-                class="delete-description-btn"
-                @click="clearForm"
-              ></button>
+              <button class="save-description-btn btn" @click="saveDescription">Save</button>
+              <button class="delete-description-btn" @click="clearForm"></button>
             </div>
           </div>
         </div>
       </section>
 
       <div class="img-container" v-if="task.attachments">
-        <img
-          class="img-preview"
-          v-for="imgUrl in imgUrls"
-          :key="imgUrl"
-          :src="imgUrl"
-        />
+        <img class="img-preview" v-for="imgUrl in imgUrls" :key="imgUrl" :src="imgUrl" />
         <p></p>
       </div>
 
       <div class="activities activity-details-header">
         <p class="activity-header">Activity</p>
-        <button v-if="task.activity?.length" class="details-shown-btn btn">
-          {{ areDetailsShown }}
-        </button>
+        <button v-if="task.activity?.length" class="details-shown-btn btn">{{ areDetailsShown }}</button>
       </div>
       <button class="go-back-btn" @click="goBack"></button>
     </div>
@@ -132,14 +96,9 @@
 
     <nav @click.stop class="add-task-buttons-container">
       <p>Add to card</p>
-      <button class="members-btn btn" title="Members">Members</button>
-      <button
-        @click.stop="openCmp('isLabel')"
-        class="labels-btn btn"
-        title="Labels"
-      >
-        Labels
-      </button>
+      <button @click.stop="openCmp('isMembers')" class="members-btn btn" title="Members">Members</button>
+      <members-preview />
+      <button @click.stop="openCmp('isLabel')" class="labels-btn btn" title="Labels">Labels</button>
       <label-preview
         v-if="handles.isLabel"
         :boardLabels="currBoard.labels"
@@ -148,13 +107,7 @@
         @addLabelToTask="addLabelToTask"
       />
       <button class="checklist-btn btn" title="Checklist">Checklist</button>
-      <button
-        @click.stop="openCmp('isDatesOn')"
-        class="dates-btn btn"
-        title="Dates"
-      >
-        Dates
-      </button>
+      <button @click.stop="openCmp('isDatesOn')" class="dates-btn btn" title="Dates">Dates</button>
       <date-preview
         v-if="handles.isDatesOn"
         :dueDate="task.dueDate?.dueDate || Date.now()"
@@ -165,9 +118,7 @@
         @click.stop="openCmp('isAttachOn')"
         class="attachment-img btn"
         title="Attachment"
-      >
-        Attachment
-      </button>
+      >Attachment</button>
       <attachment-preview
         :imgUrls="imgUrls"
         @attachImg="attachImg"
@@ -332,6 +283,7 @@ export default {
     attachmentPreview,
     datePreview,
     labelPreview,
+    membersPreview
   },
 };
 </script>
