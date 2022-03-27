@@ -197,7 +197,7 @@ function _createBoards() {
                                     {
                                         "id": "ZdPnm",
                                         "txt": "also @yaronb please CR this",
-                                        "createdAt": 1590999817436.0,
+                                        "createdAt": 1590999817436,
                                         "byMember": {
                                             "_id": "u101",
                                             "fullname": "Tal Tarablus",
@@ -242,9 +242,11 @@ function _createBoards() {
                                         "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                                     }
                                 ],
-                                "labelIds": ["l101", "l102"],
+                                "labelIds": [
+                                    "l107",
+                                    "l108"
+                                ],
                                 "createdAt": 1590999730348,
-
                                 "byMember": {
                                     "_id": "u101",
                                     "username": "Tal",
@@ -253,7 +255,14 @@ function _createBoards() {
                                 },
                                 "style": {
                                     "bgColor": "#26de81"
-                                }
+                                },
+                                "dueDate": {
+                                    "dueDate": "2022-03-29T21:40:27.228Z",
+                                    "isCompleted": false
+                                },
+                                "attachments": [
+                                     "http://res.cloudinary.com/cajan22a/image/upload/v1648363384/Headshot_Yoni_2021_gkcpbo.jpg"
+                                ]
                             }
 
                         ],
