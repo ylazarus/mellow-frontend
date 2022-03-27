@@ -30,8 +30,8 @@
             :key="member._id"
             :user="member"
           />
-          <button class="invite-btn btn-board btn">Invite</button>
         </div>
+        <button class="invite-btn btn-board btn">Invite</button>
       </div>
       <nav class="board-header-nav flex">
         <button class="filter-btn btn-board btn">Filter</button>
