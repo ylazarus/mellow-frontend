@@ -101,18 +101,18 @@
                 </button>
               </div>
             </div>
-            <div class="due-date-container" v-if="task.dueDate">
+            <!-- <div class="due-date-container" v-if="task.dueDate">
               <p class="due-date-title">Due date</p>
               <div class="displayed-date-checkbox">
                 <span>{{ dueDateCheckBox }}</span>
                 <span>{{ formattedDate }}</span>
                 <span>{{ completeOverdue }}</span>
               </div>
-            </div>
+            </div> -->
           </div>
         </section>
 
-        <section class="edit-description-container">
+        <!-- <section class="edit-description-container">
           <div v-if="task.description" class="description-container">
             <div class="description-header-container flex">
               <p class="description-header">Description</p>
@@ -152,7 +152,7 @@
               </div>
             </div>
           </div>
-        </section>
+        </section> -->
 
         <div class="activities activity-details-header">
           <p class="activity-header">Activity</p>
@@ -160,7 +160,7 @@
             {{ areDetailsShown }}
           </button>
         </div>
-        <div v-if="task.img">Images: {{ task.img }}</div>
+        <!-- <div v-if="task.img">Images: {{ task.img }}</div> -->
 
         
         <!-- <div v-if="task.attachments">Attachments will be here{{ task.attachments }}</div> -->
