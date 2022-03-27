@@ -6,8 +6,8 @@
     flex-direction: column;
     background-color: white;
     position: absolute;
-    right: -112px;
-    bottom: -175px;
+    // right: -112px;
+    // bottom: -175px;
     padding: 0px 12px 12px;
     z-index: 10;
 
@@ -21,7 +21,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-weight:500
+            font-weight: 500;
         }
 
         .add-task-close-cmp-btn {
@@ -57,7 +57,7 @@
         }
     }
     .choose-labels-container {
-        .labels-title{
+        .labels-title {
             margin-block-end: 5px;
             font-weight: 600;
             color: $light-text;
@@ -135,8 +135,8 @@
     }
 }
 
-.label-input{
-    font-family: segoeui,sans-serif;
+.label-input {
+    font-family: segoeui, sans-serif;
     height: 36px;
     margin: 0px 0px 12px 0px;
     background-color: #fafbfc;
@@ -147,18 +147,18 @@
     width: 100%;
 }
 
-.label-input:focus{
+.label-input:focus {
     outline: 2px solid $trello-blue;
-    box-shadow:none
+    box-shadow: none;
 }
 
-.label-preview hr{
+.label-preview hr {
     width: 100%;
     border-color: #091e4221;
     margin-bottom: 13px;
 }
 
-.select-label-container .open-create-label-btn{
+.select-label-container .open-create-label-btn {
     height: 32px;
     border-radius: 3px;
     border: none;
@@ -168,13 +168,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: segoeui,sans-serif;
+    font-family: segoeui, sans-serif;
     font-size: 16px;
     color: $text-color;
     width: 100%;
     margin-block-start: 15px;
 }
 
-.open-create-label-btn:hover{
-    background-color:$card-grey ;
+.open-create-label-btn:hover {
+    background-color: $card-grey;
 }

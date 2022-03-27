@@ -25,6 +25,7 @@
 
     .members-nav-bar {
         flex-grow: 1;
+        gap: 4px;
     }
 
     .board-title {
@@ -40,9 +41,11 @@
     .star-btn {
         margin-right: 10px;
     }
-
+    // .board-members-container{
+    //     display: grid;
+    // }
     .user-avatar {
-        margin-right: 10px;
+        margin-left: -2px;
     }
 }
 

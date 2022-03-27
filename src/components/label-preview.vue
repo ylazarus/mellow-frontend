@@ -1,7 +1,11 @@
 <template>
   <section class="label-preview">
     <div class="labels-header">
-      <a class="back-to-label-btn" v-if="isCreate" @click="isCreate = !isCreate">
+      <a
+        class="back-to-label-btn"
+        v-if="isCreate"
+        @click="isCreate = !isCreate"
+      >
         <span></span>
       </a>
       <p class="labels-container-title">Labels</p>
@@ -21,7 +25,11 @@
       <div class="choose-labels-container">
         <p class="labels-title">Labels</p>
         <ul class="labels-list flex clean-list">
-          <li class="label-option-container flex" v-for="label in getLabels" :key="label.id">
+          <li
+            class="label-option-container flex"
+            v-for="label in getLabels"
+            :key="label.id"
+          >
             <div
               class="label-option flex pointer"
               :style="{ backgroundColor: label.color }"
@@ -36,7 +44,9 @@
           </li>
         </ul>
       </div>
-      <button class="open-create-label-btn" @click="openCreate">Create a new label</button>
+      <button class="open-create-label-btn" @click="openCreate">
+        Create a new label
+      </button>
     </section>
     <section v-else class="create-label-container">
       <label>
@@ -111,22 +121,11 @@ export default {
     openCreate(labelId) {
       this.isCreate = true;
     },
-    // selectLabel(labelId) {
-    //   const preLabelId = this.selectedLabel;
-    //   console.log(preLabel);
-    //   if (this.selectedLabel) {
-    //     this.defaultLabels.forEach((label) => {
-    //       // delete label.isSelected
-    //     });
-    //   }
-    //   console.log(this.defaultLabel);
-    //   // this.selectedLabel = labelId
-
-    //   // if (this.selectedLabel) delete this.selectedLabel.isSelected;
-    //   // this.selectedLabel = this.defaultLabels.find((l) => l.id === labelId);
-    //   // console.log(this.selectedLabel);
-    //   // this.selectedLabel.isSelected = true;
-    // },
+    selectLabel(labelId) {
+      this.defaultLabels.forEach((label) => {
+        label.isSelected = label.id === labelId ? true : false;
+      });
+    },
     // addLabelToBoard() {
     //   delete this.selectedLabel.isSelected;
     //   const newLabel = JSON.parse(JSON.stringify(this.selectedLabel));
@@ -145,7 +144,7 @@ export default {
       this.aggregateLabels();
     },
   },
-  unmounted() { },
+  unmounted() {},
 };
 </script>
 

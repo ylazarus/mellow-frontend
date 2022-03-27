@@ -30,8 +30,8 @@
             :key="member._id"
             :user="member"
           />
-          <button class="invite-btn btn-board btn">Invite</button>
         </div>
+        <button class="invite-btn btn-board btn">Invite</button>
       </div>
       <nav class="board-header-nav flex">
         <button class="filter-btn btn-board btn">Filter</button>
@@ -84,7 +84,6 @@ export default {
     return {
       board: null,
       dndInfo: {},
-      // isDarkMode: '',
       isLabelTitle: false,
     };
   },
@@ -202,10 +201,6 @@ export default {
         activity,
       });
     },
-    // darkModeStatus(status) {
-    //   console.log('status from board details', status);
-    //   this.isDarkMode = status
-    // }
     toggleLabelTitle() {
       this.isLabelTitle = !this.isLabelTitle;
       console.log("board");
@@ -222,9 +217,6 @@ export default {
     updatedBoardFromStore() {
       return this.$store.getters.boards;
     },
-    // darkMode() {
-    //   return { 'dark-mode': this.isDarkMode }
-    // }
   },
 };
 </script>
