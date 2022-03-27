@@ -5,7 +5,11 @@
       <button class="add-task-close-cmp-btn" @click="closeCmp"></button>
     </div>
     <!-- <hr /> -->
-    <v-date-picker v-model="date.dueDate" mode="dateTime" :minute-increment="5" />
+    <v-date-picker
+      v-model="date.dueDate"
+      mode="dateTime"
+      :minute-increment="5"
+    />
     <button class="save-btn date-btn" @click="saveDate">Save</button>
     <button class="remove-date-btn date-btn" @click="closeCmp">Remove</button>
   </section>
@@ -20,21 +24,21 @@ export default {
     dueDate: Number,
   },
   created() {
-    this.date.dueDate = this.dueDate
+    this.date.dueDate = this.dueDate;
   },
   data() {
     return {
-      date: { dueDate: null, isCompleted: false }
+      date: { dueDate: null, isCompleted: false },
     };
   },
   methods: {
     saveDate() {
-      console.log(this.date, 'this is the date from the library');
+      console.log(this.date, "this is the date from the library");
       this.$emit("saveDate", this.date);
     },
     closeCmp() {
-      this.date.dueDate = this.dueDate
-      this.$emit("closeDate");
+      this.date.dueDate = this.dueDate;
+      this.$emit("closeCmp");
     },
   },
 };

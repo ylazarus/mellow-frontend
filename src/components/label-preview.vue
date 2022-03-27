@@ -108,7 +108,7 @@ export default {
       this.$emit("addLabelToTask", labelId);
     },
     closeCmp() {
-      this.$emit("close");
+      this.$emit("closeCmp");
     },
     aggregateLabels() {
       this.labels = this.boardLabels.map((label) => {
