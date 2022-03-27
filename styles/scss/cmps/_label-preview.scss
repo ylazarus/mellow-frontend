@@ -1,4 +1,4 @@
-.label-preview {
+.cmp-preview {
     background-color: white;
     margin-top: 10px;
     border-radius: 3px;
@@ -12,10 +12,10 @@
     padding: 0px 12px 12px;
     z-index: 10;
 
-    .labels-header {
+    .cmp-header {
         text-align: center;
         // position: relative;
-        .labels-container-title {
+        .cmp-container-title {
             color: $light-text;
             margin: 0;
             height: 41px;
@@ -25,7 +25,7 @@
             font-weight: 500;
         }
 
-        .add-task-close-cmp-btn {
+        .close-cmp-btn {
             position: absolute;
             top: 12px;
             right: 12px;
@@ -41,7 +41,7 @@
                 content: "";
             }
         }
-        .back-to-label-btn {
+        .back-to-cmp-btn {
             position: absolute;
             top: 12px;
             left: 12px;

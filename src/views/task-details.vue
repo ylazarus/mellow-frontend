@@ -1,6 +1,11 @@
 <template>
   <div class="task-details-dark" @click="goBack"></div>
+    
   <section class="task-details-page">
+    <div :style="coverBg" class="task-cover-img">
+      <img class="cover-bgImg" :src="coverBgImg" alt="">
+    </div>
+    <div class="task-details-main-content">
     <div v-if="task" class="task-details-container">
       <!-- title needs to become text area in the future -->
       <h3 class="task-title">{{ task.title }}</h3>
@@ -129,6 +134,8 @@
     </div>
 
     <div v-else>Loading...</div>
+    
+
 
     <nav @click.stop class="add-task-buttons-container">
       <p>Add to card</p>
@@ -174,7 +181,22 @@
         v-if="handles.isAttachOn"
         @closeCmp="closeCmp"
       />
+
+      <button
+        @click.stop="openCmp('isCover')"
+        class="cover-btn btn"
+        title="Cover"
+      >
+        Cover
+      </button>
+      <cover-unsplash
+        v-if="handles.isCover"
+        :bg="task.bg"
+        @closeCmp="closeCmp"
+        @addBg="addBg"
+      />
     </nav>
+    </div>
   </section>
 </template>
 
@@ -184,6 +206,7 @@ import attachmentPreview from "../components/attachment-preview.vue";
 import datePreview from "../components/date-preview.vue";
 import labelPreview from "../components/label-preview.vue";
 import { utilService } from "../services/util-service";
+import CoverUnsplash from "../components/cover-unsplash.vue";
 
 export default {
   data() {
@@ -200,11 +223,14 @@ export default {
         isAttachOn: false,
         isDatesOn: false,
         isMembers: false,
+        isCover: false
       },
     };
   },
-  created() {
-    this.loadTask();
+  async created() {
+    await this.loadTask();
+    if (!this.task.bg) this.task.bg = {}
+    this.task.bg.bgImg = this.task?.attachments[0] || ''
   },
   methods: {
     async loadTask() {
@@ -225,6 +251,13 @@ export default {
       const currBoard = this.$store.getters.getCurrBoard;
       this.$router.push(`/board/${currBoard._id}`);
       document.body.classList.remove("dark-mode");
+    },
+    async addBg(bg){
+      this.task.bg=bg
+      await this.saveTask("Added background");
+      this.closeCmp();
+      this.loadTask();
+
     },
     openCmp(type) {
       for (let key in this.handles) {
@@ -326,13 +359,20 @@ export default {
         return true;
       }
     },
+    coverBg(){
+      return {"background-color" : this.task?.bg?.bgImg || '#FFF'}
+    },
+    coverBgImg(){
+       return this.task?.bg?.bgImg || ''
+    }
   },
   components: {
     userAvatar,
     attachmentPreview,
     datePreview,
     labelPreview,
-  },
+    CoverUnsplash
+},
 };
 </script>
 
