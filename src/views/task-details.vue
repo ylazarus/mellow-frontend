@@ -38,9 +38,11 @@
         <div class="due-date-container" v-if="task.dueDate">
           <p class="due-date-title">Due date</p>
           <div class="displayed-date-checkbox" >
-            <span>{{dueDateCheckBox}}</span>
+            <img @click="toggleDueDateDone" class="due-date-checkbox" :src="dueDateCheckBox" alt="">
             <span>{{ formattedDate }}</span>
-            <span>{{completeOverdue}}</span>
+            <span class="completed-overdue-label l101-label" v-if="task.dueDate.isCompleted">Completed</span>
+            <span  class="completed-overdue-label l104-label" v-if="overdue && !task.dueDate.isCompleted">Overdue</span>
+            <img @click="toggleDates" src="src/assets/svgs/arrow-down.svg" alt="">
             </div>
         </div>
       </section>
@@ -92,9 +94,9 @@
       </div>
       <div v-if="task.img">Images: {{ task.img }}</div>
 
-      <div v-if="task.checklists">
+      <!-- <div v-if="task.checklists">
         Checklists will be here{{ task.checklists }}
-      </div>
+      </div> -->
       <!-- <div v-if="task.attachments">Attachments will be here{{ task.attachments }}</div> -->
       <div class="img-container" v-if="task.attachments">
         <img
@@ -196,6 +198,7 @@ export default {
       const task = this.currGroup.tasks.find((task) => task.id === taskId);
       this.task = JSON.parse(JSON.stringify(task));
       this.newDescription = this.task.description;
+      this.imgUrls = this.task.attachments
     },
     goBack() {
       const currBoard = this.$store.getters.getCurrBoard;
@@ -269,6 +272,11 @@ export default {
       console.log("isDatesOn", this.isDatesOn);
       console.log("isAttachOn", this.isAttachOn);
     },
+    async toggleDueDateDone(){
+      this.task.dueDate.isCompleted = !this.task.dueDate.isCompleted
+      await this.saveTask("updated due date status");
+      this.loadTask();
+    },
 
     // closeAllModals() {
     //   if (this.isAttachOn) this.isDatesOn = false
@@ -281,11 +289,12 @@ export default {
       if (!this.task.attachments) this.task.attachments = [];
       this.task.attachments.push(img.url);
       await this.saveTask("added image");
+      this.loadTask()
       // console.log(img);
       console.log("img url", img.url);
       console.log("task attachment", this.task.attachments);
       // console.log('task with img', task);
-      this.imgUrls.push(...this.task.attachments);
+      // this.imgUrls.push(...this.task.attachments); // yoni removed this temporarily
       // this.imgUrls.push(img.url);
     },
     toggleIsLabel() {
@@ -307,12 +316,16 @@ export default {
       var d = new Date(this.task.dueDate.dueDate);
       return d.toString().slice(4, 21);
     },
-    // dueDateCheckBox{
-    //   // return this.task.dueDate.isDone ? 
-    // }
-    // isTaskOverdue(){
-    //   return (this.task.dueDate.dueDate < date.now()) ?  {"background-color": "red"} : {"background-color": "green"}
-    // }
+    dueDateCheckBox (){
+      return this.task.dueDate.isCompleted ? 'src/assets/svgs/full-checkbox.svg' : 'src/assets/svgs/empty-checkbox.svg'
+    },
+    overdue(){
+const date = new Date(this.task.dueDate.dueDate);
+      const ms = date.getTime();
+      if (ms < Date.now()) {
+        return true
+      }
+    }
   },
   components: {
     userAvatar,
