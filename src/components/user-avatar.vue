@@ -16,12 +16,10 @@ export default {
   computed: {
     imgAvatar() {
       if (this.user.imgUrl) return this.user.imgUrl;
-      //   return avatar;
     },
     nameAvatar() {
       if (!this.user.imgUrl) {
         const userName = this.user.fullname.split(" ");
-        console.log(userName);
         var avatar = "";
         userName.forEach((w) => {
           avatar += w.charAt(0);

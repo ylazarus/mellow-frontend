@@ -99,7 +99,7 @@ export default {
   },
   methods: {
     async updateBoard(board) {
-      // this.board = board;
+      console.log("updateBoard");
       console.log("board", board);
       const updatedBoard = await this.$store.dispatch({
         type: "saveBoard",
@@ -175,7 +175,6 @@ export default {
       this.saveBoard();
     },
     async saveGroup({ groupId, type, newValue }) {
-      console.log("in save group");
       const updatingGroup = JSON.parse(
         JSON.stringify(this.board.groups.find((group) => group.id === groupId))
       );
@@ -203,7 +202,6 @@ export default {
     },
     toggleLabelTitle() {
       this.isLabelTitle = !this.isLabelTitle;
-      console.log("board");
     },
   },
   computed: {
