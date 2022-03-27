@@ -3,7 +3,11 @@
   <section class="task-details-page">
     <div v-if="task" class="task-details-container">
       <!-- title needs to become text area in the future -->
-      <h3 class="task-title">{{ task.title }}</h3>
+      <h3 class="task-title-container">
+        <p class="task-title" contenteditable="true" @blur="saveTaskTitle">
+          {{ task.title }}
+        </p>
+      </h3>
       <p class="task-group-title">in list {{ currGroup.title }}</p>
 
       <section class="show-member-label flex">
@@ -187,6 +191,15 @@ export default {
       for (let key in this.handles) {
         this.handles[key] = false;
       }
+    },
+    async saveTaskTitle(ev) {
+      const newTitle = ev.currentTarget.textContent;
+      // this.board.title = newTitle;
+      // this.saveBoard();
+      this.task.title = newTitle;
+      console.log(this.task);
+      await this.saveTask("Change task title");
+      this.loadTask();
     },
     async saveDate(newDateInfo) {
       this.task.dueDate = newDateInfo;
