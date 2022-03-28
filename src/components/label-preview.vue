@@ -2,14 +2,14 @@
   <section class="cmp-preview">
     <div class="cmp-header">
       <a
-        class="back-to-label-btn"
+        class="back-to-cmp-btn"
         v-if="isCreate || isChange"
         @click="(isCreate = false), (isChange = false)"
       >
         <span></span>
       </a>
-      <p class="labels-container-title">{{ cmpTitle }}</p>
-      <a class="add-task-close-cmp-btn" @click="closeCmp">
+      <p class="cmp-container-title">{{ cmpTitle }}</p>
+      <a class="close-cmp-btn" @click="closeCmp">
         <span></span>
       </a>
     </div>
@@ -50,10 +50,15 @@
     </section>
     <section v-else class="create-label-container">
       <label>
-        <p>Name</p>
-        <input type="text" v-model="labelToChange.title" v-focus />
+        <p class="labels-title">Name</p>
+        <input
+          type="text"
+          class="label-input"
+          v-model="labelToChange.title"
+          v-focus
+        />
       </label>
-      <p class="labels-container-title">Select a color</p>
+      <p class="labels-title">Select a color</p>
       <div class="create-label-options-container">
         <div
           v-for="label in defaultLabels"
@@ -65,16 +70,21 @@
           <span v-if="label.isSelected" class="v-icon"></span>
         </div>
       </div>
-      <button class="create-label-btn" @click.stop="changeBoardLabels('edit')">
-        {{ createBtn }}
-      </button>
-      <button
-        v-if="isChange"
-        class="delete-label-btn"
-        @click.stop="changeBoardLabels('delete')"
-      >
-        Delete
-      </button>
+      <div class="create-label-buttons-container flex">
+        <button
+          class="create-label-btn"
+          @click.stop="changeBoardLabels('edit')"
+        >
+          {{ createBtn }}
+        </button>
+        <button
+          v-if="isChange"
+          class="delete-label-btn"
+          @click.stop="deleteLabelFromBoard()"
+        >
+          Delete
+        </button>
+      </div>
     </section>
   </section>
 </template>
@@ -155,19 +165,19 @@ export default {
       this.labelToChange.color = defaultLabel.color;
     },
     // async changeBoardLabels(type) {
-    //   const newLabel = JSON.parse(
-    //     JSON.stringify(this.labelToChange));
-    //     switch (type) {
-    //       case 'edit':
-    //         if (newLabel.id)
-    //         break;
-
-    //       default:
-    //         break;
-    //     }
-    //   newLabel.id = "l" + utilService.makeId();
+    //   const newLabel = JSON.parse(JSON.stringify(this.labelToChange));
     //   newLabel.title = this.newLabelTitle;
-    //   delete newLabel.isSelected;
+    //   // delete newLabel.isSelected;
+    //   switch (type) {
+    //     case "edit":
+    //       if (newLabel.id) {
+    //         newLabel.id = "l" + utilService.makeId();
+    //       }
+    //       break;
+
+    //     default:
+    //       break;
+    //   }
     //   if (this.isCreate) {
     //     console.log(newLabel);
     //     await this.$emit(
@@ -187,17 +197,17 @@ export default {
       const regex = new RegExp(this.filterTxt, "i");
       return this.labels.filter((label) => regex.test(label.title));
     },
-    // defaultLabelsToDisplay() {
-    //   let unusedLabels = [];
-    //   let usedLabelIds = this.boardLabels.map((l) => l.id);
-    //   this.defaultLabels.forEach((label) => {
-    //     if (!usedLabelIds.includes(label.id)) unusedLabels.push(label);
-    //     // if (this.isChange) {
-    //     //   if (label.isSelected) unusedLabels.push(label);
-    //     // }
-    //   });
-    //   return unusedLabels;
-    // },
+    defaultLabelsToDisplay() {
+      let unusedLabels = [];
+      let usedLabelIds = this.boardLabels.map((l) => l.id);
+      this.defaultLabels.forEach((label) => {
+        if (!usedLabelIds.includes(label.id)) unusedLabels.push(label);
+        // if (this.isChange) {
+        //   if (label.isSelected) unusedLabels.push(label);
+        // }
+      });
+      return unusedLabels;
+    },
     cmpTitle() {
       if (this.isChange) return "Change label";
       else if (this.isCreate) return "Create label";
