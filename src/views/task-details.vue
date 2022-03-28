@@ -5,7 +5,6 @@
     <div v-if="task" :style="coverStyle" class="task-cover-img"></div>
     <div class="task-details-main-content">
       <div v-if="task" class="task-details-container">
-        <!-- title needs to become text area in the future -->
         <h3 class="task-title-container">
           <p class="task-title" contenteditable="true" @blur="saveTaskTitle">
             {{ task.title }}
@@ -439,31 +438,20 @@ export default {
     },
     // {"bgClr": '', "bgImg": '', "isFullCover": false}
     coverStyle() {
-<<<<<<< HEAD
       if (this.task.style.bgImg)
         return {
           "background-image": `url(${this.task.style.bgImg})`,
           height: "160px",
           "background-color": "#ccd6e0", // later make this dynamic with library?
+          "border-radius": "3px 3px 0 0",
         };
       else if (this.task.style.bgClr)
         return {
           "background-color": this.task.style.bgClr,
           height: "100px",
+          "border-radius": "3px 3px 0 0",
         };
       else return { display: "none" };
-=======
-      if (this.task.style.bgImg) return {
-        "background-image": `url(${this.task.style.bgImg})`,
-        "height": "160px",
-        "background-color" : "#ccd6e0", // later make this dynamic with library?
-        "border-radius" : "3px 3px 0 0"
-      }; else if (this.task.style.bgClr) return {
-        "background-color": this.task.style.bgClr,
-        "height": "100px",
-        "border-radius" : "3px 3px 0 0"
-      }; else return {"display": "none"}
->>>>>>> c8b49961470e7f99524baea5e36ee66b82e8dc35
     },
   },
   components: {
