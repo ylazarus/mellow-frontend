@@ -1,7 +1,7 @@
 <template>
   <header class="app-header-container" :class="bgc">
     <div class="app-header-inner flex">
-      <router-link class="logo-link btn-header" to="/board">
+      <router-link class="logo-link" to="/board">
         <h3 class="logo">
           <img class="logo-img" src="src/assets/svgs/trello.svg" /> Mellow
         </h3>
