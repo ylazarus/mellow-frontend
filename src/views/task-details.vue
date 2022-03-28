@@ -416,10 +416,12 @@ export default {
       if (this.task.style.bgImg) return {
         "background-image": `url(${this.task.style.bgImg})`,
         "height": "160px",
-        "background-color" : "#ccd6e0" // later make this dynamic with library?
+        "background-color" : "#ccd6e0", // later make this dynamic with library?
+        "border-radius" : "3px 3px 0 0"
       }; else if (this.task.style.bgClr) return {
         "background-color": this.task.style.bgClr,
         "height": "100px",
+        "border-radius" : "3px 3px 0 0"
       }; else return {"display": "none"}
     },
     
