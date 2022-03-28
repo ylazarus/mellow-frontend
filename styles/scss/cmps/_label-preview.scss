@@ -57,11 +57,11 @@
             }
         }
     }
-    .labels-title {
-        margin-block-end: 12px;
-        font-weight: 600;
-        color: $light-text;
-    }
+    // .labels-title {
+    //     margin-block-end: 12px;
+    //     font-weight: 600;
+    //     color: $light-text;
+    // }
     .choose-labels-container {
         .labels-list {
             flex-direction: column;
@@ -135,6 +135,8 @@
             }
         }
         .create-label-buttons-container {
+            // margin: 0 12px 12px 12px;
+            justify-content: space-between;
             .create-label-btn {
                 background-color: $trello-blue;
                 color: white;
@@ -147,13 +149,21 @@
                 align-items: center;
                 font-family: segoeui, sans-serif;
                 margin: 0;
-                padding: 6px 12px;
+                padding: 6px 24px;
             }
             .create:hover {
                 background-color: #026aa7;
             }
+
+            .delete-label-btn {
+            }
         }
     }
+}
+.labels-title {
+    margin-block-end: 12px;
+    font-weight: 600;
+    color: $light-text;
 }
 
 .label-input {
