@@ -230,6 +230,7 @@ import { useThrottledRefHistory } from "@vueuse/core";
 import coverUnsplash from "../components/cover-unsplash.vue";
 
 export default {
+  name: "task-details",
   emits: ["updateBoard", "addLabelToBoard", "updateBoardLabels"],
   data() {
     return {

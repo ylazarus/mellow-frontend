@@ -5,6 +5,7 @@ export default {
     state: {
         boards: [],
         currBoard: null,
+        filterBy: null,
     },
     getters: {
         boards({ boards }) {
@@ -19,6 +20,9 @@ export default {
         }
     },
     mutations: {
+        setFilter(state, { filterBy }) {
+            state.filterBy = filterBy
+        },
         setBoards(state, { boards }) {
             state.boards = boards
         },

@@ -38,7 +38,15 @@
         <button class="invite-btn btn-board btn">Invite</button>
       </div>
       <nav class="board-header-nav flex">
-        <button class="filter-btn btn-board btn">Filter</button>
+        <button class="filter-btn btn-board btn" @click="toggleFilter">
+          Filter
+        </button>
+        <board-filter
+          v-if="isOpenFilter"
+          :board="board"
+          @closeCmp="toggleFilter"
+          @setFilter="setFilter"
+        />
         <button class="show-menu-btn btn-board btn">Show menu</button>
       </nav>
     </header>
@@ -81,6 +89,7 @@ import { userService } from "../services/user-service";
 import boardGroup from "../components/board-group.vue";
 import userAvatar from "../components/user-avatar.vue";
 import { Container, Draggable } from "vue3-smooth-dnd";
+import boardFilter from "../components/board-filter.vue";
 
 export default {
   name: "board-details",
@@ -89,6 +98,7 @@ export default {
       board: null,
       dndInfo: {},
       isLabelTitle: false,
+      isOpenFilter: false,
     };
   },
   components: {
@@ -96,6 +106,7 @@ export default {
     userAvatar,
     Container,
     Draggable,
+    boardFilter,
   },
   async created() {
     const { boardId } = this.$route.params;
@@ -220,6 +231,12 @@ export default {
       const idx = this.board.labels.findIndex((l) => l.id === newLabel.id);
       this.board.labels.splice(idx, 1, newLabel);
       await this.saveBoard("Added a new label");
+    },
+    toggleFilter() {
+      this.isOpenFilter = !this.isOpenFilter;
+    },
+    setFilter(filterBy) {
+      this.$store.commit({ type: "setFilter", filterBy });
     },
   },
   computed: {
