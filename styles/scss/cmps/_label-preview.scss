@@ -22,17 +22,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-weight: 500;
+            // font-weight: 500;
         }
 
         .close-cmp-btn {
             position: absolute;
             top: 12px;
             right: 12px;
-            font-size: 20px;
+            // font-size: 20px;
             cursor: pointer;
             & span {
-                padding: 6px;
+                // padding: 6px;
                 font-family: trellicons;
                 width: 16px;
                 height: 16px;
@@ -137,8 +137,7 @@
         .create-label-buttons-container {
             // margin: 0 12px 12px 12px;
             justify-content: space-between;
-            .create-label-btn {
-                background-color: $trello-blue;
+            & button {
                 color: white;
                 border-radius: 3px;
                 border: none;
@@ -151,17 +150,26 @@
                 margin: 0;
                 padding: 6px 24px;
             }
-            .create:hover {
+            .create-label-btn {
+                background-color: $trello-blue;
+            }
+            .create-label-btn:hover {
                 background-color: #026aa7;
             }
 
             .delete-label-btn {
+                padding: 6px 12px;
+                background-color: $trello-danger;
+            }
+            .delete-label-btn:hover {
+                background-color: #933b27;
             }
         }
     }
 }
 .labels-title {
     margin-block-end: 12px;
+    font-size: 12px;
     font-weight: 600;
     color: $light-text;
 }

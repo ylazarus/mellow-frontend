@@ -24,9 +24,9 @@
   transform: translate(-50%, 0%);
   // pointer-events: none;
 
-  .task-details-main-content{
+  .task-details-main-content {
     display: flex;
-    padding: 16px
+    padding: 16px;
   }
 
   .task-details-container {
@@ -72,7 +72,8 @@
       > * {
         margin: 0 8px 8px 0;
       }
-      p {
+      .members-header,
+      .labels-header {
         font-size: 12px;
         font-family: segoeui-bold;
         color: $light-text;
@@ -362,7 +363,7 @@
     margin: 60px auto;
     // font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-    & p {
+    .add-task-buttons-title {
       margin: 0;
     }
 
@@ -428,7 +429,7 @@
   position: relative;
 }
 
-.Members{
+.Members {
   position: relative;
 }
 

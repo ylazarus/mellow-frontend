@@ -144,7 +144,7 @@
       <div v-else>Loading...</div>
 
       <nav @click.stop class="add-task-buttons-container">
-        <p>Add to card</p>
+        <p class="add-task-buttons-title">Add to card</p>
         <button
           @click.stop="openCmp('isMembers')"
           class="members-btn btn"
@@ -172,7 +172,7 @@
           :taskLabelIds="task.labelIds"
           @closeCmp="closeCmp"
           @addLabelToTask="addLabelToTask"
-          @addLabelToBoard="addLabelToBoard"
+          @removeLabelFromBoard="removeLabelFromBoard"
           @updateBoardLabels="updateBoardLabels"
         />
         <button class="checklist-btn btn" title="Checklist">Checklist</button>
@@ -231,6 +231,12 @@ import { useThrottledRefHistory } from "@vueuse/core";
 import coverUnsplash from "../components/cover-unsplash.vue";
 
 export default {
+  emits: [
+    "updateBoard",
+    "addLabelToTask",
+    "addLabelToBoard",
+    "updateBoardLabels",
+  ],
   data() {
     return {
       task: null,
@@ -344,13 +350,33 @@ export default {
       await this.saveTask("Change Labels");
       this.loadTask();
     },
-    async addLabelToBoard(newLabel) {
-      console.log("task", newLabel);
-      await this.$emit("addLabelToBoard", newLabel);
+    async removeLabelFromBoard(labelId) {
+      console.log("task", labelId);
+      const idx = this.currBoard.labels.findIndex((l) => l.id === labelId);
+      console.log("task", idx);
+      this.currBoard.labels.splice(idx, 1);
+      this.saveBoard("Remove label");
     },
     async updateBoardLabels(newLabel) {
-      console.log("task", newLabel);
-      await this.$emit("updateBoardLabels", newLabel);
+      const idx = this.currBoard.labels.findIndex((l) => l.id === newLabel.id);
+      if (idx === -1) this.currBoard.labels.push(newLabel);
+      else this.currBoard.labels.splice(idx, 1, newLabel);
+      // await this.$emit("updateBoardLabels", newLabel);
+      this.saveBoard("Change labels");
+    },
+    async saveBoard(type) {
+      const activity = {
+        id: utilService.makeId(),
+        txt: type,
+        createdAt: Date.now(),
+        // byMember: userService.getLoggedinUser() || "Guest",
+      };
+      this.currBoard.activities.push(activity);
+      const board = await this.$store.dispatch({
+        type: "saveBoard",
+        board: JSON.parse(JSON.stringify(this.currBoard)),
+      });
+      this.$emit("updateBoard", board);
     },
     async toggleMemberInTask(memberToAdd) {
       console.log("memberToAdd", memberToAdd);
@@ -380,7 +406,7 @@ export default {
       const img = await this.$store.dispatch({ type: "attachImg", ev });
       if (!this.task.attachments) this.task.attachments = [];
       this.task.attachments.push(img.url);
-      this.task.style.bgImg = img.url
+      this.task.style.bgImg = img.url;
       await this.saveTask("added image");
       this.loadTask();
     },
@@ -411,19 +437,21 @@ export default {
         return true;
       }
     },
-       // {"bgClr": '', "bgImg": '', "isFullCover": false}
+    // {"bgClr": '', "bgImg": '', "isFullCover": false}
     coverStyle() {
-      if (this.task.style.bgImg) return {
-        "background-image": `url(${this.task.style.bgImg})`,
-        "height": "160px",
-        "background-color" : "#ccd6e0" // later make this dynamic with library?
-      }; else if (this.task.style.bgClr) return {
-        "background-color": this.task.style.bgClr,
-        "height": "100px",
-      }; else return {"display": "none"}
+      if (this.task.style.bgImg)
+        return {
+          "background-image": `url(${this.task.style.bgImg})`,
+          height: "160px",
+          "background-color": "#ccd6e0", // later make this dynamic with library?
+        };
+      else if (this.task.style.bgClr)
+        return {
+          "background-color": this.task.style.bgClr,
+          height: "100px",
+        };
+      else return { display: "none" };
     },
-    
-    
   },
   components: {
     userAvatar,

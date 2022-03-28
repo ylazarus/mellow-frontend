@@ -71,16 +71,13 @@
         </div>
       </div>
       <div class="create-label-buttons-container flex">
-        <button
-          class="create-label-btn"
-          @click.stop="changeBoardLabels('edit')"
-        >
+        <button class="create-label-btn" @click.stop="changeBoardLabels">
           {{ createBtn }}
         </button>
         <button
           v-if="isChange"
           class="delete-label-btn"
-          @click.stop="deleteLabelFromBoard()"
+          @click.stop="removeLabelFromBoard"
         >
           Delete
         </button>
@@ -97,6 +94,7 @@ export default {
     boardLabels: Array,
     taskLabelIds: Array,
   },
+  emits: ["addLabelToTask", "addLabelToBoard", "updateBoardLabels"],
   components: {},
   data() {
     return {
@@ -133,7 +131,9 @@ export default {
       this.$emit("closeCmp");
     },
     aggregateLabels() {
+      this.labels = [];
       this.labels = this.boardLabels.map((label) => {
+        label = JSON.parse(JSON.stringify(label));
         if (this.taskLabelIds?.includes(label.id)) {
           label.inTask = true;
         }
@@ -164,49 +164,28 @@ export default {
       );
       this.labelToChange.color = defaultLabel.color;
     },
-    // async changeBoardLabels(type) {
-    //   const newLabel = JSON.parse(JSON.stringify(this.labelToChange));
-    //   newLabel.title = this.newLabelTitle;
-    //   // delete newLabel.isSelected;
-    //   switch (type) {
-    //     case "edit":
-    //       if (newLabel.id) {
-    //         newLabel.id = "l" + utilService.makeId();
-    //       }
-    //       break;
+    async changeBoardLabels() {
+      const newLabel = JSON.parse(JSON.stringify(this.labelToChange));
 
-    //     default:
-    //       break;
-    //   }
-    //   if (this.isCreate) {
-    //     console.log(newLabel);
-    //     await this.$emit(
-    //       "addLabelToBoard",
-    //       JSON.parse(JSON.stringify(newLabel))
-    //     );
-    //     console.log("await");
-    //   } else {
-    //     await this.$emit("updateBoardLabels", newLabel);
-    //   }
-    //   this.isCreate = false;
-    //   this.isChange = false;
-    // },
+      if (this.isCreate) {
+        newLabel.id = "l" + utilService.makeId();
+        console.log(newLabel);
+      }
+      await this.$emit("updateBoardLabels", newLabel);
+      this.isCreate = false;
+      this.isChange = false;
+    },
+    async removeLabelFromBoard() {
+      if (!confirm("Remove label?")) return;
+      console.log("confirm");
+      const labelId = this.labelToChange.id;
+      await this.$emit("removeLabelFromBoard", labelId);
+    },
   },
   computed: {
     getLabels() {
       const regex = new RegExp(this.filterTxt, "i");
       return this.labels.filter((label) => regex.test(label.title));
-    },
-    defaultLabelsToDisplay() {
-      let unusedLabels = [];
-      let usedLabelIds = this.boardLabels.map((l) => l.id);
-      this.defaultLabels.forEach((label) => {
-        if (!usedLabelIds.includes(label.id)) unusedLabels.push(label);
-        // if (this.isChange) {
-        //   if (label.isSelected) unusedLabels.push(label);
-        // }
-      });
-      return unusedLabels;
     },
     cmpTitle() {
       if (this.isChange) return "Change label";
@@ -215,7 +194,7 @@ export default {
     },
     createBtn() {
       if (this.isCreate) return "Create";
-      else if (this.isChange) return "Change";
+      else if (this.isChange) return "Save";
     },
   },
   watch: {
