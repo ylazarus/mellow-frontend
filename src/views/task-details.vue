@@ -2,9 +2,7 @@
   <div class="task-details-dark" @click="goBack"></div>
 
   <section class="task-details-page">
-    <div v-if="task" :style="coverStyle" class="task-cover-img cover-bgImg">
-      <!-- <img class="cover-bgImg" :src="coverBgImg" alt="" /> -->
-    </div>
+    <div v-if="task" :style="coverStyle" class="task-cover-img"></div>
     <div class="task-details-main-content">
       <div v-if="task" class="task-details-container">
         <!-- title needs to become text area in the future -->
@@ -382,6 +380,7 @@ export default {
       const img = await this.$store.dispatch({ type: "attachImg", ev });
       if (!this.task.attachments) this.task.attachments = [];
       this.task.attachments.push(img.url);
+      this.task.style.bgImg = img.url
       await this.saveTask("added image");
       this.loadTask();
     },
@@ -418,13 +417,13 @@ export default {
     // {"bgClr": '', "bgImg": '', "isFullCover": false}
     coverStyle() {
       if (this.task.style.bgImg) return {
-        "background-image": this.task.style.bgImg,
+        "background-image": `url(${this.task.style.bgImg})`,
         "height": "160px",
-        "background-color" : "whitesmoke" // later make this dynamic with library?
+        // "background-color" : "#f4f5f7" // later make this dynamic with library?
       }; else if (this.task.style.bgClr) return {
         "background-color": this.task.style.bgClr,
         "height": "100px",
-      }; else return {"height": "0"}
+      }; else return {"display": "none"}
     },
     
     

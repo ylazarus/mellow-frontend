@@ -69,6 +69,7 @@ export default {
   methods: {
     selectBgClr(bgClr) {
       this.currStyle.bgClr = bgClr;
+      this.currStyle.bgImg = ''
       this.$emit("addStyle", this.currStyle);
     },
     closeCmp() {
