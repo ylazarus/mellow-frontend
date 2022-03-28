@@ -349,14 +349,14 @@ export default {
       const idx = this.currBoard.labels.findIndex((l) => l.id === labelId);
       console.log("task", idx);
       this.currBoard.labels.splice(idx, 1);
-      this.saveBoard("Remove label");
+      await this.saveBoard("Remove label");
     },
     async updateBoardLabels(newLabel) {
       const idx = this.currBoard.labels.findIndex((l) => l.id === newLabel.id);
       if (idx === -1) this.currBoard.labels.push(newLabel);
       else this.currBoard.labels.splice(idx, 1, newLabel);
       // await this.$emit("updateBoardLabels", newLabel);
-      this.saveBoard("Change labels");
+      await this.saveBoard("Change labels");
     },
     async saveBoard(type) {
       const activity = {
@@ -370,7 +370,7 @@ export default {
         type: "saveBoard",
         board: JSON.parse(JSON.stringify(this.currBoard)),
       });
-      this.$emit("updateBoard", board);
+      await this.$emit("updateBoard", board);
     },
     async toggleMemberInTask(memberToAdd) {
       console.log("memberToAdd", memberToAdd);
