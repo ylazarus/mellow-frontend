@@ -100,6 +100,7 @@ export default {
             try {
                 const title = prompt('Enter board title')
                 const board = await boardService.getEmptyBoard(title);
+                console.log(board, 'board');
                 commit({ type: "addBoard", board })
                 return board._id
             } catch (err) {
@@ -113,6 +114,36 @@ export default {
 
             } catch (err) {
                 console.log("board module removeBoard cant load boards now", err)
+            }
+        },
+        async removeTask({ commit, state }, { boardId, groupId, task, activity }) {
+            try {
+                // console.log('*************************************************');
+                // console.log('board store - removing');
+                // console.log('boardId', boardId);
+                // console.log('groupId', groupId);
+                // console.log('task', task);
+                // console.log('activity', activity);
+
+                const board = state.boards.find(board => board._id === boardId)
+                console.log('board', board);
+                const group = board.groups.find(group => group.id === groupId)
+                console.log('group', group);
+                const taskIdxToRemove = group.tasks.findIndex(t => t.id === task.id)
+                console.log(taskIdxToRemove);
+                const removed = group.tasks.splice(taskIdxToRemove, 1)
+                console.log('group after remove', removed);
+
+                // NEED TO ASK AVIOR
+                // CAUSE WE DO ONLY SAVE BOARD / REMOVE BOARD
+                // I CANT USE REMOVE AT ALL CAUSE WE DONT DO REMOVE TASK
+                // I HAVE TO COMMIT FOR MUTATION AND UPDATE THE BOARD AFTER SPLICE
+                // THEN I HAVE TO SAVE THE UPDATED BOARD AFTER THE SPLICE
+                // IM NOT USING REMOVE AT ALL...ONLY SAVE
+
+
+            } catch (err) {
+                console.log('board module removeTask cant remove task now', err);
             }
         },
         async toggleFavorite({ commit }, { board }) {
