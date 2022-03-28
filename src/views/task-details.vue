@@ -2,9 +2,7 @@
   <div class="task-details-dark" @click="goBack"></div>
 
   <section class="task-details-page">
-    <div :style="coverBg" class="task-cover-img">
-      <img class="cover-bgImg" :src="coverBgImg" alt="" />
-    </div>
+    <div v-if="task" :style="coverStyle" class="task-cover-img"></div>
     <div class="task-details-main-content">
       <div v-if="task" class="task-details-container">
         <!-- title needs to become text area in the future -->
@@ -213,9 +211,9 @@
         </button>
         <cover-unsplash
           v-if="handles.isCover"
-          :bg="task.bg"
+          :style="task.style"
           @closeCmp="closeCmp"
-          @addBg="addBg"
+          @addStyle="addStyle"
         />
       </nav>
     </div>
@@ -235,7 +233,6 @@ import coverUnsplash from "../components/cover-unsplash.vue";
 export default {
   data() {
     return {
-      loading: true,
       task: null,
       imgUrls: [],
       currBoard: null,
@@ -254,12 +251,6 @@ export default {
   },
   async created() {
     await this.loadTask();
-    // if (!this.task.style.bgImg) {
-    //   this.task.style.bgImg = this.task.attachments
-    //     ? this.task.attachments[0]
-    //     : "";
-    // }
-    this.loading = false;
   },
   methods: {
     async loadTask() {
@@ -281,9 +272,9 @@ export default {
       this.$router.push(`/board/${currBoard._id}`);
       document.body.classList.remove("dark-mode");
     },
-    async addBg(style) {
+    async addStyle(style) {
       this.task.style = style;
-      await this.saveTask("Updated background");
+      await this.saveTask("Updated style");
       this.closeCmp();
       this.loadTask();
     },
@@ -389,6 +380,7 @@ export default {
       const img = await this.$store.dispatch({ type: "attachImg", ev });
       if (!this.task.attachments) this.task.attachments = [];
       this.task.attachments.push(img.url);
+      this.task.style.bgImg = img.url
       await this.saveTask("added image");
       this.loadTask();
     },
@@ -419,21 +411,19 @@ export default {
         return true;
       }
     },
-    // need to continue here tomorrow, if bgcolor is selected, return it, otherwise img
-    // need to add to object which  is selected
-    // need to update the css and need to figure out how to make it work, is it a prob of syncronous loading?
-    coverBg() {
-      return {
-        "background-color": this.task?.style?.bgColor || "#FFF",
-        height: "100px",
-      };
+       // {"bgClr": '', "bgImg": '', "isFullCover": false}
+    coverStyle() {
+      if (this.task.style.bgImg) return {
+        "background-image": `url(${this.task.style.bgImg})`,
+        "height": "160px",
+        "background-color" : "#ccd6e0" // later make this dynamic with library?
+      }; else if (this.task.style.bgClr) return {
+        "background-color": this.task.style.bgClr,
+        "height": "100px",
+      }; else return {"display": "none"}
     },
-    coverBgImg() {
-      return {
-        "background-image": this.task?.style?.bgImg || "",
-        height: "160px",
-      };
-    },
+    
+    
   },
   components: {
     userAvatar,

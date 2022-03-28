@@ -3,14 +3,16 @@
 }
 
 .task-cover-img{
-    height: 160px;
+    // height: 160px;
     display: flex;
     justify-content: center;
-
-    img{
-        height: 100%;
-        width: auto;
-    }
+    
+    background-size: contain;
+    background-repeat: no-repeat;
+    // img{
+    //     height: 100%;
+    //     width: auto;
+    // }
 }
 
 
