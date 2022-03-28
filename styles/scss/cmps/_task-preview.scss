@@ -1,4 +1,34 @@
-.task-preview-container {
+.full-cover-selected{
+  border-radius: 3px;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+    align-items: flex-end;
+
+  .full-cover-title{
+    width: 100%;
+    font-family: segoeui-bold;
+  padding: 6px 8px;
+    margin: 0;
+
+    &.is-img{
+      background: linear-gradient(0deg,hsla(0,0%,100%,.9) 40%,hsla(0,0%,100%,.7) 65%,hsla(0,0%,100%,0));
+      padding: 40px 8px 2px 8px;
+    }
+
+    &.is-dark-bg{
+      color: white;
+    }
+
+    &.is-light-bg{
+      color: $text-color;
+    }
+
+  }
+}
+
+.top-cover-selected {
   background-color: #fff;
   border-radius: 3px;
   padding: 6px 8px;
@@ -6,10 +36,13 @@
   position: relative;
   // box-shadow: 0 1px 0 #091e4240;
 
+  
+
   .task-preview-cover{
     width: 100%;
     height: 32px;
     border-radius: 3px;
+    margin-bottom: 6px;
   }
 
   .labels-container {

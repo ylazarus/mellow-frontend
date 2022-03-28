@@ -4,8 +4,8 @@
     class="task-preview-container"
     
   >
-  <div v-if="this.task.style.isFullCover" :class="fullCoverStyle" class="full-cover-selected">
-    <div class="full-cover-title">{{task.title}}</div>
+  <div v-if="this.task.style.isFullCover" :style="fullCoverStyle" class="full-cover-selected">
+    <p :class="fullCoverTxt" class="full-cover-title">{{task.title}}</p>
   </div>
 
   <div v-else class="top-cover-selected">
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div>
-      <img v-if="task.attachments?.length" :src="task.attachments[0]" alt="" />
+      <img v-if="task.attachments?.length && !task.style.bgClr" :src="task.attachments[0]" alt="" />
     </div>
     <div class="task-content">{{ task.title }}</div>
 
@@ -76,6 +76,7 @@
 <script>
 import userAvatar from "./user-avatar.vue";
 import taskDetails from "../views/task-details.vue";
+import { utilService } from '../services/util-service';
 
 export default {
   props: {
@@ -156,13 +157,23 @@ export default {
       // {"bgClr": '', "bgImg": '', "isFullCover": false}
     fullCoverStyle(){
       if (this.task.style.bgImg) return {
-        "background-image": `url(${this.task.style.bgImg})`,
-        "height": "160px",
-        "background-color" : "#ccd6e0" // later make this dynamic with library?
-      }; else if (this.task.style.bgClr) return {
-        "background-color": this.task.style.bgClr,
-        "height": "100px",
+        backgroundImage: `url(${this.task.style.bgImg})`,
+        height: "220px",
+        backgroundColor : "#ccd6e0" // later make this dynamic with library?
+      }; else return {
+        "background-color": this.task.style?.bgClr || "#FFFFFF",
+        "height": "54px",
       };
+    },
+    fullCoverTxt(){
+      if (this.task.style.bgImg) return "is-img"
+      else {
+        const isDark = utilService.isDarkColor(this.task.style.bgClr)
+        console.log(isDark, 'is dark');
+        if (isDark) return "is-dark-bg"
+        else return "is-light-bg"
+
+      }
     },
     coverStyle() {
      if (this.task.style.bgClr) return {

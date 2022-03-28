@@ -439,6 +439,7 @@ export default {
     },
     // {"bgClr": '', "bgImg": '', "isFullCover": false}
     coverStyle() {
+<<<<<<< HEAD
       if (this.task.style.bgImg)
         return {
           "background-image": `url(${this.task.style.bgImg})`,
@@ -451,6 +452,18 @@ export default {
           height: "100px",
         };
       else return { display: "none" };
+=======
+      if (this.task.style.bgImg) return {
+        "background-image": `url(${this.task.style.bgImg})`,
+        "height": "160px",
+        "background-color" : "#ccd6e0", // later make this dynamic with library?
+        "border-radius" : "3px 3px 0 0"
+      }; else if (this.task.style.bgClr) return {
+        "background-color": this.task.style.bgClr,
+        "height": "100px",
+        "border-radius" : "3px 3px 0 0"
+      }; else return {"display": "none"}
+>>>>>>> c8b49961470e7f99524baea5e36ee66b82e8dc35
     },
   },
   components: {
