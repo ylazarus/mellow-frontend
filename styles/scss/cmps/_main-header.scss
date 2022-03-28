@@ -14,7 +14,6 @@
 .app-header-container {
     // background-color: #00000073;
     background-color: $clr6;
-
     position: fixed;
     z-index: 1;
     width: 100%;
@@ -22,28 +21,39 @@
     font-size: 18px;
     display: flex;
     justify-content: center;
+    align-items: center;
 
     .app-header-inner {
         z-index: 1;
         display: flex;
-        // align-items: center;
+        // justify-content: center;
+        align-items: center;
         font-weight: 700;
         height: 44px;
         padding: 6px 4px;
         // background-color: #026aa7;
         color: $clr7;
         width: 100%;
-        margin-left: 67px;
+        margin-left: 28px;
         align-items: center;
         gap: 8px;
 
         .logo-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-decoration: none;
+            padding: 0px 6px;
+            height: 32px;
+            gap: 4px;
+            border-radius: 3px;
             .logo {
                 margin: 0;
+                font-size: 18px;
             }
             .logo-img {
-                width: 18px;
+                width: 16px;
+                height: 16px;
                 // position: absolute;
                 // left: 43px;
             }
@@ -57,7 +67,6 @@
 
         .btn-header {
             color: #ffffff;
-
             border-radius: 3px;
             border: none;
             background-color: #00000000;
@@ -67,12 +76,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 6px 10px 6px 12px;
+            gap: 6px;
         }
         .btn-header:hover {
             background-color: #0000004d;
         }
 
-        .header-arrow-img {
+        .header-arrow-icon::before {
+            font-family: trellicons;
+            content: "";
             color: #ffffff;
             width: 16px;
             height: 16px;

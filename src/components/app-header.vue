@@ -1,41 +1,47 @@
 <template>
   <header class="app-header-container" :class="bgc">
     <div class="app-header-inner flex">
-      <router-link class="logo-link" to="/board">
-        <h3 class="logo">
-          <img class="logo-img" src="src/assets/svgs/trello.svg" /> Mellow
-        </h3>
+      <router-link class="logo-link flex" to="/board">
+        <img class="logo-img" src="src/assets/svgs/trello.svg" />
+        <h3 class="logo">Mellow</h3>
       </router-link>
       <nav class="app-header-nav">
-        <button class="btn-header">
+        <button
+          class="btn-header flex"
+          @click="toggleRecent"
+          @closeCmp="toggleRecent"
+        >
           Recent
-          <img
-            class="header-arrow-img"
-            src="src/assets/svgs/arrow-down.svg"
-            alt=""
-          />
+          <span class="header-arrow-icon"></span>
         </button>
+        <board-recent v-if="isRecent" />
       </nav>
     </div>
   </header>
 </template>
 
 <script>
+import boardRecent from "./board-recent.vue";
 export default {
   data() {
     return {
       isWorkspace: false,
+      isRecent: false,
     };
   },
+  created() {},
   methods: {
-    // moveToBoards() {
-    //     this.$router.push()
-    // }
+    toggleRecent() {
+      this.isRecent = !this.isRecent;
+    },
   },
   computed: {
     bgc() {
       return { blue: this.isWorkspace };
     },
+  },
+  components: {
+    boardRecent,
   },
 };
 </script>

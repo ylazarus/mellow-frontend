@@ -1,0 +1,59 @@
+.board-recent {
+    color: $light-text;
+    background-color: white;
+    width: 21.714rem;
+    // margin-top: 10px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    // right: -112px;
+    // bottom: -175px;
+    padding: 0 12px 12px 12px;
+    z-index: 1000;
+
+    .cmp-header {
+        text-align: center;
+    }
+    .cmp-container-title {
+        color: $light-text;
+        margin: 0;
+    }
+    .close-cmp-btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        cursor: pointer;
+        & span {
+            // padding: 6px;
+            font-family: trellicons;
+            width: 16px;
+            height: 16px;
+        }
+        & span::before {
+            content: "";
+        }
+    }
+    & hr {
+        width: 100%;
+        border-color: #091e4221;
+        margin-bottom: 13px;
+    }
+
+    .recent-board-preview {
+        text-decoration: none;
+        gap: 8px;
+        .recent-board-preview-img {
+            width: 40px;
+            height: 32px;
+            border-radius: 3px;
+        }
+
+        .recent-board-title {
+        }
+    }
+    .recent-board-preview:visited {
+        color: $light-text;
+    }
+}

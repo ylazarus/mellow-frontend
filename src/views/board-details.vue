@@ -85,6 +85,7 @@
 import { boardService } from "../services/board-service";
 import { utilService } from "../services/util-service";
 import { userService } from "../services/user-service";
+import { eventBus, showMsg } from "../services/event-bus-service";
 
 import boardGroup from "../components/board-group.vue";
 import userAvatar from "../components/user-avatar.vue";
@@ -109,6 +110,7 @@ export default {
     boardFilter,
   },
   async created() {
+    this.unsubscribe = eventBus.on("show-msg", this.showMsg);
     const { boardId } = this.$route.params;
     this.loadBoard(boardId);
   },
@@ -246,6 +248,9 @@ export default {
     updatedBoardFromStore() {
       return this.$store.getters.boards;
     },
+  },
+  unmounted() {
+    this.unsubscribe();
   },
 };
 </script>
