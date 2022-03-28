@@ -2,9 +2,10 @@
   <div
     @click="toTaskDetails(this.boardId, this.groupId, this.task.id)"
     class="task-preview-container"
-    :class="isFullImage"
+    
   >
-    <div :style="coverBg" class="task-preview-cover"></div>
+  <!-- :class="isFullImage" -->
+    <div class="task-preview-cover"></div>
     <div
       class="labels-container"
       v-if="task.labelIds?.length"
@@ -146,16 +147,16 @@ export default {
     openLabel() {
       return { open: this.isLabelTitle };
     },
-    isCoverSizeTop() {
-      if (task.style.coverSize === "top") return true;
-    },
+    // isCoverSizeTop() {
+    //   if (task.style.isFullCo === "top") return true;
+    // },
     // coverBg() {
     //   console.log("background info", this.task.style);
     //   return { "background-color": this.task.style.bgColor };
     // },
-    coverBgImg() {
-      return { "background-image": this.task.style.bgImg };
-    },
+    // coverBgImg() {
+    //   return { "background-image": this.task.style.bgImg };
+    // },
   },
   // methods: {
   //   toggleLabelTitle() {
