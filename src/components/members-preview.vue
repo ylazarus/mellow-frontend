@@ -13,14 +13,16 @@
             <ul class="board-members-container">
                 <li
                     class="board-member pointer"
-                    v-for="member in boardMembers"
-                    :key="member._id"
+                    v-for="(member, index) in members"
+                    :key="index"
                     @click="toggleMemberInTask(member)"
                 >
                     <user-avatar :user="member" />
                     <div>{{ member.fullname }}{{ ` (${member.username})` }}</div>
                     <!-- <pre>{{ task }}</pre> -->
-                    <!-- <div v-if="member.isCheck" class="member-check"></div> -->
+                    <!-- <pre>{{ index }}</pre> -->
+                    <!-- <pre>{{ isCheck[index] }}</pre> -->
+                    <div v-if="member.isCheck" class="member-check"></div>
                 </li>
                 <div></div>
             </ul>
@@ -41,23 +43,57 @@ export default {
     },
     data() {
         return {
-            isCheck: false
+            // isCheck: false
+            members: []
         }
     },
-    created() { },
+    created() {
+        this.aggregateMembers()
+    },
     methods: {
         closeCmp() {
             this.$emit('closeCmp')
             console.log('closing cmp');
         },
         toggleMemberInTask(member) {
-            // console.log(' from members-preview', member);
-            this.isCheck = !this.isCheck
             console.log();
             this.$emit('toggleMemberInTask', member)
+        },
+        aggregateMembers() {
+            this.members = [];
+            let taskMembersIds = this.task.members.map((m) => m._id);
+            console.log(taskMembersIds);
+            this.boardMembers.forEach(member => {
+                console.log(member);
+                if (taskMembersIds.includes(member._id)) {
+                    member.isCheck = true
+                }
+                this.members.push(JSON.parse(JSON.stringify(member)))
+            })
+            console.log(this.boardMembers);
+            console.log(this.task.members);
+            console.log(this.members);
+        },
+    },
+    computed: {
+        // isMemberCheck() {
+        //     let taskMembersIds = this.task.members.map((m) => m._id);
+        //     let isCheck;
+        //     const koko = this.boardMembers.map((member, idx) => {
+        //         if (taskMembersIds.includes(member._id)) return true
+        //         else return false
+        //     })
+        // }
+
+    },
+    watch: {
+        task: {
+            handler() {
+                this.aggregateMembers()
+            },
+            deep: true
         }
     },
-    computed: {},
     unmounted() { },
 
 }

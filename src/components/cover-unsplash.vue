@@ -9,8 +9,8 @@
     <hr />
     <p>Size</p>
     <div class="cover-size-select">
-      <div @click="selectCoverSize('full')"></div>
-      <div @click="selectCoverSize('top')"></div>
+      <button @click="setFullCover(true)">Full Cover</button>
+      <button @click="setFullCover(false)">Top Cover</button>
     </div>
     <p>Color</p>
     <div class="select-solid-bgc-container">
@@ -19,11 +19,12 @@
         :key="bgc.id"
         class="bgc-option flex pointer"
         :style="{ backgroundColor: bgc.color }"
-        @click.stop="selectBg(bgc.color)"
+        @click="selectBgClr(bgc.color)"
       ></div>
     </div>
   </section>
 </template>
+
 
 <script>
 import { getCurrentInstance, onMounted } from "vue";
@@ -31,11 +32,11 @@ import { getCurrentInstance, onMounted } from "vue";
 export default {
   name: "cover-unsplash",
   props: {
-    bg: Object,
+    style: Object,
   },
   data() {
     return {
-      currStyle: {},
+      currStyle: { bgClr: "", bgImg: "", isFullCover: false },
       bgColors: [
         { id: "l101", color: "#61bd4f", isSelected: false },
         { id: "l102", color: "#f2d600", isSelected: false },
@@ -51,8 +52,7 @@ export default {
     };
   },
   created() {
-    this.currStyle = this?.bg || {};
-    if (!this.currStyle.coverSize) this.currStyle.coverSize = "top";
+    this.currStyle = JSON.parse(JSON.stringify(this.style));
   },
 
   setup(props, context) {
@@ -67,15 +67,17 @@ export default {
     });
   },
   methods: {
-    selectBg(bgColor) {
-      this.currStyle.bgColor = bgColor;
-      this.$emit("addBg", this.currStyle);
+    selectBgClr(bgClr) {
+      this.currStyle.bgClr = bgClr;
+      this.currStyle.bgImg = "";
+      this.$emit("addStyle", this.currStyle);
     },
     closeCmp() {
       this.$emit("closeCmp");
     },
-    selectCoverSize(size) {
-      this.currStyle.coverSize = size;
+    setFullCover(val) {
+      this.currStyle.isFullCover = val;
+      this.$emit("addStyle", this.currStyle);
     },
   },
 };

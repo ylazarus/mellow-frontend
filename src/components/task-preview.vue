@@ -2,9 +2,15 @@
   <div
     @click="toTaskDetails(this.boardId, this.groupId, this.task.id)"
     class="task-preview-container"
-    :class="isFullImage"
+    
   >
-    <div :style="coverBg" class="task-preview-cover"></div>
+  <div v-if="this.task.style.isFullCover" :class="fullCoverStyle" class="full-cover-selected">
+    <div class="full-cover-title">{{task.title}}</div>
+  </div>
+
+  <div v-else class="top-cover-selected">
+  <!-- :class="isFullImage" -->
+    <div  :style="coverStyle" class="task-preview-cover"></div>
     <div
       class="labels-container"
       v-if="task.labelIds?.length"
@@ -63,6 +69,7 @@
         />
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -146,16 +153,33 @@ export default {
     openLabel() {
       return { open: this.isLabelTitle };
     },
-    isCoverSizeTop() {
-      if (task.style.coverSize === "top") return true;
+      // {"bgClr": '', "bgImg": '', "isFullCover": false}
+    fullCoverStyle(){
+      if (this.task.style.bgImg) return {
+        "background-image": `url(${this.task.style.bgImg})`,
+        "height": "160px",
+        "background-color" : "#ccd6e0" // later make this dynamic with library?
+      }; else if (this.task.style.bgClr) return {
+        "background-color": this.task.style.bgClr,
+        "height": "100px",
+      };
     },
+    coverStyle() {
+     if (this.task.style.bgClr) return {
+        "background-color": this.task.style.bgClr,
+        "height": "32px",
+      }; else return {"display": "none"}
+    },
+    // isCoverSizeTop() {
+    //   if (task.style.isFullCo === "top") return true;
+    // },
     // coverBg() {
     //   console.log("background info", this.task.style);
     //   return { "background-color": this.task.style.bgColor };
     // },
-    coverBgImg() {
-      return { "background-image": this.task.style.bgImg };
-    },
+    // coverBgImg() {
+    //   return { "background-image": this.task.style.bgImg };
+    // },
   },
   // methods: {
   //   toggleLabelTitle() {
