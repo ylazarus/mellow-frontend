@@ -7,24 +7,49 @@
     flex-direction: column;
     background-color: white;
     position: absolute;
-    top: 50px;
-    // right: -112px;
-    // bottom: -175px;
+    top: 417px;
+    right:15px ;
     padding: 0px 12px 12px;
     z-index: 10;
 
     .delete-header{
         justify-content: center;
-    }
+        align-items: center;
+        line-height: 40px;
+        position: relative;
 
+        .close-delete::before{
+            font-size: 16px;
+            font-family: trellicons;
+            content: "";
+        }
+
+        .close-delete{
+            position: absolute;
+            right: 1px;
+        }
+    }
 
     .delete-content-container{
         
+        p{
+            color: $light-text;
+            margin: 0 0 8px;
+        }
+
         .confirm-delete{
+            justify-content: center;
+            align-items: center;
             color: #fff;
             background-color: $trello-danger;
             user-select: none;
             width: 100%;
+            margin-top: 8px;
+            margin-bottom: 0;
+        }
+
+        .confirm-delete:hover{
+            background-color: #933b27;
         }
     }
 }

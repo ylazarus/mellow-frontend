@@ -1,5 +1,5 @@
 <template>
-  <div class="task-details-dark" @click="goBack"></div>
+  <div class="task-details-dark" @click="moveToBoard"></div>
 
   <section class="task-details-page">
     <div v-if="task" :style="coverStyle" class="task-cover-img"></div>
@@ -93,7 +93,7 @@
           <p class="activity-header">Activity</p>
           <button v-if="task.activity?.length" class="details-shown-btn btn">{{ areDetailsShown }}</button>
         </div>
-        <button class="go-back-btn" @click="goBack"></button>
+        <button class="go-back-btn" @click="moveToBoard"></button>
       </div>
 
       <div v-else>Loading...</div>
@@ -215,10 +215,10 @@ export default {
       this.newDescription = this.task.description;
       this.imgUrls = this.task.attachments;
     },
-    goBack() {
+    moveToBoard() {
       const currBoard = this.$store.getters.getCurrBoard;
       this.$router.push(`/board/${currBoard._id}`);
-      document.body.classList.remove("dark-mode");
+      // document.body.classList.remove("dark-mode");
     },
     async addStyle(style) {
       this.task.style = style;
@@ -231,12 +231,10 @@ export default {
         this.handles[key] = false;
       }
       this.handles[type] = true;
-      console.log('isDelete', this.handles.isDelete);
     },
     closeCmp() {
       for (let key in this.handles) {
         this.handles[key] = false;
-        console.log('isDelete', this.handles.isDelete);
       }
     },
     async saveTaskTitle(ev) {
@@ -368,16 +366,18 @@ export default {
       console.log('currGroup.id', this.currGroup.id);
       console.log('this.task', this.task);
 
-      // const board = await this.$store.dispatch({
-      await this.$store.dispatch({
+      const board = await this.$store.dispatch({
         type: "removeTask",
         boardId: this.currBoard._id,
         groupId: this.currGroup.id,
         task: this.task,
         activity,
       });
-      // this.$emit("updateBoard", board);
-      // after delete route to the active board
+      this.$emit("updateBoard", board);
+      // console.log('im here', this.currBoard);
+      // this.$router.push(`/board/${this.currBoard._id}`);
+      this.moveToBoard()
+
     }
   },
   computed: {

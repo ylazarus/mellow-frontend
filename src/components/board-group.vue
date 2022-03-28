@@ -94,7 +94,7 @@ export default {
     async openAddTask() {
       this.isAdding = true;
       await utilService.delay(50);
-      this.focusOnInput();
+      // this.focusOnInput();
     },
     addTask() {
       if (!this.newTaskTitle) {

@@ -16,7 +16,7 @@ const app = createApp(App)
 
 app.directive('focus', focusDirective)
 app.use(VCalendar, {})
-app.use(Unsplash, { accessKey: 'Y2X6Y_wdMpqvaYX_4jgO-dOBqVAsQMQpihsIFNOAX5E' })
+app.use(Unsplash, { accessKey: 'Y2X6Y_wdMpqvaYX_4jgO-dOBqVAsQMQpihsIFNOAX5E', secret: "W5FeRrlFbgAz3i3d54dHnDm9okVhUeUIXZ6TyvZC_H4" })
 app.use(ElementPlus)
 app.use(router)
 app.use(store)
