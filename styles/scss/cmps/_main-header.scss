@@ -11,43 +11,72 @@
 //     }
 //   }
 
-.app-header-container{
+.app-header-container {
+    // background-color: #00000073;
     background-color: $clr6;
-    position: relative;
+
+    position: fixed;
+    z-index: 1;
+    width: 100%;
     line-height: 20px;
     font-size: 18px;
     display: flex;
     justify-content: center;
 
-    .app-header-inner{
-    z-index: 1;
-    display: flex;
-    // align-items: center;
-    font-weight: 700;
-    height: 44px;
-    padding: 6px 4px;
-    background-color: #026aa7;
-    color: $clr7;
-    width: 100%;
-    margin-left: 67px;
-    align-items: center;
+    .app-header-inner {
+        z-index: 1;
+        display: flex;
+        // align-items: center;
+        font-weight: 700;
+        height: 44px;
+        padding: 6px 4px;
+        // background-color: #026aa7;
+        color: $clr7;
+        width: 100%;
+        margin-left: 67px;
+        align-items: center;
+        gap: 8px;
+
+        .logo-link {
+            text-decoration: none;
+            .logo {
+                margin: 0;
+            }
+            .logo-img {
+                width: 18px;
+                position: absolute;
+                left: 43px;
+            }
+        }
+        .logo-link:visited {
+            color: #ffffff;
+        }
+        // .logo-link:hover {
+        //     background-color: $btn-hover;
+        // }
+
+        .btn-header {
+            border-radius: 3px;
+            border: none;
+            background-color: #00000000;
+            font-size: rem(16px);
+            height: 32px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .btn-header:hover {
+            background-color: $btn-hover;
+        }
+
+        .header-arrow-img {
+            width: 16px;
+            height: 16px;
+        }
     }
-
-    img{
-        width: 18px;
-        position: absolute;
-        left: 43px;
-    }
 }
 
-.logo{
-    text-decoration: none; 
-}
-
-.logo:visited{
-    color:#ffffff
-}
-
-.logo-img{
-    margin: 0;
-}
+// .main-layout .app-header-container {
+//     background-color: $clr6;
+// }

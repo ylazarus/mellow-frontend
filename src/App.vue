@@ -4,24 +4,21 @@
 </template>
 
 <script>
-
-import appHeader from "./components/app-header.vue"
+import appHeader from "./components/app-header.vue";
 export default {
-
   components: {
-    appHeader
+    appHeader,
   },
   data() {
-    return {}
+    return {};
   },
   created() {
-    this.$store.dispatch({ type: 'loadBoards' })
+    this.$store.dispatch({ type: "loadBoards" });
   },
   methods: {},
   computed: {},
-  unmounted() { },
-
-}
+  unmounted() {},
+};
 </script>
 
 <style>

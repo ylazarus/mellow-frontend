@@ -362,6 +362,7 @@
     flex-direction: column;
     justify-content: flex-start;
     margin: 60px auto;
+    margin-right: -4px;
     // font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
     .add-task-buttons-title {
@@ -379,6 +380,33 @@
       text-overflow: ellipsis;
       margin-top: 8px;
     }
+
+    .td-actions{
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 20px;
+      margin: 6px 12px -4px 0px;
+      color: $light-text
+    }
+
+    .td-delete-btn{
+      color: #fff;
+      background-color: $trello-danger;
+      user-select: none;
+    }
+
+    .td-delete-icon::before{
+      font-family: trellicons;
+      content: "";
+    }
+
+    .td-delete-icon{
+      color: #fff;
+      font-size: 16px;
+      margin: 0 6px 0 -6px;
+    }
+
+    
   }
 }
 .img-container {
@@ -394,36 +422,55 @@
   display: flex;
 }
 
+// .text-pos{
+//   margin-right: 7px;
+//   font-size: 16px;
+//   margin-inline-start: -5px;
+//   margin-top: 2px;
+// }
+
 .attachment-img::before {
   font-family: trellicons;
   content: "\e908";
-  margin-right: 10px;
+  margin-right: 7px;
   font-size: 16px;
+  margin-inline-start: -5px;
+  margin-top: 2px;
 }
 
 .dates-btn::before {
   font-family: trellicons;
   content: "";
-  margin-right: 10px;
+  margin-right: 7px;
   font-size: 16px;
+  margin-inline-start: -5px;
+  margin-top: 2px;
 }
 .checklist-btn::before {
   font-family: trellicons;
   content: "";
+  margin-right: 7px;
   font-size: 16px;
-  margin-right: 10px;
+  margin-inline-start: -5px;
+  margin-top: 2px;
 }
+
 .members-btn::before {
   font-family: trellicons;
   content: "";
-  margin-right: 10px;
+  margin-right: 7px;
   font-size: 16px;
+  margin-inline-start: -5px;
+  margin-top: 2px;
 }
+
 .labels-btn::before {
   font-family: trellicons;
   content: "\e93f";
-  margin-right: 10px;
+  margin-right: 7px;
   font-size: 16px;
+  margin-inline-start: -5px;
+  margin-top: 2px;
 }
 
 .labels {
@@ -434,27 +481,12 @@
   position: relative;
 }
 
-// .grid-container{
-//   display: grid;
-//   grid-template-columns: minmax(auto, 70%) 1fr;
-//   grid-template-rows: repeat(6,1fr);
+.cover-btn::before{
+  font-family: trellicons;
+  content: "";
+  margin-right: 7px;
+  font-size: 16px;
+  margin-inline-start: -5px;
+  margin-top: 2px;
+}
 
-//   grid-template-areas:
-//     "grid-title  ."
-//     "grid-labels grid-cmp"
-//     "grid-desc    grid-cmp"
-//     "grid-desc    grid-cmp"
-//     "grid-activity    grid-cmp"
-//     "grid-activity    ."
-// }
-
-// .grid-title{
-//   grid-area: grid-title;
-// }
-
-// .grid-labels{
-//   grid-area: grid-labels;
-// }
-// .grid-desc{
-//   grid-area: grid-desc;
-// }
