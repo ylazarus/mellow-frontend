@@ -42,7 +42,6 @@ export default {
   },
   methods: {
     toBoardDetails(boardId) {
-      // console.log(boardId);
       this.$router.push(`/board/${boardId}`);
     },
     // changeImgUrl() {

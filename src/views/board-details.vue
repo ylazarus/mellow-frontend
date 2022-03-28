@@ -145,7 +145,6 @@ export default {
         this.moveTask();
     },
     moveTask() {
-      console.log(this.dndInfo);
       const fromGroup = this.board.groups.find(
         (g) => g.id === this.dndInfo.groupFromId
       );
@@ -156,9 +155,8 @@ export default {
         this.dndInfo.removedIndex,
         1
       )[0];
-      console.log(fromGroup.title);
-      // if (fromGroup.tasks[0] === null) fromGroup.tasks = []
       toGroup.tasks.splice(this.dndInfo.addedIndex, 0, cardToMove);
+      this.saveBoard();
       this.dndInfo = {};
     },
 
@@ -222,12 +220,10 @@ export default {
       this.isLabelTitle = !this.isLabelTitle;
     },
     async addLabelToBoard(newLabel) {
-      console.log(newLabel);
       this.board.labels.push(newLabel);
       await this.saveBoard("Added a new label");
     },
     async updateBoardLabels(newLabel) {
-      console.log(newLabel);
       const idx = this.board.labels.findIndex((l) => l.id === newLabel.id);
       this.board.labels.splice(idx, 1, newLabel);
       await this.saveBoard("Added a new label");
