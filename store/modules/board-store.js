@@ -80,6 +80,12 @@ export default {
             if (idx === -1) return updatingGroup.tasks.push(task)
             updatingGroup.tasks.splice(idx, 1, task)
             state.currBoard = updatingBoard
+        },
+        removeTask(state, { board, group, taskIdx }) {
+            console.log('before', board);
+            group.tasks.splice(taskIdx, 1)
+            console.log('after', board);
+            state.currBoard = board
         }
     },
     actions: {
@@ -122,22 +128,19 @@ export default {
         },
         async removeTask({ commit, state }, { boardId, groupId, task, activity }) {
             try {
-                // console.log('*************************************************');
-                // console.log('board store - removing');
-                // console.log('boardId', boardId);
-                // console.log('groupId', groupId);
-                // console.log('task', task);
-                // console.log('activity', activity);
 
                 const board = state.boards.find(board => board._id === boardId)
-                console.log('board', board);
                 const group = board.groups.find(group => group.id === groupId)
-                console.log('group', group);
-                const taskIdxToRemove = group.tasks.findIndex(t => t.id === task.id)
-                console.log(taskIdxToRemove);
-                const removed = group.tasks.splice(taskIdxToRemove, 1)
-                console.log('group after remove', removed);
+                const taskIdx = group.tasks.findIndex(t => t.id === task.id)
+                await commit({ type: 'removeTask', board, group, taskIdx })
 
+                const updatedBoard = JSON.parse(JSON.stringify(state.currBoard))
+                updatedBoard.activities.push(activity)
+
+                const savedBoard = await boardService.save(updatedBoard)
+                commit({ type: 'saveBoard', savedBoard })
+
+                return JSON.parse(JSON.stringify(savedBoard))
                 // NEED TO ASK AVIOR
                 // CAUSE WE DO ONLY SAVE BOARD / REMOVE BOARD
                 // I CANT USE REMOVE AT ALL CAUSE WE DONT DO REMOVE TASK

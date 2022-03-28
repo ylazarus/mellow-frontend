@@ -5,6 +5,8 @@ export const SOCKET_EVENT_USER_UPDATED = 'user-updated';
 export const SOCKET_EVENT_REVIEW_ADDED = 'review-added';
 export const SOCKET_EVENT_REVIEW_ABOUT_YOU = 'review-about-you';
 
+//////////////////////////////////////////////////////////////////
+///////////////// CHANGE TO PORT 3030 WITH BACKEND //////////////
 
 const baseUrl = (process.env.NODE_ENV === 'production') ? '' : '//localhost:3000'
 // export const socketService = createSocketService()
