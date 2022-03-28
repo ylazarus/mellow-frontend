@@ -83,7 +83,6 @@ export default {
       });
     },
     async saveIfTxt() {
-      console.log("blur");
       await utilService.delay(100);
       if (this.newTaskTitle) this.addTask();
       else this.clearForm();
@@ -93,20 +92,11 @@ export default {
       this.newTaskTitle = "";
     },
     async openAddTask() {
-      // element.scrollTo({
-      //   top: 100,
-      //   left: 100,
-      //   behavior: "smooth",
-      // });
       this.isAdding = true;
       await utilService.delay(50);
       this.focusOnInput();
-
-      //   console.log(this.$refs);
-      //   this.$refs.input.focus()
     },
     addTask() {
-      console.log("adding task");
       if (!this.newTaskTitle) {
         this.isAdding = false;
         return;
@@ -129,23 +119,9 @@ export default {
         newValue: newTitle,
       });
     },
-    focusOnInput() {
-      //  this.$refs.add.focus()
-      // inputRef.focus();
-    },
-    // darkMode(status) {
-    //   console.log('status', status);
-    //   // this.darkMode = status
-    //   this.$emit('darkMode', status)
-    // }
     toggleLabelTitle() {
       this.$emit("toggleLabelTitle");
     },
-  },
-  computed: {
-    // darkMode() {
-    //   return { 'dark-mode': this.isDarkMode }
-    // }
   },
 };
 </script>
