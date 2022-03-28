@@ -172,6 +172,7 @@ export default {
         console.log(newLabel);
       }
       await this.$emit("updateBoardLabels", newLabel);
+      this.aggregateLabels();
       this.isCreate = false;
       this.isChange = false;
     },
@@ -180,6 +181,9 @@ export default {
       console.log("confirm");
       const labelId = this.labelToChange.id;
       await this.$emit("removeLabelFromBoard", labelId);
+      this.aggregateLabels();
+      this.isCreate = false;
+      this.isChange = false;
     },
   },
   computed: {

@@ -98,7 +98,7 @@ function getEmptyBoard(title) {
         createdAt: Date.now(),
         archivedAt: null,
         createdBy: {},
-        style: {"bgClr": '', "bgImg": '', "isFullCover": false},
+        style: { "bgClr": '', "bgImg": '', "isFullCover": false },
         labels: [], // when adding custom labels from a component we will add to this, otherwise base colors come from component
         members: [], // in component, add curr user to list
         groups: [],
@@ -191,13 +191,13 @@ function _createBoards() {
                             {
                                 "id": "c101",
                                 "title": "Replace logo",
-                                "style": {"bgClr": '', "bgImg": '', "isFullCover": false}
+                                "style": { "bgClr": '', "bgImg": '', "isFullCover": false }
                             },
                             {
                                 "id": "t-nMLMX279",
                                 "title": "Remove excess pixels between group-list and scroll bar",
                                 "createdAt": 1648369020184,
-                                "style": {"bgClr": '', "bgImg": '', "isFullCover": false},
+                                "style": { "bgClr": '', "bgImg": '', "isFullCover": false },
                                 "attachments": [],
                                 "labelIds": [
                                     "l102",
@@ -213,7 +213,7 @@ function _createBoards() {
                                 "id": "t-TI4ANfXQ",
                                 "title": "Render the photos to task preview",
                                 "createdAt": 1648369100551,
-                                "style": {"bgClr": '', "bgImg": '', "isFullCover": false},
+                                "style": { "bgClr": '', "bgImg": '', "isFullCover": false },
                                 "attachments": [
                                     "http://res.cloudinary.com/cajan22a/image/upload/v1648373054/books-g629e7f9c8_640_ihanz0.jpg"
                                 ],
@@ -231,7 +231,7 @@ function _createBoards() {
                             {
                                 "id": "c103",
                                 "title": "Archive instead of Delete",
-                                "style": {"bgClr": '', "bgImg": '', "isFullCover": false}
+                                "style": { "bgClr": '', "bgImg": '', "isFullCover": false }
                             },
                             {
                                 "id": "c104",
@@ -249,7 +249,7 @@ function _createBoards() {
                                         ]
                                     }
                                 ],
-                                "style": {"bgClr": '26de81', "bgImg": '', "isFullCover": false},
+                                "style": { "bgClr": '26de81', "bgImg": '', "isFullCover": false },
                                 "members": [
                                     {
                                         "_id": "u105",
@@ -279,7 +279,7 @@ function _createBoards() {
                                 "id": "t-PiYcSy3j",
                                 "title": "Cover photo, make sure the first added is the default",
                                 "createdAt": 1648369148256,
-                                "style": {"bgClr": '', "bgImg": '', "isFullCover": false},
+                                "style": { "bgClr": '', "bgImg": '', "isFullCover": false },
                                 "attachments": [],
                                 "description": "...subsequent ones can be changed manually to be the cover photos. Trello has this as its default, looks really nice",
                                 "dueDate": {
@@ -371,7 +371,7 @@ function _createBoards() {
                                     "fullname": "Tal Tarablus",
                                     "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
                                 },
-                                "style": {"bgClr": '', "bgImg": '', "isFullCover": false},
+                                "style": { "bgClr": '', "bgImg": '', "isFullCover": false },
                                 "dueDate": {
                                     "dueDate": "2022-03-29T21:40:27.228Z",
                                     "isCompleted": false
@@ -402,14 +402,14 @@ function _createBoards() {
                                         "mentions": []
                                     }
                                 ],
-                                "style": {"bgClr": '', "bgImg": '', "isFullCover": false},
+                                "style": { "bgClr": '', "bgImg": '', "isFullCover": false },
                                 "attachments": []
                             },
                             {
                                 "id": "t-QzjP3br7",
                                 "title": "Full CRUD of name and cards, without exception",
                                 "createdAt": 1648371305685,
-                                "style": {"bgClr": '', "bgImg": '', "isFullCover": false},
+                                "style": { "bgClr": '', "bgImg": '', "isFullCover": false },
                                 "attachments": [],
                                 "labelIds": [
                                     "l102"
@@ -419,7 +419,7 @@ function _createBoards() {
                                 "id": "t-VCawXr0K",
                                 "title": "Render the data we have been collecting from the activities, the button to show and hide has been prepared",
                                 "createdAt": 1648369658477,
-                                "style": {"bgClr": '', "bgImg": '', "isFullCover": false},
+                                "style": { "bgClr": '', "bgImg": '', "isFullCover": false },
                                 "attachments": [],
                                 "labelIds": [
                                     "l105"
@@ -440,7 +440,7 @@ function _createBoards() {
                                 "id": "t-J6zOG2sn",
                                 "title": "Take a few pictures from the internet for demo data",
                                 "createdAt": 1648368936226,
-                                "style": {"bgClr": '', "bgImg": '', "isFullCover": false},
+                                "style": { "bgClr": '', "bgImg": '', "isFullCover": false },
                                 "attachments": [],
                                 "description": "",
                                 "dueDate": {
@@ -452,7 +452,7 @@ function _createBoards() {
                                 "id": "t-FlDqD6BG",
                                 "title": "Make sure to relax before the meeting with Asaf, and do a good job",
                                 "createdAt": 1648369464026,
-                                "style": {"bgClr": '', "bgImg": '', "isFullCover": false},
+                                "style": { "bgClr": '', "bgImg": '', "isFullCover": false },
                                 "attachments": [
                                     "http://res.cloudinary.com/cajan22a/image/upload/v1648373021/dog-gd9e48bc3a_640_xonhij.jpg"
                                 ],
@@ -503,7 +503,7 @@ function _createBoards() {
                                 "id": "t-yNkTEECH",
                                 "title": "Reduce number of default labels on the boards to maximim of 6",
                                 "createdAt": 1648369068557,
-                                "style": {"bgClr": '', "bgImg": '', "isFullCover": false},
+                                "style": { "bgClr": '', "bgImg": '', "isFullCover": false },
                                 "attachments": [
                                     "http://res.cloudinary.com/cajan22a/image/upload/v1648373005/code-g6edc9f26e_640_bznsbp.jpg"
                                 ],
@@ -519,7 +519,7 @@ function _createBoards() {
                                 "id": "t-7JKrUUZr",
                                 "title": "Clean up demo data",
                                 "createdAt": 1648369083537,
-                                "style": {"bgClr": '', "bgImg": '', "isFullCover": false},
+                                "style": { "bgClr": '', "bgImg": '', "isFullCover": false },
                                 "attachments": []
                             }
                         ],
@@ -533,7 +533,7 @@ function _createBoards() {
                                 "id": "t-0HhNSPhU",
                                 "title": "Look at Quello for extra add-on ideas",
                                 "createdAt": 1648369345282,
-                                "style": {"bgClr": '', "bgImg": '', "isFullCover": false},
+                                "style": { "bgClr": '', "bgImg": '', "isFullCover": false },
                                 "attachments": [],
                                 "labelIds": [
                                     "l105"
@@ -543,7 +543,7 @@ function _createBoards() {
                                 "id": "t-U5qT2Gud",
                                 "title": "Full working filter",
                                 "createdAt": 1648373985129,
-                                "style": {"bgClr": '', "bgImg": '', "isFullCover": false},
+                                "style": { "bgClr": '', "bgImg": '', "isFullCover": false },
                                 "attachments": [],
                                 "dueDate": {
                                     "dueDate": "2022-03-28T14:00:00.000Z",
@@ -564,7 +564,7 @@ function _createBoards() {
                                 "id": "t-UEohipxO",
                                 "title": "Make list of all potential bugs",
                                 "createdAt": 1648373155582,
-                                "style": {"bgClr": '', "bgImg": '', "isFullCover": false},
+                                "style": { "bgClr": '', "bgImg": '', "isFullCover": false },
                                 "attachments": [],
                                 "dueDate": {
                                     "dueDate": "2022-03-31T09:25:01.470Z",
@@ -1340,287 +1340,6 @@ function _createBoards() {
                     }
                 ]
             },
-            // {
-            //     "_id": utilService.makeId(),
-            //     "title": "Second Project",
-            //     "isFavorite": true,
-            //     "createdAt": Date.now(),
-            //     "createdBy": {
-            //         "_id": "u104a",
-            //         "fullname": "Jo Abramovich",
-            //         "imgUrl": ""
-            //     },
-            //     "style": {
-            //         'bgImg': 'src/assets/imgs/2.jpg',
-            //     },
-            //     "labels": [
-            //         { id: "l101", color: "#61bd4f", title: "Done" },
-            //         { id: "l102", color: "#f2d600", title: "Urgent" },
-            //         { id: "l103", color: "#ff9f1a", title: "Immediate" },
-            //         { id: "l106", color: "#0079bf", title: "progress" },
-            //         { id: "l107", color: "#00c2e0", title: "" },
-            //     ],
-            //     "members": [
-            //         {
-            //             "_id": "u1012",
-            //             "fullname": "Tal Tarablus",
-            //             "imgUrl": ""
-            //         }
-            //     ],
-            //     "groups": [
-            //         {
-            //             "id": utilService.makeId(),
-            //             "title": "Group 1",
-            //             "tasks": [
-            //                 {
-            //                     "id": utilService.makeId(),
-            //                     "title": "Replace logo"
-            //                 },
-            //                 {
-            //                     "id": utilService.makeId(),
-            //                     "title": "Add Samples"
-            //                 }
-            //             ],
-            //             "style": {}
-            //         },
-            //         {
-            //             "id": utilService.makeId(),
-            //             "title": "Group 2",
-            //             "tasks": [
-            //                 {
-            //                     "id": utilService.makeId(),
-            //                     "title": "Do this"
-            //                 },
-            //                 {
-            //                     "id": utilService.makeId(),
-            //                     "title": "Do that"
-            //                 },
-            //                 {
-            //                     "id": utilService.makeId(),
-            //                     "title": "Help me",
-            //                     "status": "in-progress",
-            //                     "description": "description",
-            //                     "comments": [
-            //                         {
-            //                             "id": utilService.makeId(),
-            //                             "txt": "also @yaronb please CR this",
-            //                             "createdAt": 1590999817436.0,
-            //                             "byMember": {
-            //                                 "_id": "u1012",
-            //                                 "fullname": "Tal Tarablus",
-            //                                 "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-            //                             }
-            //                         }
-            //                     ],
-            //                     "checklists": [],
-            //                     "members": [],
-            //                     "labelIds": ['l106', 'l107'],
-            //                     "createdAt": 1590999730348,
-
-            //                     "byMember": {
-            //                         "_id": "u1012",
-            //                         "username": "Tal",
-            //                         "fullname": "Tal Tarablus",
-            //                         "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-            //                     },
-            //                     "style": {
-            //                         "style": {"bgClr": '', "bgImg": '', "isFullCover": false}
-            //                     }
-            //                 }
-
-            //             ],
-            //             "style": {}
-            //         }
-            //     ],
-            //     "activities": [
-            //     ],
-            // },
-            // {
-            //     "_id": utilService.makeId(),
-            //     "title": "Third Project",
-            //     "isFavorite": true,
-            //     "createdAt": Date.now(),
-            //     "createdBy": {
-            //         "_id": "u104a",
-            //         "fullname": "Jo Abramovich",
-            //         "imgUrl": ""
-            //     },
-            //     "style": {
-            //         'bgImg': 'src/assets/imgs/3.jpg',
-            //     },
-            //     "labels": [
-            //         { id: "l105", color: "#c377e0", title: "Done" },
-            //         { id: "l106", color: "#0079bf", title: "" },
-            //         { id: "l107", color: "#00c2e0", title: "Urgent" },
-            //         { id: "l108", color: "#51e898", title: "" },
-            //         { id: "l109", color: "#ff78cb", title: "" },
-
-            //     ],
-            //     "members": [
-            //         {
-            //             "_id": "u1012",
-            //             "fullname": "Tal Tarablus",
-            //             "imgUrl": ""
-            //         }
-            //     ],
-            //     "groups": [
-            //         {
-            //             "id": utilService.makeId(),
-            //             "title": "Group 1",
-            //             "tasks": [
-            //                 {
-            //                     "id": utilService.makeId(),
-            //                     "title": "Replace logo"
-            //                 },
-            //                 {
-            //                     "id": utilService.makeId(),
-            //                     "title": "Add Samples",
-            //                     labelIds: ['l105', 'l109'],
-            //                 }
-            //             ],
-            //             "style": {}
-            //         },
-            //         {
-            //             "id": utilService.makeId(),
-            //             "title": "Group 2",
-            //             "tasks": [
-            //                 {
-            //                     "id": utilService.makeId(),
-            //                     "title": "Do this",
-            //                     labelIds: ['l103', 'l107']
-
-            //                 },
-            //                 {
-            //                     "id": utilService.makeId(),
-            //                     "title": "Do that"
-            //                 },
-            //                 {
-            //                     "id": utilService.makeId(),
-            //                     "title": "Help me",
-            //                     "status": "in-progress",
-            //                     "description": "description",
-            //                     "comments": [
-            //                         {
-            //                             "id": utilService.makeId(),
-            //                             "txt": "also @yaronb please CR this",
-            //                             "createdAt": 1590999817436.0,
-            //                             "byMember": {
-            //                                 "_id": "u1012",
-            //                                 "fullname": "Tal Tarablus",
-            //                                 "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-            //                             }
-            //                         }
-            //                     ],
-            //                     "checklists": [],
-            //                     "members": [],
-            //                     labelIds: ['l108', 'l106'],
-            //                     "createdAt": 1590999730348,
-
-            //                     "byMember": {
-            //                         "_id": "u1012",
-            //                         "username": "Tal",
-            //                         "fullname": "Tal Tarablus",
-            //                         "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-            //                     },
-            //                     "style": {
-            //                         "bgColor": "#26de81"
-            //                     }
-            //                 }
-
-            //             ],
-            //             "style": {}
-            //         }
-            //     ],
-            //     "activities": [
-            //     ],
-            // },
-            // {
-            //     "_id": utilService.makeId(),
-            //     "title": "Fourth Project",
-            //     "isFavorite": true,
-            //     "createdAt": Date.now(),
-            //     "createdBy": {
-            //         "_id": "u104a",
-            //         "fullname": "Jo Abramovich",
-            //         "imgUrl": ""
-            //     },
-            //     "style": {
-            //         'bgImg': 'src/assets/imgs/4.jpg',
-            //     },
-            //     "labels": [
-            //         { id: "l107", color: "#00c2e0", title: "" },
-            //         { id: "l108", color: "#51e898", title: "" },
-            //         { id: "l109", color: "#ff78cb", title: "" },
-            //         { id: "l110", color: "#344563", title: "" },
-            //         { id: "l111", color: "#b3bac5", title: "" },
-            //     ],
-            //     "members": [
-            //         {
-            //             "_id": "u1012",
-            //             "fullname": "Tal Tarablus",
-            //             "imgUrl": ""
-            //         }
-            //     ],
-            //     "groups": [
-            //         {
-            //             "id": utilService.makeId(),
-            //             "title": "Group 1",
-            //             "tasks": [
-            //                 {
-            //                     "id": utilService.makeId(),
-            //                     "title": "Replace logo"
-            //                 },
-            //                 {
-            //                     "id": utilService.makeId(),
-            //                     "title": "Add Samples"
-            //                 }
-            //             ],
-            //             "style": {}
-            //         },
-            //         {
-            //             "id": utilService.makeId(),
-            //             "title": "Group 2",
-            //             "tasks": [
-                           
-            //                 {
-            //                     "id": utilService.makeId(),
-            //                     "title": "Help me",
-            //                     "status": "in-progress",
-            //                     "description": "description",
-            //                     "comments": [
-            //                         {
-            //                             "id": utilService.makeId(),
-            //                             "txt": "also @yaronb please CR this",
-            //                             "createdAt": 1590999817436.0,
-            //                             "byMember": {
-            //                                 "_id": "u1012",
-            //                                 "fullname": "Tal Tarablus",
-            //                                 "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-            //                             }
-            //                         }
-            //                     ],
-            //                     "checklists": [],
-            //                     "members": [],
-            //                     "labelIds": ['l110', 'l109'],
-            //                     "createdAt": 1590999730348,
-
-            //                     "byMember": {
-            //                         "_id": "u1012",
-            //                         "username": "Tal",
-            //                         "fullname": "Tal Tarablus",
-            //                         "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-            //                     },
-            //                     "style": {"bgClr": '26de81', "bgImg": '', "isFullCover": false}
-                                
-            //                 }
-
-            //             ],
-            //             "style": {}
-            //         }
-            //     ],
-            //     "activities": [
-            //     ],
-            // },
 
         ]
         utilService.saveToStorage(KEY, boards)
