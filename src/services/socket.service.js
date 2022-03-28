@@ -25,7 +25,7 @@ function createSocketService() {
     on(eventName, cb) {
       socket.on(eventName, cb)
     },
-    off(eventName, cb=null) {
+    off(eventName, cb = null) {
       if (!socket) return;
       if (!cb) socket.removeAllListeners(eventName)
       else socket.off(eventName, cb)
@@ -67,7 +67,7 @@ function createDummySocketService() {
       })
     },
     debugMsg() {
-      this.emit('chat addMsg', {from: 'Someone', txt: 'Aha it worked!'})
+      this.emit('chat addMsg', { from: 'Someone', txt: 'Aha it worked!' })
     },
   }
   return socketService

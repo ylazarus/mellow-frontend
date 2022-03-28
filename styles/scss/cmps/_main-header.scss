@@ -44,18 +44,20 @@
             }
             .logo-img {
                 width: 18px;
-                position: absolute;
-                left: 43px;
+                // position: absolute;
+                // left: 43px;
             }
         }
         .logo-link:visited {
             color: #ffffff;
         }
-        // .logo-link:hover {
-        //     background-color: $btn-hover;
-        // }
+        .logo-link:hover {
+            background-color: #0000004d;
+        }
 
         .btn-header {
+            color: #ffffff;
+
             border-radius: 3px;
             border: none;
             background-color: #00000000;
@@ -67,10 +69,11 @@
             align-items: center;
         }
         .btn-header:hover {
-            background-color: $btn-hover;
+            background-color: #0000004d;
         }
 
         .header-arrow-img {
+            color: #ffffff;
             width: 16px;
             height: 16px;
         }
