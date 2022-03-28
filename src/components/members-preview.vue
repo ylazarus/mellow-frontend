@@ -7,7 +7,7 @@
         <hr />
         <div class="members-container">
             <div class="input-container">
-                <input class="members-filter" type="text" placeholder="Search Members" />
+                <input v-focus class="members-filter" type="text" placeholder="Search Members" />
             </div>
             <h4 class="members-preview-title">Board members</h4>
             <ul class="board-members-container">
@@ -17,8 +17,10 @@
                     :key="index"
                     @click="toggleMemberInTask(member)"
                 >
+                    <!-- <span> -->
                     <user-avatar :user="member" />
-                    <div>{{ member.fullname }}{{ ` (${member.username})` }}</div>
+                    <!-- </span> -->
+                    <div class="member-fullname">{{ member.fullname }}{{ ` (${member.username})` }}</div>
                     <!-- <pre>{{ task }}</pre> -->
                     <!-- <pre>{{ index }}</pre> -->
                     <!-- <pre>{{ isCheck[index] }}</pre> -->
@@ -83,6 +85,11 @@ export default {
         //         if (taskMembersIds.includes(member._id)) return true
         //         else return false
         //     })
+        // }
+        // {{ doubleNum(2) // 4 }}
+
+        // doubleNum() {
+        //     return (num) => num * 2
         // }
 
     },

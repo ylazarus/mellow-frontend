@@ -61,10 +61,16 @@
     }
     
     .board-members-container{
+        padding: 0;
         .board-member{
             width: 100%;
             display: flex;
             list-style: none;
+            justify-content: space-between;
+
+            .member-fullname{
+                flex-grow: 1;
+            }
         }
     }
 }
