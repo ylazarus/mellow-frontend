@@ -4,8 +4,13 @@
     class="task-preview-container"
     
   >
+  <div v-if="this.task.style.isFullCover" :class="fullCoverStyle" class="full-cover-selected">
+    <div class="full-cover-title">{{task.title}}</div>
+  </div>
+
+  <div v-else class="top-cover-selected">
   <!-- :class="isFullImage" -->
-    <div class="task-preview-cover"></div>
+    <div  :style="coverStyle" class="task-preview-cover"></div>
     <div
       class="labels-container"
       v-if="task.labelIds?.length"
@@ -64,6 +69,7 @@
         />
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -146,6 +152,23 @@ export default {
     },
     openLabel() {
       return { open: this.isLabelTitle };
+    },
+      // {"bgClr": '', "bgImg": '', "isFullCover": false}
+    fullCoverStyle(){
+      if (this.task.style.bgImg) return {
+        "background-image": `url(${this.task.style.bgImg})`,
+        "height": "160px",
+        "background-color" : "#ccd6e0" // later make this dynamic with library?
+      }; else if (this.task.style.bgClr) return {
+        "background-color": this.task.style.bgClr,
+        "height": "100px",
+      };
+    },
+    coverStyle() {
+     if (this.task.style.bgClr) return {
+        "background-color": this.task.style.bgClr,
+        "height": "32px",
+      }; else return {"display": "none"}
     },
     // isCoverSizeTop() {
     //   if (task.style.isFullCo === "top") return true;

@@ -9,8 +9,8 @@
     <hr />
     <p>Size</p>
     <div class="cover-size-select">
-      <div @click="setFullCover(true)">Select Bottom</div>
-      <div @click="setFullCover(false)">Select Top</div>
+      <button @click="setFullCover(true)">Full Cover</button>
+      <button @click="setFullCover(false)">Top Cover</button>
     </div>
     <p>Color</p>
     <div class="select-solid-bgc-container">
@@ -36,7 +36,7 @@ export default {
   },
   data() {
     return {
-      currStyle:  {"bgClr": '', "bgImg": '', "isFullCover": false},
+      currStyle: { bgClr: "", bgImg: "", isFullCover: false },
       bgColors: [
         { id: "l101", color: "#61bd4f", isSelected: false },
         { id: "l102", color: "#f2d600", isSelected: false },
@@ -52,7 +52,7 @@ export default {
     };
   },
   created() {
-    this.currStyle = JSON.parse(JSON.stringify(this.style)) 
+    this.currStyle = JSON.parse(JSON.stringify(this.style));
   },
 
   setup(props, context) {
@@ -69,7 +69,7 @@ export default {
   methods: {
     selectBgClr(bgClr) {
       this.currStyle.bgClr = bgClr;
-      this.currStyle.bgImg = ''
+      this.currStyle.bgImg = "";
       this.$emit("addStyle", this.currStyle);
     },
     closeCmp() {
@@ -77,6 +77,7 @@ export default {
     },
     setFullCover(val) {
       this.currStyle.isFullCover = val;
+      this.$emit("addStyle", this.currStyle);
     },
   },
 };

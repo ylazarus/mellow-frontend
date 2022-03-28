@@ -411,15 +411,12 @@ export default {
         return true;
       }
     },
-    // need to continue here tomorrow, if bgcolor is selected, return it, otherwise img
-    // need to add to object which  is selected
-    // need to update the css and need to figure out how to make it work, is it a prob of syncronous loading?
-    // {"bgClr": '', "bgImg": '', "isFullCover": false}
+       // {"bgClr": '', "bgImg": '', "isFullCover": false}
     coverStyle() {
       if (this.task.style.bgImg) return {
         "background-image": `url(${this.task.style.bgImg})`,
         "height": "160px",
-        // "background-color" : "#f4f5f7" // later make this dynamic with library?
+        "background-color" : "#ccd6e0" // later make this dynamic with library?
       }; else if (this.task.style.bgClr) return {
         "background-color": this.task.style.bgClr,
         "height": "100px",
