@@ -2,14 +2,12 @@
   <div
     @click="toTaskDetails(this.boardId, this.groupId, this.task.id)"
     class="task-preview-container"
-    
   >
   <div v-if="this.task.style.isFullCover" :style="fullCoverStyle" class="full-cover-selected">
     <p :class="fullCoverTxt" class="full-cover-title">{{task.title}}</p>
   </div>
 
   <div v-else class="top-cover-selected">
-  <!-- :class="isFullImage" -->
     <div  :style="coverStyle" class="task-preview-cover"></div>
     <div
       class="labels-container"
@@ -87,7 +85,6 @@ export default {
   data() {
     return {
       boardId: null,
-      // isDarkMode: false,
     };
   },
   components: {
@@ -98,14 +95,7 @@ export default {
     toTaskDetails(boardId, groupId, taskId) {
       console.log(taskId);
       this.$router.push(`/board/${boardId}/${groupId}/${taskId}`);
-      // this.toggleDarkMode()
     },
-    // toggleDarkMode() {
-    //   console.log('dark mode');
-    //   // document.body.classList.add('dark-mode')
-    //   this.isDarkMode = true
-    //   this.$emit('darkMode', this.isDarkMode)
-    // },
     toggleLabelTitle() {
       this.$emit("toggleLabelTitle");
     },
@@ -116,9 +106,7 @@ export default {
   },
   computed: {
     formattedDate() {
-      // const date = this.task.dueDate.dueDate
       var d = new Date(this.task.dueDate.dueDate);
-      // console.log(d, "this is teh date in th eformatter computed");
       return d.toString().slice(4, 10);
     },
     isTaskOverdue() {
@@ -154,7 +142,6 @@ export default {
     openLabel() {
       return { open: this.isLabelTitle };
     },
-      // {"bgClr": '', "bgImg": '', "isFullCover": false}
     fullCoverStyle(){
       if (this.task.style.bgImg) return {
         backgroundImage: `url(${this.task.style.bgImg})`,
@@ -169,10 +156,8 @@ export default {
       if (this.task.style.bgImg) return "is-img"
       else {
         const isDark = utilService.isDarkColor(this.task.style.bgClr)
-        console.log(isDark, 'is dark');
         if (isDark) return "is-dark-bg"
         else return "is-light-bg"
-
       }
     },
     coverStyle() {
@@ -181,22 +166,7 @@ export default {
         "height": "32px",
       }; else return {"display": "none"}
     },
-    // isCoverSizeTop() {
-    //   if (task.style.isFullCo === "top") return true;
-    // },
-    // coverBg() {
-    //   console.log("background info", this.task.style);
-    //   return { "background-color": this.task.style.bgColor };
-    // },
-    // coverBgImg() {
-    //   return { "background-image": this.task.style.bgImg };
-    // },
   },
-  // methods: {
-  //   toggleLabelTitle() {
-  //     this.$emit("toggleLabelTitle");
-  //   },
-  // },
 };
 </script>
 

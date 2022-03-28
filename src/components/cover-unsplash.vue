@@ -22,12 +22,36 @@
         @click="selectBgClr(bgc.color)"
       ></div>
     </div>
+    <hr />
+    <p>Photos from Unsplash</p>
+    <input
+      type="text"
+      placeholder="Search Unsplash for photos"
+      v-model="search"
+      @input="waitSearch"
+    />
+    <div class="select-solid-bgc-container">
+      <ul class="list-unstyled">
+        <li v-for="photo in photos" :key="photo.id">
+          <img
+            class="image-list"
+            height="200"
+            width="200"
+            :src="photo.urls.thumb"
+            alt="img"
+            @click="applyPhoto(photo)"
+          />
+        </li>
+      </ul>
+    </div>
   </section>
 </template>
 
 
 <script>
 import { getCurrentInstance, onMounted } from "vue";
+import axios from "axios";
+import _ from "lodash";
 
 export default {
   name: "cover-unsplash",
@@ -37,6 +61,11 @@ export default {
   data() {
     return {
       currStyle: { bgClr: "", bgImg: "", isFullCover: false },
+      photos: [],
+      search: "nature",
+      count: 12,
+      photo_url: null,
+      download_url: null,
       bgColors: [
         { id: "l101", color: "#61bd4f", isSelected: false },
         { id: "l102", color: "#f2d600", isSelected: false },
@@ -53,20 +82,80 @@ export default {
   },
   created() {
     this.currStyle = JSON.parse(JSON.stringify(this.style));
+    this.searchPhoto()
+
+    // var count = 6;
+    //   var orientation = "landscape";
+    //     var query = "project management"
+    // const randomImgs = await this.$unsplash.random(count, orientation)
+    // console.log(randomImgs.urls);
   },
 
-  setup(props, context) {
-    const instance = getCurrentInstance();
-    const globalProperties = instance.appContext.config.globalProperties;
+  // setup(props, context) {
+  //   const instance = getCurrentInstance();
+  //   const globalProperties = instance.appContext.config.globalProperties;
 
-    onMounted(async () => {
-      var image = await globalProperties.$unsplash.getPhoto("l3N9Q27zULw");
-      var urls = image.urls || [];
-      var links = image.links || [];
-      var user = image.user || {};
-    });
-  },
+  //   onMounted(async () => {
+
+  //     var randomImgs = await globalProperties.$unsplash.photos.random;
+
+  //     var urls = randomImgs.urls || [];
+  //     // var links = randomImgs.links || [];
+  //     // var user = randomImgs.user || {};
+  //     console.log(urls);
+  //     this.imgsToRender = urls;
+  //   });
+  // },
+
   methods: {
+    // getPhoto(searchTerm) {
+    //   // get the app id using the global variable of unsplash
+    //   // let appid = this.$unsplash._applicationId;
+    //   //this.$axios.get(`https://api.unsplash.com/photos?client_id=${appid}`)
+    //   const accessKey = "Y2X6Y_wdMpqvaYX_4jgO-dOBqVAsQMQpihsIFNOAX5E";
+    //   axios
+    //     .get(
+    //       `https://api.unsplash.com/search/photos?page=1&per_page=10&query=${searchTerm}&client_id=${accessKey}`
+    //     )
+    //     .then((response) => {
+    //       // JSON responses are automatically parsed.
+    //       this.photos = response.data.results;
+    //     })
+    //     .catch((e) => {
+    //       console.log(e);
+    //     });
+    // },
+    searchPhoto() {
+      let query = this.search;
+      let count = this.count
+      const accessKey = "Y2X6Y_wdMpqvaYX_4jgO-dOBqVAsQMQpihsIFNOAX5E";
+
+      axios
+        .get(
+          `https://api.unsplash.com/search/photos?page=1&per_page=${count}&query=${query}&client_id=${accessKey}`
+        )
+        .then((response) => {
+          // JSON responses are automatically parsed.
+          this.photos = response.data.results;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
+    // getRandom(){
+    //   this.$axios.get('https://source.unsplash.com/random')
+    //   .then(response =>{
+    //   })
+    // },
+    applyPhoto(photo) {
+      this.currStyle.bgImg = photo.urls.regular;
+      this.currStyle.bgClr = "";
+      this.$emit("addStyle", this.currStyle);
+    },
+    waitSearch: _.debounce(function () {
+      this.searchPhoto();
+    }, 1000),
+
     selectBgClr(bgClr) {
       this.currStyle.bgClr = bgClr;
       this.currStyle.bgImg = "";
