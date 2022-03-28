@@ -14,13 +14,17 @@
     z-index: 10;
 
     .delete-header{
-        
+        justify-content: center;
     }
 
-    .confirm-delete{
-        color: #fff;
-        background-color: $trello-danger;
-        user-select: none;
-        width: 100%;
+
+    .delete-content-container{
+        
+        .confirm-delete{
+            color: #fff;
+            background-color: $trello-danger;
+            user-select: none;
+            width: 100%;
+        }
     }
 }
