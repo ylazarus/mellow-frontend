@@ -100,6 +100,8 @@ export default {
             try {
                 const title = prompt('Enter board title')
                 const board = await boardService.getEmptyBoard(title);
+                console.log(board._id, 'this is the new board id in the store');
+                console.log(board, 'this is the whole board in the store');
                 commit({ type: "addBoard", board })
                 return board._id
             } catch (err) {

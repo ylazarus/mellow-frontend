@@ -11,8 +11,8 @@
                     :key="board._id"
                     @click="toBoardDetails(board._id)"
                     class="board-preview img-pos style-font"
-                    :style="{ backgroundImage: `url(${board.style.bgImg})` }"
                 >
+                    <!-- :style="{ backgroundImage: `url(${board.style.bgImg})` }" -->
                     <h2 class="title">{{ board.title }}</h2>
 
                     <a @click.stop="toggleFavorite(board._id)">
@@ -51,7 +51,7 @@ export default {
         // },
         async addBoard() {
             const boardId = await this.$store.dispatch({ type: 'addBoard' })
-            // console.log(boardId, 'id back from store');
+            console.log(boardId, 'id back from store');
             this.$router.push(`/board/${boardId}`)
         },
         async toggleFavorite(boardId) {

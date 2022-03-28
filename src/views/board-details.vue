@@ -148,6 +148,7 @@ export default {
       console.log(fromGroup.title);
       // if (fromGroup.tasks[0] === null) fromGroup.tasks = []
       toGroup.tasks.splice(this.dndInfo.addedIndex, 0, cardToMove);
+      this.saveBoard();
       this.dndInfo = {};
     },
 
