@@ -8,27 +8,32 @@ export default {
     state: {
         loggedinUser: userService.getLoggedinUser(),
         users: [],
-        watchedUser: null
+        watchedUser: null,
+        guestUser: null,
     },
     getters: {
         users({ users }) { return users },
         loggedinUser({ loggedinUser }) { return loggedinUser },
-        watchedUser({ watchedUser }) { return watchedUser }
+        watchedUser({ watchedUser }) { return watchedUser },
+        getGuestUser({ guestUser }) { return guestUser }
     },
     mutations: {
         setLoggedinUser(state, { user }) {
             // Yaron: needed this workaround as for score not reactive from birth
-            state.loggedinUser = (user)? {...user} : null;
+            state.loggedinUser = (user) ? { ...user } : null;
         },
         setWatchedUser(state, { user }) {
             state.watchedUser = user;
-        },       
+        },
         setUsers(state, { users }) {
             state.users = users;
         },
         removeUser(state, { userId }) {
             state.users = state.users.filter(user => user._id !== userId)
         },
+        setGuestUser(state, { guestUser }) {
+            state.guestUser = guestUser
+        }
     },
     actions: {
         async login({ commit }, { userCred }) {
@@ -70,7 +75,7 @@ export default {
                 console.log('userStore: Error in loadUsers', err)
                 throw err
             }
-        },        
+        },
         async loadAndWatchUser({ commit }, { userId }) {
             try {
                 const user = await userService.getById(userId);
@@ -104,5 +109,9 @@ export default {
             }
 
         },
+        loadGuestUser({ commit }) {
+            const guestUser = userService.getGuestUser()
+            commit({ type: 'setGuestUser', guestUser })
+        }
     }
 }

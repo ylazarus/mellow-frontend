@@ -1,0 +1,137 @@
+.board-menu {
+    position: fixed;
+    top: 44px;
+    right: 0;
+    z-index: 1;
+    background-color: $bg-grey;
+    color: $text-color;
+    width: 384px;
+    height: 100%;
+    padding: 0 12px 12px 12px;
+    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
+    // overflow-y: scroll;
+    .cmp-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        .cmp-container-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: $light-text;
+            margin: 0;
+        }
+        .close-cmp-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            cursor: pointer;
+            & span {
+                // padding: 6px;
+                font-family: trellicons;
+                width: 16px;
+                height: 16px;
+            }
+            & span::before {
+                content: "";
+            }
+        }
+        .back-to-cmp-btn {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            cursor: pointer;
+            & span {
+                padding: 6px;
+                font-family: trellicons;
+                width: 16px;
+                height: 16px;
+            }
+            & span::before {
+                content: "";
+            }
+        }
+    }
+    .menu-content {
+        overflow-y: scroll;
+        height: calc(100vh - 100px);
+
+        .menu-options {
+            flex-direction: column;
+            gap: 4px;
+            padding: 6px;
+            .menu-option {
+                display: flex;
+                padding: 6px;
+                gap: 8px;
+                &:hover {
+                    cursor: pointer;
+                    background-color: $card-grey;
+                    border-radius: 3px;
+                }
+                .menu-option-about,
+                .menu-option-bgc,
+                .menu-option-search {
+                    font-weight: 600;
+                    color: $text-color;
+                    margin: 0;
+                }
+                .trello-icon::before {
+                    font-family: trellicons;
+                    content: "";
+                    font-size: 20px;
+                }
+
+                .board-bg-preview {
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 3px;
+                }
+
+                .search-icon::before {
+                    font-family: trellicons;
+                    content: "";
+                    font-size: 20px;
+                }
+
+                .menu-option-about-description {
+                    color: $light-text;
+                    margin: 0;
+                }
+            }
+        }
+
+        .menu-activities-container {
+            padding: 6px;
+
+            .activity-header::before {
+                font-family: trellicons;
+                margin-inline-end: 12px;
+                content: "";
+                font-size: 16px;
+            }
+
+            .activity-header {
+                display: flex;
+                font-size: 16px;
+                color: $text-color;
+                padding: 6px;
+                font-weight: 600;
+                &:hover {
+                    cursor: pointer;
+                    background-color: $card-grey;
+                    border-radius: 3px;
+                }
+            }
+            .activities-list {
+                display: flex;
+                flex-direction: column;
+            }
+            .show-allActivities {
+                cursor: pointer;
+                text-decoration: none;
+                margin-top: 8px;
+            }
+        }
+    }
+}

@@ -6,7 +6,7 @@
         <span></span>
       </a>
     </div>
-    <hr />
+    <hr class="thin-hr" />
     <label class="filter-search-container">
       <p class="filter-section-title">Keyword</p>
       <input

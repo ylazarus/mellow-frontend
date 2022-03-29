@@ -13,6 +13,7 @@ export const userService = {
     getById,
     remove,
     update,
+    getGuestUser,
 }
 
 function getUsers() {
@@ -61,6 +62,16 @@ function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER) || 'null')
 }
 
+function getGuestUser() {
+    return {
+        "_id": "624298a9e48762573484a9e5",
+        "username": "Guest",
+        "fullname": "Guest User",
+        "imgUrl": "src/assets/svgs/guest.svg",
+        "mentions": []
+    }
+
+}
 
 const users = [
     {

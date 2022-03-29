@@ -1,0 +1,21 @@
+.activity-preview {
+    gap: 8px;
+    .activity-details {
+        flex-direction: column;
+        flex-wrap: wrap;
+        .activity-username-txt-container {
+            gap: 4px;
+
+            .activity-username {
+                margin: 0;
+                font-size: 14px;
+            }
+            .activity-txt {
+                margin: 0;
+            }
+        }
+        .activity-time {
+            font-size: 12px;
+        }
+    }
+}

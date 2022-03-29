@@ -101,10 +101,14 @@
 }
 
 .date-img-preview {
-  color: #fff;
   font-size: 12px;
   padding: 2px 4px;
   border-radius: 3px;
+  align-self: center;
+}
+.date-img-preview.l101-label,
+.l104-label {
+  color: #fff;
 }
 
 .date-img-preview::before {
@@ -136,20 +140,20 @@
 }
 
 .task-snapshot {
-  margin: 4px 0;
+  margin: 4px 0 0;
   flex-wrap: wrap;
   color: $group-text;
+  gap: 4px;
 }
 
 .task-snapshot > * {
-  margin-right: 10px;
+  // margin-right: 10px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 
 .task-content {
-  margin-bottom: 2px;
   color: $group-text;
 }
 
