@@ -254,7 +254,12 @@ import membersPreview from "../components/members-preview.vue";
 import { utilService } from "../services/util-service";
 import { useThrottledRefHistory } from "@vueuse/core";
 import coverUnsplash from "../components/cover-unsplash.vue";
+<<<<<<< HEAD
 import deleteTask from "../components/delete-task-cmp.vue";
+=======
+import deleteTask from "../components/delete-task-cmp.vue"
+import { socketService } from "../services/socket.service";
+>>>>>>> 2dfe10e9e0b7a75d65e959aabf5d660728d2e9c5
 
 export default {
   name: "task-details",
@@ -280,6 +285,12 @@ export default {
   },
   async created() {
     await this.loadTask();
+    socketService.on("someone updated", this.boardUpdated)
+  },
+  unmounted() {
+    socketService.off("someone updated", this.boardUpdated)
+    
+    // socketService.terminate();
   },
   methods: {
     async loadTask() {
@@ -295,6 +306,9 @@ export default {
       this.task = JSON.parse(JSON.stringify(task));
       this.newDescription = this.task.description;
       this.imgUrls = this.task.attachments;
+    },
+    boardUpdated(){
+      this.loadTask()
     },
     moveToBoard() {
       const currBoard = this.$store.getters.getCurrBoard;

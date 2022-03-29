@@ -15,7 +15,6 @@ export const httpService = {
         return ajax(endpoint, 'GET', data)
     },
     post(endpoint, data) {
-        console.log('creating new board in http, ',data);
         return ajax(endpoint, 'POST', data)
     },
     put(endpoint, data) {
