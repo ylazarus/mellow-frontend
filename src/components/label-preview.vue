@@ -58,7 +58,21 @@
           v-focus
         />
       </label>
-      <p class="labels-title">Select a color</p>
+      
+      <list-slot>
+        <template v-slot:title>Select a color</template>
+        <template v-slot:list>
+          <div
+            v-for="label in defaultLabels"
+            :key="label.id"
+            class="label-option flex pointer"
+            :style="{ backgroundColor: label.color }"
+            @click="selectLabel(label.id)"
+          >
+            <span v-if="label.isSelected" class="v-icon"></span>
+          </div> </template
+      ></list-slot>
+      <!-- <p class="labels-title">Select a color</p>
       <div class="create-label-options-container">
         <div
           v-for="label in defaultLabels"
@@ -69,7 +83,7 @@
         >
           <span v-if="label.isSelected" class="v-icon"></span>
         </div>
-      </div>
+      </div> -->
       <div class="create-label-buttons-container flex">
         <button class="create-label-btn" @click.stop="changeBoardLabels">
           {{ createBtn }}
@@ -88,6 +102,7 @@
 
 <script>
 import { utilService } from "@/services/util-service";
+import listSlot from "./list-slot.vue";
 import { userService } from "../services/user-service";
 export default {
   props: {
@@ -95,7 +110,7 @@ export default {
     taskLabelIds: Array,
   },
   emits: ["addLabelToTask", "addLabelToBoard", "updateBoardLabels"],
-  components: {},
+  components: { listSlot },
   data() {
     return {
       labels: [],

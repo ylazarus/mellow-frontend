@@ -227,6 +227,8 @@
           <cover-unsplash
             v-if="handles.isCover"
             :style="task.style"
+            :title="task.title"
+            :attachments="task.attachments"
             @closeCmp="closeCmp"
             @addStyle="addStyle"
           />
@@ -320,7 +322,7 @@ export default {
     async addStyle(style) {
       this.task.style = style;
       await this.saveTask("Updated style");
-      this.closeCmp();
+      // this.closeCmp();
       this.loadTask();
     },
     openCmp(type) {
@@ -446,6 +448,8 @@ export default {
       const img = await this.$store.dispatch({ type: "attachImg", ev });
       if (!this.task.attachments) this.task.attachments = [];
       this.task.attachments.push(img.url);
+      this.task.style.uploadedImg = "";
+      this.task.style.bgClr = "";
       this.task.style.bgImg = img.url;
       await this.saveTask("added image");
       this.loadTask();
@@ -511,7 +515,14 @@ export default {
     },
     // {"bgClr": '', "bgImg": '', "isFullCover": false}
     coverStyle() {
-      if (this.task.style.bgImg)
+      if (this.task.style.uploadedImg)
+        return {
+          "background-image": `url(${this.task.style.uploadedImg})`,
+          height: "160px",
+          "background-color": "#ccd6e0", // later make this dynamic with library?
+          "border-radius": "3px 3px 0 0",
+        };
+      else if (this.task.style.bgImg)
         return {
           "background-image": `url(${this.task.style.bgImg})`,
           height: "160px",
