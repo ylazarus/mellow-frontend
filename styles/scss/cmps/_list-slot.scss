@@ -1,0 +1,32 @@
+.list-slot-container {
+  width: 305px;
+
+  .slot-title {
+    color: green;
+  }
+
+  .slot-options-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .label-option {
+      width: 50px;
+      height: 32px;
+      border-radius: 3px;
+      justify-content: center;
+      align-items: center;
+
+      & .v-icon {
+        font-family: trellicons;
+        width: 20px;
+        height: 20px;
+        color: white;
+        padding: 0;
+      }
+      & .v-icon::before {
+        content: "";
+      }
+    }
+  }
+}

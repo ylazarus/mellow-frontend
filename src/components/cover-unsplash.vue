@@ -1,71 +1,187 @@
 <template>
   <section class="cmp-preview cover-unsplash-preview">
     <div class="cmp-header">
-      <p class="cmp-container-title">Cover</p>
+      <a
+        class="back-to-cmp-btn"
+        v-if="searchingUnsplash"
+        @click="(searchingUnsplash = false), (searchResults = false)"
+      >
+        <span></span>
+      </a>
+      <p class="cmp-container-title">{{ pageTitle }}</p>
       <a class="close-cmp-btn" @click="closeCmp">
         <span></span>
       </a>
     </div>
     <hr />
-    <p>Size</p>
-    <div class="cover-size-select">
-      <button @click="setFullCover(true)">Full Cover</button>
-      <button @click="setFullCover(false)">Top Cover</button>
-    </div>
-    <p>Color</p>
-    <div class="select-solid-bgc-container">
-      <div
-        v-for="bgc in bgColors"
-        :key="bgc.id"
-        class="bgc-option flex pointer"
-        :style="{ backgroundColor: bgc.color }"
-        @click="selectBgClr(bgc.color)"
-      ></div>
-    </div>
-    <hr />
-    <p>Photos from Unsplash</p>
-    <input
-      type="text"
-      placeholder="Search Unsplash for photos"
-      v-model="search"
-      @input="waitSearch"
-    />
-    <div class="select-solid-bgc-container">
-      <ul class="list-unstyled">
-        <li v-for="photo in photos" :key="photo.id">
+
+    <section v-if="!searchingUnsplash" class="main-cover-screen">
+      <p>Size</p>
+      <div class="cover-size-select">
+        <button @click="setFullCover(true)">Full Cover</button>
+        <button @click="setFullCover(false)">Top Cover</button>
+      </div>
+
+      <list-slot>
+        <template v-slot:title>Color</template>
+        <template v-slot:list>
+          <div
+            v-for="bgc in bgColors"
+            :key="bgc.id"
+            class="label-option flex pointer"
+            :style="{ backgroundColor: bgc.color }"
+            @click="selectBgClr(bgc.color)"
+          ></div> </template
+      ></list-slot>
+
+      <!-- <ul class="img-options-list clean-list">
+        
+      </ul> -->
+
+      <section>
+        <list-slot>
+          <template v-slot:title>Attachments</template>
+          <template v-slot:list>
+            <img
+              v-for="(photo, idx) in attachments.slice(0, 6)"
+              :key="idx"
+              class="unsplash-result-small"
+              :src="photo"
+              alt="img"
+              @click="applyPhoto(photo)"
+            />
+          </template>
+        </list-slot>
+
+        <label>
+          <input type="file" @change="onAttachImg" hidden />
+          <div class="unsplash-btn full-width-btn">Upload a cover image</div>
+        </label>
+        <!-- <div>LOADING...</div> -->
+      </section>
+
+      <list-slot>
+        <template v-slot:title>Photos from Unsplash</template>
+        <template v-slot:list>
           <img
-            class="image-list"
-            height="200"
-            width="200"
+            v-for="photo in photos.slice(0, 6)"
+            :key="photo.id"
+            class="unsplash-result-small"
             :src="photo.urls.thumb"
             alt="img"
             @click="applyPhoto(photo)"
           />
-        </li>
-      </ul>
-    </div>
+        </template>
+      </list-slot>
+
+      <button
+        class="unsplash-btn full-width-btn"
+        @click="searchingUnsplash = true"
+      >
+        Search for photos
+      </button>
+    </section>
+
+    <section
+      v-if="searchingUnsplash && !searchResults"
+      class="search-unsplash-screen"
+    >
+      <input
+        type="text"
+        placeholder="Search Unsplash for photos"
+        v-model="search"
+        @input="waitSearch"
+      />
+
+      <list-slot>
+        <template v-slot:title>Suggested searches</template>
+        <template v-slot:list>
+          <button
+            class="unsplash-btn"
+            v-for="(term, idx) in searchTerms"
+            :key="idx"
+            @click="searchPhoto(term)"
+          >
+            {{ term }}
+          </button>
+        </template></list-slot
+      >
+
+      <list-slot>
+        <template v-slot:title>Top photos</template>
+        <template v-slot:list>
+          <img
+            v-for="photo in photos"
+            :key="photo.id"
+            class="unsplash-result-small"
+            :src="photo.urls.thumb"
+            alt="img"
+            @click="applyPhoto(photo)"
+          />
+        </template>
+      </list-slot>
+    </section>
+
+    <section v-if="searchResults" class="unsplash-results-screen">
+      <list-slot>
+        <template v-slot:list>
+          <img
+            v-for="photo in photos"
+            :key="photo.id"
+            class="unsplash-result-large"
+            :src="photo.urls.thumb"
+            alt="img"
+            @click="applyPhoto(photo)"
+          />
+        </template>
+      </list-slot>
+    </section>
   </section>
 </template>
 
 
 <script>
+import listSlot from "../components/list-slot.vue";
 import { getCurrentInstance, onMounted } from "vue";
 import axios from "axios";
 import _ from "lodash";
 
 export default {
   name: "cover-unsplash",
+  components: {
+    listSlot,
+  },
   props: {
     style: Object,
+    title: String,
+    attachments: Array,
   },
   data() {
     return {
-      currStyle: { bgClr: "", bgImg: "", isFullCover: false },
+      currStyle: {
+        bgClr: "",
+        bgImg: "",
+        isFullCover: false,
+        uploadedImg: "",
+      },
       photos: [],
-      search: "nature",
-      count: 12,
+      currTitle: "",
+      searchingUnsplash: false,
+      searchResults: false,
+      search: "",
       photo_url: null,
       download_url: null,
+      searchTerms: [
+        "Productivity",
+        "Perspective",
+        "Organization",
+        "Colorful",
+        "Nature",
+        "Business",
+        "Minimal",
+        "Space",
+        "Animals",
+      ],
       bgColors: [
         { id: "l101", color: "#61bd4f", isSelected: false },
         { id: "l102", color: "#f2d600", isSelected: false },
@@ -82,7 +198,8 @@ export default {
   },
   created() {
     this.currStyle = JSON.parse(JSON.stringify(this.style));
-    this.searchPhoto()
+    this.currTitle = this.title;
+    this.searchPhoto();
 
     // var count = 6;
     //   var orientation = "landscape";
@@ -91,45 +208,18 @@ export default {
     // console.log(randomImgs.urls);
   },
 
-  // setup(props, context) {
-  //   const instance = getCurrentInstance();
-  //   const globalProperties = instance.appContext.config.globalProperties;
-
-  //   onMounted(async () => {
-
-  //     var randomImgs = await globalProperties.$unsplash.photos.random;
-
-  //     var urls = randomImgs.urls || [];
-  //     // var links = randomImgs.links || [];
-  //     // var user = randomImgs.user || {};
-  //     console.log(urls);
-  //     this.imgsToRender = urls;
-  //   });
-  // },
-
   methods: {
-    // getPhoto(searchTerm) {
-    //   // get the app id using the global variable of unsplash
-    //   // let appid = this.$unsplash._applicationId;
-    //   //this.$axios.get(`https://api.unsplash.com/photos?client_id=${appid}`)
-    //   const accessKey = "Y2X6Y_wdMpqvaYX_4jgO-dOBqVAsQMQpihsIFNOAX5E";
-    //   axios
-    //     .get(
-    //       `https://api.unsplash.com/search/photos?page=1&per_page=10&query=${searchTerm}&client_id=${accessKey}`
-    //     )
-    //     .then((response) => {
-    //       // JSON responses are automatically parsed.
-    //       this.photos = response.data.results;
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //     });
-    // },
-    searchPhoto() {
-      let query = this.search;
-      let count = this.count
+    searchPhoto(searchTerm) {
       const accessKey = "Y2X6Y_wdMpqvaYX_4jgO-dOBqVAsQMQpihsIFNOAX5E";
-
+      let count = 20;
+      let query = searchTerm;
+      if (query) {
+        this.search = query;
+        this.searchResults = true;
+      } else {
+        query = this?.currTitle || "nature";
+        count = 12;
+      }
       axios
         .get(
           `https://api.unsplash.com/search/photos?page=1&per_page=${count}&query=${query}&client_id=${accessKey}`
@@ -142,14 +232,13 @@ export default {
           console.log(e);
         });
     },
-    // getRandom(){
-    //   this.$axios.get('https://source.unsplash.com/random')
-    //   .then(response =>{
-    //   })
-    // },
     applyPhoto(photo) {
-      this.currStyle.bgImg = photo.urls.regular;
+      // this.currStyle.lastImg = (this.currStyle.bgImg) ? this.currStyle.bgImg : this.currStyle.uploadedImg || ""
+      this.currStyle.uploadedImg = photo.urls.regular;
       this.currStyle.bgClr = "";
+      this.currStyle.bgImg = "";
+      this.searchResults = false;
+      this.searchingUnsplash = false;
       this.$emit("addStyle", this.currStyle);
     },
     waitSearch: _.debounce(function () {
@@ -157,8 +246,10 @@ export default {
     }, 1000),
 
     selectBgClr(bgClr) {
+      // this.currStyle.lastImg = (this.currStyle.bgImg) ? this.currStyle.bgImg : this.currStyle.uploadedImg || ""
       this.currStyle.bgClr = bgClr;
       this.currStyle.bgImg = "";
+      this.currStyle.uploadedImg = "";
       this.$emit("addStyle", this.currStyle);
     },
     closeCmp() {
@@ -167,6 +258,19 @@ export default {
     setFullCover(val) {
       this.currStyle.isFullCover = val;
       this.$emit("addStyle", this.currStyle);
+    },
+    async onAttachImg(ev) {
+      const img = await this.$store.dispatch({ type: "attachImg", ev });
+      // this.currStyle.lastImg = (this.currStyle.bgImg) ? this.currStyle.bgImg : this.currStyle.uploadedImg
+      this.currStyle.uploadedImg = img.url;
+      this.currStyle.bgClr = "";
+      this.currStyle.bgImg = "";
+      this.$emit("addStyle", this.currStyle);
+    },
+  },
+  computed: {
+    pageTitle() {
+      return this.searchingUnsplash ? "Photo search" : "Cover";
     },
   },
 };
