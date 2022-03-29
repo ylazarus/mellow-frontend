@@ -23,13 +23,8 @@
                     :key="index"
                     @click="toggleMemberInTask(member)"
                 >
-                    <!-- <span> -->
                     <user-avatar :user="member" />
-                    <!-- </span> -->
-                    <div class="member-fullname">{{ member.fullname }}{{ ` (${member.username})` }}</div>
-                    <!-- <pre>{{ task }}</pre> -->
-                    <!-- <pre>{{ index }}</pre> -->
-                    <!-- <pre>{{ isCheck[index] }}</pre> -->
+                    <div class="member-fullname">{{ member.fullname }}{{ `(${member.username})` }}</div>
                     <div v-if="member.isCheck" class="member-check"></div>
                 </li>
                 <div></div>

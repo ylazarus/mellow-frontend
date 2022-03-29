@@ -85,9 +85,32 @@
         </section>
 
         <div class="img-container" v-if="task.attachments">
+          <h3>Attachments</h3>
           <img class="img-preview" v-for="imgUrl in imgUrls" :key="imgUrl" :src="imgUrl" />
           <p></p>
         </div>
+
+        <checklist-active
+          v-if="task.checklists?.length"
+          :task="task"
+          @addTodo="addTodo"
+          @removeChecklist="removeChecklist"
+          @updateTodo="updateTodo"
+        />
+        <!-- <pre>{{ task }}</pre> -->
+        <!-- <section v-if="isCreateChecklist" class="td-checklist">
+          <div v-for="checklist in task.checklists?.length" :key="checklist.id">
+    
+            <pre>{{ task.checklists }}</pre>
+            <a class="btn">Delete</a>
+            <div>template for Progress Bar with computed by %</div>
+            
+            <input type="text" />
+            <button>Add</button>
+            <a>X</a>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam neque veritatis sit delectus facere culpa est atque ut ab ullam?</p>
+          </div>
+        </section>-->
 
         <div class="activities activity-details-header">
           <p class="activity-header">Activity</p>
@@ -118,7 +141,16 @@
           @removeLabelFromBoard="removeLabelFromBoard"
           @updateBoardLabels="updateBoardLabels"
         />
-        <button class="checklist-btn btn" title="Checklist">Checklist</button>
+        <button
+          class="checklist-btn btn"
+          title="Checklist"
+          @click.stop="openCmp('isChecklist')"
+        >Checklist</button>
+        <create-checklist
+          v-if="handles.isChecklist"
+          @closeCmp="closeCmp"
+          @createChecklist="createChecklist"
+        />
         <button @click.stop="openCmp('isDatesOn')" class="dates-btn btn" title="Dates">Dates</button>
         <date-preview
           v-if="handles.isDatesOn"
@@ -174,6 +206,9 @@ import { utilService } from "../services/util-service";
 import { useThrottledRefHistory } from "@vueuse/core";
 import coverUnsplash from "../components/cover-unsplash.vue";
 import deleteTask from "../components/delete-task-cmp.vue"
+import createChecklist from "../components/create-checklist.vue"
+// import CreateChecklist from "../components/create-checklist.vue"
+import checklistActive from "../components/checklist-active.vue"
 
 export default {
   name: "task-details",
@@ -187,6 +222,10 @@ export default {
       addingDescription: false,
       newDescription: "",
       detailsShown: false,
+      // isCreateChecklist: false,
+      checklistTitle: '',
+      // checklist: [],
+      // isChecklistActive: false,
       handles: {
         isLabel: false,
         isAttachOn: false,
@@ -194,6 +233,7 @@ export default {
         isMembers: false,
         isCover: false,
         isDelete: false,
+        isChecklist: false,
       },
     };
   },
@@ -321,11 +361,8 @@ export default {
       await this.$emit("updateBoard", board);
     },
     async toggleMemberInTask(memberToAdd) {
-      console.log("memberToAdd", memberToAdd);
-      // console.log('task', this.task);
+
       if (!this.task.members) this.task.members = [];
-      // if (!this.task.members.isCheck) this.task.members.isCheck = [];
-      console.log("task", this.task);
       const idx = this.task.members.findIndex(
         (member) => member._id === memberToAdd._id
       );
@@ -349,7 +386,7 @@ export default {
       if (!this.task.attachments) this.task.attachments = [];
       this.task.attachments.push(img.url);
       this.task.style.bgImg = img.url;
-      await this.saveTask("added image");
+      await this.saveTask("Added image");
       this.loadTask();
     },
     async removeTask(type) {
@@ -361,10 +398,6 @@ export default {
         // byMember: userService.getLoggedinUser() || "Guest",
         task: { id: this.task.id, title: this.task.title }, // take out details and extract only mini task
       };
-      console.log('task details - removing');
-      console.log('currBoard._id', this.currBoard._id);
-      console.log('currGroup.id', this.currGroup.id);
-      console.log('this.task', this.task);
 
       const board = await this.$store.dispatch({
         type: "removeTask",
@@ -374,11 +407,65 @@ export default {
         activity,
       });
       this.$emit("updateBoard", board);
-      // console.log('im here', this.currBoard);
-      // this.$router.push(`/board/${this.currBoard._id}`);
       this.moveToBoard()
+    },
+    async createChecklist(title) {
+      // isCreateChecklist = !isCreateChecklist
+      if (!this.task.checklists) this.task.checklists = [];
+      const checklist = {
+        id: utilService.makeId(),
+        title,
+        todos: []
+      }
 
+      this.task.checklists.push(checklist)
+      await this.saveTask('Added checklist')
+      this.loadTask();
+
+      // this.isCreateChecklist = true
+      this.closeCmp()
+    },
+    async addTodo(inputVal, checklistId) {
+
+      if (!inputVal) return
+      const checklistToUpdate = this.task.checklists.find(checklist => {
+        return checklist.id === checklistId
+      })
+      checklistToUpdate.todos.push({
+        id: utilService.makeId(),
+        title: inputVal,
+        isDone: false
+      })
+      await this.saveTask('Added todo')
+      console.log('task', this.task);
+      this.loadTask()
+
+    },
+    async removeChecklist(checklistId) {
+      const checklistIdx = this.task.checklists.findIndex(checklist => {
+        return checklist.id === checklistId
+      })
+      this.task.checklists.splice(checklistIdx, 1)
+      await this.saveTask('Removed checklist')
+      this.loadTask()
+    },
+    async updateTodo(checklistId, todoId, updateTodoVal) {
+      console.log('checklistId', checklistId);
+      console.log('updateTodoVal', updateTodoVal);
+      console.log('todoId', todoId);
+      const checklistToUpdate = this.task.checklists.find(checklist => {
+        return checklist.id === checklistId
+      })
+      console.log('checklistToUpdate', checklistToUpdate);
+      const todoIdx = checklistToUpdate.todos.findIndex(todo => {
+        return todo.id === todoId
+      })
+      console.log('todoIdx', todoIdx);
+      checklistToUpdate.todos.splice(todoIdx, 1, updateTodoVal)
+      // await this.saveTask('Updated todo')
+      // this.loadTask()
     }
+
   },
   computed: {
     areDetailsShown() {
@@ -432,6 +519,9 @@ export default {
     membersPreview,
     coverUnsplash,
     deleteTask,
+    createChecklist,
+    checklistActive,
+    // CreateChecklist
   },
 };
 // };

@@ -126,6 +126,9 @@ export default {
                 console.log("board module removeBoard cant load boards now", err)
             }
         },
+        async removeGroup() {
+            console.log('work in progress');
+        },
         async removeTask({ commit, state }, { boardId, groupId, task, activity }) {
             try {
 
@@ -141,13 +144,6 @@ export default {
                 commit({ type: 'saveBoard', savedBoard })
 
                 return JSON.parse(JSON.stringify(savedBoard))
-                // NEED TO ASK AVIOR
-                // CAUSE WE DO ONLY SAVE BOARD / REMOVE BOARD
-                // I CANT USE REMOVE AT ALL CAUSE WE DONT DO REMOVE TASK
-                // I HAVE TO COMMIT FOR MUTATION AND UPDATE THE BOARD AFTER SPLICE
-                // THEN I HAVE TO SAVE THE UPDATED BOARD AFTER THE SPLICE
-                // IM NOT USING REMOVE AT ALL...ONLY SAVE
-
 
             } catch (err) {
                 console.log('board module removeTask cant remove task now', err);
