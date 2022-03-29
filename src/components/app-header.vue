@@ -6,15 +6,11 @@
         <h3 class="logo">Mellow</h3>
       </router-link>
       <nav class="app-header-nav">
-        <button
-          class="btn-header flex"
-          @click="toggleRecent"
-          @closeCmp="toggleRecent"
-        >
+        <button class="btn-header flex" @click="toggleRecent">
           Recent
           <span class="header-arrow-icon"></span>
         </button>
-        <board-recent v-if="isRecent" />
+        <board-recent v-if="isRecent" @closeCmp="toggleRecent" />
       </nav>
     </div>
   </header>

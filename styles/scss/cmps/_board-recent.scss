@@ -1,22 +1,24 @@
 .board-recent {
+    font-size: 14px;
     color: $light-text;
     background-color: white;
     width: 21.714rem;
-    // margin-top: 10px;
     border-radius: 3px;
-    display: flex;
-    flex-direction: column;
     position: absolute;
-    top: 80px;
-    // right: -112px;
-    // bottom: -175px;
+    top: 46px;
     padding: 0 12px 12px 12px;
-    z-index: 1000;
-
+    z-index: 10;
+    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
     .cmp-header {
+        display: flex;
+
+        justify-content: center;
+        align-items: center;
         text-align: center;
+        height: 40px;
     }
     .cmp-container-title {
+        font-weight: 400;
         color: $light-text;
         margin: 0;
     }
@@ -35,25 +37,36 @@
             content: "";
         }
     }
-    & hr {
-        width: 100%;
-        border-color: #091e4221;
-        margin-bottom: 13px;
-    }
 
-    .recent-board-preview {
-        text-decoration: none;
+    .recent-boards-list {
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
         gap: 8px;
-        .recent-board-preview-img {
-            width: 40px;
-            height: 32px;
+
+        .recent-board-preview {
+            align-items: center;
+            cursor: pointer;
+            text-decoration: none;
+            gap: 8px;
+            .recent-board-preview-img {
+                width: 40px;
+                height: 32px;
+                border-radius: 3px;
+                object-fit: cover;
+            }
+
+            .recent-board-title {
+                font-weight: 500;
+                margin: 0;
+            }
+        }
+        .recent-board-preview:visited {
+            color: $light-text;
+        }
+        .recent-board-preview:hover {
+            background-color: $card-grey;
             border-radius: 3px;
         }
-
-        .recent-board-title {
-        }
-    }
-    .recent-board-preview:visited {
-        color: $light-text;
     }
 }

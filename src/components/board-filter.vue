@@ -1,5 +1,5 @@
 <template>
-  <section class="filter-board-filter">
+  <section class="board-filter">
     <div class="cmp-header">
       <p class="cmp-container-title">Filter</p>
       <a class="close-cmp-btn" @click="$emit('closeCmp')">

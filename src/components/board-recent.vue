@@ -6,13 +6,13 @@
         <span></span>
       </a>
     </div>
-    <hr />
+    <hr class="thin-hr" />
     <div class="recent-boards-list">
       <div
         class="recent-board-preview flex"
         v-for="board in boards"
         :key="board._id"
-        @click="this.$router.push(`/board/${board._id}`)"
+        @click="goToBoard(board._id)"
       >
         <img
           v-if="board.style.bgImg"
@@ -32,9 +32,13 @@
 
 <script>
 export default {
+  methods: {
+    goToBoard(boardId) {
+      this.$router.push(`/board/${boardId}`);
+    },
+  },
   computed: {
     boards() {
-      console.log(this.$store.getters.boards);
       return this.$store.getters.boards;
     },
   },

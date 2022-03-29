@@ -1,6 +1,6 @@
-.groups-border{
+.groups-border {
     // font-weight: 600;
-    font-family: segoeui,sans-serif;
+    font-family: segoeui, sans-serif;
     min-height: 28px;
     min-width: 272px;
     padding: 4px;
@@ -9,9 +9,10 @@
     background-color: $card-grey;
     border-radius: 3px;
     margin-right: 10px;
+    color: $group-text;
 }
 
-.outside-group{
+.outside-group {
     padding: 4px;
     font-size: 16px;
     display: flex;
@@ -20,14 +21,15 @@
     font-weight: 600;
     height: 40px;
     margin-inline-end: 15px;
+    color: $group-text;
 }
 
-.draggable-container{
+.draggable-container {
     width: 272px;
     padding-bottom: 0;
 }
 
-.bottom-outside-group{
+.bottom-outside-group {
     display: flex;
     margin: 0 2px;
     align-items: center;
@@ -50,7 +52,7 @@ textarea {
     border: 0;
     outline: none;
     font-family: segoeui, Roboto, Arial, Helvetica, sans-serif;
-    color: $text-color;
+    color: $group-text;
     font-size: 14px;
     resize: none;
 }
@@ -65,7 +67,7 @@ textarea {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: segoeui,sans-serif;
+    font-family: segoeui, sans-serif;
     margin: 0;
     // margin-left: 4px;
     padding: 6px 12px;
@@ -76,7 +78,7 @@ textarea {
     background-color: #026aa7;
 }
 
-.delete-task-btn::before{
+.delete-task-btn::before {
     font-family: trellicons;
     font-size: 25px;
     // margin-inline-end: 4px;
@@ -111,14 +113,14 @@ textarea {
     // margin-block-end: 5px;
     display: flex;
     cursor: pointer;
-    
+
     &:hover {
         border-radius: 3px;
         background-color: $card-grey-hover;
     }
 }
 
-.add-task-btn::before{
+.add-task-btn::before {
     font-family: trellicons;
     font-size: 16px;
     margin-inline-end: 4px;
@@ -127,32 +129,24 @@ textarea {
 }
 
 .group-container {
-    // width: 272px;
-    // height: fit-content;
-    // max-height: 905px;
-    max-height: calc(100vh - 290px);
-    // flex-shrink: 0;
+    max-height: calc(100vh - 220px);
     overflow-x: hidden;
     overflow-y: auto;
     padding: 0 5px;
-    // display: flex;
-    // flex-direction: column;
-    // gap: 8px;
-    // // background-color: #fff;
-    // border-radius: 3px;
-    // background-color: $card-grey;
-    // cursor: pointer;
+}
+.group-container.add {
+    max-height: calc(100vh - 287px);
 }
 
-.group-container:last-child{
+.group-container:last-child {
     padding-bottom: 0;
 }
 
-.tasks-container:last-child{
+.tasks-container:last-child {
     margin-bottom: 0;
 }
 
-.middle-group-list{
+.middle-group-list {
     flex-shrink: 0;
     // overflow-x: hidden;
     // overflow-y: auto;
@@ -166,9 +160,6 @@ textarea {
     cursor: pointer;
 }
 
-.smooth-dnd-draggable-wrapper:last-of-type{
+.smooth-dnd-draggable-wrapper:last-of-type {
     padding-bottom: 0;
 }
-
-
-

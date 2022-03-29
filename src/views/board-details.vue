@@ -22,8 +22,6 @@
             src="src/assets/icons/full-star.png"
           />
           <img class="star" v-else src="src/assets/icons/empty-star.png" />
-          <!-- <img src="src/assets/icons/empty-star.png" /> -->
-          <!-- <img :src="changeImgUrl" /> -->
         </button>
       </div>
       <div class="members-nav-bar flex">
@@ -247,6 +245,15 @@ export default {
     },
     updatedBoardFromStore() {
       return this.$store.getters.boards;
+    },
+  },
+  watch: {
+    "$route.params.boardId": {
+      immediate: true,
+      handler() {
+        const { boardId } = this.$route.params;
+        this.loadBoard(boardId);
+      },
     },
   },
   unmounted() {

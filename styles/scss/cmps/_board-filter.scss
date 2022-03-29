@@ -1,4 +1,4 @@
-.filter-board-filter {
+.board-filter {
     position: fixed;
     top: 44px;
     right: 0;
@@ -7,6 +7,7 @@
     color: $text-color;
     width: 384px;
     padding: 0 12px 12px 12px;
+    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
     .cmp-header {
         // display: flex;
         // justify-content: center;
@@ -17,7 +18,7 @@
         font-size: 14px;
         color: $light-text;
         margin: 0;
-        height: 41px;
+        height: 40px;
     }
     .close-cmp-btn {
         position: absolute;

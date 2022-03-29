@@ -1,7 +1,9 @@
 <template>
   <section class="groups-border">
-    <div class="outside-group" contenteditable="true" @blur="saveTitle">{{ group.title }}</div>
-    <div class="group-container">
+    <div class="outside-group" contenteditable="true" @blur="saveTitle">
+      {{ group.title }}
+    </div>
+    <div class="group-container" :class="calcHeight">
       <Container
         class="tasks-container"
         v-if="group.tasks?.length"
@@ -25,7 +27,9 @@
       </Container>
     </div>
     <div class="bottom-outside-group">
-      <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">Add a card</div>
+      <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">
+        Add a card
+      </div>
       <div v-else class="add-task-container">
         <textarea
           v-focus
@@ -121,6 +125,11 @@ export default {
     },
     toggleLabelTitle() {
       this.$emit("toggleLabelTitle");
+    },
+  },
+  computed: {
+    calcHeight() {
+      return { add: this.isAdding };
     },
   },
 };
