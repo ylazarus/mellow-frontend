@@ -25,8 +25,8 @@
         <span v-if="isLabelTitle" :class="openLabel">{{ label.title }}</span>
       </div>
     </div>
-    <div>
-      <img v-if="task.attachments?.length && !task.style.bgClr" :src="task.attachments[0]" alt="" />
+    <div v-if="taskImgUrl && !task.style.bgClr">
+      <img :src="taskImgUrl" alt="" />
     </div>
     <div class="task-content">{{ task.title }}</div>
 
@@ -142,8 +142,20 @@ export default {
     openLabel() {
       return { open: this.isLabelTitle };
     },
+    // taskHasImgOrCover(){
+    //   if (this.task.style.uploadedImg || this.task.style.bgImg) return true
+    // },
+    taskImgUrl(){
+      if (this.task.style.uploadedImg) return this.task.style.uploadedImg
+      else if (this.task.style.bgImg) return this.task.style.bgImg
+      else return
+    },
     fullCoverStyle(){
-      if (this.task.style.bgImg) return {
+      if (this.task.style.uploadedImg) return {
+        backgroundImage: `url(${this.task.style.uploadedImg})`,
+        height: "220px",
+        backgroundColor : "#ccd6e0" // later make this dynamic with library?
+      }; else if (this.task.style.bgImg) return {
         backgroundImage: `url(${this.task.style.bgImg})`,
         height: "220px",
         backgroundColor : "#ccd6e0" // later make this dynamic with library?
@@ -153,7 +165,7 @@ export default {
       };
     },
     fullCoverTxt(){
-      if (this.task.style.bgImg) return "is-img"
+      if (this.task.style.uploadedImg || this.task.style.bgImg) return "is-img"
       else {
         const isDark = utilService.isDarkColor(this.task.style.bgClr)
         if (isDark) return "is-dark-bg"

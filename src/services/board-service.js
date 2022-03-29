@@ -5,8 +5,6 @@ import { storageService } from './async-storage-service'
 
 const KEY = 'boards_db'
 const ENDPOINT = 'board'
-// const BASE_URL =
-//   process.env.NODE_ENV !== 'development' ? '/api/board' : '//localhost:3030/api/board/'
 
 export const boardService = {
   query,

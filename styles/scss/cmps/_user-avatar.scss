@@ -1,24 +1,24 @@
-.user-avatar-img {
-    border-radius: 50%;
-    width: 30px;
+.user-avatar {
     height: 30px;
-    object-fit: cover;
-    // position: absolute;
-    // right: 10px;
-    // bottom:5px;
-}
 
-.user-avatar-name{
-    // position: absolute;
-    // right: 10px;
-    // bottom:5px;
-    border-radius: 50%;
-    background-color: blue;
-    color: aliceblue;
-    width: 30px;
-    height: 30px;
-    justify-content: center;
-    align-items: center;
-    font-family: segoeui-bold;
-}
+    .user-avatar-img {
+        border-radius: 50%;
+        border: 1px solid $card-grey-hover;
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+        background-color: $card-grey;
+    }
 
+    .user-avatar-name {
+        border-radius: 50%;
+        background-color: blue;
+        color: aliceblue;
+        width: 30px;
+        height: 30px;
+        justify-content: center;
+        align-items: center;
+        font-family: segoeui-bold;
+        border: 1px solid $card-grey-hover;
+    }
+}

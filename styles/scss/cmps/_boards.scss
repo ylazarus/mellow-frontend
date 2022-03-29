@@ -1,4 +1,4 @@
-.board-preview{
+.board-preview {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,60 +15,80 @@
     border-color: white;
     padding: 5px;
     // background-color: black;
+    position: relative;
 
-    .title{
+    .title {
         margin: 0;
         color: white;
         padding: 1px 0px 0px 7px;
         align-self: flex-start;
+        z-index: 2;
+    }
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        opacity: 0;
+
+        transition: opacity 0.4s;
+    }
+
+    &:hover {
+        &::before {
+            opacity: 1;
+        }
     }
 }
 
-.board-preview:hover{
+.board-preview:hover {
     opacity: 0.5;
     // background-color: darken($color: white, $amount: 40%);
-    
 }
 
-
-.style-font{
+.style-font {
     font-size: 16px;
     // font-weight: 700;
     // color: white;
-    font-family: segoeui-bold,sans-serif;
+    font-family: segoeui-bold, sans-serif;
 }
 
-.add-card{
+.add-card {
     background-color: $clr8;
-    font-family: segoeui,sans-serif;
+    font-family: segoeui, sans-serif;
     font-size: 14px;
     color: $clr6;
     font-weight: 400;
 }
 
-.add-card:hover{
+.add-card:hover {
     background-color: #aaaaaa4d;
 }
 
-.saved-boards{
+.saved-boards {
     display: flex;
     flex-wrap: wrap;
     // height: 80px;
 }
 
-.justify-center{
+.justify-center {
     justify-content: center;
 }
 
-.saved-boards a{
+.saved-boards a {
     align-self: flex-end;
 }
 
-.saved-boards a img{
+.saved-boards a img {
     width: 15px;
     transition: ease-in-out 0.2s;
 }
-.saved-boards a img:hover{
+.saved-boards a img:hover {
     width: 20px;
 }
 
@@ -82,17 +102,16 @@
 //     grid-auto-flow: dense;
 // }
 
-.header-container{
+.header-container {
     min-height: 10vh;
 }
-.main-layout{
+.main-layout {
     min-height: 90vh;
 }
 
-.img-pos{
+.img-pos {
     background-size: cover;
     background-position: center;
-
 }
 
 // color for label cmp

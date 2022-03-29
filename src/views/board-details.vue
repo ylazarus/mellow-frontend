@@ -22,8 +22,6 @@
             src="src/assets/icons/full-star.png"
           />
           <img class="star" v-else src="src/assets/icons/empty-star.png" />
-          <!-- <img src="src/assets/icons/empty-star.png" /> -->
-          <!-- <img :src="changeImgUrl" /> -->
         </button>
       </div>
       <div class="members-nav-bar flex">
@@ -47,7 +45,10 @@
           @closeCmp="toggleFilter"
           @setFilter="setFilter"
         />
-        <button class="show-menu-btn btn-board btn">Show menu</button>
+        <button class="show-menu-btn btn-board btn" @click="toggleMenu">
+          Show menu
+        </button>
+        <board-menu v-if="isOpenMenu" :board="board" @closeCmp="toggleMenu" />
       </nav>
     </header>
     <!-- <div class="article-container"> -->
@@ -86,11 +87,13 @@ import { boardService } from "../services/board-service";
 import { utilService } from "../services/util-service";
 import { userService } from "../services/user-service";
 import { eventBus, showMsg } from "../services/event-bus-service";
+import { socketService } from "../services/socket.service";
 
 import boardGroup from "../components/board-group.vue";
 import userAvatar from "../components/user-avatar.vue";
 import { Container, Draggable } from "vue3-smooth-dnd";
 import boardFilter from "../components/board-filter.vue";
+import boardMenu from "../components/board-menu.vue";
 
 export default {
   name: "board-details",
@@ -100,6 +103,7 @@ export default {
       dndInfo: {},
       isLabelTitle: false,
       isOpenFilter: false,
+      isOpenMenu: false,
     };
   },
   components: {
@@ -108,11 +112,20 @@ export default {
     Container,
     Draggable,
     boardFilter,
+    boardMenu,
   },
   async created() {
     this.unsubscribe = eventBus.on("show-msg", this.showMsg);
     const { boardId } = this.$route.params;
+    this.topic = boardId;
+    socketService.emit("board topic", this.topic);
+    socketService.on("someone updated", this.boardUpdated);
     this.loadBoard(boardId);
+  },
+  unmounted() {
+    socketService.off("someone updated", this.boardUpdated);
+
+    // socketService.terminate();
   },
   methods: {
     async updateBoard(board) {
@@ -170,7 +183,8 @@ export default {
         id: utilService.makeId(),
         txt: type,
         createdAt: Date.now(),
-        // byMember: userService.getLoggedinUser() || "Guest",
+        byMember:
+          this.$store.getters.loggedinUser || this.$store.getters.getGuestUser,
       };
       this.board.activities.push(activity);
       this.board = await this.$store.dispatch({
@@ -208,7 +222,8 @@ export default {
         id: utilService.makeId(),
         txt: type,
         createdAt: Date.now(),
-        // byMember: userService.getLoggedinUser() || "Guest",
+        byMember:
+          this.$store.getters.loggedinUser || this.$store.getters.getGuestUser,
         group: { id: updatingGroup.id, title: updatingGroup.title }, // take out details and extract only mini task
       };
       this.board = await this.$store.dispatch({
@@ -236,6 +251,12 @@ export default {
     setFilter(filterBy) {
       this.$store.commit({ type: "setFilter", filterBy });
     },
+    boardUpdated() {
+      this.loadBoard(this.board._id);
+    },
+    toggleMenu() {
+      this.isOpenMenu = !this.isOpenMenu;
+    },
   },
   computed: {
     isStarred() {
@@ -247,6 +268,15 @@ export default {
     },
     updatedBoardFromStore() {
       return this.$store.getters.boards;
+    },
+  },
+  watch: {
+    "$route.params.boardId": {
+      immediate: true,
+      handler() {
+        const { boardId } = this.$route.params;
+        this.loadBoard(boardId);
+      },
     },
   },
   unmounted() {

@@ -176,19 +176,28 @@
       }
     }
 
-    .activity-header::before {
-      font-family: trellicons;
-      margin-inline-end: 16px;
-      content: "";
-      font-size: 24px;
-    }
+    .activities {
+      .activity-details-header {
+        display: flex;
+        .activity-header::before {
+          font-family: trellicons;
+          margin-inline-end: 16px;
+          content: "";
+          font-size: 24px;
+        }
 
-    .activity-header {
-      display: flex;
-      font-size: 16px;
-      color: $text-color;
-      font-family: segoeui-bold;
-      width: 460px;
+        .activity-header {
+          display: flex;
+          font-size: 16px;
+          color: $text-color;
+          font-family: segoeui-bold;
+          width: 460px;
+        }
+      }
+      .activities-list {
+        display: flex;
+        flex-direction: column-reverse;
+      }
     }
 
     .fake-text-area {
@@ -380,36 +389,35 @@
       margin-top: 8px;
     }
 
-    .td-actions{
+    .td-actions {
       font-size: 12px;
       font-weight: 700;
       line-height: 20px;
       margin: 6px 12px -4px 0px;
-      color: $light-text
+      color: $light-text;
     }
 
-    .td-delete-btn{
+    .td-delete-btn {
       color: #fff;
       background-color: $trello-danger;
       user-select: none;
       position: relative;
     }
 
-    .td-delete-btn:hover{
+    .td-delete-btn:hover {
       background-color: #933b27;
-  }
+    }
 
-    .td-delete-icon::before{
+    .td-delete-icon::before {
       font-family: trellicons;
       content: "";
     }
 
-    .td-delete-icon{
+    .td-delete-icon {
       color: #fff;
       font-size: 16px;
       margin: 0 8px 0 -6px;
     }
-    
   }
 }
 .img-container {
@@ -419,10 +427,6 @@
 .img-preview {
   width: 100px;
   margin-right: 5px;
-}
-
-.activity-details-header {
-  display: flex;
 }
 
 // .text-pos{
@@ -484,7 +488,7 @@
   position: relative;
 }
 
-.cover-btn::before{
+.cover-btn::before {
   font-family: trellicons;
   content: "";
   margin-right: 7px;
@@ -492,4 +496,3 @@
   margin-inline-start: -5px;
   margin-top: 2px;
 }
-

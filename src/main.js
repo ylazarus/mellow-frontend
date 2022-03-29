@@ -5,7 +5,6 @@ import store from '../store'
 import { focusDirective } from './directives'
 import VCalendar from 'v-calendar';
 import Unsplash from 'vue-unsplash'
-  
 
 import "../styles/scss/main.scss"
 
