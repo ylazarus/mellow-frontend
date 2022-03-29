@@ -86,6 +86,7 @@ import { boardService } from "../services/board-service";
 import { utilService } from "../services/util-service";
 import { userService } from "../services/user-service";
 import { eventBus, showMsg } from "../services/event-bus-service";
+import { socketService } from "../services/socket.service";
 
 import boardGroup from "../components/board-group.vue";
 import userAvatar from "../components/user-avatar.vue";
@@ -112,7 +113,15 @@ export default {
   async created() {
     this.unsubscribe = eventBus.on("show-msg", this.showMsg);
     const { boardId } = this.$route.params;
+    this.topic = boardId
+    socketService.emit("board topic", this.topic)
+    socketService.on("someone updated", this.boardUpdated)
     this.loadBoard(boardId);
+  },
+  unmounted() {
+    socketService.off("someone updated", this.boardUpdated)
+    
+    // socketService.terminate();
   },
   methods: {
     async updateBoard(board) {
@@ -236,6 +245,10 @@ export default {
     setFilter(filterBy) {
       this.$store.commit({ type: "setFilter", filterBy });
     },
+    boardUpdated(){
+      this.loadBoard(this.board._id)
+    }
+
   },
   computed: {
     isStarred() {

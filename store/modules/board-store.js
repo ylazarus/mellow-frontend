@@ -1,4 +1,5 @@
 import { boardService } from "../../src/services/board-service"
+import { socketService } from "../../src/services/socket.service"
 // should be boardService
 
 export default {
@@ -168,6 +169,7 @@ export default {
             try {
                 const savedBoard = await boardService.save(board)
                 commit({ type: 'saveBoard', savedBoard })
+                socketService.emit("board updated")
                 return JSON.parse(JSON.stringify(savedBoard))
             } catch (err) {
                 console.log("board module saveBoard cant save board now", err)

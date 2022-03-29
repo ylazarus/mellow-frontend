@@ -11,7 +11,7 @@
           :key="board._id"
           @click="toBoardDetails(board._id)"
           class="board-preview img-pos style-font"
-          :style="{ backgroundImage: `url(${board.style.bgImg})` }"
+          :style="{ backgroundImage: `url(${board.style?.bgImg || ''})` }"
         >
           <h2 class="title">{{ board.title }}</h2>
 
