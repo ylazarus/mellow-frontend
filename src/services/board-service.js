@@ -42,7 +42,6 @@ async function save(board) {
     //   return board._id
     //     ? await httpService.put(`${ENDPOINT}/${board._id}`, board)
     //     : await httpService.post(ENDPOINT, board)
-    console.log(board);
     if (board._id) return storageService.put(KEY, board)
     return storageService.post(KEY, board)
 }
@@ -96,7 +95,9 @@ function getEmptyBoard() {
         createdBy: userService.getLoggedinUser() || userService.getGuestUser(),
         style: { "bgClr": '', "bgImg": '', },
         labels: [], // when adding custom labels from a component we will add to this, otherwise base colors come from component
-        members: [], // in component, add curr user to list
+        members: [
+            userService.getGuestUser()
+        ], // in component, add curr user to list
         groups: [],
         activities: [],
     }
