@@ -37,6 +37,9 @@
       margin-top: 1px;
       font-size: 25px;
       content: "";
+      display: flex;
+      align-items: center;
+      color: #42526e;
     }
 
     .task-title-container {
@@ -178,7 +181,10 @@
 
     .activities {
       .activity-details-header {
+        height: 48px;
         display: flex;
+        align-items: center;
+
         .activity-header::before {
           font-family: trellicons;
           margin-inline-end: 16px;

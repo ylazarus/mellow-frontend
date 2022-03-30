@@ -1,36 +1,66 @@
 <template>
-    <section v-if="task" class="td-checklist">
+    <section v-if="task" class="td-checklist-preview">
         <!-- <div> -->
         <!-- <div v-for="(checklist, index) in task.checklists" :key="index"> -->
         <div v-for="(checklist, index) in task.checklists" :key="index">
-            <h3>{{ checklist.title }}</h3>
-
-            <!-- <pre>{{ checklist.todos }}</pre> -->
-            <a class="btn" @click="removeChecklist(checklist.id)">Delete</a>
+            <div class="checklist-title-container">
+                <h3 class="checklist-title">{{ checklist.title }}</h3>
+                <!-- <pre>{{ checklist.todos }}</pre> -->
+                <a class="delete-checklist btn" @click="removeChecklist(checklist.id)">Delete</a>
+            </div>
             <div>template for Progress Bar with computed by %</div>
 
             <div v-for="(todo) in checklist.todos" :key="todo.id">
-                <label for="todo.id">
-                    <input type="checkbox" />
-                    <div
-                        @blur="updateTodo(checklist.id, todo.id, $event)"
-                        contenteditable="true"
-                    >{{ todo.title }}</div>
-                </label>
-                <div>
-                    <a class="btn" @click="updateTodo(checklist.id, todo.id, $event)">save</a>
-                    <span>X</span>
+                <div class="checklist-todo-title">
+                    <label class="todo-content-edit pointer" for="todo.id">
+                        <input class="checkbox-input" type="checkbox" />
+                        <!-- <div
+                            class="todo-content-edit"
+                            @blur="updateTodo(checklist.id, todo.id, $event)"
+                            contenteditable="true"
+                        >{{ todo.title }}</div>-->
+                        <textarea spellcheck="false" cols="100" rows="20">{{ todo.title }}</textarea>
+                    </label>
+                    <div class="update-todo-btn-container">
+                        <div class="update-todo-btn">
+                            <!-- <a
+                                class="update-todo-text btn"
+                                @click="updateTodo(checklist.id, todo.id,)"
+                            >Save</a>
+                            <span class="close-update"></span>-->
+                        </div>
+                    </div>
                 </div>
             </div>
-            <button v-if="!isCreateTodo" @click="createTodo">Add an item</button>
-            <div v-if="isCreateTodo" @blur="createTodo">
-                <div>
-                    <input v-focus placeholder="add an item" type="text" v-model="newTodo" />
-                    <button @click="addTodo(checklist.id)">Add</button>
-                </div>
-                <a @click="closeCreateTodo" class="pointer">X</a>
+            <div class="add-todo-container">
+                <button class="add-an-item btn" v-if="!isCreateTodo" @click="createTodo">Add an item</button>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam neque veritatis sit delectus facere culpa est atque ut ab ullam?</p>
+            <div class="add-item-container" v-if="isCreateTodo" @blur="createTodo">
+                <div>
+                    <!-- <input
+                        class="add-item-input"
+                        v-focus
+                        placeholder="add an item"
+                        type="text"
+                        v-model="newTodo"
+                    />-->
+                    <textarea
+                        class="add-item-input"
+                        v-focus
+                        placeholder="Add an item"
+                        type="text"
+                        v-model="newTodo"
+                        cols="30"
+                        rows="10"
+                    ></textarea>
+                    <div class="todo-btn-container">
+                        <button class="add-todo btn" @click="addTodo(checklist.id)">Add</button>
+                        <div class="close-btn-wrapper">
+                            <a @click="closeCreateTodo" class="close-add-todo-btn pointer"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </template>

@@ -1,17 +1,27 @@
 <template>
-    <div class="checklist-header flex">
-        <span class="cmp-header-title">Add checklist</span>
-        <a @click="closeCmp" class="close-checklist pointer">X</a>
-    </div>
-    <div class="create-checklist-container">
-        <div>
-            <form @submit.prevent="addChecklist(title)" class="checklist-form">
-                <label for="txt">Title</label>
-                <input v-model="title" type="text" name="txt" id="txt" v-focus />
-                <button>Add</button>
-            </form>
+    <section class="create-checklist-container">
+        <div class="checklist-header flex">
+            <span class="cmp-header-title">Add checklist</span>
+            <a @click="closeCmp" class="close-checklist pointer"></a>
         </div>
-    </div>
+        <hr class="thin-hr" />
+        <div class="create-checklist-form">
+            <div>
+                <label class="form-title" for="txt">Title</label>
+                <form @submit.prevent="addChecklist(title)">
+                    <input
+                        class="checklist-form"
+                        v-model="title"
+                        type="text"
+                        name="txt"
+                        id="txt"
+                        v-focus
+                    />
+                    <button class="create-form-done pointer">Add</button>
+                </form>
+            </div>
+        </div>
+    </section>
 </template>
 
 <script>
