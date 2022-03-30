@@ -39,27 +39,17 @@
       <list-slot>
         <template #title>Color</template>
         <template #list>
-          <div
-            v-for="bgc in bgColors"
-            :key="bgc.id"
-            class="label-option flex pointer"
-            :style="{ backgroundColor: bgc.color }"
-            @click="selectBgClr(bgc.color)"
-          ></div> </template>
-          </list-slot>
+          <div v-for="bgc in bgColors" :key="bgc.id" class="label-option flex pointer" :style="{ backgroundColor: bgc.color }"
+            @click="selectBgClr(bgc.color)"></div>
+        </template>
+      </list-slot>
 
       <section>
         <list-slot>
           <template #title>Attachments</template>
           <template #list>
-            <img
-              v-for="(photo, idx) in attachments?.slice(0, 6)"
-              :key="idx"
-              class="unsplash-result-small"
-              :src="photo"
-              alt="img"
-              @click="applyPhoto(photo)"
-            />
+            <img v-for="(photo, idx) in attachments?.slice(0, 6)" :key="idx" class="unsplash-result-small"
+              :src="photo" alt="img" @click="applyPhoto(photo)" />
           </template>
         </list-slot>
 
@@ -67,20 +57,14 @@
           <input type="file" @change="onAttachImg" hidden />
           <div class="unsplash-btn full-width-btn">Upload a cover image</div>
         </label>
-        <!-- <div>LOADING...</div> -->
       </section>
 
       <list-slot>
         <template #title>Photos from Unsplash</template>
         <template #list>
-          <img
-            v-for="photo in photos.slice(0, 6)"
-            :key="photo.id"
-            class="unsplash-result-small"
-            :src="photo.urls.thumb"
-            alt="img"
-            @click="applyPhoto(photo)"
-          />
+          <img v-for="photo in photos.slice(0, 6)" :key="photo.id"
+            class="unsplash-result-small" :src="photo.urls.thumb" alt="img"
+            @click="applyPhoto(photo)"/>
         </template>
       </list-slot>
 
