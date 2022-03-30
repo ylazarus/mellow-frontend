@@ -42,7 +42,6 @@ async function save(board) {
     //   return board._id
     //     ? await httpService.put(`${ENDPOINT}/${board._id}`, board)
     //     : await httpService.post(ENDPOINT, board)
-    console.log(board);
     if (board._id) return storageService.put(KEY, board)
     return storageService.post(KEY, board)
 }
@@ -100,9 +99,10 @@ function getEmptyBoard() {
         groups: [],
         activities: [],
     }
-    return board
+    // return save(board)
 
     // return storageService.post(KEY, board)
+    return board
 }
 
 
