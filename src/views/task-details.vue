@@ -69,8 +69,9 @@
                   v-if="overdue && !task.dueDate.isCompleted"
                   >Overdue</span
                 >
+                <!-- needs to open dates -->
                 <img
-                  @click="toggleDates"
+                  @click="toggleDates" 
                   src="src/assets/svgs/arrow-down.svg"
                   alt
                 />
@@ -122,16 +123,14 @@
               </div>
             </div>
           </section>
+          
 
-          <div class="img-container" v-if="task.attachments">
-            <img
-              class="img-preview"
-              v-for="imgUrl in imgUrls"
-              :key="imgUrl"
-              :src="imgUrl"
-            />
-            <p></p>
-          </div>
+          <section class="img-container"  v-if="task.attachments">
+            <p class="img-container-header">Attachments</p>
+            <attached-img-preview  v-for="(attachment, idx) in task.attachments"
+             :key="idx" :attachment="attachment"
+             @makeCover="makeCover" @deleteAttachment="deleteAttachment" />
+          </section>
 
           <checklist-active
             v-if="task.checklists?.length"
@@ -300,6 +299,7 @@ import createChecklist from "../components/create-checklist.vue";
 import checklistActive from "../components/checklist-active.vue";
 import { socketService } from "../services/socket.service";
 import activityPreview from "../components/activity-preview.vue";
+import attachedImgPreview from "../components/attached-img-preview.vue";
 
 export default {
   name: "task-details",
@@ -490,6 +490,18 @@ export default {
       await this.saveTask("Added image");
       this.loadTask();
     },
+    async deleteAttachment(idx){
+      this.task.attachments.splice(idx, 1)
+      await this.saveTask("Deleted attachment");
+      this.loadTask();
+    },
+    async makeCover(img){
+      this.task.style.bgImg = img
+      this.task.style.bgClr = ''
+      this.task.style.uploadedImg = ''
+      await this.saveTask("Updated cover photo");
+      this.loadTask();
+    },
     async removeTask(type) {
       const activity = {
         id: utilService.makeId(),
@@ -678,6 +690,7 @@ export default {
     checklistActive,
     // CreateChecklist
     activityPreview,
+    attachedImgPreview,
   },
 };
 </script>
