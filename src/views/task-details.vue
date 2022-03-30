@@ -132,6 +132,16 @@
             />
             <p></p>
           </div>
+
+          <checklist-active
+            v-if="task.checklists?.length"
+            :task="task"
+            @addTodo="addTodo"
+            @removeChecklist="removeChecklist"
+            @updateTodo="updateTodo"
+            @updateTodoDone="updateTodoDone"
+          />
+
           <section class="activities">
             <div class="activity-details-header">
               <p class="activity-header">Activity</p>
@@ -158,28 +168,6 @@
             <img class="img-preview" v-for="imgUrl in imgUrls" :key="imgUrl" :src="imgUrl" />
             <p></p>
           </div>-->
-
-          <checklist-active
-            v-if="task.checklists?.length"
-            :task="task"
-            @addTodo="addTodo"
-            @removeChecklist="removeChecklist"
-            @updateTodo="updateTodo"
-          />
-          <!-- <pre>{{ task }}</pre> -->
-          <!-- <section v-if="isCreateChecklist" class="td-checklist">
-          <div v-for="checklist in task.checklists?.length" :key="checklist.id">
-    
-            <pre>{{ task.checklists }}</pre>
-            <a class="btn">Delete</a>
-            <div>template for Progress Bar with computed by %</div>
-            
-            <input type="text" />
-            <button>Add</button>
-            <a>X</a>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam neque veritatis sit delectus facere culpa est atque ut ab ullam?</p>
-          </div>
-          </section>-->
 
           <!-- <div class="activities activity-details-header">
             <p class="activity-header">Activity</p>
@@ -567,20 +555,59 @@ export default {
       this.loadTask();
     },
     async updateTodo(checklistId, todoId, updateTodoVal) {
-      console.log("checklistId", checklistId);
-      console.log("updateTodoVal", updateTodoVal);
-      console.log("todoId", todoId);
+      // console.log('checklistId', checklistId);
+      // console.log('updateTodoVal', updateTodoVal);
+      // console.log('todoId', todoId);
       const checklistToUpdate = this.task.checklists.find((checklist) => {
         return checklist.id === checklistId;
       });
-      console.log("checklistToUpdate", checklistToUpdate);
+      // console.log('checklistToUpdate', checklistToUpdate);
+      const todoToUpdate = checklistToUpdate.todos.find((todo) => {
+        return todo.id === todoId;
+      });
+      // console.log('todoToUpdate', todoToUpdate);
+      todoToUpdate.title = updateTodoVal;
       const todoIdx = checklistToUpdate.todos.findIndex((todo) => {
         return todo.id === todoId;
       });
-      console.log("todoIdx", todoIdx);
-      checklistToUpdate.todos.splice(todoIdx, 1, updateTodoVal);
-      // await this.saveTask('Updated todo')
-      // this.loadTask()
+      // console.log('todoIdx', todoIdx);
+      // const koko = {
+      //   id: utilService.makeId(),
+      //   title: updateTodoVal,
+      //   isDone: false
+      // }
+      checklistToUpdate.todos.splice(todoIdx, 1, todoToUpdate);
+      await this.saveTask("Updated todo");
+      // console.log('task after save', this.task);
+      this.loadTask();
+    },
+    async updateTodoDone(checklistId, todoId, updateTodoVal) {
+      // console.log('checklistId', checklistId);
+      // console.log('updateTodoVal', updateTodoVal);
+      // console.log('todoId', todoId);
+      const checklistToUpdate = this.task.checklists.find((checklist) => {
+        return checklist.id === checklistId;
+      });
+      // console.log('checklistToUpdate', checklistToUpdate);
+      const todoToUpdate = checklistToUpdate.todos.find((todo) => {
+        return todo.id === todoId;
+      });
+      console.log("todoToUpdate", todoToUpdate);
+      todoToUpdate.isDone = updateTodoVal;
+      console.log("todoToUpdate", todoToUpdate);
+      const todoIdx = checklistToUpdate.todos.findIndex((todo) => {
+        return todo.id === todoId;
+      });
+      // console.log('todoIdx', todoIdx);
+      // const koko = {
+      //   id: utilService.makeId(),
+      //   title: updateTodoVal,
+      //   isDone: false
+      // }
+      checklistToUpdate.todos.splice(todoIdx, 1, todoToUpdate);
+      await this.saveTask("Updated todo");
+      // console.log('task after save', this.task);
+      this.loadTask();
     },
   },
   computed: {

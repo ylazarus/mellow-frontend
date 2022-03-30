@@ -10,6 +10,7 @@
 @import "base/layout";
 
 // COMPONENTS
+@import "cmps/home-page";
 @import "cmps/main-header";
 @import "cmps/boards";
 @import "cmps/board-details";
@@ -25,8 +26,9 @@
 @import "cmps/board-filter";
 @import "cmps/delete-cmp";
 @import "cmps/board-recent";
-@import "cmps/checklist-preview";
 @import "cmps/activity-preview";
 @import "cmps/board-menu";
 @import "cmps/list-slot";
 @import "cmps/create-board";
+@import "cmps/create-checklist";
+@import "cmps/checklist-active";

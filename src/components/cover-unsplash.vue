@@ -16,66 +16,60 @@
     <hr />
 
     <section v-if="!searchingUnsplash" class="main-cover-screen">
-      <p>Size</p>
+      <p class="labels-title">Size</p>
       <div class="cover-size-select">
-        <button @click="setFullCover(true)">Full Cover</button>
-        <button @click="setFullCover(false)">Top Cover</button>
+        <button class="coverSelect pointer" @click="setFullCover(true)">
+          <img v-if="currCoverImg" class="coverSelectImg" :src="currCoverImg" alt="" />
+          <div v-if="currCoverBg" class="coverSelectImg" :style="currCoverBg"></div>
+          <div class="over-full-cover-select"></div>
+          <div class="dummy title"></div>
+          <div class="dummy text"></div>
+        </button>
+
+        <button class="coverSelect pointer" @click="setFullCover(false)">
+          <img v-if="currCoverImg" class="coverSelectImg top " :src="currCoverImg" alt="" />
+          <div v-if="currCoverBg" class="coverSelectImg top" :style="currCoverBg"></div>
+          <div class="over-full-cover-select"></div>
+          <div class="dummy title"></div>
+          <div class="dummy text"></div>
+        </button>
       </div>
+        <div v-if="deletable" @click="removeCover" class="unsplash-btn full-width-btn remove-cover pointer">Remove cover</div>
 
       <list-slot>
-        <template v-slot:title>Color</template>
-        <template v-slot:list>
-          <div
-            v-for="bgc in bgColors"
-            :key="bgc.id"
-            class="label-option flex pointer"
-            :style="{ backgroundColor: bgc.color }"
-            @click="selectBgClr(bgc.color)"
-          ></div> </template
-      ></list-slot>
-
-      <!-- <ul class="img-options-list clean-list">
-        
-      </ul> -->
+        <template #title>Color</template>
+        <template #list>
+          <div v-for="bgc in bgColors" :key="bgc.id" class="label-option flex pointer" :style="{ backgroundColor: bgc.color }"
+            @click="selectBgClr(bgc.color)"></div>
+        </template>
+      </list-slot>
 
       <section>
         <list-slot>
-          <template v-slot:title>Attachments</template>
-          <template v-slot:list>
-            <img
-              v-for="(photo, idx) in attachments.slice(0, 6)"
-              :key="idx"
-              class="unsplash-result-small"
-              :src="photo"
-              alt="img"
-              @click="applyPhoto(photo)"
-            />
+          <template #title>Attachments</template>
+          <template #list>
+            <img v-for="(photo, idx) in attachments?.slice(0, 6)" :key="idx" class="unsplash-result-small pointer"
+              :src="photo" alt="img" @click="applyPhoto(photo)" />
           </template>
         </list-slot>
 
         <label>
           <input type="file" @change="onAttachImg" hidden />
-          <div class="unsplash-btn full-width-btn">Upload a cover image</div>
+          <div class="unsplash-btn full-width-btn pointer">Upload a cover image</div>
         </label>
-        <!-- <div>LOADING...</div> -->
       </section>
 
       <list-slot>
-        <template v-slot:title>Photos from Unsplash</template>
-        <template v-slot:list>
-          <img
-            v-for="photo in photos.slice(0, 6)"
-            :key="photo.id"
-            class="unsplash-result-small"
-            :src="photo.urls.thumb"
-            alt="img"
-            @click="applyPhoto(photo)"
-          />
+        <template #title>Photos from Unsplash</template>
+        <template #list>
+          <img v-for="photo in photos.slice(0, 6)" :key="photo.id"
+            class="unsplash-result-small pointer" :src="photo.urls.thumb" alt="img"
+            @click="applyPhoto(photo)"/>
         </template>
       </list-slot>
 
       <button
-        class="unsplash-btn full-width-btn"
+        class="unsplash-btn full-width-btn pointer"
         @click="searchingUnsplash = true"
       >
         Search for photos
@@ -89,18 +83,19 @@
       <input
         type="text"
         placeholder="Search Unsplash for photos"
+        class="unsplash-search"
         v-model="search"
         @input="waitSearch"
       />
 
       <list-slot>
-        <template v-slot:title>Suggested searches</template>
-        <template v-slot:list>
+        <template #title>Suggested searches</template>
+        <template #list>
           <button
-            class="unsplash-btn"
+            class="unsplash-btn pointer"
             v-for="(term, idx) in searchTerms"
             :key="idx"
-            @click="searchPhoto(term)"
+            @click="searchPhotoWithButton(term)"
           >
             {{ term }}
           </button>
@@ -108,12 +103,12 @@
       >
 
       <list-slot>
-        <template v-slot:title>Top photos</template>
-        <template v-slot:list>
+        <template #title>Top photos</template>
+        <template #list>
           <img
-            v-for="photo in photos"
+            v-for="photo in photos.slice(0,12)"
             :key="photo.id"
-            class="unsplash-result-small"
+            class="unsplash-result-small pointer"
             :src="photo.urls.thumb"
             alt="img"
             @click="applyPhoto(photo)"
@@ -124,11 +119,11 @@
 
     <section v-if="searchResults" class="unsplash-results-screen">
       <list-slot>
-        <template v-slot:list>
+        <template #list>
           <img
             v-for="photo in photos"
             :key="photo.id"
-            class="unsplash-result-large"
+            class="unsplash-result-large pointer"
             :src="photo.urls.thumb"
             alt="img"
             @click="applyPhoto(photo)"
@@ -136,6 +131,7 @@
         </template>
       </list-slot>
     </section>
+    
   </section>
 </template>
 
@@ -155,6 +151,7 @@ export default {
     style: Object,
     title: String,
     attachments: Array,
+    // currCoverStyle: Object
   },
   data() {
     return {
@@ -199,13 +196,7 @@ export default {
   created() {
     this.currStyle = JSON.parse(JSON.stringify(this.style));
     this.currTitle = this.title;
-    this.searchPhoto();
-
-    // var count = 6;
-    //   var orientation = "landscape";
-    //     var query = "project management"
-    // const randomImgs = await this.$unsplash.random(count, orientation)
-    // console.log(randomImgs.urls);
+    this.searchPhoto(this.title);
   },
 
   methods: {
@@ -213,13 +204,7 @@ export default {
       const accessKey = "Y2X6Y_wdMpqvaYX_4jgO-dOBqVAsQMQpihsIFNOAX5E";
       let count = 20;
       let query = searchTerm;
-      if (query) {
-        this.search = query;
-        this.searchResults = true;
-      } else {
-        query = this?.currTitle || "nature";
-        count = 12;
-      }
+      if (!query) query = this?.search || 'business'
       axios
         .get(
           `https://api.unsplash.com/search/photos?page=1&per_page=${count}&query=${query}&client_id=${accessKey}`
@@ -232,22 +217,36 @@ export default {
           console.log(e);
         });
     },
+    searchPhotoWithButton(searchTerm){
+      this.searchResults = true
+      this.searchPhoto(searchTerm)
+    },
     applyPhoto(photo) {
       // this.currStyle.lastImg = (this.currStyle.bgImg) ? this.currStyle.bgImg : this.currStyle.uploadedImg || ""
-      this.currStyle.uploadedImg = photo.urls.regular;
+      this.currStyle.uploadedImg = photo?.urls?.regular || photo;
       this.currStyle.bgClr = "";
       this.currStyle.bgImg = "";
       this.searchResults = false;
       this.searchingUnsplash = false;
+      this.search = ''
       this.$emit("addStyle", this.currStyle);
     },
     waitSearch: _.debounce(function () {
       this.searchPhoto();
+        this.searchResults = true;
+        this.search = ''
+
     }, 1000),
 
     selectBgClr(bgClr) {
       // this.currStyle.lastImg = (this.currStyle.bgImg) ? this.currStyle.bgImg : this.currStyle.uploadedImg || ""
       this.currStyle.bgClr = bgClr;
+      this.currStyle.bgImg = "";
+      this.currStyle.uploadedImg = "";
+      this.$emit("addStyle", this.currStyle);
+    },
+    removeCover(){
+      this.currStyle.bgClr = "";
       this.currStyle.bgImg = "";
       this.currStyle.uploadedImg = "";
       this.$emit("addStyle", this.currStyle);
@@ -272,6 +271,16 @@ export default {
     pageTitle() {
       return this.searchingUnsplash ? "Photo search" : "Cover";
     },
+    currCoverImg(){
+      return this.style?.bgImg || this.style?.uploadedImg || ''
+    },
+    currCoverBg(){
+      const bgc = this.style?.bgClr || '#5E6C84'
+      return {'background-color' : bgc }
+    },
+    deletable(){
+      if (this.style.bgImg || this.style.uploadedImg ||this.style.bgClr) return true
+    }
   },
 };
 </script>
