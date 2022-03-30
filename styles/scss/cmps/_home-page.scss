@@ -1,12 +1,30 @@
 .home-page-container{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
-    
+
     background: linear-gradient(197deg, rgba(36,206,219,1) 0%, rgba(70,102,204,1) 100%);
 
 
     padding-top: 44px;
     min-height: 100vh;
 
+    .hero-title{
+        grid-row: 2;
+        grid-column: 2/5;
+    }
+
+    .hero-container{
+        display: grid;
+        grid-row: 2/4 ;
+        grid-column: 2 / 5;
+        // width: 900px;
+        height: 100%;
+        border-radius: 3px;
+        
+
+        img{
+            border-radius: 5px;
+        }
+    }
 }

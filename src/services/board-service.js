@@ -101,9 +101,10 @@ function getEmptyBoard() {
         groups: [],
         activities: [],
     }
-    return board
+    // return save(board)
 
     // return storageService.post(KEY, board)
+    return board
 }
 
 

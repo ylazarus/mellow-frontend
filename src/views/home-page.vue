@@ -1,6 +1,13 @@
 <template>
   <section class="home-page-container">
-    <h1>Home-Page</h1>
+    <h1>Mello</h1>
+    <router-link to="/board">To WorkSpace</router-link>
+    <!-- <img src="src/assets/svgs/groups.svg" /> -->
+    <!-- <h2>Mello</h2> -->
+    <h3 class="hero-title">let us do the management for you</h3>
+    <div class="hero-container">
+      <img class="hero-img" src="src/assets/imgs/hero-mello.jpg" />
+    </div>
   </section>
 </template>
 
