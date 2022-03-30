@@ -1,14 +1,19 @@
 .list-slot-container {
-  width: 305px;
+  .list-title{
+    margin-block-end: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: $light-text;
+    margin-bottom: 4px;
 
-  .slot-title {
-    color: green;
+
   }
-
   .slot-options-list {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    margin-bottom: 12px;
+    // justify-content: center;
 
     .label-option {
       width: 50px;

@@ -16,9 +16,9 @@
     <hr />
 
     <section v-if="!searchingUnsplash" class="main-cover-screen">
-      <p>Size</p>
+      <p class="labels-title">Size</p>
       <div class="cover-size-select">
-        <button class="coverSelect" @click="setFullCover(true)">
+        <button class="coverSelect pointer" @click="setFullCover(true)">
           <img v-if="currCoverImg" class="coverSelectImg" :src="currCoverImg" alt="" />
           <div v-if="currCoverBg" class="coverSelectImg" :style="currCoverBg"></div>
           <div class="over-full-cover-select"></div>
@@ -26,15 +26,15 @@
           <div class="dummy text"></div>
         </button>
 
-        <button class="coverSelect" @click="setFullCover(false)">
+        <button class="coverSelect pointer" @click="setFullCover(false)">
           <img v-if="currCoverImg" class="coverSelectImg top " :src="currCoverImg" alt="" />
           <div v-if="currCoverBg" class="coverSelectImg top" :style="currCoverBg"></div>
-
           <div class="over-full-cover-select"></div>
           <div class="dummy title"></div>
           <div class="dummy text"></div>
         </button>
       </div>
+        <div v-if="deletable" @click="removeCover" class="unsplash-btn full-width-btn remove-cover pointer">Remove cover</div>
 
       <list-slot>
         <template #title>Color</template>
@@ -48,14 +48,14 @@
         <list-slot>
           <template #title>Attachments</template>
           <template #list>
-            <img v-for="(photo, idx) in attachments?.slice(0, 6)" :key="idx" class="unsplash-result-small"
+            <img v-for="(photo, idx) in attachments?.slice(0, 6)" :key="idx" class="unsplash-result-small pointer"
               :src="photo" alt="img" @click="applyPhoto(photo)" />
           </template>
         </list-slot>
 
         <label>
           <input type="file" @change="onAttachImg" hidden />
-          <div class="unsplash-btn full-width-btn">Upload a cover image</div>
+          <div class="unsplash-btn full-width-btn pointer">Upload a cover image</div>
         </label>
       </section>
 
@@ -63,13 +63,13 @@
         <template #title>Photos from Unsplash</template>
         <template #list>
           <img v-for="photo in photos.slice(0, 6)" :key="photo.id"
-            class="unsplash-result-small" :src="photo.urls.thumb" alt="img"
+            class="unsplash-result-small pointer" :src="photo.urls.thumb" alt="img"
             @click="applyPhoto(photo)"/>
         </template>
       </list-slot>
 
       <button
-        class="unsplash-btn full-width-btn"
+        class="unsplash-btn full-width-btn pointer"
         @click="searchingUnsplash = true"
       >
         Search for photos
@@ -92,10 +92,10 @@
         <template #title>Suggested searches</template>
         <template #list>
           <button
-            class="unsplash-btn"
+            class="unsplash-btn pointer"
             v-for="(term, idx) in searchTerms"
             :key="idx"
-            @click="searchPhoto(term)"
+            @click="searchPhotoWithButton(term)"
           >
             {{ term }}
           </button>
@@ -108,7 +108,7 @@
           <img
             v-for="photo in photos.slice(0,12)"
             :key="photo.id"
-            class="unsplash-result-small"
+            class="unsplash-result-small pointer"
             :src="photo.urls.thumb"
             alt="img"
             @click="applyPhoto(photo)"
@@ -123,7 +123,7 @@
           <img
             v-for="photo in photos"
             :key="photo.id"
-            class="unsplash-result-large"
+            class="unsplash-result-large pointer"
             :src="photo.urls.thumb"
             alt="img"
             @click="applyPhoto(photo)"
@@ -151,7 +151,7 @@ export default {
     style: Object,
     title: String,
     attachments: Array,
-    currCoverStyle: Object
+    // currCoverStyle: Object
   },
   data() {
     return {
@@ -217,6 +217,10 @@ export default {
           console.log(e);
         });
     },
+    searchPhotoWithButton(searchTerm){
+      this.searchResults = true
+      this.searchPhoto(searchTerm)
+    },
     applyPhoto(photo) {
       // this.currStyle.lastImg = (this.currStyle.bgImg) ? this.currStyle.bgImg : this.currStyle.uploadedImg || ""
       this.currStyle.uploadedImg = photo?.urls?.regular || photo;
@@ -237,6 +241,12 @@ export default {
     selectBgClr(bgClr) {
       // this.currStyle.lastImg = (this.currStyle.bgImg) ? this.currStyle.bgImg : this.currStyle.uploadedImg || ""
       this.currStyle.bgClr = bgClr;
+      this.currStyle.bgImg = "";
+      this.currStyle.uploadedImg = "";
+      this.$emit("addStyle", this.currStyle);
+    },
+    removeCover(){
+      this.currStyle.bgClr = "";
       this.currStyle.bgImg = "";
       this.currStyle.uploadedImg = "";
       this.$emit("addStyle", this.currStyle);
@@ -267,6 +277,9 @@ export default {
     currCoverBg(){
       const bgc = this.style?.bgClr || '#5E6C84'
       return {'background-color' : bgc }
+    },
+    deletable(){
+      if (this.style.bgImg || this.style.uploadedImg ||this.style.bgClr) return true
     }
   },
 };
