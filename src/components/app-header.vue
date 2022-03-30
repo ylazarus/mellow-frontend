@@ -47,16 +47,27 @@ export default {
     },
   },
   watch: {
-    "$route.params.boardId": {
+    // "$route.params.boardId": {
+    //   immediate: true,
+    //   handler() {
+    //     const { boardId } = this.$route.params;
+    //     if (boardId) {
+    //       this.isWorkspace = false;
+    //     } else this.isWorkspace = true;
+    //   },
+    // },
+    "$route.path": {
       immediate: true,
       handler() {
-        const { boardId } = this.$route.params;
-        if (boardId) {
-          this.isWorkspace = false;
-        } else this.isWorkspace = true;
+        const path = this.$route.path;
+        if (path === "/board") {
+          this.isWorkspace = true;
+        } else this.isWorkspace = false;
+        console.log(this.$route.path);
       },
     },
   },
+
   components: {
     boardRecent,
     createBoard,

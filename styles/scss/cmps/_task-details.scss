@@ -5,11 +5,17 @@
   min-height: 100vh;
   width: 100%;
   left: 0;
+  overflow-y: scroll;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 .task-details-page {
   display: flex;
   flex-direction: column;
-  // justify-content: space-between;
+
+  margin: 56px 0;
   width: 768px;
   // padding: 16px;
   // height: 780px;
@@ -18,10 +24,10 @@
   border-radius: 3px;
   gap: 16px;
   z-index: 100;
-  position: absolute;
-  left: 50%;
-  top: 50px;
-  transform: translate(-50%, 0%);
+  // position: absolute;
+  // left: 50%;
+  // top: 50px;
+  // transform: translate(-50%, 0%);
   // pointer-events: none;
 
   .task-details-main-content {
@@ -502,4 +508,12 @@
   font-size: 16px;
   margin-inline-start: -5px;
   margin-top: 2px;
+}
+.attachment-img,
+.cover-btn,
+.labels-btn,
+.members-btn,
+.checklist-btn,
+.dates-btn {
+  margin-bottom: 0;
 }

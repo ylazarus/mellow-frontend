@@ -72,9 +72,8 @@
   }
 
   .user-avatar-pos {
-    // position: absolute;
-    right: 8px;
-    bottom: -1px;
+    margin-inline-end: -2px;
+    margin-block-end: -2px;
     gap: 4px;
     flex-grow: 1;
     justify-content: end;

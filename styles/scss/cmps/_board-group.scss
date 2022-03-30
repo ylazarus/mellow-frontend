@@ -8,19 +8,20 @@
     height: fit-content;
     background-color: $card-grey;
     border-radius: 3px;
-    margin-right: 10px;
+    margin-right: 6px;
     color: $group-text;
 }
 
 .outside-group {
     padding: 4px;
-    font-size: 16px;
+    font-size: 14px;
     display: flex;
     margin: 5px 0px 0px 9px;
     align-items: center;
     font-weight: 600;
     height: 40px;
     margin-inline-end: 15px;
+    margin-block-end: 6px;
     color: $group-text;
 }
 
