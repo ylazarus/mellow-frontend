@@ -38,6 +38,7 @@ export const utilService = {
   }
 
   function isDarkColor(c) {
+    if (!c) return
     c = c.substring(1) // strip #
     const rgb = parseInt(c, 16) // convert rrggbb to decimal
     const r = (rgb >> 16) & 0xff // extract red

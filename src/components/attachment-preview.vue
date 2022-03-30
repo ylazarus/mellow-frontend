@@ -1,5 +1,6 @@
 <template>
     <section class="attachment-preview">
+         <button class="add-task-close-cmp-btn" @click="closeCmp">X</button>
         <label>
             <input type="file" @change="onAttachImg" hidden />
             <p class="attach-from">Attach from...</p>
@@ -49,6 +50,9 @@ export default {
         showLink() {
             console.log(this.input);
             console.log('not working till we fix img upload on second time');
+        },
+        closeCmp(){
+            this.$emit("closeCmp");
         }
     },
     computed: {},
