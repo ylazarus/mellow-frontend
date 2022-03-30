@@ -99,6 +99,7 @@
             @addTodo="addTodo"
             @removeChecklist="removeChecklist"
             @updateTodo="updateTodo"
+            @updateTodoDone="updateTodoDone"
           />
 
           <section class="activities">
@@ -471,7 +472,7 @@ export default {
       checklistToUpdate.todos.push({
         id: utilService.makeId(),
         title: inputVal,
-        isDone: false
+        isDone: false,
       })
       await this.saveTask('Added todo')
       console.log('task', this.task);
@@ -487,22 +488,22 @@ export default {
       this.loadTask()
     },
     async updateTodo(checklistId, todoId, updateTodoVal) {
-      console.log('checklistId', checklistId);
-      console.log('updateTodoVal', updateTodoVal);
-      console.log('todoId', todoId);
+      // console.log('checklistId', checklistId);
+      // console.log('updateTodoVal', updateTodoVal);
+      // console.log('todoId', todoId);
       const checklistToUpdate = this.task.checklists.find(checklist => {
         return checklist.id === checklistId
       })
-      console.log('checklistToUpdate', checklistToUpdate);
+      // console.log('checklistToUpdate', checklistToUpdate);
       const todoToUpdate = checklistToUpdate.todos.find(todo => {
         return todo.id === todoId
       })
-      console.log('todoToUpdate', todoToUpdate);
+      // console.log('todoToUpdate', todoToUpdate);
       todoToUpdate.title = updateTodoVal
       const todoIdx = checklistToUpdate.todos.findIndex(todo => {
         return todo.id === todoId
       })
-      console.log('todoIdx', todoIdx);
+      // console.log('todoIdx', todoIdx);
       // const koko = {
       //   id: utilService.makeId(),
       //   title: updateTodoVal,
@@ -510,6 +511,35 @@ export default {
       // }
       checklistToUpdate.todos.splice(todoIdx, 1, todoToUpdate)
       await this.saveTask('Updated todo')
+      // console.log('task after save', this.task);
+      this.loadTask()
+    },
+    async updateTodoDone(checklistId, todoId, updateTodoVal) {
+      // console.log('checklistId', checklistId);
+      // console.log('updateTodoVal', updateTodoVal);
+      // console.log('todoId', todoId);
+      const checklistToUpdate = this.task.checklists.find(checklist => {
+        return checklist.id === checklistId
+      })
+      // console.log('checklistToUpdate', checklistToUpdate);
+      const todoToUpdate = checklistToUpdate.todos.find(todo => {
+        return todo.id === todoId
+      })
+      console.log('todoToUpdate', todoToUpdate);
+      todoToUpdate.isDone = updateTodoVal
+      console.log('todoToUpdate', todoToUpdate);
+      const todoIdx = checklistToUpdate.todos.findIndex(todo => {
+        return todo.id === todoId
+      })
+      // console.log('todoIdx', todoIdx);
+      // const koko = {
+      //   id: utilService.makeId(),
+      //   title: updateTodoVal,
+      //   isDone: false
+      // }
+      checklistToUpdate.todos.splice(todoIdx, 1, todoToUpdate)
+      await this.saveTask('Updated todo')
+      // console.log('task after save', this.task);
       this.loadTask()
     }
 
