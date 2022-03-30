@@ -1,6 +1,8 @@
 <template>
   <section class="home-page-container">
-    <h1>Home-Page</h1>
+    <h1>Mello</h1>
+    <router-link to="/board">To WorkSpace</router-link>
+    <img />
   </section>
 </template>
 
