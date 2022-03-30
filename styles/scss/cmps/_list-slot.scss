@@ -10,6 +10,13 @@
     flex-wrap: wrap;
     gap: 8px;
 
+    .unsplash-result-small {
+      width: 85px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 3px;
+    }
+
     .label-option {
       width: 50px;
       height: 32px;

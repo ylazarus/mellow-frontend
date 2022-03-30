@@ -3,78 +3,82 @@
     @click="toTaskDetails(this.boardId, this.groupId, this.task.id)"
     class="task-preview-container"
   >
-  <div v-if="this.task.style.isFullCover" :style="fullCoverStyle" class="full-cover-selected">
-    <p :class="fullCoverTxt" class="full-cover-title">{{task.title}}</p>
-  </div>
-
-  <div v-else class="top-cover-selected">
-    <div  :style="coverStyle" class="task-preview-cover"></div>
     <div
-      class="labels-container"
-      v-if="task.labelIds?.length"
-      @click.stop="showLabelTitle"
+      v-if="this.task.style.isFullCover"
+      :style="fullCoverStyle"
+      class="full-cover-selected"
     >
-      <div
-        v-for="label in labelsToDisplay"
-        :key="label.id"
-        class="task-preview-label"
-        :class="openLabel"
-        :style="{ backgroundColor: label.color }"
-        @click.stop="toggleLabelTitle"
-      >
-        <span v-if="isLabelTitle" :class="openLabel">{{ label.title }}</span>
-      </div>
+      <p :class="fullCoverTxt" class="full-cover-title">{{ task.title }}</p>
     </div>
-    <div v-if="taskImgUrl && !task.style.bgClr">
-      <img :src="taskImgUrl" alt="" />
-    </div>
-    <div class="task-content">{{ task.title }}</div>
 
-    <div class="task-snapshot flex">
-      <div
-        class="description-img-preview"
-        v-if="task.description?.length"
-        title="Card description"
-      ></div>
-      <div
-        class="checklists-img-preview"
-        v-if="task.checklists?.length"
-        title="Checklists items"
-      >
-        {{ checkListsCount }}
+    <div v-else class="top-cover-selected">
+      <div :style="coverStyle" class="task-preview-cover"></div>
+
+      <div v-if="taskImgUrl && !task.style.bgClr">
+        <img :src="taskImgUrl" alt="" />
       </div>
       <div
-        class="attachment-img-preview"
-        v-if="task.attachments?.length"
-        title="Attachment"
+        class="labels-container"
+        v-if="task.labelIds?.length"
+        @click.stop="showLabelTitle"
       >
-        {{ attachmentCount }}
+        <div
+          v-for="label in labelsToDisplay"
+          :key="label.id"
+          class="task-preview-label"
+          :class="openLabel"
+          :style="{ backgroundColor: label.color }"
+          @click.stop="toggleLabelTitle"
+        >
+          <span v-if="isLabelTitle" :class="openLabel">{{ label.title }}</span>
+        </div>
       </div>
-      <div
-        class="date-img-preview"
-        v-if="task.dueDate?.dueDate"
-        :class="isTaskOverdue"
-      >
-        {{ formattedDate }}
-      </div>
-      <div class="user-avatar-pos flex">
-        <user-avatar
-          class="user-avatar"
-          :v-if="task.members?.length"
-          v-for="member in task.members"
-          :key="member._id"
-          :user="member"
-        />
+      <div class="task-content">{{ task.title }}</div>
+      <div class="task-snapshot flex">
+        <div
+          class="description-img-preview"
+          v-if="task.description?.length"
+          title="Card description"
+        ></div>
+        <div
+          class="checklists-img-preview"
+          v-if="task.checklists?.length"
+          title="Checklists items"
+        >
+          {{ checkListsCount }}
+        </div>
+        <div
+          class="attachment-img-preview"
+          v-if="task.attachments?.length"
+          title="Attachment"
+        >
+          {{ attachmentCount }}
+        </div>
+        <div
+          class="date-img-preview"
+          v-if="task.dueDate?.dueDate"
+          :class="isTaskOverdue"
+        >
+          {{ formattedDate }}
+        </div>
+        <div class="user-avatar-pos flex">
+          <user-avatar
+            class="user-avatar"
+            :v-if="task.members?.length"
+            v-for="member in task.members"
+            :key="member._id"
+            :user="member"
+          />
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
 <script>
 import userAvatar from "./user-avatar.vue";
 import taskDetails from "../views/task-details.vue";
-import { utilService } from '../services/util-service';
+import { utilService } from "../services/util-service";
 
 export default {
   props: {
@@ -145,38 +149,45 @@ export default {
     // taskHasImgOrCover(){
     //   if (this.task.style.uploadedImg || this.task.style.bgImg) return true
     // },
-    taskImgUrl(){
-      if (this.task.style.uploadedImg) return this.task.style.uploadedImg
-      else if (this.task.style.bgImg) return this.task.style.bgImg
-      else return
+    taskImgUrl() {
+      if (this.task.style.uploadedImg) return this.task.style.uploadedImg;
+      else if (this.task.style.bgImg) return this.task.style.bgImg;
+      else return;
     },
-    fullCoverStyle(){
-      if (this.task.style.uploadedImg) return {
-        backgroundImage: `url(${this.task.style.uploadedImg})`,
-        height: "220px",
-        backgroundColor : "#ccd6e0" // later make this dynamic with library?
-      }; else if (this.task.style.bgImg) return {
-        backgroundImage: `url(${this.task.style.bgImg})`,
-        height: "220px",
-        backgroundColor : "#ccd6e0" // later make this dynamic with library?
-      }; else return {
-        "background-color": this.task.style?.bgClr || "#FFFFFF",
-        "height": "54px",
-      };
+    fullCoverStyle() {
+      if (this.task.style.uploadedImg)
+        return {
+          backgroundImage: `url(${this.task.style.uploadedImg})`,
+          height: "220px",
+          backgroundColor: "#ccd6e0", // later make this dynamic with library?
+        };
+      else if (this.task.style.bgImg)
+        return {
+          backgroundImage: `url(${this.task.style.bgImg})`,
+          height: "220px",
+          backgroundColor: "#ccd6e0", // later make this dynamic with library?
+        };
+      else
+        return {
+          "background-color": this.task.style?.bgClr || "#FFFFFF",
+          height: "54px",
+        };
     },
-    fullCoverTxt(){
-      if (this.task.style.uploadedImg || this.task.style.bgImg) return "is-img"
+    fullCoverTxt() {
+      if (this.task.style.uploadedImg || this.task.style.bgImg) return "is-img";
       else {
-        const isDark = utilService.isDarkColor(this.task.style.bgClr)
-        if (isDark) return "is-dark-bg"
-        else return "is-light-bg"
+        const isDark = utilService.isDarkColor(this.task.style.bgClr);
+        if (isDark) return "is-dark-bg";
+        else return "is-light-bg";
       }
     },
     coverStyle() {
-     if (this.task.style.bgClr) return {
-        "background-color": this.task.style.bgClr,
-        "height": "32px",
-      }; else return {"display": "none"}
+      if (this.task.style.bgClr)
+        return {
+          "background-color": this.task.style.bgClr,
+          height: "32px",
+        };
+      else return { display: "none" };
     },
   },
 };

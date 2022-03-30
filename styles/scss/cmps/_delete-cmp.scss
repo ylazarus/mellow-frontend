@@ -1,43 +1,41 @@
-.delete-task-preview{
+.delete-preview {
     background-color: white;
     width: 21.714rem;
     margin-top: 10px;
     border-radius: 3px;
     display: flex;
     flex-direction: column;
-    background-color: white;
     position: absolute;
-    top: 417px;
-    right:15px ;
+    top: 200px;
+    right: -20px;
     padding: 0px 12px 12px;
     z-index: 10;
 
-    .delete-header{
+    .delete-header {
         justify-content: center;
         align-items: center;
         line-height: 40px;
         position: relative;
 
-        .close-delete::before{
+        .close-delete::before {
             font-size: 16px;
             font-family: trellicons;
             content: "";
         }
 
-        .close-delete{
+        .close-delete {
             position: absolute;
             right: 1px;
         }
     }
 
-    .delete-content-container{
-        
-        p{
+    .delete-content-container {
+        p {
             color: $light-text;
             margin: 0 0 8px;
         }
 
-        .confirm-delete{
+        .confirm-delete {
             justify-content: center;
             align-items: center;
             color: #fff;
@@ -48,7 +46,7 @@
             margin-bottom: 0;
         }
 
-        .confirm-delete:hover{
+        .confirm-delete:hover {
             background-color: #933b27;
         }
     }

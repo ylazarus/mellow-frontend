@@ -68,7 +68,6 @@ function getGuestUser() {
         "username": "Guest",
         "fullname": "Guest User",
         "imgUrl": "src/assets/svgs/guest.svg",
-        "mentions": []
     }
 
 }

@@ -12,8 +12,8 @@
 //   }
 
 .app-header-container {
-    // background-color: #00000073;
-    background-color: $clr6;
+    background-color: #00000073;
+    // background-color: $clr6;
     position: fixed;
     z-index: 1;
     width: 100%;
@@ -93,6 +93,6 @@
     }
 }
 
-// .main-layout .app-header-container {
-//     background-color: $clr6;
-// }
+.app-header-container.blue {
+    background-color: $clr6;
+}
