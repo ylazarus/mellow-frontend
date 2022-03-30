@@ -34,6 +34,7 @@
 export default {
   methods: {
     goToBoard(boardId) {
+      this.$emit("closeCmp");
       this.$router.push(`/board/${boardId}`);
     },
   },

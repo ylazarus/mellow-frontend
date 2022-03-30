@@ -1,5 +1,5 @@
 <template>
-  <section v-if="board" class="board-container" :style="bgImg">
+  <section v-if="board" class="board-container" :style="background">
     <router-view
       @updateBoard="updateBoard"
       @addLabelToBoard="addLabelToBoard"
@@ -262,9 +262,10 @@ export default {
     isStarred() {
       return this.board.isFavorite ? "filled" : "stroke";
     },
-    bgImg() {
+    background() {
       const backGroundImg = this.board.style?.bgImg || "";
-      return { backgroundImage: `url(${backGroundImg})` };
+      const backgroundColor = this.board.style?.bgClr || "";
+      return { backgroundImage: `url(${backGroundImg})`, backgroundColor };
     },
     updatedBoardFromStore() {
       return this.$store.getters.boards;
@@ -275,6 +276,7 @@ export default {
       immediate: true,
       handler() {
         const { boardId } = this.$route.params;
+        if (!boardId) return;
         this.loadBoard(boardId);
       },
     },

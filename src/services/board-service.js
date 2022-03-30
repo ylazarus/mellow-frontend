@@ -2,6 +2,7 @@
 import { utilService } from './util-service'
 import { httpService } from './http.service'
 import { storageService } from './async-storage-service'
+import { userService } from './user-service'
 
 const KEY = 'boards_db'
 const ENDPOINT = 'board'
@@ -41,7 +42,6 @@ async function save(board) {
     //   return board._id
     //     ? await httpService.put(`${ENDPOINT}/${board._id}`, board)
     //     : await httpService.post(ENDPOINT, board)
-
     if (board._id) return storageService.put(KEY, board)
     return storageService.post(KEY, board)
 }
@@ -85,15 +85,15 @@ function getEmptyTask() {
 
 }
 
-function getEmptyBoard(title) {
+function getEmptyBoard() {
 
     const board = {
-        title,
+        title: '',
         isFavorite: false,
         createdAt: Date.now(),
         archivedAt: null,
-        createdBy: {},
-        style: { "bgClr": '', "bgImg": '', "isFullCover": false },
+        createdBy: userService.getLoggedinUser() || userService.getGuestUser(),
+        style: { "bgClr": '', "bgImg": '', },
         labels: [], // when adding custom labels from a component we will add to this, otherwise base colors come from component
         members: [], // in component, add curr user to list
         groups: [],
@@ -101,7 +101,8 @@ function getEmptyBoard(title) {
     }
     // return save(board)
 
-    return storageService.post(KEY, board)
+    // return storageService.post(KEY, board)
+    return board
 }
 
 

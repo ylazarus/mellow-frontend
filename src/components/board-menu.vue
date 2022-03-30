@@ -1,7 +1,11 @@
 <template>
   <section class="board-menu">
     <div class="cmp-header">
-      <a class="back-to-cmp-btn" @click="toggleMenu">
+      <a
+        v-if="handles.isAbout || handles.isChangeBg || handles.isShowActivities"
+        class="back-to-cmp-btn"
+        @click="toggleMenu"
+      >
         <span></span>
       </a>
       <p class="cmp-container-title">{{ cmpTitle }}</p>
@@ -11,7 +15,12 @@
     </div>
     <hr class="thin-hr" />
     <section class="menu-content">
-      <div class="menu-options flex">
+      <div
+        v-if="
+          !handles.isAbout && !handles.isChangeBg && !handles.isShowActivities
+        "
+        class="menu-options flex"
+      >
         <div class="menu-option" @click="toggleMenu('isAbout')">
           <span class="trello-icon"></span>
           <div>
@@ -25,15 +34,19 @@
           <img class="board-bg-preview" src="src/assets/imgs/board.jpg" />
           <p class="menu-option-bgc">Change background</p>
         </div>
-        <div class="menu-option" @click="toggleMenu('isSearch')">
+        <!-- <div class="menu-option" @click="toggleMenu('isSearch')">
           <span class="search-icon"></span>
           <p class="menu-option-search">Search</p>
-        </div>
+        </div> -->
       </div>
 
       <hr class="thin-hr" />
       <section class="menu-activities-container">
-        <p class="activity-header" @click="toggleMenu('isShowActivities')">
+        <p
+          v-if="!handles.isShowActivities"
+          class="activity-header"
+          @click="toggleMenu('isShowActivities')"
+        >
           Activity
         </p>
         <div class="activities-list">
@@ -43,7 +56,10 @@
             :activity="activity"
           />
         </div>
-        <a class="show-allActivities" @click="toggleMenu('isShowActivities')"
+        <a
+          v-if="!handles.isShowActivities"
+          class="show-allActivities"
+          @click="toggleMenu('isShowActivities')"
           >View all activity
         </a>
       </section>

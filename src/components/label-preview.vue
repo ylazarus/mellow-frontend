@@ -1,9 +1,9 @@
 <template>
-  <section class="cmp-preview">
+  <section class="cmp-preview" v-if="!isRemove">
     <div class="cmp-header">
       <a
         class="back-to-cmp-btn"
-        v-if="isCreate || isChange"
+        v-if="isCreate || isChange || isRemove"
         @click="(isCreate = false), (isChange = false)"
       >
         <span></span>
@@ -13,8 +13,11 @@
         <span></span>
       </a>
     </div>
-    <hr />
-    <section v-if="!isCreate && !isChange" class="select-label-container">
+    <hr class="thin-hr" />
+    <section
+      v-if="!isCreate && !isChange && !isRemove"
+      class="select-label-container"
+    >
       <input
         class="label-input"
         type="text"
@@ -58,7 +61,7 @@
           v-focus
         />
       </label>
-      
+
       <list-slot>
         <template v-slot:title>Select a color</template>
         <template v-slot:list>
@@ -91,26 +94,40 @@
         <button
           v-if="isChange"
           class="delete-label-btn"
-          @click.stop="removeLabelFromBoard"
+          @click.stop="isRemove = true"
         >
           Delete
         </button>
+        <!-- <button
+          v-if="isChange"
+          class="delete-label-btn"
+          @click.stop="removeLabelFromBoard"
+        >
+          Delete
+        </button> -->
       </div>
     </section>
   </section>
+  <delete-cmp
+    v-if="isRemove"
+    :type="'label'"
+    @remove="removeLabelFromBoard"
+    @closeCmp="closeCmp"
+  />
 </template>
 
 <script>
 import { utilService } from "@/services/util-service";
 import listSlot from "./list-slot.vue";
 import { userService } from "../services/user-service";
+import deleteCmp from "./delete-cmp.vue";
 export default {
   props: {
     boardLabels: Array,
     taskLabelIds: Array,
   },
   emits: ["addLabelToTask", "addLabelToBoard", "updateBoardLabels"],
-  components: { listSlot },
+  components: { listSlot, deleteCmp },
   data() {
     return {
       labels: [],
@@ -126,11 +143,10 @@ export default {
         { id: "l108", color: "#51e898", title: "", isSelected: false },
         { id: "l109", color: "#ff78cb", title: "", isSelected: false },
         { id: "l110", color: "#344563", title: "", isSelected: false },
-        { id: "l111", color: "#b3bac5", title: "", isSelected: false },
       ],
       isCreate: false,
       isChange: false,
-      // newLabelTitle: "",
+      isRemove: false,
       selectedLabel: null,
       labelToChange: { color: null, title: "" },
     };
@@ -192,13 +208,14 @@ export default {
       this.isChange = false;
     },
     async removeLabelFromBoard() {
-      if (!confirm("Remove label?")) return;
-      console.log("confirm");
+      // if (!confirm("Remove label?")) return;
+      // console.log("confirm");
       const labelId = this.labelToChange.id;
       await this.$emit("removeLabelFromBoard", labelId);
       this.aggregateLabels();
       this.isCreate = false;
       this.isChange = false;
+      this.isRemove = false;
     },
   },
   computed: {

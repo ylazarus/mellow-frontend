@@ -23,20 +23,26 @@
           </a>
           <!-- <button @click.stop="removeBoard(board._id)">remove</button> -->
         </div>
-        <button @click="addBoard" class="board-preview justify-center add-card">
+        <button
+          @click="isCreateBoard = true"
+          class="board-preview justify-center add-card"
+        >
           Create new board
         </button>
+        <create-board v-if="isCreateBoard" @closeCmp="isCreateBoard = false" />
       </article>
     </section>
   </main>
 </template>
 
 <script>
+import createBoard from "../components/create-board.vue";
 export default {
   name: "work-space",
   data() {
     return {
       isFavorite: false,
+      isCreateBoard: false,
       //
     };
   },
@@ -48,11 +54,6 @@ export default {
     //     var images = require.context('../assets/', false, /\.png$/)
     //     return images('./' + pet + ".png")
     // },
-    async addBoard() {
-      const boardId = await this.$store.dispatch({ type: "addBoard" });
-      // console.log(boardId, 'id back from store');
-      this.$router.push(`/board/${boardId}`);
-    },
     async toggleFavorite(boardId) {
       console.log(boardId);
 
@@ -81,6 +82,9 @@ export default {
     // imgPos() {
     //     return {}
     // }
+  },
+  components: {
+    createBoard,
   },
 };
 </script>

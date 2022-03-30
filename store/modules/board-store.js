@@ -107,11 +107,13 @@ export default {
                 console.log("board module loadBoard cant load board now", err)
             }
         },
-        async addBoard({ commit }) {
+        async addBoard({ commit }, { title, bgClr, bgImg }) {
             try {
-                const title = prompt('Enter board title')
-                const board = await boardService.getEmptyBoard(title);
-                console.log(board, 'board');
+                const newBoard = boardService.getEmptyBoard();
+                newBoard.title = title
+                newBoard.style.bgClr = bgClr
+                newBoard.style.bgImg = bgImg
+                const board = await boardService.save(newBoard)
                 commit({ type: "addBoard", board })
                 return board._id
             } catch (err) {
@@ -198,7 +200,6 @@ export default {
                 await commit({ type: 'saveGroup', boardId, group })
                 const updatingBoard = JSON.parse(JSON.stringify(state.currBoard))
                 updatingBoard.activities.push(activity)
-                console.log(updatingBoard);
                 const savedBoard = await boardService.save(updatingBoard)
                 commit({ type: 'saveBoard', savedBoard })
                 return JSON.parse(JSON.stringify(savedBoard))

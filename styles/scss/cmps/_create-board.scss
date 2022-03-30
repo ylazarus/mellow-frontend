@@ -1,0 +1,114 @@
+.create-board {
+    font-size: 14px;
+    color: $light-text;
+    background-color: white;
+    width: 21.785rem;
+    border-radius: 3px;
+    position: absolute;
+    top: 46px;
+    padding: 0 12px 12px 12px;
+    z-index: 10;
+    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
+    .cmp-header {
+        display: flex;
+
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 40px;
+    }
+    .cmp-container-title {
+        font-weight: 400;
+        color: $light-text;
+        margin: 0;
+    }
+    .close-cmp-btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        cursor: pointer;
+        & span {
+            // padding: 6px;
+            font-family: trellicons;
+            width: 16px;
+            height: 16px;
+        }
+        & span::before {
+            content: "";
+        }
+    }
+
+    .choose-bg-title,
+    .add-title-title {
+        margin-block-end: 12px;
+        font-size: 12px;
+        font-weight: 600;
+        color: $light-text;
+        margin: 0;
+    }
+    .choose-bg-container {
+        .bg-preview {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 120px;
+            margin: 8px auto;
+            border-radius: 3px;
+            box-shadow: 0 7px 15px rgb(0 0 0 / 15%);
+            background-color: $bg-grey;
+            .bg-preview-img {
+                width: 80%;
+                height: 80%;
+            }
+        }
+    }
+
+    .add-title-container {
+        .add-title-input {
+            font-family: segoeui, sans-serif;
+            height: 36px;
+            background-color: #fafbfc;
+            border: none;
+            box-shadow: inset 0 0 0 2px #dfe1e6;
+            border-radius: 3px;
+            padding-inline-start: 12px;
+            width: 100%;
+
+            &:focus {
+                outline: 2px solid $trello-blue;
+                box-shadow: none;
+            }
+            &.required {
+                outline: 2px solid #eb5a46;
+            }
+        }
+        .add-title-required {
+            font-weight: 400;
+        }
+    }
+    .create-board-btn {
+        color: white;
+        border-radius: 3px;
+        border: none;
+        font-size: rem(16px);
+        width: 100%;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: segoeui, sans-serif;
+        margin: 0;
+        padding: 6px 24px;
+        background-color: $trello-blue;
+
+        &:hover {
+            background-color: #026aa7;
+        }
+        &:disabled {
+            background-color: $bg-grey;
+            color: $light-text;
+            cursor: not-allowed;
+        }
+    }
+}
