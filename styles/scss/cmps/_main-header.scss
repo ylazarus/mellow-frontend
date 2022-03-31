@@ -1,20 +1,4 @@
-// .app-header {
-//     height: 100px;
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     background-color: $clr2;
-//     padding: 1rem;
-
-//     a {
-//         @include btn
-//     }
-//   }
-
 .app-header-container {
-    background-color: #1a191885;
-
-    // background-color: $clr6;
     position: fixed;
     z-index: 1;
     width: 100%;
@@ -23,19 +7,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #1a191885;
+    &.blue {
+        background-color: $clr6;
+    }
+
 
     .app-header-inner {
         z-index: 1;
         display: flex;
-        // justify-content: center;
         align-items: center;
         font-weight: 700;
         height: 44px;
-        padding: 6px 4px;
-        // background-color: #026aa7;
+        padding: 6px 9px;
         color: $clr7;
         width: 100%;
-        margin-left: 5px;
         align-items: center;
         gap: 8px;
 
@@ -58,42 +44,80 @@
                 // position: absolute;
                 // left: 43px;
             }
+            &:visited {
+                color: #ffffff;
+            }
+            &:hover {
+                background-color: #0000004d;
+            }
         }
-        .logo-link:visited {
-            color: #ffffff;
-        }
-        .logo-link:hover {
-            background-color: #0000004d;
-        }
+        .app-header-nav{
+            justify-content: space-between;
+            flex-grow: 1;
+            .app-header-left-nav{
+      
+                .btn-header {
+                    color: #ffffff;
+                    border-radius: 3px;
+                    border: none;
+                    background-color: #00000000;
+                    font-size: rem(16px);
+                    height: 32px;
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 6px 10px 6px 12px;
+                    gap: 6px;
+                }
+                .btn-header:hover {
+                    background-color: #0000004d;
+                }
+        
+                .header-arrow-icon::before {
+                    font-family: trellicons;
+                    content: "";
+                    color: #ffffff;
+                    width: 16px;
+                    height: 16px;
+                    
+                }
+            }
+            .app-header-right-nav {
+                gap: 4px;
+                .login-btn {
+                    background-color: #fff;
+                    color: #0065ff;
+                    font-size: rem(16px);
+                    padding: 5px 12px;
+                    cursor: pointer;
+                    text-decoration: none;
+                    border-radius: 3px;
 
-        .btn-header {
-            color: #ffffff;
-            border-radius: 3px;
-            border: none;
-            background-color: #00000000;
-            font-size: rem(16px);
-            height: 32px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 6px 10px 6px 12px;
-            gap: 6px;
-        }
-        .btn-header:hover {
-            background-color: #0000004d;
-        }
+                }
+                .signup-btn {
+                    background-color: #0065ff;
+                    color: #ffffff;
+                    font-size: rem(16px);
+                    padding: 5px 12px;
+                    cursor: pointer;
+                    text-decoration: none;
+                    border-radius: 3px;
 
-        .header-arrow-icon::before {
-            font-family: trellicons;
-            content: "";
-            color: #ffffff;
-            width: 16px;
-            height: 16px;
+                }
+                .header-bell {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color:  #0000004d;
+                    height: 30px;
+                    width: 30px;
+                    border-radius: 3px;
+padding: 5px;
+                }
+            }
         }
     }
 }
 
-.app-header-container.blue {
-    background-color: $clr6;
-}
+
