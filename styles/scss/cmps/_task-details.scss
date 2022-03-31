@@ -17,6 +17,7 @@
   position: relative;
   margin: 56px 0;
   width: 768px;
+  margin-left: 5px;
   // padding: 16px;
   // height: 780px;
   min-height: 600px;
@@ -42,6 +43,7 @@
     border-radius: 50%;
     border: none;
     font-size: rem(16px);
+    z-index: 2;
     cursor: pointer;
   }
 
@@ -62,6 +64,7 @@
 
     @media (min-width: 780px){
       flex-direction: row;
+      gap: 1rem;
     }
   }
 
@@ -221,6 +224,7 @@
         height: 48px;
         display: flex;
         align-items: center;
+        justify-content: space-between;
 
         .activity-header::before {
           font-family: trellicons;
@@ -234,7 +238,6 @@
           font-size: 16px;
           color: $text-color;
           font-family: segoeui-bold;
-          width: 460px;
         }
       }
       .activities-list {
@@ -246,7 +249,7 @@
     .fake-text-area {
       color: $text-color;
       background-color: $btn-color;
-      width: 92%;
+      // width: 92%;
       height: 56px;
       padding: 8px 12px;
       border-radius: 3px;
@@ -387,27 +390,37 @@
   }
 
   .add-task-buttons-container {
-    display: flex;
-    flex-direction: column;
+    // display: flex; 
+    // flex-direction: column;
     justify-content: flex-start;
-    margin: 60px auto;
-    margin-right: -4px;
-    // font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 60px;
 
     .add-task-buttons-title {
       margin: 0;
     }
-
+    .just-buttons-container{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      @media (min-width: 780px) {
+       flex-direction: column;
+       flex-wrap: nowrap;
+      }
     .btn {
       display: flex;
       align-items: center;
-      width: 167px;
+      width: calc(50vw - 3rem);
       overflow: hidden;
       white-space: nowrap;
       padding: 6px 12px;
       text-overflow: ellipsis;
       margin-top: 8px;
+
+      @media (min-width: 780px) {
+        width: 167px;
+      }
     }
+  }
 
     .td-actions {
       font-size: 12px;
@@ -422,6 +435,19 @@
       background-color: $trello-danger;
       user-select: none;
       position: relative;
+     
+        display: flex;
+        align-items: center;
+        width: calc(50vw - 2.2rem);
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 6px 12px;
+        text-overflow: ellipsis;
+        margin-top: 8px;
+  
+        @media (min-width: 780px) {
+          width: 167px;
+        }
     }
 
     .td-delete-btn:hover {

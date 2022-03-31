@@ -150,66 +150,72 @@
 
         <nav @click.stop class="add-task-buttons-container">
           <p class="add-task-buttons-title">Add to card</p>
-          <button @click.stop="openCmp('isMembers')" class="members-btn btn" title="Members">Members</button>
-          <members-preview
-            v-if="handles.isMembers"
-            :boardMembers="currBoard.members"
-            :task="task"
-            @closeCmp="closeCmp"
-            @toggleMemberInTask="toggleMemberInTask"
-          />
-          <button @click.stop="openCmp('isLabel')" class="labels-btn btn" title="Labels">Labels</button>
-          <label-preview
-            v-if="handles.isLabel"
-            :boardLabels="currBoard.labels"
-            :taskLabelIds="task.labelIds"
-            @closeCmp="closeCmp"
-            @addLabelToTask="addLabelToTask"
-            @removeLabelFromBoard="removeLabelFromBoard"
-            @updateBoardLabels="updateBoardLabels"
-          />
-          <button
-            class="checklist-btn btn"
-            title="Checklist"
-            @click.stop="openCmp('isChecklist')"
-          >Checklist</button>
-          <create-checklist
-            v-if="handles.isChecklist"
-            @closeCmp="closeCmp"
-            @createChecklist="createChecklist"
-          />
-          <button @click.stop="openCmp('isDatesOn')" class="dates-btn btn" title="Dates">Dates</button>
-          <date-preview
-            v-if="handles.isDatesOn"
-            :dueDate="task.dueDate?.dueDate || Date.now()"
-            @saveDate="saveDate"
-            @closeCmp="closeCmp"
-          />
-          <button
-            @click.stop="openCmp('isAttachOn')"
-            class="attachment-img btn"
-            title="Attachment"
-          >Attachment</button>
-          <attachment-preview
-            :imgUrls="imgUrls"
-            @attachImg="attachImg"
-            v-if="handles.isAttachOn"
-            @closeCmp="closeCmp"
-          />
-          <button
-            @click.stop="openCmp('isCover')"
-            class="cover-btn btn font-cmp-btn"
-            title="Cover"
-          >Cover</button>
+          <div class="just-buttons-container">
+            <button
+              @click.stop="openCmp('isMembers')"
+              class="members-btn btn"
+              title="Members"
+            >Members</button>
+            <members-preview
+              v-if="handles.isMembers"
+              :boardMembers="currBoard.members"
+              :task="task"
+              @closeCmp="closeCmp"
+              @toggleMemberInTask="toggleMemberInTask"
+            />
+            <button @click.stop="openCmp('isLabel')" class="labels-btn btn" title="Labels">Labels</button>
+            <label-preview
+              v-if="handles.isLabel"
+              :boardLabels="currBoard.labels"
+              :taskLabelIds="task.labelIds"
+              @closeCmp="closeCmp"
+              @addLabelToTask="addLabelToTask"
+              @removeLabelFromBoard="removeLabelFromBoard"
+              @updateBoardLabels="updateBoardLabels"
+            />
+            <button
+              class="checklist-btn btn"
+              title="Checklist"
+              @click.stop="openCmp('isChecklist')"
+            >Checklist</button>
+            <create-checklist
+              v-if="handles.isChecklist"
+              @closeCmp="closeCmp"
+              @createChecklist="createChecklist"
+            />
+            <button @click.stop="openCmp('isDatesOn')" class="dates-btn btn" title="Dates">Dates</button>
+            <date-preview
+              v-if="handles.isDatesOn"
+              :dueDate="task.dueDate?.dueDate || Date.now()"
+              @saveDate="saveDate"
+              @closeCmp="closeCmp"
+            />
+            <button
+              @click.stop="openCmp('isAttachOn')"
+              class="attachment-img btn"
+              title="Attachment"
+            >Attachment</button>
+            <attachment-preview
+              :imgUrls="imgUrls"
+              @attachImg="attachImg"
+              v-if="handles.isAttachOn"
+              @closeCmp="closeCmp"
+            />
+            <button
+              @click.stop="openCmp('isCover')"
+              class="cover-btn btn font-cmp-btn"
+              title="Cover"
+            >Cover</button>
 
-          <cover-unsplash
-            v-if="handles.isCover"
-            :style="task.style"
-            :title="task.title"
-            :attachments="task.attachments"
-            @closeCmp="closeCmp"
-            @addStyle="addStyle"
-          />
+            <cover-unsplash
+              v-if="handles.isCover"
+              :style="task.style"
+              :title="task.title"
+              :attachments="task.attachments"
+              @closeCmp="closeCmp"
+              @addStyle="addStyle"
+            />
+          </div>
 
           <h3 class="td-actions">Actions</h3>
           <a @click.stop="openCmp('isDelete')" class="td-delete-btn btn pointer">
