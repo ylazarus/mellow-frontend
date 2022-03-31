@@ -1,18 +1,19 @@
 <template>
     <section class="attachment-preview">
-         <button class="add-task-close-cmp-btn" @click="closeCmp">X</button>
+        <button class="add-task-close-cmp-btn" @click="closeCmp">X</button>
         <label>
             <input type="file" @change="onAttachImg" hidden />
             <p class="attach-from">Attach from...</p>
-            <hr />
+            <hr class="thin-hr" />
             <div class="pointer">Computer</div>
         </label>
         <!-- <div>LOADING...</div> -->
 
-        <hr class="seperate-line" />
+        <hr class="seperate-line thin-hr" />
 
         <div class="attach-link-title">Attach a link</div>
         <input
+            v-focus
             v-model="input"
             class="attach-input"
             type="text"
@@ -51,7 +52,7 @@ export default {
             console.log(this.input);
             console.log('not working till we fix img upload on second time');
         },
-        closeCmp(){
+        closeCmp() {
             this.$emit("closeCmp");
         }
     },
