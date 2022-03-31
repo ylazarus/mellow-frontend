@@ -77,8 +77,8 @@
               <img class="colors-option" src="src/assets/imgs/colors.jpg" />
               <p class="color-option-title">Colors</p>
             </div>
-            <hr class="thin-hr" />
           </div>
+          <hr class="thin-hr" />
           <p class="custom-option-title">Custom</p>
           <div class="custom-option"></div>
         </div>
