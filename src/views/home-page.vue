@@ -1,23 +1,21 @@
 <template>
   <section class="home-page-container">
     <div class="title-container flex">
-      
       <div class="title-text">
         <h1 class="home-logo">Mellow helps teams move work forward</h1>
-        <h3 class="title">Collaborate, manage projects, and reach new productivity peaks. From high rises to the home office, the way your your team works is unique - accomplish it all with Mellow</h3>
-        <router-link class="home-link" to="/board"
-          ><span> Start as guest</span></router-link
-        >
+        <h3
+          class="title"
+        >Collaborate, manage projects, and reach new productivity peaks. From high rises to the home office, the way your your team works is unique - accomplish it all with Mellow</h3>
+        <router-link class="home-link" to="/board">
+          <span>Start as guest</span>
+        </router-link>
 
-     <img
-        class="home-page-img"
-        src="https://qwello.herokuapp.com/img/trello-cover.ab6b5690.png"
-      />
+        <img class="home-page-img" src="src/assets/imgs/trello-cover.png" />
       </div>
     </div>
     <!-- <div class="hero-container">
       <img class="hero-img" src="src/assets/imgs/hero-mello.jpg" />
-    </div> -->
+    </div>-->
   </section>
 </template>
 
@@ -29,10 +27,10 @@ export default {
   data() {
     return {};
   },
-  created() {},
+  created() { },
   methods: {},
   computed: {},
-  unmounted() {},
+  unmounted() { },
 };
 </script>
 

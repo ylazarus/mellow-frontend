@@ -3,24 +3,16 @@
     @click="toTaskDetails(this.boardId, this.groupId, this.task.id)"
     class="task-preview-container"
   >
-    <div
-      v-if="this.task.style.isFullCover"
-      :style="fullCoverStyle"
-      class="full-cover-selected"
-    >
+    <div v-if="this.task.style.isFullCover" :style="fullCoverStyle" class="full-cover-selected">
       <p :class="fullCoverTxt" class="full-cover-title">{{ task.title }}</p>
     </div>
 
     <div v-else class="top-cover-selected">
       <div :style="coverStyle" class="task-preview-cover"></div>
 
-        <img  v-if="taskImgUrl && !task.style.bgClr" class="top-cover-img" :src="taskImgUrl" alt="" />
-      
-      <div
-        class="labels-container"
-        v-if="task.labelIds?.length"
-        @click.stop="showLabelTitle"
-      >
+      <img v-if="taskImgUrl && !task.style.bgClr" class="top-cover-img" :src="taskImgUrl" alt />
+
+      <div class="labels-container" v-if="task.labelIds?.length" @click.stop="showLabelTitle">
         <div
           v-for="label in labelsToDisplay"
           :key="label.id"
@@ -41,25 +33,25 @@
         ></div>
         <div
           class="checklists-img-preview"
+          :class="{ 'todo-done': isChecklistDone }"
           v-if="task.checklists?.length"
-          title="Checklists items"
+          title="Checklist items"
         >
+          <span class="checklist-img-font flex" :class="{ 'white': isChecklistDone }"></span>
+          <span class></span>
+          <!-- {{ isChecklistDone }} -->
           {{ checkListsCount }}
         </div>
         <div
           class="attachment-img-preview"
           v-if="task.attachments?.length"
           title="Attachment"
-        >
-          {{ attachmentCount }}
-        </div>
+        >{{ attachmentCount }}</div>
         <div
           class="date-img-preview"
           v-if="task.dueDate?.dueDate"
           :class="isTaskOverdue"
-        >
-          {{ formattedDate }}
-        </div>
+        >{{ formattedDate }}</div>
         <div class="user-avatar-pos flex">
           <user-avatar
             class="user-avatar"
@@ -118,6 +110,19 @@ export default {
       if (ms < Date.now()) {
         return this.task.dueDate.isCompleted ? "l101-label" : "l104-label";
       } else return;
+    },
+    isChecklistDone() {
+      let totalTodosCount = 0
+      let totalIsDoneCount = 0
+
+      this.task.checklists?.forEach(checklist => {
+        totalTodosCount += checklist.todos.length
+        checklist.todos.filter(todo => {
+          if (todo.isDone) totalIsDoneCount++
+        })
+      })
+      // return [totalTodosCount === totalIsDoneCount ? 'todo-done' : 'todo-incomplete']
+      return totalTodosCount === totalIsDoneCount ? true : false
     },
     labelsToDisplay() {
       const labels = this.$store.getters.getCurrBoard.labels.filter((label) => {
