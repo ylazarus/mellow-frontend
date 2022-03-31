@@ -5,9 +5,9 @@
     z-index: 1;
     background-color: $bg-grey;
     color: $text-color;
-    width: 384px;
+    width: 339px;
     height: 100%;
-    padding: 0 12px 12px 12px;
+    padding: 0 0 12px 12px;
     box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
     // overflow-y: scroll;
     .cmp-header {
@@ -133,5 +133,34 @@
                 margin-top: 8px;
             }
         }
+.change-bg-container{
+
+    .change-bg-choose {
+        .photos-option,.colors-option,.custom-option{
+            width: 152px;
+            height: 96px;
+            border-radius: 8px;
+            background-color: #091e420a;
+        }
+        .photos-colors-options {
+            // flex-direction: column;
+            width: 100%;
+            gap: 8px;
+            .photos-option-container,.colors-option-container{
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+
+            }
+        }
+    }
+
+    .option-large {
+        width: 130px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 3px;
+      }
+}
     }
 }
