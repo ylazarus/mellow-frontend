@@ -1,8 +1,17 @@
 <template>
   <section class="groups-border">
-    <div class="outside-group" contenteditable="true" @blur="saveTitle">
-      {{ group.title }}
+    <div class="outside-group flex">
+      <p class="group-title" contenteditable="true" @blur="saveTitle">
+        {{ group.title }}
+      </p>
+      <span class="remove-group-btn" @click="toggleRemove"></span>
     </div>
+    <delete-cmp
+      v-if="isRemove"
+      :type="'list'"
+      @remove="removeGroup"
+      @closeCmp="toggleRemove"
+    />
     <div class="group-container" :class="calcHeight">
       <Container
         class="tasks-container"
@@ -52,6 +61,7 @@ import { boardService } from "../services/board-service";
 import taskPreview from "./task-preview.vue";
 import { utilService } from "../services/util-service";
 import { Container, Draggable } from "vue3-smooth-dnd";
+import deleteCmp from "./delete-cmp.vue";
 
 export default {
   props: {
@@ -60,6 +70,7 @@ export default {
   },
   components: {
     taskPreview,
+    deleteCmp,
     Container,
     Draggable,
   },
@@ -67,6 +78,7 @@ export default {
     return {
       isAdding: false,
       newTaskTitle: "",
+      isRemove: false,
       // isDarkMode: ''
     };
   },
@@ -125,6 +137,14 @@ export default {
     },
     toggleLabelTitle() {
       this.$emit("toggleLabelTitle");
+    },
+    toggleRemove() {
+      this.isRemove = !this.isRemove;
+      console.log(this.isRemove);
+    },
+    removeGroup() {
+      this.$emit("removeGroup", this.group.id);
+      console.log("group", this.group.id);
     },
   },
   computed: {

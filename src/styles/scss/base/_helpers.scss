@@ -100,6 +100,11 @@
     @include aspect-ratio(100, 150);
 }
 
+.white{
+    color:white;
+    border-radius: 3px;
+}
+
 .l101-label {
     background-color: #61bd4f;
 }

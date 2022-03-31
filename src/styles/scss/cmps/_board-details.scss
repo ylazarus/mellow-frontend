@@ -5,6 +5,7 @@
     // gap: 9px;
     // justify-content: space-between;
     align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .board-header {
@@ -25,14 +26,15 @@
 
     .members-nav-bar {
         flex-grow: 1;
-        gap: 4px;
+        gap: 6px;
+        // padding-block-end: 4px;
     }
 
     .board-title {
         margin: 0;
         padding: 0 12px;
         font-size: 18px;
-        font-family: segoeui-bold;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         // width: 432px;
         height: 32px;
         display: flex;
@@ -63,10 +65,16 @@
     position: relative;
 }
 
+.show-menu-btn {
+    padding: 6px 12px;
+
+}
+
 .show-menu-btn::before {
     font-family: trellicons;
     margin-inline-end: 4px;
     content: "";
+    font-size: 16px;
 }
 
 .btn-board {
@@ -88,15 +96,16 @@
     font-size: rem(16px);
     // display: flex;
     // position: relative;
-    width: 93px;
-    margin-right: 5px;
-
+    // width: 93px;
+    margin-block-end: 4px;
+padding: 6px 12px 6px 6px;
     img {
         width: 20px;
         position: absolute;
         left: 5px;
     }
 }
+
 
 .btn-board-details::before {
     font-family: trellicons;
