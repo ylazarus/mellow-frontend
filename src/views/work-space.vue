@@ -15,9 +15,9 @@
         >
           <h2 class="title">{{ board.title }}</h2>
 
-          <a @click.stop="toggleFavorite(board._id)">
-            <img v-if="board.isFavorite" src="src/assets/icons/full-star.png" />
-            <img v-else src="src/assets/icons/empty-star.png" />
+          <a class="star-container" @click.stop="toggleFavorite(board._id)">
+            <img class="ws-full-star" v-if="board.isFavorite" src="src/assets/icons/full-star.png" />
+            <img class="ws-empty-star" v-else src="src/assets/icons/empty-star.png" />
             <!-- <img src="src/assets/icons/empty-star.png" /> -->
             <!-- <img :src="changeImgUrl" /> -->
           </a>
@@ -26,9 +26,7 @@
         <button
           @click="isCreateBoard = true"
           class="board-preview justify-center add-card"
-        >
-          Create new board
-        </button>
+        >Create new board</button>
         <create-board v-if="isCreateBoard" @closeCmp="isCreateBoard = false" />
       </article>
     </section>
@@ -60,7 +58,7 @@ export default {
       // NEED TO CHANGE STATE FROM THE OBJECT...
       // SOMETIMES THE STATE IS TRUE AND IT WONT CHANGE OTHERS IF THEY ARE TRUE
 
-      this.isFavorite = !this.isFavorite;
+      // this.isFavorite = !this.isFavorite;
 
       this.$store.dispatch({
         type: "toggleFavorite",

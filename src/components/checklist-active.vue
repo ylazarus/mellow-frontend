@@ -5,7 +5,8 @@
         <div v-for="(checklist, index) in task.checklists" :key="index">
             <div class="checklist-title-container">
                 <h3 class="checklist-title">{{ checklist.title }}</h3>
-                <!-- <pre>{{ checklist.todos }}</pre> -->
+                <pre>{{ editingTodoId }}</pre>
+
                 <a class="delete-checklist btn" @click.stop="removeChecklist(checklist.id)">Delete</a>
             </div>
             <div>template for Progress Bar with computed by %</div>
@@ -34,13 +35,15 @@
                     >{{ todo.title }}</textarea>
 
                     <div v-if="editingTodoId === todo.id" class="update-todo-btn-container">
-                        <div class="update-todo-btn">
+                        <div class="update-todo-btn flex">
                             <a class="update-todo-text btn">Save</a>
-                            <span @click.prevent="closeCreateTodo" class="close-update"></span>
+                            <span @click="closeCreateTodo" class="close-update pointer"></span>
+                        </div>
+                        <div class="remove-todo-btn-wrapper">
                             <span
                                 @mousedown="removeTodo(checklist.id, todo.id)"
-                                class="pointer"
-                            >remove to do</span>
+                                class="remove-todo-btn pointer"
+                            ></span>
                         </div>
                     </div>
                 </div>
@@ -78,7 +81,6 @@
 export default {
 
     props: {
-        // checklistTitle: String,
         task: Object,
 
     },
@@ -90,7 +92,6 @@ export default {
             newTodo: [],
             isCheckbox: [],
             isUpdateTodo: false,
-            // isUpdateBar: false,
             // checklist: [],
             // todo: {
             //     id: '',
@@ -100,11 +101,6 @@ export default {
             // },
             editingTodoId: '',
             addNewTodo: '',
-            // updateTextArea:''
-
-            // isCreateChecklist: false,
-            // checklistTitle: '',
-            // checklistCount: [],
         }
     },
     created() { },
@@ -153,10 +149,10 @@ export default {
             this.addNewTodo = ''
         },
         removeTodo(checklistId, todoId) {
-            console.log('checklistId', checklistId);
-            console.log('todoId', todoId);
+            this.$emit('removeTodo', checklistId, todoId)
         },
         openUpdateBar(todoId) {
+            console.log('open');
             this.editingTodoId = todoId
             this.addNewTodo = ''
         },

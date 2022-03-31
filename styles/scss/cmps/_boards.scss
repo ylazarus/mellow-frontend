@@ -16,6 +16,7 @@
     padding: 5px;
     // background-color: black;
     position: relative;
+    // z-index: 1;
 
     .title {
         margin: 0;
@@ -25,6 +26,14 @@
         z-index: 2;
     }
 
+    // .ws-full-star{
+    //     z-index: 2;
+    // }
+
+    // .ws-empty-star{
+    //     z-index: 2;
+    // }
+
     &::before {
         content: "";
         display: block;
@@ -33,8 +42,9 @@
         height: 100%;
         left: 0;
         top: 0;
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(0, 0, 0, 0.315);
         opacity: 0;
+        z-index: 0;
 
         transition: opacity 0.4s;
     }
@@ -44,12 +54,14 @@
             opacity: 1;
         }
     }
+
+    
 }
 
-.board-preview:hover {
-    opacity: 0.5;
+// .board-preview:hover {
+    // opacity: 0.5;
     // background-color: darken($color: white, $amount: 40%);
-}
+// }
 
 .style-font {
     font-size: 16px;
@@ -73,34 +85,38 @@
 .saved-boards {
     display: flex;
     flex-wrap: wrap;
+    z-index: 10;
     // height: 80px;
+
+    // .ws-full-star{
+    //     z-index: 200;
+    // }
+
+    // .ws-empty-star{
+    //     z-index: 200;
+    // }
 }
 
 .justify-center {
     justify-content: center;
 }
 
-.saved-boards a {
+.saved-boards .star-container {
     align-self: flex-end;
 }
 
-.saved-boards a img {
+.saved-boards .star-container{
+    z-index: 2;
+}
+
+.saved-boards .star-container img {
     width: 15px;
     transition: ease-in-out 0.2s;
 }
-.saved-boards a img:hover {
+
+.saved-boards .star-container img:hover {
     width: 20px;
 }
-
-// .all-boards-container{
-//     margin: 10px;
-//     // max-width: 980px;
-//     display: grid;
-//     grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
-//     grid-auto-rows: 120px;
-//     gap: 10px;
-//     grid-auto-flow: dense;
-// }
 
 .header-container {
     min-height: 10vh;
@@ -113,16 +129,3 @@
     background-size: cover;
     background-position: center;
 }
-
-// color for label cmp
-// $labe0: #61bd4f;
-// $labe1: #f2d600;;
-// $labe2: #ff9f1a;
-// $labe3: #eb5a46;
-// $labe4: #c377e0;
-// $labe5: #0079bf;
-// $labe6: #00c2e0;
-// $labe7: #51e898;
-// $labe8: #ff78cb;
-// $labe9: #344563;
-// $labe10: #b3bac5;

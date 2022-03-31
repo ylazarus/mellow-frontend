@@ -55,8 +55,7 @@
                 
             .todo-clickable-area{
                 height: 32px;
-                width: 500px;
-                max-width: 100%;
+                width: 92.5%;
                 background: transparent;
                 border: none;
                 padding: 8px 12px;
@@ -103,6 +102,8 @@
     .update-todo-btn-container{
         padding-left: 45px;
         margin-block-start: 4px;
+        display: flex;
+        width: 100%;
         
         .update-todo-text{
             display: flex;
@@ -115,6 +116,12 @@
         .update-todo-text:hover{
             background-color: clr6;
         }
+
+        // .remove-todo-btn::before{
+        //     font-family: trellicons;
+        //     content: "";
+        // }
+
         
         .update-todo-btn{
             display: flex;
@@ -127,6 +134,28 @@
             }
             .close-update:hover{
                 color: $text-color;
+            }
+        }
+
+        .remove-todo-btn-wrapper{
+            display: flex;
+            flex-grow: 1;
+            justify-content: end;
+            align-items: center;
+            
+            .remove-todo-btn::before{
+                font-family: trellicons;
+                content: "";
+            }
+            
+            .remove-todo-btn{
+                padding: 6px 8px;
+                margin-right: 5px;
+                margin-block-end: 5px;
+            }
+            
+            .remove-todo-btn:hover{
+                background-color: $btn-hover;
             }
         }
     }

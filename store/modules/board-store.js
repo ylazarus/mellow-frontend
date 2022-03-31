@@ -12,10 +12,9 @@ export default {
         boards({ boards }) {
             return JSON.parse(JSON.stringify(boards))
         },
-        // favoriteBoards({ boards }) {
-        //     const favoriteBoards = JSON.parse(JSON.stringify(boards))
-        //     console.log(favoriteBoards);
-        // },
+        favoriteBoards({ boards }) {
+            return boards.filter((board) => board.isFavorite)
+        },
         getCurrBoard({ currBoard }) {
             return JSON.parse(JSON.stringify(currBoard))
         }
@@ -154,10 +153,14 @@ export default {
         },
         async toggleFavorite({ commit }, { board }) {
             try {
+                // const boardToUpdate = await boardService.getById(board.boardId)
+                // boardToUpdate.isFavorite = board.status
+                // const updatedBoard = await boardService.save(boardToUpdate)
+                // commit({ type: "setFavorite", updatedBoard })
                 const boardToUpdate = await boardService.getById(board.boardId)
-                boardToUpdate.isFavorite = board.status
+                boardToUpdate.isFavorite = !boardToUpdate.isFavorite
                 const updatedBoard = await boardService.save(boardToUpdate)
-                commit({ type: "setFavorite", updatedBoard })
+                commit({ type: 'setFavorite', updatedBoard })
 
             } catch (err) {
                 console.log("board module toggleFavorite cant load boards now", err)
