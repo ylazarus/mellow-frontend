@@ -13,6 +13,7 @@
 
     .delete-header {
         justify-content: center;
+        color: $light-text;
         align-items: center;
         line-height: 40px;
         position: relative;
@@ -30,12 +31,17 @@
     }
 
     .delete-content-container {
+        display: flex;
+        flex-direction: column;
+
         p {
-            color: $light-text;
+            color: $text-color;
             margin: 0 0 8px;
         }
+        
 
         .confirm-delete {
+            display: flex;
             justify-content: center;
             align-items: center;
             color: #fff;
@@ -44,10 +50,19 @@
             width: 100%;
             margin-top: 8px;
             margin-bottom: 0;
+            border-radius: 3px;
+            padding: 6px 12px;
+            cursor: pointer;
+
         }
 
+        .btn{
+            width: 100%;
+        }
         .confirm-delete:hover {
             background-color: #933b27;
         }
     }
 }
+
+

@@ -37,8 +37,8 @@
             to="/login"
             >Sign up</router-link
           >
-          <div class="header-bell"><img src="src/assets/svgs/bell.svg" /></div>
-          <user-avatar v-if="loggedinUser" :user="loggedinUser" />
+          <div class="header-bell pointer"><img src="src/assets/svgs/bell.svg" /></div>
+          <user-avatar class="pointer" v-if="loggedinUser" :user="loggedinUser" />
         </div>
       </nav>
     </div>

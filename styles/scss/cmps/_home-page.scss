@@ -1,0 +1,52 @@
+.home-page-container{
+    background: linear-gradient(1deg,#579cc187,#8b7fcdb8 80%);
+    height: 100vh;
+    padding-top: 80px;
+    .title-container{
+        display: flex;
+        margin: 0 125px;
+
+
+        .title-text{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            flex-grow: 1;
+            height: 50vh;
+            span{
+                padding-left: 30px;
+            }
+
+            h3{
+                width: 80%;
+            }
+
+            .home-logo{
+                color: white;
+                font-size: 2.5rem;
+                width: 75%;
+                line-height: 1;
+                letter-spacing: 0.4px;
+            }
+
+            .guest-login-button{
+                display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            background-color: $text-color;
+            text-decoration: none;
+            width: fit-content;
+            margin-top: 8px;
+            margin-bottom: 0;
+            border-radius: 3px;
+            padding: 6px 12px;
+            cursor: pointer;
+            }
+        }
+        .home-page-img{
+            
+            max-width: 800px;
+        }
+    }
+}
