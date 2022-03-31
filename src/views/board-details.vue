@@ -19,9 +19,9 @@
           <img
             class="star"
             v-if="board.isFavorite"
-            src="src/assets/icons/full-star.png"
+            src="../assets/icons/full-star.png" alt=""
           />
-          <img class="star" v-else src="src/assets/icons/empty-star.png" />
+          <img class="star" v-else src="../assets/icons/empty-star.png" />
         </button>
       </div>
       <div class="members-nav-bar flex">
@@ -66,6 +66,7 @@
               @dropped="dropCard"
               @saveGroup="saveGroup"
               @toggleLabelTitle="toggleLabelTitle"
+              @removeGroup="removeGroup"
             />
           </Draggable>
         </Container>
@@ -233,6 +234,22 @@ export default {
         activity,
       });
     },
+    async removeGroup(groupId) {
+      const activity = {
+        id: utilService.makeId(),
+        txt: "remove group",
+        groupId: groupId,
+        createdAt: Date.now(),
+        byMember:
+          this.$store.getters.loggedinUser || this.$store.getters.getGuestUser,
+      };
+      this.board = await this.$store.dispatch({
+        type: "removeGroup",
+        boardId: this.board._id,
+        groupId,
+        activity,
+      });
+    },
     toggleLabelTitle() {
       this.isLabelTitle = !this.isLabelTitle;
     },
@@ -270,6 +287,9 @@ export default {
     updatedBoardFromStore() {
       return this.$store.getters.boards;
     },
+    // getStarImg(){
+    //   return new URL('icons/full-star.png', import.meta.url)
+    // }
   },
   watch: {
     "$route.params.boardId": {

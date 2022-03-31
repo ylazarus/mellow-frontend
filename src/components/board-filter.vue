@@ -68,9 +68,9 @@ export default {
   computed: {
     checkBox() {
       //   return this.task.dueDate.isCompleted
-      // ? "src/assets/svgs/full-checkbox.svg"
-      // : "src/assets/svgs/empty-checkbox.svg";
-      return "src/assets/svgs/empty-checkbox.svg";
+      // ? "../assets/svgs/full-checkbox.svg"
+      // : "../assets/svgs/empty-checkbox.svg";
+      return "../assets/svgs/empty-checkbox.svg";
     },
   },
   components: { userAvatar },

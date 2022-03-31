@@ -1,5 +1,5 @@
-import { boardService } from "../../src/services/board-service"
-import { socketService } from "../../src/services/socket.service"
+import { socketService } from "../../services/socket.service"
+import { boardService } from "../../services/board-service"
 // should be boardService
 
 export default {
@@ -86,6 +86,11 @@ export default {
             group.tasks.splice(taskIdx, 1)
             console.log('after', board);
             state.currBoard = board
+        },
+        removeGroup(state, { board, groupIdx }) {
+            console.log(board, groupIdx);
+            board.groups.splice(groupIdx, 1)
+            state.currBoard = board
         }
     },
     actions: {
@@ -128,9 +133,6 @@ export default {
                 console.log("board module removeBoard cant load boards now", err)
             }
         },
-        async removeGroup() {
-            console.log('work in progress');
-        },
         async removeTask({ commit, state }, { boardId, groupId, task, activity }) {
             try {
 
@@ -149,6 +151,23 @@ export default {
 
             } catch (err) {
                 console.log('board module removeTask cant remove task now', err);
+            }
+        },
+        async removeGroup({ commit, state }, { boardId, groupId, activity }) {
+            console.log(boardId, groupId, activity);
+            try {
+                const board = state.boards.find(board => board._id === boardId)
+                const groupIdx = board.groups.findIndex(group => group.id === groupId)
+                await commit({ type: 'removeGroup', board, groupIdx })
+                const updatedBoard = JSON.parse(JSON.stringify(state.currBoard))
+                updatedBoard.activities.push(activity)
+                const savedBoard = await boardService.save(updatedBoard)
+                commit({ type: 'saveBoard', savedBoard })
+
+                return JSON.parse(JSON.stringify(savedBoard))
+            } catch (err) {
+                console.log('board module removeGroup cant remove group now', err);
+
             }
         },
         async toggleFavorite({ commit }, { board }) {

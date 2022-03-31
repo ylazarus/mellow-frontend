@@ -13,11 +13,14 @@
           <span class="guest-login-button">Start as guest</span>
         </router-link>
       </div>
-      <img class="home-page-img" src="src/assets/imgs/mellow-cover.png" />
+     <img
+        class="home-page-img"
+        src="../assets/imgs/mellow-cover.png"
+      />
     </div>
     <!-- <div class="hero-container">
-      <img class="hero-img" src="src/assets/imgs/hero-mello.jpg" />
-    </div>-->
+      <img class="hero-img" src="../assets/imgs/hero-mello.jpg" />
+    </div> -->
   </section>
 </template>
 
@@ -31,8 +34,10 @@ export default {
   },
   created() { },
   methods: {},
-  computed: {},
-  unmounted() { },
+  computed: {
+    
+  },
+  unmounted() {},
 };
 </script>
 

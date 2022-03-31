@@ -67,7 +67,7 @@ function getGuestUser() {
         "_id": "624298a9e48762573484a9e5",
         "username": "Guest",
         "fullname": "Guest User",
-        "imgUrl": "src/assets/svgs/guest.svg",
+        "imgUrl": "../assets/svgs/guest.svg",
     }
 
 }

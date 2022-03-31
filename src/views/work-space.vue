@@ -16,9 +16,9 @@
           <h2 class="title">{{ board.title }}</h2>
 
           <a class="star-container" @click.stop="toggleFavorite(board._id)">
-            <img class="ws-full-star" v-if="board.isFavorite" src="src/assets/icons/full-star.png" />
-            <img class="ws-empty-star" v-else src="src/assets/icons/empty-star.png" />
-            <!-- <img src="src/assets/icons/empty-star.png" /> -->
+            <img class="ws-full-star" v-if="board.isFavorite" src="../assets/icons/full-star.png" />
+            <img class="ws-empty-star" v-else src="../assets/icons/empty-star.png" />
+            <!-- <img src="../assets/icons/empty-star.png" /> -->
             <!-- <img :src="changeImgUrl" /> -->
           </a>
           <!-- <button class="remove-board-button" @click.stop="removeBoard(board._id)">remove</button> -->
@@ -77,6 +77,9 @@ export default {
       // for favorite (like is pinned)
       return this.$store.getters.favoriteBoards;
     },
+    // getStarImg(){
+    //   return new URL('./full-star.png', import.meta.url)
+    // }
     // imgPos() {
     //     return {}
     // }

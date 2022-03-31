@@ -16,10 +16,9 @@
           backgroundImage: 'url(' + bgImg + ')',
         }"
       >
-        <img class="bg-preview-img" src="src/assets/svgs/groups.svg" />
+        <img class="bg-preview-img" src="../assets/svgs/groups.svg" />
       </div>
       <list-slot>
-        <!-- <template v-slot:title>Top photos</template> -->
         <template v-slot:list>
           <img
             v-for="(photo, idx) in photos"
@@ -32,7 +31,6 @@
         </template>
       </list-slot>
       <list-slot>
-        <!-- <template v-slot:title>Color</template> -->
         <template v-slot:list>
           <div
             v-for="bgc in bgColors"

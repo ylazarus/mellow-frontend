@@ -1,12 +1,12 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from '../store'
+import store from './store'
 import { focusDirective } from './directives'
 import VCalendar from 'v-calendar';
 import Unsplash from 'vue-unsplash'
 
-import "../styles/scss/main.scss"
+import "./styles/scss/main.scss"
 
 
 import ElementPlus from 'element-plus'
