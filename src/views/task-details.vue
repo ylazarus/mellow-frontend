@@ -181,6 +181,9 @@
 
         <nav @click.stop class="add-task-buttons-container">
           <p class="add-task-buttons-title">Add to card</p>
+          <div class="just-buttons-container">
+
+          
           <button
             @click.stop="openCmp('isMembers')"
             class="members-btn btn"
@@ -265,6 +268,7 @@
             @closeCmp="closeCmp"
             @addStyle="addStyle"
           />
+          </div> 
 
           <h3 class="td-actions">Actions</h3>
           <a
