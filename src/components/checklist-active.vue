@@ -5,11 +5,11 @@
         <div v-for="(checklist, index) in task.checklists" :key="index">
             <div class="checklist-title-container">
                 <h3 class="checklist-title">{{ checklist.title }}</h3>
-                <pre>{{ editingTodoId }}</pre>
+                <!-- <pre>{{ editingTodoId }}</pre> -->
 
                 <a class="delete-checklist btn" @click.stop="removeChecklist(checklist.id)">Delete</a>
             </div>
-            <div>template for Progress Bar with computed by %</div>
+            <!-- <div>template for Progress Bar with computed by %</div> -->
 
             <div v-for="(todo) in checklist.todos" :key="todo.id">
                 <div class="checklist-todo-title">
