@@ -56,7 +56,7 @@
                   v-if="overdue && !task.dueDate.isCompleted"
                 >Overdue</span>
                 <!-- needs to open dates -->
-                <img @click="toggleDates" src="src/assets/svgs/arrow-down.svg" alt />
+                <img @click="toggleDates" src="../assets/svgs/arrow-down.svg" alt />
               </div>
             </div>
           </section>
@@ -567,6 +567,9 @@ export default {
     }
   },
   computed: {
+    // getArrowDown(){
+    //         return new URL('../svgs/arrow-down.svg', import.meta.url)
+    // },
     areDetailsShown() {
       return this.detailsShown ? "Hide Details" : "Show Details";
     },
@@ -582,8 +585,8 @@ export default {
     },
     dueDateCheckBox() {
       return this.task.dueDate.isCompleted
-        ? "src/assets/svgs/full-checkbox.svg"
-        : "src/assets/svgs/empty-checkbox.svg";
+        ? "../assets/svgs/full-checkbox.svg"
+        : "../assets/svgs/empty-checkbox.svg";
     },
     overdue() {
       const date = new Date(this.task.dueDate.dueDate);

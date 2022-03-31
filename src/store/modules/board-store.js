@@ -1,5 +1,5 @@
-import { boardService } from "../../src/services/board-service"
-import { socketService } from "../../src/services/socket.service"
+import { socketService } from "../../services/socket.service"
+import { boardService } from "../../services/board-service"
 // should be boardService
 
 export default {

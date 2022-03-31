@@ -123,7 +123,7 @@ function _createBoards() {
                     "imgUrl": ""
                 },
                 "style": {
-                    "bgImg": "src/assets/imgs/1.jpg"
+                    "bgImg": "../assets/imgs/1.jpg"
                 },
                 "labels": [
                     {

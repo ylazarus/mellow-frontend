@@ -16,7 +16,7 @@
           backgroundImage: 'url(' + bgImg + ')',
         }"
       >
-        <img class="bg-preview-img" src="src/assets/svgs/groups.svg" />
+        <img class="bg-preview-img" src="../assets/svgs/groups.svg" />
       </div>
       <list-slot>
         <!-- <template v-slot:title>Top photos</template> -->

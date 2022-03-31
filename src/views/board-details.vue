@@ -19,9 +19,9 @@
           <img
             class="star"
             v-if="board.isFavorite"
-            src="src/assets/icons/full-star.png"
+            src="../assets/icons/full-star.png" alt=""
           />
-          <img class="star" v-else src="src/assets/icons/empty-star.png" />
+          <img class="star" v-else src="../assets/icons/empty-star.png" />
         </button>
       </div>
       <div class="members-nav-bar flex">
@@ -270,6 +270,9 @@ export default {
     updatedBoardFromStore() {
       return this.$store.getters.boards;
     },
+    // getStarImg(){
+    //   return new URL('icons/full-star.png', import.meta.url)
+    // }
   },
   watch: {
     "$route.params.boardId": {

@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="menu-option" @click="toggleMenu('isChangeBg')">
-          <img class="board-bg-preview" src="src/assets/imgs/board.jpg" />
+          <img class="board-bg-preview" src="../assets/imgs/board.jpg" />
           <p class="menu-option-bgc">Change background</p>
         </div>
         <!-- <div class="menu-option" @click="toggleMenu('isSearch')">

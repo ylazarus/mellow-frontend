@@ -12,11 +12,11 @@
       </div>
      <img
         class="home-page-img"
-        src="src/assets/imgs/mellow-cover.png"
+        src="../assets/imgs/mellow-cover.png"
       />
     </div>
     <!-- <div class="hero-container">
-      <img class="hero-img" src="src/assets/imgs/hero-mello.jpg" />
+      <img class="hero-img" src="../assets/imgs/hero-mello.jpg" />
     </div> -->
   </section>
 </template>
@@ -31,7 +31,9 @@ export default {
   },
   created() {},
   methods: {},
-  computed: {},
+  computed: {
+    
+  },
   unmounted() {},
 };
 </script>

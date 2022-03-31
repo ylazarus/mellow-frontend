@@ -22,7 +22,7 @@
         <img
           v-else
           class="recent-board-preview-img"
-          src="src/assets/imgs/board.jpg"
+          src="../assets/imgs/board.jpg"
         />
         <p class="recent-board-title">{{ board.title }}</p>
       </div>

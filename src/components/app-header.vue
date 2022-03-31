@@ -2,7 +2,7 @@
   <header class="app-header-container" :class="bgc">
     <div class="app-header-inner flex">
       <router-link class="logo-link flex" to="/">
-        <img class="logo-img" src="getTrelloIcon" alt="" />
+        <img class="logo-img" src="../assets/svgs/trello.svg" alt="" />
         <h3 class="logo">Mellow</h3>
       </router-link>
       <nav class="app-header-nav flex">
@@ -37,7 +37,7 @@
             to="/login"
             >Sign up</router-link
           >
-          <div class="header-bell pointer"><img src="src/assets/svgs/bell.svg" /></div>
+          <div class="header-bell pointer"><img src="../assets/svgs/bell.svg" /></div>
           <user-avatar class="pointer" v-if="loggedinUser" :user="loggedinUser" />
         </div>
       </nav>
@@ -85,9 +85,9 @@ export default {
     bgc() {
       return { blue: this.isBlue };
     },
-    getTrelloIcon(){
-      return new URL('./src/assets/svgs/trello.svg', import.meta.url)
-    }
+    // getTrelloIcon(){
+    //   return new URL('../assets/svgs/trello.svg', import.meta.url)
+    // }
   },
   watch: {
     "$route.path": {
