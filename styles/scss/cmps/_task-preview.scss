@@ -35,6 +35,12 @@
   position: relative;
   // box-shadow: 0 1px 0 #091e4240;
 
+  .top-cover-img{
+    max-height: 260px;
+    object-fit: cover;
+    border-radius: 3px;
+  }
+
   .task-preview-cover {
     width: 100%;
     height: 32px;

@@ -14,7 +14,7 @@
 .task-details-page {
   display: flex;
   flex-direction: column;
-
+  position: relative;
   margin: 56px 0;
   width: 768px;
   // padding: 16px;
@@ -24,6 +24,30 @@
   border-radius: 3px;
   gap: 16px;
   z-index: 100;
+  .go-back-btn::before {
+    font-family: trellicons;
+    // margin-inline-end: 15px;
+    // margin-top: 1px;
+    font-size: 23px;
+    content: "";
+  }
+
+  .go-back-btn {
+    background-color: #091e4214;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: $clr9;
+    padding: 12px;
+    border-radius: 50%;
+    border: none;
+    font-size: rem(16px);
+    cursor: pointer;
+  }
+
+  .go-back-btn:hover {
+    background-color: #00000029;
+  }
   // position: absolute;
   // left: 50%;
   // top: 50px;
@@ -34,10 +58,16 @@
     display: flex;
     padding: 16px;
     position: relative;
+    flex-direction: column;
+
+    @media (min-width: 780px){
+      flex-direction: row;
+    }
   }
 
   .task-details-container {
-    width: 549px;
+    width: 100%;
+    
     .task-title-container::before {
       font-family: trellicons;
       margin-inline-end: 15px;
@@ -343,30 +373,7 @@
       }
     }
 
-    .go-back-btn::before {
-      font-family: trellicons;
-      // margin-inline-end: 15px;
-      // margin-top: 1px;
-      font-size: 23px;
-      content: "";
-    }
-
-    .go-back-btn {
-      background-color: #091e4214;
-      position: absolute;
-      top: 0px;
-    right: 16px;
-      color: $clr9;
-      padding: 12px;
-      border-radius: 50%;
-      border: none;
-      font-size: rem(16px);
-      cursor: pointer;
-    }
-
-    .go-back-btn:hover {
-      background-color: #00000029;
-    }
+    
 
     .details-shown-btn {
       width: 120px;

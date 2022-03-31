@@ -14,9 +14,8 @@
     <div v-else class="top-cover-selected">
       <div :style="coverStyle" class="task-preview-cover"></div>
 
-      <div v-if="taskImgUrl && !task.style.bgClr">
-        <img :src="taskImgUrl" alt="" />
-      </div>
+        <img  v-if="taskImgUrl && !task.style.bgClr" class="top-cover-img" :src="taskImgUrl" alt="" />
+      
       <div
         class="labels-container"
         v-if="task.labelIds?.length"

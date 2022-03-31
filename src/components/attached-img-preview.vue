@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import { objectPick } from "@vueuse/core";
 
 export default {
   name: "attached-img-preview",

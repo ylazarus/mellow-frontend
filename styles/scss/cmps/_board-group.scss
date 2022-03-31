@@ -130,10 +130,19 @@ textarea {
 }
 
 .group-container {
-    max-height: calc(100vh - 220px);
+    max-height: calc(100vh - 292px);
     overflow-x: hidden;
     overflow-y: auto;
     padding: 0 5px;
+
+
+    @media (min-width: 372px){
+        max-height: calc(100vh - 256px);
+    }
+
+    @media (min-width: 662px){
+        max-height: calc(100vh - 220px);
+    }
 }
 .group-container.add {
     max-height: calc(100vh - 287px);
