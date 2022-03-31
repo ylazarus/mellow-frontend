@@ -1,9 +1,12 @@
 <template>
   <div class="task-details-dark" @click="moveToBoard">
     <section @click.stop class="task-details-page">
+      <button class="go-back-btn" @click="moveToBoard"></button>
+
       <div v-if="task" :style="coverStyle" class="task-cover-img"></div>
       <div class="task-details-main-content">
         <div v-if="task" class="task-details-container">
+
           <h3 class="task-title-container">
             <p class="task-title" contenteditable="true" @blur="saveTaskTitle">
               {{ task.title }}
@@ -125,7 +128,7 @@
           </section>
           
 
-          <section class="img-container"  v-if="task.attachments">
+          <section class="img-container"  v-if="task?.attachments?.length && task?.attachments?.length > 0">
             <p class="img-container-header">Attachments</p>
             <attached-img-preview  v-for="(attachment, idx) in task.attachments"
              :key="idx" :attachment="attachment"
@@ -172,7 +175,6 @@
             <p class="activity-header">Activity</p>
             <button v-if="task.activity?.length" class="details-shown-btn btn">{{ areDetailsShown }}</button>
           </div>-->
-          <button class="go-back-btn" @click="moveToBoard"></button>
         </div>
 
         <div v-else>Loading...</div>
