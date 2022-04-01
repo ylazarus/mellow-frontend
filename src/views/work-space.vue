@@ -21,7 +21,7 @@
             <!-- <img src="../assets/icons/empty-star.png" /> -->
             <!-- <img :src="changeImgUrl" /> -->
           </a>
-          <!-- <button class="remove-board-button" @click.stop="removeBoard(board._id)">remove</button> -->
+          <button class="remove-board-button" @click.stop="removeBoard(board._id)">remove</button>
         </div>
         <button
           @click="isCreateBoard = true"
