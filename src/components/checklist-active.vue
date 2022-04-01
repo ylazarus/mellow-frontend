@@ -4,6 +4,7 @@
             <div class="checklist-title-container">
                 <h3 class="checklist-title">{{ checklist.title }}</h3>
                 <a class="delete-checklist btn" @click.stop="removeChecklist(checklist.id)">Delete</a>
+                <!-- <a class="delete-checklist btn" @click.stop="openDeleteCmp(checklist.id)">Delete</a> -->
             </div>
 
             <!-- <div v-for="(percentage, index) in progressBar" :key="index"> -->
@@ -12,7 +13,10 @@
                 <div class="checklist-pb-full">
                     <div
                         class="checklist-progress-bar"
-                        :style="{ width: progressBar[checklistIdx] + '%' }"
+                        :style="{
+                            width: progressBar[checklistIdx] + '%', opacity: progressBar[checklistIdx]
+                        }"
+                        :class="{ green: progressBar[checklistIdx] === '100' }"
                     ></div>
                 </div>
             </div>
@@ -22,7 +26,7 @@
                 <div class="checklist-todo-title">
                     <label class="todo-content-edit pointer" for="todo.id"></label>
                     <input
-                        @click.stop="checkboxValue(checklist.id, todo.id, $event)"
+                        @click.stop="checkboxValue(checklist.id, todo, $event)"
                         class="checkbox-input pointer"
                         type="checkbox"
                         name="todo.isDone"
@@ -81,17 +85,25 @@
             </div>
         </div>
     </section>
+    <!-- <delete-cmp
+        v-if="isRemove"
+        :type="'checklist'"
+        @remove="removeChecklist"
+        @closeCmp="isRemove = false"
+    />-->
 </template>
 
 <script>
+// import deleteCmp from "./delete-cmp.vue";
 
 export default {
-
     props: {
         task: Object,
 
     },
-    components: {},
+    components: {
+        // deleteCmp
+    },
     data() {
         return {
             isCreateTodo: false,
@@ -101,8 +113,10 @@ export default {
             isUpdateTodo: false,
             editingTodoId: '',
             addNewTodo: '',
-            // isDonePercentage: [],
+            isDonePercentages: [],
             todoCount: [],
+            isRemove: false,
+            checklistId: ''
         }
     },
     created() {
@@ -113,14 +127,9 @@ export default {
     },
     methods: {
         createTodo(checkListId) {
-            // console.log(this.isCreateTodo);
-            // this.isCreateTodo = !this.isCreateTodo
             this.addNewTodo = checkListId
             console.log('checkListId', checkListId);
             console.log('this.addNewTodo', this.addNewTodo);
-            // this.isAddingItem = ''
-            // this.isCreateTodo = true
-            // this.newTodo = {id: Math.random(), txt: '', isDone: false}
         },
         addTodo(checklistId) {
             console.log(this.newTodo);
@@ -131,6 +140,7 @@ export default {
             // this.addNewTodo = ''
         },
         removeChecklist(checklistId) {
+            console.log(checklistId, checklistId);
             this.$emit('removeChecklist', checklistId)
         },
         updateTodo(checklistId, todoId, ev) {
@@ -165,13 +175,16 @@ export default {
             this.editingTodoId = ''
             this.addNewTodo = ''
         },
-        checkboxValue(checklistId, todoId, ev) {
-            console.log('checklistId', checklistId)
+        checkboxValue(checklistId, todo, ev) {
+            const todoId = todo.id
             const checkboxVal = ev.target.checked
-
             console.log(ev.target.checked);
             this.$emit('updateTodoDone', checklistId, todoId, checkboxVal)
         },
+        // openDeleteCmp(checklistId) {
+        //     this.isRemove = true
+        //     this.checklistId = checklistId
+        // }
 
     },
     computed: {
@@ -179,23 +192,31 @@ export default {
             let isDonePercentages = []
             // let todoCount = 0
 
-
             this.task.checklists.forEach(checklist => {
                 let isDoneCount = 0
                 let todoCount = checklist.todos.length
-                console.log(todoCount);
+                if (todoCount === 0) {
+                    isDonePercentages.push(0)
+                    return
+                }
                 checklist.todos.forEach(todo => {
                     if (todo.isDone) isDoneCount++
                 })
                 const percentage = (isDoneCount / todoCount) * 100
-                console.log(percentage);
                 isDonePercentages.push(percentage.toFixed(0))
-                // isDoneCount = 0
+
             })
-            console.log('isDonePercentages', isDonePercentages);
+            this.isDonePercentages = isDonePercentages
             return isDonePercentages
         },
-
+        todoDone() {
+            return this.task.checklists.forEach(checklist => {
+                checklist.todos.filter(todo => {
+                    if (todo.isDone) return 'task-done'
+                    else 'task-incomplete'
+                })
+            })
+        }
     },
     unmounted() { },
 

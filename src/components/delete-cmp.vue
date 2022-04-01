@@ -14,6 +14,9 @@
         There is no undo. This will remove this label from all cards and destroy
         its history.
       </p>
+      <p
+        v-else-if="type === 'checklist'"
+      >Deleting a checklist is permanent and there is no way to get it back.</p>
       <a @click="remove" class="confirm-delete">Delete</a>
     </div>
   </section>
@@ -28,7 +31,7 @@ export default {
   data() {
     return {};
   },
-  created() {},
+  created() { },
   methods: {
     closeCmp() {
       this.$emit("closeCmp");
@@ -38,7 +41,7 @@ export default {
     },
   },
   computed: {},
-  unmounted() {},
+  unmounted() { },
 };
 </script>
 

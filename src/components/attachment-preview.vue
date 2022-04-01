@@ -1,6 +1,12 @@
 <template>
-    <section class="attachment-preview">
-        <button class="add-task-close-cmp-btn" @click="closeCmp">X</button>
+    <section class="attachment-preview cmp-preview">
+        <div class="cmp-header">
+      <!-- <p class="cmp-container-title"></p> -->
+      <a class="close-cmp-btn" @click="closeCmp">
+        <span></span>
+      </a>
+    </div>
+    <!-- <hr class="thin-hr" /> -->
         <label>
             <input type="file" @change="onAttachImg" hidden />
             <p class="attach-from">Attach from...</p>
@@ -9,7 +15,7 @@
         </label>
         <!-- <div>LOADING...</div> -->
 
-        <hr class="seperate-line thin-hr" />
+        <hr class="thin-hr" />
 
         <div class="attach-link-title">Attach a link</div>
         <input
