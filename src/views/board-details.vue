@@ -9,7 +9,11 @@
     <header class="board-header flex">
       <div class="board-title-container flex">
         <button class="btn-board-details btn-board">Board</button>
-        <div class="board-title" contenteditable="true" @blur="saveBoardTitle">
+        <div
+          class="board-title"
+          contenteditable="true"
+          @blur="editBoard('board title', $event)"
+        >
           {{ board.title }}
         </div>
         <button
@@ -19,7 +23,8 @@
           <img
             class="star"
             v-if="board.isFavorite"
-            src="../assets/icons/full-star.png" alt=""
+            src="../assets/icons/full-star.png"
+            alt=""
           />
           <img class="star" v-else src="../assets/icons/empty-star.png" />
         </button>
@@ -48,7 +53,13 @@
         <button class="show-menu-btn btn-board btn" @click="toggleMenu">
           Show menu
         </button>
-        <board-menu v-if="isOpenMenu" :board="board" @closeCmp="toggleMenu" />
+        <board-menu
+          v-if="isOpenMenu"
+          :board="board"
+          @closeCmp="toggleMenu"
+          @editBoard="editBoard"
+          @attachImg="attachImg"
+        />
       </nav>
     </header>
     <!-- <div class="article-container"> -->
@@ -66,6 +77,7 @@
               @dropped="dropCard"
               @saveGroup="saveGroup"
               @toggleLabelTitle="toggleLabelTitle"
+              @removeGroup="removeGroup"
             />
           </Draggable>
         </Container>
@@ -192,10 +204,31 @@ export default {
         board: JSON.parse(JSON.stringify(this.board)),
       });
     },
-    async saveBoardTitle(ev) {
-      const newTitle = ev.currentTarget.textContent;
-      this.board.title = newTitle;
-      this.saveBoard("Change board title");
+    async editBoard(type, val) {
+      let change;
+      switch (type) {
+        case "bgClr":
+          this.board.style[type] = val;
+          this.board.style.bgImg = "";
+          change = "background";
+          break;
+        case "bgImg":
+          this.board.style[type] = val;
+          this.board.style.bgClr = "";
+          change = "background";
+          break;
+        case "board title":
+          this.board.title = val.currentTarget.textContent;
+          change = "title";
+          break;
+      }
+      await this.saveBoard(`Change board ${change}`);
+    },
+    async attachImg(ev) {
+      const { url } = await this.$store.dispatch({ type: "attachImg", ev });
+      await this.editBoard("bgImg", url);
+      console.log(url);
+      return url;
     },
     async toggleFavorite() {
       this.board.isFavorite = !this.board.isFavorite;
@@ -230,6 +263,23 @@ export default {
         type: "saveGroup",
         boardId: this.board._id,
         group: updatingGroup,
+        activity,
+      });
+    },
+    async removeGroup(groupId) {
+      console.log("board", groupId);
+      const activity = {
+        id: utilService.makeId(),
+        txt: "remove group",
+        createdAt: Date.now(),
+        byMember:
+          this.$store.getters.loggedinUser || this.$store.getters.getGuestUser,
+        group: { id: groupId },
+      };
+      this.board = await this.$store.dispatch({
+        type: "removeGroup",
+        boardId: this.board._id,
+        groupId,
         activity,
       });
     },

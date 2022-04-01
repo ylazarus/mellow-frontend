@@ -67,45 +67,68 @@
         </a>
       </section>
       <section v-if="handles.isChangeBg" class="change-bg-container">
-        <div v-if="!isChangClr && !isChangImg" class="change-bg-choose">
+        <div
+          v-if="!bgOptions.isChangClr && !bgOptions.isChangImg"
+          class="change-bg-choose"
+        >
           <div class="photos-colors-options flex">
-            <div class="photos-option-container">
+            <div
+              class="photos-option-container"
+              @click="toggleBgOption('isChangImg')"
+            >
               <img class="photos-option" src="../assets/imgs/photos.jpg" />
               <p class="photos-option-title">Photos</p>
             </div>
-            <div class="colors-option-container">
+            <div
+              class="colors-option-container"
+              @click="toggleBgOption('isChangClr')"
+            >
               <img class="colors-option" src="../assets/imgs/colors.jpg" />
               <p class="color-option-title">Colors</p>
             </div>
           </div>
           <hr class="thin-hr" />
           <p class="custom-option-title">Custom</p>
-          <div class="custom-option"></div>
-        </div>
-        <list-slot v-if="isChangClr">
-          <!-- <list-slot> -->
-          <template v-slot:list>
-            <div
-              v-for="bgc in bgColors"
-              :key="bgc.id"
-              class="option-large pointer"
-              :style="{ backgroundColor: bgc.color }"
-              @click="selectBgClr(bgc.color)"
-            ></div> </template
-        ></list-slot>
-        <list-slot v-if="isChangImg">
-          <!-- <list-slot> -->
-          <template #list>
-            <img
-              v-for="(photo, idx) in photos"
+          <div class="customs-container flex">
+            <label class="custom-input-label">
+              <!-- <label class="custom-option"> -->
+              <input type="file" @change="onAttachImg" hidden />
+              <div class="custom-option"><span></span></div>
+            </label>
+            <!-- <img
+              v-for="(img, idx) in attachments"
               :key="idx"
-              class="option-large pointer"
-              :src="photo"
-              alt="img"
-              @click="selectPhoto(photo)"
-            />
-          </template>
-        </list-slot>
+              class="custom-option"
+              :src="img"
+            /> -->
+          </div>
+        </div>
+        <div class="options-list">
+          <list-slot v-if="bgOptions.isChangClr">
+            <!-- <list-slot> -->
+            <template v-slot:list>
+              <div
+                v-for="bgc in bgColors"
+                :key="bgc.id"
+                class="colors-option"
+                :style="{ backgroundColor: bgc.color }"
+                @click="selectBg('bgClr', bgc.color)"
+              ></div> </template
+          ></list-slot>
+          <list-slot v-if="bgOptions.isChangImg">
+            <!-- <list-slot> -->
+            <template #list>
+              <img
+                v-for="(photo, idx) in photos"
+                :key="idx"
+                class="photos-option"
+                :src="photo"
+                alt="img"
+                @click="selectBg('bgImg', photo)"
+              />
+            </template>
+          </list-slot>
+        </div>
       </section>
       <!-- <cover-unsplash v-if="handles.isChangeBg" /> -->
     </section>
@@ -129,8 +152,10 @@ export default {
         isChangeBg: false,
         isShowActivities: false,
       },
-      isChangClr: false,
-      isChangImg: false,
+      bgOptions: {
+        isChangClr: false,
+        isChangImg: false,
+      },
       bgClr: "",
       bgImg: "",
       bgColors: [
@@ -150,10 +175,16 @@ export default {
         "https://images.unsplash.com/photo-1648537949908-25fc530b5f7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjQ4NjUyNTQ3&ixlib=rb-1.2.1&q=80&w=400",
         "https://images.unsplash.com/photo-1647960666864-01fdaed3431f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDE0fDMxNzA5OXx8fHx8Mnx8MTY0ODY1MjU0Nw&ixlib=rb-1.2.1&q=80&w=400",
       ],
+      isLoading: false,
+      attachments: [],
     };
   },
   methods: {
     toggleMenu(type) {
+      if (this.bgOptions.isChangClr || this.bgOptions.isChangImg) {
+        this.toggleBgOption();
+        return;
+      }
       for (let key in this.handles) {
         this.handles[key] = false;
       }
@@ -161,11 +192,27 @@ export default {
         this.handles[type] = true;
       }
     },
-    selectBgClr(bgClr) {
-      this.bgClr = bgClr;
+    toggleBgOption(type) {
+      for (const key in this.bgOptions) {
+        this.bgOptions[key] = false;
+      }
+      if (typeof type === "string") {
+        this.bgOptions[type] = true;
+      }
+    },
+    selectBg(type, val) {
+      // this.board.style[type] = val;
+      this.$emit("editBoard", type, val);
     },
     selectPhoto(bgImg) {
       this.bgImg = bgImg;
+    },
+    async onAttachImg(ev) {
+      this.isLoading = true;
+      const imgUrl = await this.$emit("attachImg", ev);
+      console.log(imgUrl);
+      this.attachments.push(imgUrl);
+      this.isLoading = false;
     },
   },
   computed: {
@@ -180,9 +227,11 @@ export default {
     },
     cmpTitle() {
       if (this.handles.isAbout) return "About";
-      else if (this.handles.isSearch) return "Search";
-      else if (this.handles.isChangeBg) return "Change background";
-      else if (this.handles.isShowActivities) return "Activitiy";
+      if (this.handles.isSearch) return "Search";
+      if (this.bgOptions.isChangClr) return "Colors";
+      if (this.bgOptions.isChangImg) return "Photos";
+      if (this.handles.isChangeBg) return "Change background";
+      if (this.handles.isShowActivities) return "Activity";
       else return "Menu";
     },
   },

@@ -1,10 +1,10 @@
 <template>
   <section class="home-page-container">
-    <div class="title-container flex">
-      <div class="title-text">
+    <div class="title-container">
+      <!-- <div class="title-text"> -->
         <h1 class="home-logo">
           Mellow helps teams
-          <span>move work forward</span>
+          move work forward
         </h1>
         <h3
           class="title"
@@ -12,15 +12,19 @@
         <router-link class="home-link" to="/board">
           <span class="guest-login-button">Start as guest</span>
         </router-link>
-      </div>
+      <!-- </div> -->
+      <div class="homepage-img">
      <img
         class="home-page-img"
         src="../assets/imgs/mellow-cover.png"
       />
+      </div>
     </div>
-    <!-- <div class="hero-container">
-      <img class="hero-img" src="../assets/imgs/hero-mello.jpg" />
-    </div> -->
+<div class="secondary-text">
+    <h1> It's more than work. It's a way of working together.</h1>
+    <h3>Start with a Mellow board, lists, and cards. Customize and expand with more features as your teamwork grows. Manage projects, organize tasks, and build team spirit—all in one place.</h3>
+    <img src="../assets/imgs/example-board.png" alt="">
+</div>
   </section>
 </template>
 

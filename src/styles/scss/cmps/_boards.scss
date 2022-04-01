@@ -24,6 +24,7 @@
         padding: 1px 0px 0px 7px;
         align-self: flex-start;
         z-index: 2;
+        
     }
 
     // .ws-full-star{
@@ -35,6 +36,7 @@
     // }
 
     &::before {
+        border-radius: 3px;
         content: "";
         display: block;
         position: absolute;
@@ -42,16 +44,16 @@
         height: 100%;
         left: 0;
         top: 0;
-        background-color: rgba(0, 0, 0, 0.315);
-        opacity: 0;
+        background-color: rgba(0, 0, 0, 0.15);
+        opacity: 1;
         z-index: 0;
 
-        transition: opacity 0.4s;
+        transition: background-color 0.4s;
     }
 
     &:hover {
         &::before {
-            opacity: 1;
+            background-color: rgba(0, 0, 0, 0.315);
         }
     }
 
