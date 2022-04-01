@@ -1,15 +1,22 @@
 <template>
     <section v-if="task" class="td-checklist-preview">
-        <!-- <div> -->
-        <!-- <div v-for="(checklist, index) in task.checklists" :key="index"> -->
-        <div v-for="(checklist, index) in task.checklists" :key="index">
+        <div v-for="(checklist, checklistIdx) in task.checklists" :key="checklistIdx">
             <div class="checklist-title-container">
                 <h3 class="checklist-title">{{ checklist.title }}</h3>
-                <!-- <pre>{{ editingTodoId }}</pre> -->
-
                 <a class="delete-checklist btn" @click.stop="removeChecklist(checklist.id)">Delete</a>
             </div>
-            <!-- <div>template for Progress Bar with computed by %</div> -->
+
+            <!-- <div v-for="(percentage, index) in progressBar" :key="index"> -->
+            <span class="progress-bar-percentage">{{ progressBar[checklistIdx] }}%</span>
+            <div class="progress-bar-container flex">
+                <div class="checklist-pb-full">
+                    <div
+                        class="checklist-progress-bar"
+                        :style="{ width: progressBar[checklistIdx] + '%' }"
+                    ></div>
+                </div>
+            </div>
+            <!-- </div> -->
 
             <div v-for="(todo) in checklist.todos" :key="todo.id">
                 <div class="checklist-todo-title">
@@ -92,18 +99,15 @@ export default {
             newTodo: [],
             isCheckbox: [],
             isUpdateTodo: false,
-            // checklist: [],
-            // todo: {
-            //     id: '',
-            //     title: '',
-            //     isDone: '',
-            //     isOpen: '',
-            // },
             editingTodoId: '',
             addNewTodo: '',
+            // isDonePercentage: [],
+            todoCount: [],
         }
     },
-    created() { },
+    created() {
+
+    },
     mounted() {
 
     },
@@ -168,22 +172,30 @@ export default {
             console.log(ev.target.checked);
             this.$emit('updateTodoDone', checklistId, todoId, checkboxVal)
         },
-        stam(todo) {
-            console.log(todo);
-        }
 
     },
     computed: {
-        getTodos() {
-            return this.task.checklists.filter(checklist => {
-
-                // console.log(checklist);
-            })
-
-        },
         progressBar() {
-            console.log(this.$refs.checkbox)
+            let isDonePercentages = []
+            // let todoCount = 0
+
+
+            this.task.checklists.forEach(checklist => {
+                let isDoneCount = 0
+                let todoCount = checklist.todos.length
+                console.log(todoCount);
+                checklist.todos.forEach(todo => {
+                    if (todo.isDone) isDoneCount++
+                })
+                const percentage = (isDoneCount / todoCount) * 100
+                console.log(percentage);
+                isDonePercentages.push(percentage.toFixed(0))
+                // isDoneCount = 0
+            })
+            console.log('isDonePercentages', isDonePercentages);
+            return isDonePercentages
         },
+
     },
     unmounted() { },
 

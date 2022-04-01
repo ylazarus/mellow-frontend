@@ -66,7 +66,6 @@
               @dropped="dropCard"
               @saveGroup="saveGroup"
               @toggleLabelTitle="toggleLabelTitle"
-              @removeGroup="removeGroup"
             />
           </Draggable>
         </Container>
@@ -231,22 +230,6 @@ export default {
         type: "saveGroup",
         boardId: this.board._id,
         group: updatingGroup,
-        activity,
-      });
-    },
-    async removeGroup(groupId) {
-      const activity = {
-        id: utilService.makeId(),
-        txt: "remove group",
-        groupId: groupId,
-        createdAt: Date.now(),
-        byMember:
-          this.$store.getters.loggedinUser || this.$store.getters.getGuestUser,
-      };
-      this.board = await this.$store.dispatch({
-        type: "removeGroup",
-        boardId: this.board._id,
-        groupId,
         activity,
       });
     },
