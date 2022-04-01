@@ -345,7 +345,7 @@ export default {
         txt: type,
         groupId: this.currGroup.id,
         createdAt: Date.now(),
-        byMember: 
+        byMember:
           this.$store.getters.loggedinUser || this.$store.getters.getGuestUser,
         task: { id: this.task.id, title: this.task.title }, // take out details and extract only mini task
       };

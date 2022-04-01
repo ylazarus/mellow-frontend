@@ -4,6 +4,7 @@
             <div class="checklist-title-container">
                 <h3 class="checklist-title">{{ checklist.title }}</h3>
                 <a class="delete-checklist btn" @click.stop="removeChecklist(checklist.id)">Delete</a>
+                <!-- <a class="delete-checklist btn" @click.stop="openDeleteCmp(checklist.id)">Delete</a> -->
             </div>
 
             <!-- <div v-for="(percentage, index) in progressBar" :key="index"> -->
@@ -84,17 +85,25 @@
             </div>
         </div>
     </section>
+    <!-- <delete-cmp
+        v-if="isRemove"
+        :type="'checklist'"
+        @remove="removeChecklist"
+        @closeCmp="isRemove = false"
+    />-->
 </template>
 
 <script>
+// import deleteCmp from "./delete-cmp.vue";
 
 export default {
-
     props: {
         task: Object,
 
     },
-    components: {},
+    components: {
+        // deleteCmp
+    },
     data() {
         return {
             isCreateTodo: false,
@@ -106,7 +115,8 @@ export default {
             addNewTodo: '',
             isDonePercentages: [],
             todoCount: [],
-            // todoDone: false,
+            isRemove: false,
+            checklistId: ''
         }
     },
     created() {
@@ -130,6 +140,7 @@ export default {
             // this.addNewTodo = ''
         },
         removeChecklist(checklistId) {
+            console.log(checklistId, checklistId);
             this.$emit('removeChecklist', checklistId)
         },
         updateTodo(checklistId, todoId, ev) {
@@ -170,6 +181,10 @@ export default {
             console.log(ev.target.checked);
             this.$emit('updateTodoDone', checklistId, todoId, checkboxVal)
         },
+        // openDeleteCmp(checklistId) {
+        //     this.isRemove = true
+        //     this.checklistId = checklistId
+        // }
 
     },
     computed: {
@@ -194,7 +209,14 @@ export default {
             this.isDonePercentages = isDonePercentages
             return isDonePercentages
         },
-
+        todoDone() {
+            return this.task.checklists.forEach(checklist => {
+                checklist.todos.filter(todo => {
+                    if (todo.isDone) return 'task-done'
+                    else 'task-incomplete'
+                })
+            })
+        }
     },
     unmounted() { },
 

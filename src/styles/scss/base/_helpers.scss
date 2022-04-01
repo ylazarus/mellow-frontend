@@ -29,6 +29,15 @@
     @include type(boldCondensed);
 }
 
+.task-done{
+    text-decoration: line-through;
+}
+
+.task-incomplete{
+    text-decoration: none;
+
+}
+
 // button
 .btn {
     background-color: $btn-color;
