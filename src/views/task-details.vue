@@ -145,6 +145,7 @@
             <button v-if="task.activity?.length" class="details-shown-btn btn">{{ areDetailsShown }}</button>
           </div>-->
         </div>
+        <!-- <img src="../assets/svgs/empty-checkbox.svg" alt=""> -->
 
         <div v-else>Loading...</div>
 
@@ -585,8 +586,8 @@ export default {
     },
     dueDateCheckBox() {
       return this.task.dueDate.isCompleted
-        ? "../assets/svgs/full-checkbox.svg"
-        : "../assets/svgs/empty-checkbox.svg";
+        ? "../src/assets/svgs/full-checkbox.svg"
+        : "../src/assets/svgs/empty-checkbox.svg";
     },
     overdue() {
       const date = new Date(this.task.dueDate.dueDate);
