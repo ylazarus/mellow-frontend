@@ -12,8 +12,8 @@
       <div
         class="bg-preview"
         :style="{
-          backgroundColor: bgClr,
-          backgroundImage: 'url(' + bgImg + ')',
+          backgroundColor: selectedBg,
+          backgroundImage: 'url(' + selectedBg + ')',
         }"
       >
         <img class="bg-preview-img" src="../assets/svgs/groups.svg" />
@@ -26,7 +26,7 @@
             class="unsplash-result-small"
             :src="photo"
             alt="img"
-            @click="selectPhoto(photo)"
+            @click="selectBg('bgImg', photo)"
           />
         </template>
       </list-slot>
@@ -37,7 +37,7 @@
             :key="bgc.id"
             class="label-option flex pointer"
             :style="{ backgroundColor: bgc.color }"
-            @click="selectBgClr(bgc.color)"
+            @click="selectBg('bgClr', bgc.color)"
           ></div> </template
       ></list-slot>
     </div>
@@ -51,6 +51,7 @@
         v-focus
         placeholder="Enter title.."
         @blur="requiredTitle"
+        @focus="isRequired = false"
       />
       <p v-if="isRequired" class="add-title-required">
         👋 Board title is required
@@ -71,6 +72,7 @@ export default {
       title: "",
       bgClr: "",
       bgImg: "",
+      selectedBg: "",
       photos: [
         "https://images.unsplash.com/photo-1648138754706-4fccd621a5f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDR8MzE3MDk5fHx8fHwyfHwxNjQ4NjUyNTQ3&ixlib=rb-1.2.1&q=80&w=400",
         "https://images.unsplash.com/photo-1648537949908-25fc530b5f7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjQ4NjUyNTQ3&ixlib=rb-1.2.1&q=80&w=400",
@@ -109,11 +111,9 @@ export default {
       this.$router.push(`/board/${boardId}`);
       this.$emit("closeCmp");
     },
-    selectBgClr(bgClr) {
-      this.bgClr = bgClr;
-    },
-    selectPhoto(bgImg) {
-      this.bgImg = bgImg;
+    selectBg(type, val) {
+      this[type] = val;
+      this.selectedBg = val;
     },
   },
   computed: {
