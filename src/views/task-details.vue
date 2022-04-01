@@ -585,8 +585,8 @@ export default {
     },
     dueDateCheckBox() {
       return this.task.dueDate.isCompleted
-        ? "../assets/svgs/full-checkbox.svg"
-        : "../assets/svgs/empty-checkbox.svg";
+        ? "../../src/assets/svgs/full-checkbox.svg"
+        : "../../src/assets/svgs/empty-checkbox.svg";
     },
     overdue() {
       const date = new Date(this.task.dueDate.dueDate);

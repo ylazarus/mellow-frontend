@@ -70,11 +70,11 @@
         <div v-if="!isChangClr && !isChangImg" class="change-bg-choose">
           <div class="photos-colors-options flex">
             <div class="photos-option-container">
-              <img class="photos-option" src="src/assets/imgs/photos.jpg" />
+              <img class="photos-option" src="../assets/imgs/photos.jpg" />
               <p class="photos-option-title">Photos</p>
             </div>
             <div class="colors-option-container">
-              <img class="colors-option" src="src/assets/imgs/colors.jpg" />
+              <img class="colors-option" src="../assets/imgs/colors.jpg" />
               <p class="color-option-title">Colors</p>
             </div>
           </div>
