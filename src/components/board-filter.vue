@@ -20,7 +20,7 @@
       <p class="search-description">Search cards, members, labels, and more.</p>
     </label>
     <div class="filter-member-container">
-      <p class="filter-section-title">members</p>
+      <p class="filter-section-title">Members</p>
 
       <label class="filter-no-member flex">
         <img class="checkbox-icon" :src="checkBox" />

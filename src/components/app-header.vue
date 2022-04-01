@@ -24,21 +24,21 @@
         </div>
         <div class="app-header-right-nav flex">
           <router-link
-            v-if="!loggedinUser"
+            v-if="!userIsLoggedIn"
             class="login-btn"
             @click="isLogin = true"
             to="/login"
             >Log in</router-link
           >
           <router-link
-            v-if="!loggedinUser"
+            v-if="!userIsLoggedIn"
             class="signup-btn"
             @click="isLogin = true"
             to="/login"
             >Sign up</router-link
           >
           <div class="header-bell pointer"><img src="../assets/svgs/bell.svg" /></div>
-          <user-avatar class="pointer" v-if="loggedinUser" :user="loggedinUser" />
+          <user-avatar class="pointer" v-if="currLoggedInUser" :user="currLoggedInUser" />
         </div>
       </nav>
     </div>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { storageService } from "../services/async-storage-service";
 import { userService } from "../services/user-service";
 import boardRecent from "./board-recent.vue";
 import createBoard from "./create-board.vue";
@@ -59,10 +60,12 @@ export default {
       },
       isBlue: false,
       isLogin: false,
-      loggedinUser: this.$store.getters.loggedinUser,
+      
     };
   },
-  created() {},
+  created() {
+   
+  },
   methods: {
     openCmp(type) {
       if (typeof type !== "string") {
@@ -85,6 +88,16 @@ export default {
     bgc() {
       return { blue: this.isBlue };
     },
+    currLoggedInUser(){
+      const currUser = this.$store.getters.loggedinUser
+      if (currUser) this.userLoggedIn = true
+      return currUser ? currUser : this.$store.getters.getGuestUser
+    },
+    userIsLoggedIn(){
+      const currUser = this.$store.getters.loggedinUser
+      if (currUser) return true
+    }
+   
     // getTrelloIcon(){
     //   return new URL('../assets/svgs/trello.svg', import.meta.url)
     // }
@@ -98,8 +111,8 @@ export default {
           this.isBlue = true;
         } else this.isBlue = false;
         if (path !== "/" && path !== "/login") {
-          console.log(this.$store.getters.getGuestUser);
-          this.loggedinUser = this.$store.getters.getGuestUser;
+          // console.log(this.$store.getters.getGuestUser);
+          // this.loggedinUser = this.$store.getters.getGuestUser;
         }
       },
     },

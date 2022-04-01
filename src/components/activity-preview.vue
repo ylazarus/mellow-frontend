@@ -1,10 +1,10 @@
 <template>
   <section class="activity-preview flex">
-    <user-avatar :user="activity.createdBy || guestUser" />
+    <user-avatar :user="activity.byMember || guestUser" />
     <div class="activity-details flex">
       <div class="activity-username-txt-container flex">
         <h3 class="activity-username">
-          {{ activity.createdBy?.fullname || guestUser.fullname }}
+          {{ activity.byMember?.fullname || guestUser.fullname }}
         </h3>
         <p class="activity-txt">{{ activity.txt }}</p>
       </div>
