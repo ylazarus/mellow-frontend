@@ -12,7 +12,10 @@
                 <div class="checklist-pb-full">
                     <div
                         class="checklist-progress-bar"
-                        :style="{ width: progressBar[checklistIdx] + '%' }"
+                        :style="{
+                            width: progressBar[checklistIdx] + '%', opacity: progressBar[checklistIdx]
+                        }"
+                        :class="{ green: progressBar[checklistIdx] === '100' }"
                     ></div>
                 </div>
             </div>
@@ -22,7 +25,7 @@
                 <div class="checklist-todo-title">
                     <label class="todo-content-edit pointer" for="todo.id"></label>
                     <input
-                        @click.stop="checkboxValue(checklist.id, todo.id, $event)"
+                        @click.stop="checkboxValue(checklist.id, todo, $event)"
                         class="checkbox-input pointer"
                         type="checkbox"
                         name="todo.isDone"
@@ -101,8 +104,9 @@ export default {
             isUpdateTodo: false,
             editingTodoId: '',
             addNewTodo: '',
-            // isDonePercentage: [],
+            isDonePercentages: [],
             todoCount: [],
+            // todoDone: false,
         }
     },
     created() {
@@ -113,14 +117,9 @@ export default {
     },
     methods: {
         createTodo(checkListId) {
-            // console.log(this.isCreateTodo);
-            // this.isCreateTodo = !this.isCreateTodo
             this.addNewTodo = checkListId
             console.log('checkListId', checkListId);
             console.log('this.addNewTodo', this.addNewTodo);
-            // this.isAddingItem = ''
-            // this.isCreateTodo = true
-            // this.newTodo = {id: Math.random(), txt: '', isDone: false}
         },
         addTodo(checklistId) {
             console.log(this.newTodo);
@@ -165,10 +164,9 @@ export default {
             this.editingTodoId = ''
             this.addNewTodo = ''
         },
-        checkboxValue(checklistId, todoId, ev) {
-            console.log('checklistId', checklistId)
+        checkboxValue(checklistId, todo, ev) {
+            const todoId = todo.id
             const checkboxVal = ev.target.checked
-
             console.log(ev.target.checked);
             this.$emit('updateTodoDone', checklistId, todoId, checkboxVal)
         },
@@ -179,20 +177,21 @@ export default {
             let isDonePercentages = []
             // let todoCount = 0
 
-
             this.task.checklists.forEach(checklist => {
                 let isDoneCount = 0
                 let todoCount = checklist.todos.length
-                console.log(todoCount);
+                if (todoCount === 0) {
+                    isDonePercentages.push(0)
+                    return
+                }
                 checklist.todos.forEach(todo => {
                     if (todo.isDone) isDoneCount++
                 })
                 const percentage = (isDoneCount / todoCount) * 100
-                console.log(percentage);
                 isDonePercentages.push(percentage.toFixed(0))
-                // isDoneCount = 0
+
             })
-            console.log('isDonePercentages', isDonePercentages);
+            this.isDonePercentages = isDonePercentages
             return isDonePercentages
         },
 

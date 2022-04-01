@@ -297,7 +297,7 @@ export default {
       this.currGroup = this.currBoard.groups.find(
         (group) => group.id === groupId
       );
-      const task = this.currGroup.tasks.find((task) => task.id === taskId);
+      const task = this.currGroup.tasks?.find((task) => task.id === taskId);
       this.task = JSON.parse(JSON.stringify(task));
       this.newDescription = this.task.description;
       this.imgUrls = this.task.attachments;
