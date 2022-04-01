@@ -1,6 +1,9 @@
 <template>
   <div class="user-avatar">
-    <img class="user-avatar-img" v-if="user.imgUrl" :src="imgAvatar" />
+    <span class="user-avatar-guest flex" v-if="user.username === 'Guest'"
+      >}</span
+    >
+    <img class="user-avatar-img" v-else-if="user.imgUrl" :src="imgAvatar" />
     <span class="user-avatar-name flex" v-else>{{ nameAvatar }}</span>
   </div>
 </template>

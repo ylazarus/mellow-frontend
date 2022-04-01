@@ -1,11 +1,11 @@
 .user-avatar {
     height: 30px;
-
+    
     .user-avatar-img {
         border-radius: 50%;
         border: 1px solid $card-grey-hover;
-        width: 28px;
-        height: 28px;
+        width: 29px;
+        height: 29px;
         object-fit: cover;
         background-color: $card-grey;
     }
@@ -14,11 +14,27 @@
         border-radius: 50%;
         background-color: blue;
         color: aliceblue;
-        width: 28px;
-        height: 28px;
+        width: 29px;
+        height: 29px;
         justify-content: center;
         align-items: center;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         border: 1px solid $card-grey-hover;
+    }
+    .user-avatar-guest {
+        border-radius: 50%;
+        background-color:  $card-grey;
+        // color: aliceblue;
+        width: 29px;
+        height: 29px;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid $card-grey-hover;
+
+        span::before{
+            font-family: trellicons;
+            content: "";
+            font-size: 16px;
+        }
     }
 }
