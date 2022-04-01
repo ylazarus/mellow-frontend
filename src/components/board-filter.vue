@@ -70,7 +70,7 @@ export default {
       //   return this.task.dueDate.isCompleted
       // ? "../assets/svgs/full-checkbox.svg"
       // : "../assets/svgs/empty-checkbox.svg";
-      return "../assets/svgs/empty-checkbox.svg";
+      return "../../src/assets/svgs/empty-checkbox.svg";
     },
   },
   components: { userAvatar },

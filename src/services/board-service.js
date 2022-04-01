@@ -21,29 +21,29 @@ export const boardService = {
 _createBoards()
 
 async function query(filterBy = {}) {
-    //   return await httpService.get(ENDPOINT, filterBy)
+      return await httpService.get(ENDPOINT, filterBy)
 
-    return storageService.query(KEY)
+    // return storageService.query(KEY)
 }
 
 async function getById(id) {
-    //   return await httpService.get(`${ENDPOINT}/${id}`)
+      return await httpService.get(`${ENDPOINT}/${id}`)
 
-    return storageService.getById(KEY, id)
+    // return storageService.getById(KEY, id)
 }
 
 async function remove(id) {
-    //   return await httpService.delete(`${ENDPOINT}/${id}`)
+      return await httpService.delete(`${ENDPOINT}/${id}`)
 
-    return storageService.remove(KEY, id)
+    // return storageService.remove(KEY, id)
 }
 
 async function save(board) {
-    //   return board._id
-    //     ? await httpService.put(`${ENDPOINT}/${board._id}`, board)
-    //     : await httpService.post(ENDPOINT, board)
-    if (board._id) return storageService.put(KEY, board)
-    return storageService.post(KEY, board)
+      return board._id
+        ? await httpService.put(`${ENDPOINT}/${board._id}`, board)
+        : await httpService.post(ENDPOINT, board)
+    // if (board._id) return storageService.put(KEY, board)
+    // return storageService.post(KEY, board)
 }
 
 
