@@ -7,14 +7,14 @@
     display: flex;
     flex-direction: column;
     width: 316px;
-    height: 485px;
     background-color: white;
     position: absolute;
-    top: -10px;
+    top: -128px;
     right: -128px;
     border:1px solid black;
     padding: 1px;
     z-index: 10;
+    border: none;
 
     .date-header{
         display: flex;
@@ -33,9 +33,17 @@
         display: flex;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         color: $light-text;
-        font-size: 16px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
         width: 272px;
         justify-content: center;
+    }
+    .vc-container{
+        border: 0;
+        .vc-time-picker{
+         border-top: 0;   
+        }
     }
 
     .add-task-close-cmp-btn{
@@ -63,34 +71,35 @@
     .pointer{
         cursor: pointer;
     }
-}
-
-
-.date-btn{
-    height: 32px;
-    width: 280px;
-    border-radius: 3px;
-    border: none;
-    background-color: $clr10;
-    font-size: rem(16px);
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 16px;
-}
-
-.save-btn{
-    background-color: $trello-blue;
-    color: white;
+   
+    .date-btn{
+        height: 32px;
+        width: 254px;
+        border-radius: 3px;
+        border: none;
+        background-color: $clr10;
+        font-size: rem(16px);
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-size: 16px;
+    }
     
-    margin-top: 6px;
+    .save-btn{
+        background-color: $trello-blue;
+        color: white;
+        
+        margin-top: 14px;
+    }
+    
+    .remove-date-btn{
+        margin: 12px 0;
+    }
+    .remove-date-btn:hover{
+        background-color:$card-grey ;
+    }
 }
 
-.remove-date-btn{
-    margin-top: 6px;
-}
-.remove-date-btn:hover{
-    background-color:$card-grey ;
-}
+

@@ -1,10 +1,12 @@
 <template>
-    <section class="members-preview">
-        <div class="members-preview-header flex">
-            <span class="cmp-header-title">Members</span>
-            <a @click="closeCmp" class="close-members-preview pointer">X</a>
-        </div>
-        <hr />
+    <section class="members-preview cmp-preview">
+        <div class="cmp-header">
+      <p class="cmp-container-title">Members</p>
+      <a class="close-cmp-btn" @click="closeCmp">
+        <span></span>
+      </a>
+    </div>
+        <hr class="thin-hr" />
         <div class="members-container">
             <div class="input-container">
                 <input

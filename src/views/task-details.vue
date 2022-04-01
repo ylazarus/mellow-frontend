@@ -330,7 +330,7 @@ export default {
     async saveTaskTitle(ev) {
       const newTitle = ev.currentTarget.textContent;
       this.task.title = newTitle;
-      await this.saveTask("Change task title");
+      await this.saveTask("Updated task title");
       this.loadTask();
     },
     async saveDate(newDateInfo) {
@@ -345,7 +345,7 @@ export default {
         txt: type,
         groupId: this.currGroup.id,
         createdAt: Date.now(),
-        byMember:
+        byMember: 
           this.$store.getters.loggedinUser || this.$store.getters.getGuestUser,
         task: { id: this.task.id, title: this.task.title }, // take out details and extract only mini task
       };
@@ -380,7 +380,7 @@ export default {
       } else {
         this.task.labelIds.push(labelId);
       }
-      await this.saveTask("Change Labels");
+      await this.saveTask("Changed Labels");
       this.loadTask();
     },
     async removeLabelFromBoard(labelId) {
@@ -394,7 +394,7 @@ export default {
       const idx = this.currBoard.labels.findIndex((l) => l.id === newLabel.id);
       if (idx === -1) this.currBoard.labels.push(newLabel);
       else this.currBoard.labels.splice(idx, 1, newLabel);
-      await this.saveBoard("Change labels");
+      await this.saveBoard("Changed labels");
     },
     async saveBoard(type) {
       const activity = {

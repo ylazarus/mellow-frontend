@@ -62,15 +62,20 @@
     
     .board-members-container{
         padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
         .board-member{
             width: 100%;
             display: flex;
             list-style: none;
             justify-content: space-between;
             align-items: center;
+            gap: 6px;
 
             .member-fullname{
                 flex-grow: 1;
+                padding-bottom: 3px;
             }
         }
     }
