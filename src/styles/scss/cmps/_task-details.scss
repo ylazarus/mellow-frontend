@@ -136,9 +136,10 @@
           margin-bottom: 17px;
           gap: 5px;
 
-          // .user-avatar {
-          //   cursor: pointer;
-          // }
+          .user-avatar-img,.user-avatar-name,.user-avatar-guest {
+            height: 30px;
+            width: 30px;
+          }
           .avatar-btn {
             justify-content: center;
             align-items: center;
@@ -152,6 +153,12 @@
           }
           .avatar-btn:hover {
             background-color: $btn-hover;
+          }
+          .label-show-btn::before,.avatar-btn::before {
+            font-family: trellicons;
+            content: "";
+            font-size: 16px;
+            font-weight: 600;
           }
         }
       }
