@@ -4,8 +4,8 @@
       <button class="go-back-btn" @click="moveToBoard"></button>
 
       <div v-if="task" :style="coverStyle" class="task-cover-img"></div>
-      <div class="task-details-main-content">
-        <div v-if="task" class="task-details-container">
+      <div v-if="task" class="task-details-main-content">
+        <div  class="task-details-container">
           <h3 class="task-title-container">
             <p class="task-title" contenteditable="true" @blur="saveTaskTitle">{{ task.title }}</p>
           </h3>
@@ -43,11 +43,10 @@
             <div class="due-date-container" v-if="task.dueDate">
               <p class="due-date-title">Due date</p>
               <div class="displayed-date-checkbox">
-                <img
+                <input type="checkbox"
                   @click="toggleDueDateDone"
                   class="due-date-checkbox"
                   :src="dueDateCheckBox"
-                  alt
                 />
                 <span>{{ formattedDate }}</span>
                 <span
@@ -150,7 +149,7 @@
         </div>
         <!-- <img src="../assets/svgs/empty-checkbox.svg" alt=""> -->
 
-        <div v-else>Loading...</div>
+        <!-- <div v-else>Loading...</div> -->
 
         <nav @click.stop class="add-task-buttons-container">
           <p class="add-task-buttons-title">Add to card</p>
@@ -234,6 +233,7 @@
           />
         </nav>
       </div>
+      <img class="loading-task-details" v-else src="../assets/loading-task.gif" alt="" />
     </section>
   </div>
 </template>
@@ -586,8 +586,8 @@ export default {
     },
     dueDateCheckBox() {
       return this.task.dueDate.isCompleted
-        ? "../src/assets/svgs/full-checkbox.svg"
-        : "../src/assets/svgs/empty-checkbox.svg";
+        // ? "../src/assets/svgs/full-checkbox.svg"
+        // : "../src/assets/svgs/empty-checkbox.svg";
     },
     overdue() {
       const date = new Date(this.task.dueDate.dueDate);

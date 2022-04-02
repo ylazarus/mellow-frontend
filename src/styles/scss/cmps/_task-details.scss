@@ -229,7 +229,11 @@
           display: flex;
           align-items: center;
           gap: 16px; //may need to change this to margin right later instead of gap
+          
+          .due-date-checkbox{
+            margin: 1px 0 0 0;
 
+          }
           img {
             height: 16px;
             width: 16px;
@@ -582,3 +586,11 @@
 .dates-btn {
   margin-bottom: 0;
 }
+
+.loading-task-details{
+  width: 60px;
+  align-self: center;
+  margin-top: 100px;
+}
+
+
