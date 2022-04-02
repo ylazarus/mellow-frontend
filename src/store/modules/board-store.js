@@ -54,7 +54,9 @@ export default {
         //     this.dispatch({ type: 'saveBoard', board: state.currBoard })
         // },
         saveBoard(state, { savedBoard }) {
+            console.log(state.boards);
             const idx = state.boards.findIndex(b => b._id === savedBoard._id)
+            console.log(idx);
             state.boards.splice(idx, 1, savedBoard)
             //////// ask avior ///////
             // state.currBoard = JSON.parse(JSON.stringify(savedBoard))
@@ -72,6 +74,7 @@ export default {
         },
         saveTask(state, { boardId, groupId, task }) {
             // console.log(boardId, groupId, task);
+
             const updatingBoard = state.boards.find(b => b._id === boardId)
             const updatingGroup = updatingBoard.groups.find(g => g.id === groupId)
             // console.log(updatingGroup);
@@ -188,6 +191,7 @@ export default {
         async saveBoard({ commit }, { board }) {
             try {
                 const savedBoard = await boardService.save(board)
+                console.log('savedBoard', savedBoard);
                 commit({ type: 'saveBoard', savedBoard })
                 socketService.emit("board updated")
                 return JSON.parse(JSON.stringify(savedBoard))

@@ -1,17 +1,10 @@
 <template>
   <section class="groups-border">
     <div class="outside-group flex">
-      <p class="group-title" contenteditable="true" @blur="saveTitle">
-        {{ group.title }}
-      </p>
+      <p class="group-title pointer" contenteditable="true" @blur="saveTitle">{{ group.title }}</p>
       <span class="remove-group-btn" @click="toggleRemove"></span>
     </div>
-    <delete-cmp
-      v-if="isRemove"
-      :type="'list'"
-      @remove="removeGroup"
-      @closeCmp="toggleRemove"
-    />
+    <delete-cmp v-if="isRemove" :type="'list'" @remove="removeGroup" @closeCmp="toggleRemove" />
     <div class="group-container" :class="calcHeight">
       <Container
         class="tasks-container"
@@ -36,9 +29,7 @@
       </Container>
     </div>
     <div class="bottom-outside-group">
-      <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">
-        Add a card
-      </div>
+      <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">Add a card</div>
       <div v-else class="add-task-container">
         <textarea
           v-focus

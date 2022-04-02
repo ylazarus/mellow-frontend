@@ -1,10 +1,32 @@
 <template>
   <main class="main-layout">
+    <!-- <div class="side-bar">
+      <div>
+        <h3>boards</h3>
+        <h3>members</h3>
+      </div>
+    </div>-->
     <section class="all-boards-container">
       <!-- <h1>Work Space</h1> -->
 
-      <!-- <article v-if="favoriteBoards"></article> -->
+      <section>
+        <h1>Favorite boards</h1>
+        <ul class="favorite-boards flex">
+          <div class="boards-container flex">
+            <li
+              v-for="board in favoriteBoards"
+              :key="board._id"
+              @click="toBoardDetails(board._id)"
+              class="board-preview img-pos style-font"
+              :style="{ backgroundImage: `url(${board.style?.bgImg || ''})` }"
+            >
+              <h2 class="favorite-board-title">{{ board.title }}</h2>
+            </li>
+          </div>
+        </ul>
+      </section>
 
+      <h3>All boards</h3>
       <article class="saved-boards">
         <div
           v-for="board in boards"

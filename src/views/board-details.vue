@@ -13,19 +13,9 @@
           class="board-title"
           contenteditable="true"
           @blur="editBoard('board title', $event)"
-        >
-          {{ board.title }}
-        </div>
-        <button
-          class="star-btn btn-board btn"
-          @click.stop="toggleFavorite(board._id)"
-        >
-          <img
-            class="star"
-            v-if="board.isFavorite"
-            src="../assets/icons/full-star.png"
-            alt=""
-          />
+        >{{ board.title }}</div>
+        <button class="star-btn btn-board btn" @click.stop="toggleFavorite(board._id)">
+          <img class="star" v-if="board.isFavorite" src="../assets/icons/full-star.png" alt />
           <img class="star" v-else src="../assets/icons/empty-star.png" />
         </button>
       </div>
@@ -41,18 +31,15 @@
         <button class="invite-btn btn-board btn">Invite</button>
       </div>
       <nav class="board-header-nav flex">
-        <button class="filter-btn btn-board btn" @click="toggleFilter">
-          Filter
-        </button>
+        <!-- <button class="filter-btn btn-board btn" @click="moveToDashboard(board._id)">dashboard</button> -->
+        <button class="filter-btn btn-board btn" @click="toggleFilter">Filter</button>
         <board-filter
           v-if="isOpenFilter"
           :board="board"
           @closeCmp="toggleFilter"
           @setFilter="setFilter"
         />
-        <button class="show-menu-btn btn-board btn" @click="toggleMenu">
-          Show menu
-        </button>
+        <button class="show-menu-btn btn-board btn" @click="toggleMenu">Show menu</button>
         <board-menu
           v-if="isOpenMenu"
           :board="board"
@@ -66,11 +53,7 @@
     <div class="groups-layout">
       <article class="groups-container flex">
         <Container @drop="onDrop" orientation="horizontal">
-          <Draggable
-            class="draggable-container flex"
-            v-for="group in board.groups"
-            :key="group.id"
-          >
+          <Draggable class="draggable-container flex" v-for="group in board.groups" :key="group.id">
             <board-group
               :group="group"
               :isLabelTitle="isLabelTitle"
@@ -106,6 +89,8 @@ import userAvatar from "../components/user-avatar.vue";
 import { Container, Draggable } from "vue3-smooth-dnd";
 import boardFilter from "../components/board-filter.vue";
 import boardMenu from "../components/board-menu.vue";
+// import boardMenu from "../components/board-menu.vue";
+// import dashboardPreview from "../views/dashboard-preview.vue";
 
 export default {
   name: "board-details",
@@ -125,6 +110,7 @@ export default {
     Draggable,
     boardFilter,
     boardMenu,
+    // dashboardPreview,
   },
   async created() {
     this.unsubscribe = eventBus.on("show-msg", this.showMsg);
@@ -307,6 +293,11 @@ export default {
     toggleMenu() {
       this.isOpenMenu = !this.isOpenMenu;
     },
+    moveToDashboard(boardId) {
+      // var currBoardId = this.$route.params;
+      // console.log(boardId);
+      this.$router.push(`/${boardId}/dashboard`)
+    }
   },
   computed: {
     isStarred() {

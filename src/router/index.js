@@ -5,6 +5,8 @@ import boardDetails from '../views/board-details.vue'
 import workSpace from '../views/work-space.vue'
 import taskDetails from '../views/task-details.vue'
 import loginPage from '../views/login-page.vue'
+// import dashboardPreview from '../views/dashboard-preview.vue'
+
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -29,6 +31,11 @@ const router = createRouter({
       name: 'board-details',
       component: boardDetails,
       children: [
+        // {
+        //   path: '/:boardId/dashboard',
+        //   name: 'dashboard-preview',
+        //   component: dashboardPreview
+        // },
         {
           path: ':groupId/:taskId',
           name: 'task-details',
