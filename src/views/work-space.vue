@@ -21,6 +21,14 @@
               :style="{ backgroundImage: `url(${board.style?.bgImg || ''})` }"
             >
               <h2 class="favorite-board-title">{{ board.title }}</h2>
+              <a class="star-container" @click.stop="toggleFavorite(board._id)">
+                <img
+                  class="ws-full-star"
+                  v-if="board.isFavorite"
+                  src="../assets/icons/full-star.png"
+                />
+                <img class="ws-empty-star" v-else src="../assets/icons/empty-star.png" />
+              </a>
             </li>
           </div>
         </ul>
@@ -40,8 +48,6 @@
           <a class="star-container" @click.stop="toggleFavorite(board._id)">
             <img class="ws-full-star" v-if="board.isFavorite" src="../assets/icons/full-star.png" />
             <img class="ws-empty-star" v-else src="../assets/icons/empty-star.png" />
-            <!-- <img src="../assets/icons/empty-star.png" /> -->
-            <!-- <img :src="changeImgUrl" /> -->
           </a>
           <!-- <button class="remove-board-button" @click.stop="removeBoard(board._id)">remove</button> -->
         </div>
