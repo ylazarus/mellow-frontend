@@ -1,6 +1,7 @@
 import { socketService } from "../../services/socket.service"
 import { boardService } from "../../services/board-service"
-// should be boardService
+import { utilService } from "../../services/util-service";
+
 
 export default {
     state: {
@@ -54,9 +55,7 @@ export default {
         //     this.dispatch({ type: 'saveBoard', board: state.currBoard })
         // },
         saveBoard(state, { savedBoard }) {
-            console.log(state.boards);
             const idx = state.boards.findIndex(b => b._id === savedBoard._id)
-            console.log(idx);
             state.boards.splice(idx, 1, savedBoard)
             //////// ask avior ///////
             // state.currBoard = JSON.parse(JSON.stringify(savedBoard))
@@ -173,30 +172,67 @@ export default {
 
             }
         },
-        async toggleFavorite({ commit }, { board }) {
+        async editBoard({ state, dispatch }, { boardId, changeType, val }) {
             try {
-                // const boardToUpdate = await boardService.getById(board.boardId)
-                // boardToUpdate.isFavorite = board.status
-                // const updatedBoard = await boardService.save(boardToUpdate)
-                // commit({ type: "setFavorite", updatedBoard })
-                const boardToUpdate = await boardService.getById(board.boardId)
-                boardToUpdate.isFavorite = !boardToUpdate.isFavorite
-                const updatedBoard = await boardService.save(boardToUpdate)
-                commit({ type: 'setFavorite', updatedBoard })
-
+                const boardToUpdate = JSON.parse(JSON.stringify(state.boards.find(board => board._id === boardId)))
+                let change;
+                switch (changeType) {
+                    case "bgClr":
+                        boardToUpdate.style[changeType] = val;
+                        boardToUpdate.style.bgImg = "";
+                        change = "background";
+                        break;
+                    case "bgImg":
+                        boardToUpdate.style[changeType] = val;
+                        boardToUpdate.style.bgClr = "";
+                        change = "background";
+                        break;
+                    case "board title":
+                        boardToUpdate.title = val.currentTarget.textContent;
+                        change = "title";
+                        break;
+                    case "toggle favorite":
+                        boardToUpdate.isFavorite = !boardToUpdate.isFavorite;
+                        change = "toggle favorite";
+                        break;
+                    case "update labels":
+                        if (typeof val === 'string') {
+                            const idx = boardToUpdate.labels.findIndex((l) => l.id === val);
+                            boardToUpdate.labels.splice(idx, 1);
+                        } else {
+                            const idx = boardToUpdate.labels.findIndex((l) => l.id === val.id);
+                            if (idx === -1) boardToUpdate.labels.push(val);
+                            else boardToUpdate.labels.splice(idx, 1, val);
+                        }
+                        change = "labels";
+                        break;
+                }
+                const activity = {
+                    id: utilService.makeId(),
+                    txt: (`Change board ${change}`),
+                    createdAt: Date.now(),
+                    byMember:
+                        state.loggedinUser || state.guestUser,
+                };
+                boardToUpdate.activities.push(activity);
+                return await dispatch({
+                    type: "saveBoard",
+                    board: JSON.parse(JSON.stringify(boardToUpdate)),
+                });
             } catch (err) {
-                console.log("board module toggleFavorite cant load boards now", err)
+                console.log("board module editBoard cant edit board now", err)
+                throw err
             }
         },
         async saveBoard({ commit }, { board }) {
             try {
                 const savedBoard = await boardService.save(board)
-                console.log('savedBoard', savedBoard);
                 commit({ type: 'saveBoard', savedBoard })
                 socketService.emit("board updated")
                 return JSON.parse(JSON.stringify(savedBoard))
             } catch (err) {
                 console.log("board module saveBoard cant save board now", err)
+                throw err
             }
         },
         async attachImg({ commit }, { ev }) {

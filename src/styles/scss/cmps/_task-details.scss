@@ -166,11 +166,11 @@
           .avatar-btn:hover {
             background-color: $btn-hover;
           }
-          .label-show-btn::before,.avatar-btn::before {
+          .avatar-btn::before {
             font-family: trellicons;
             content: "";
-            font-size: 16px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 400;
           }
         }
       }
@@ -209,9 +209,15 @@
             border-radius: 3px;
             font-size: 2rem;
             cursor: pointer;
-          }
-          .label-show-btn:hover {
-            background-color: $btn-hover;
+            &::before {
+              font-family: trellicons;
+              content: "";
+              font-size: 14px;
+              font-weight: 400;
+            }
+            &:hover {
+              background-color: $btn-hover;
+            }
           }
         }
       }

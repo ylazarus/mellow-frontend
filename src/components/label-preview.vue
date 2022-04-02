@@ -192,7 +192,7 @@ export default {
       // if (!confirm("Remove label?")) return;
       // console.log("confirm");
       const labelId = this.labelToChange.id;
-      await this.$emit("removeLabelFromBoard", labelId);
+      await this.$emit("updateBoardLabels", labelId);
       this.aggregateLabels();
       this.isCreate = false;
       this.isChange = false;

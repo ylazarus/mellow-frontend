@@ -1,6 +1,6 @@
 <template>
   <section v-if="board" class="board-container" :style="background">
-    <router-view @updateBoard="updateBoard"></router-view>
+    <router-view @updateBoard="loadBoard(board._id)"></router-view>
 
     <header class="board-header flex">
       <div class="board-title-container flex">
@@ -78,12 +78,6 @@
             />
           </Draggable>
         </Container>
-        <!-- <board-group
-        v-for="group in board.groups"
-        :key="group.id"
-        :group="group"
-        @saveGroup="saveGroup"
-        />-->
         <div class="add-group" @click="addGroup">+ Add another list</div>
       </article>
     </div>
@@ -103,7 +97,6 @@ import userAvatar from "../components/user-avatar.vue";
 import { Container, Draggable } from "vue3-smooth-dnd";
 import boardFilter from "../components/board-filter.vue";
 import boardMenu from "../components/board-menu.vue";
-// import boardMenu from "../components/board-menu.vue";
 // import dashboardPreview from "../views/dashboard-preview.vue";
 
 export default {
@@ -124,7 +117,6 @@ export default {
     Draggable,
     boardFilter,
     boardMenu,
-    // dashboardPreview,
   },
   async created() {
     this.unsubscribe = eventBus.on("show-msg", this.showMsg);
@@ -136,17 +128,8 @@ export default {
   },
   unmounted() {
     socketService.off("someone updated", this.boardUpdated);
-
-    // socketService.terminate();
   },
   methods: {
-    async updateBoard(board) {
-      const updatedBoard = await this.$store.dispatch({
-        type: "saveBoard",
-        board,
-      });
-      this.board = updatedBoard;
-    },
     onDrop(ev) {
       const group = this.board.groups.splice(ev.removedIndex, 1)[0];
       this.board.groups.splice(ev.addedIndex, 0, group);
@@ -191,46 +174,31 @@ export default {
       this.board = await this.$store.dispatch({ type: "loadBoard", boardId });
     },
     async saveBoard(type) {
-      const activity = {
-        id: utilService.makeId(),
-        txt: type,
-        createdAt: Date.now(),
-        byMember:
-          this.$store.getters.loggedinUser || this.$store.getters.getGuestUser,
-      };
-      this.board.activities.push(activity);
+      if (type) {
+        const activity = {
+          id: utilService.makeId(),
+          txt: type,
+          createdAt: Date.now(),
+          byMember:
+            this.$store.getters.loggedinUser ||
+            this.$store.getters.getGuestUser,
+        };
+        this.board.activities.push(activity);
+      }
       this.board = await this.$store.dispatch({
         type: "saveBoard",
         board: JSON.parse(JSON.stringify(this.board)),
       });
     },
-    async editBoard(type, val) {
-      let change;
-      switch (type) {
-        case "bgClr":
-          this.board.style[type] = val;
-          this.board.style.bgImg = "";
-          change = "background";
-          break;
-        case "bgImg":
-          this.board.style[type] = val;
-          this.board.style.bgClr = "";
-          change = "background";
-          break;
-        case "board title":
-          this.board.title = val.currentTarget.textContent;
-          change = "title";
-          break;
-        case "toggle favorite":
-          this.board.isFavorite = !this.board.isFavorite;
-          change = "toggle favorite";
-          break;
-        // case "update labels":
-        //   this.board.isFavorite = !this.board.isFavorite;
-        //   change = "toggle favorite";
-        //   break;
-      }
-      await this.saveBoard(`Change board ${change}`);
+    async editBoard(changeType, val) {
+      try {
+        this.board = await this.$store.dispatch({
+          type: "editBoard",
+          boardId: this.board._id,
+          changeType,
+          val,
+        });
+      } catch (err) {}
     },
     async attachImg(ev) {
       const { url } = await this.$store.dispatch({ type: "attachImg", ev });
