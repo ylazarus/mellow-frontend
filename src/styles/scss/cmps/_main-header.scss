@@ -80,6 +80,20 @@
                     align-items: center;
                     padding: 6px 10px 6px 12px;
                     gap: 6px;
+
+                    &.recent{
+                        display: none;
+                        @media (min-width: 390px){
+                            display:inline;
+                        }
+                    }
+
+                    &.create{
+                        display: none;
+                        @media (min-width: 450px){
+                            display:inline;
+                        }
+                    }
                 }
 
                 .btn-header:hover {
@@ -100,6 +114,7 @@
                 gap: 4px;
 
                 .login-btn {
+                    display: none;
                     background-color: #fff;
                     color: #0065ff;
                     font-size: rem(16px);
@@ -107,10 +122,14 @@
                     cursor: pointer;
                     text-decoration: none;
                     border-radius: 3px;
+                    @media (min-width: 600px){
+                        display:inline;
+                    }
 
                 }
 
                 .signup-btn {
+                    display: none;
                     background-color: #0065ff;
                     color: #ffffff;
                     font-size: rem(16px);
@@ -118,6 +137,9 @@
                     cursor: pointer;
                     text-decoration: none;
                     border-radius: 3px;
+                    @media (min-width: 600px){
+                        display:inline;
+                    }
 
                 }
 
@@ -136,6 +158,9 @@
                         width: 20px;
                         height: 20px;
                     }
+                }
+                .user-avatar-link{
+                    text-decoration: none;
                 }
 
                 .user-avatar {

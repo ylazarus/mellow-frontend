@@ -11,12 +11,12 @@
             Workspace
             <span class="header-arrow-icon"></span>
           </button>
-          <button class="btn-header flex" @click="openCmp('isRecent')">
+          <button class="btn-header recent flex" @click="openCmp('isRecent')">
             Recent
             <span class="header-arrow-icon"></span>
           </button>
           <board-recent v-if="handles.isRecent" @closeCmp="openCmp" />
-          <button class="btn-header flex" @click="openCmp('isCreateBoard')">
+          <button class="btn-header create flex" @click="openCmp('isCreateBoard')">
             Create
             <span v-if="handles.isCreateBoard" class="header-arrow-icon"></span>
           </button>
@@ -37,8 +37,8 @@
             to="/login"
             >Sign up</router-link
           >
-          <div class="header-bell pointer"><img src="../assets/svgs/bell.svg" /></div>
-          <user-avatar class="pointer" v-if="currLoggedInUser" :user="currLoggedInUser" />
+          <router-link to="/login" class="header-bell pointer"><img src="../assets/svgs/bell.svg" /></router-link>
+         <router-link to="/login" class="avatar-login-link"><user-avatar class="pointer" v-if="currLoggedInUser" :user="currLoggedInUser" /></router-link>
         </div>
       </nav>
     </div>
