@@ -4,10 +4,12 @@
       <button class="go-back-btn" @click="moveToBoard"></button>
 
       <div v-if="task" :style="coverStyle" class="task-cover-img"></div>
-      <div class="task-details-main-content">
-        <div v-if="task" class="task-details-container">
+      <div v-if="task" class="task-details-main-content">
+        <div class="task-details-container">
           <h3 class="task-title-container">
-            <p class="task-title" contenteditable="true" @blur="saveTaskTitle">{{ task.title }}</p>
+            <p class="task-title" contenteditable="true" @blur="saveTaskTitle">
+              {{ task.title }}
+            </p>
           </h3>
           <p class="task-group-title">
             in list
@@ -24,10 +26,13 @@
                   :key="member._id"
                   :user="member"
                 />
-                <button class="avatar-btn flex" @click.stop="openCmp('isMembers')"></button>
+                <button
+                  class="avatar-btn flex"
+                  @click.stop="openCmp('isMembers')"
+                ></button>
               </div>
             </div>
-            <div v-if="task.labelIds?.length" class="edit-labels-container">
+            <div v-if="labelsToDisplay?.length" class="edit-labels-container">
               <p class="labels-header">Labels</p>
               <div class="labels-container flex">
                 <div
@@ -36,30 +41,41 @@
                   class="label-show flex"
                   @click.stop="openCmp('isLabel')"
                   :style="{ backgroundColor: label.color }"
-                >{{ label.title }}</div>
-                <button class="label-show-btn flex" @click.stop="openCmp('isLabel')"></button>
+                >
+                  {{ label.title }}
+                </div>
+                <button
+                  class="label-show-btn flex"
+                  @click.stop="openCmp('isLabel')"
+                ></button>
               </div>
             </div>
             <div class="due-date-container" v-if="task.dueDate">
               <p class="due-date-title">Due date</p>
               <div class="displayed-date-checkbox">
-                <img
+                <input
+                  type="checkbox"
                   @click="toggleDueDateDone"
                   class="due-date-checkbox"
                   :src="dueDateCheckBox"
-                  alt
                 />
                 <span>{{ formattedDate }}</span>
                 <span
                   class="completed-overdue-label l101-label"
                   v-if="task.dueDate.isCompleted"
-                >Completed</span>
+                  >Completed</span
+                >
                 <span
                   class="completed-overdue-label l104-label"
                   v-if="overdue && !task.dueDate.isCompleted"
-                >Overdue</span>
+                  >Overdue</span
+                >
                 <!-- needs to open dates -->
-                <img @click="toggleDates" src="../assets/svgs/arrow-down.svg" alt />
+                <img
+                  @click="toggleDates"
+                  src="../assets/svgs/arrow-down.svg"
+                  alt
+                />
               </div>
             </div>
           </section>
@@ -68,7 +84,12 @@
             <div v-if="task.description" class="description-container">
               <div class="description-header-container flex">
                 <p class="description-header">Description</p>
-                <button @click="addDescription" class="edit-description-btn btn">Edit</button>
+                <button
+                  @click="addDescription"
+                  class="edit-description-btn btn"
+                >
+                  Edit
+                </button>
               </div>
               <p class="task-description">{{ task.description }}</p>
             </div>
@@ -78,7 +99,9 @@
                 class="fake-text-area"
                 v-if="!addingDescription"
                 @click="addDescription"
-              >Add a more detailed description...</div>
+              >
+                Add a more detailed description...
+              </div>
               <div v-else class="add-description-container">
                 <textarea
                   v-focus
@@ -87,8 +110,16 @@
                   placeholder="Add a more detailed description..."
                 />
                 <div class="add-description-buttons-container flex">
-                  <button class="save-description-btn btn" @click="saveDescription">Save</button>
-                  <button class="delete-description-btn" @click="clearForm"></button>
+                  <button
+                    class="save-description-btn btn"
+                    @click="saveDescription"
+                  >
+                    Save
+                  </button>
+                  <button
+                    class="delete-description-btn"
+                    @click="clearForm"
+                  ></button>
                 </div>
               </div>
             </div>
@@ -125,7 +156,9 @@
                 v-if="currBoard.activities?.length"
                 class="details-shown-btn btn"
                 @click="detailsShown = !detailsShown"
-              >{{ areDetailsShown }}</button>
+              >
+                {{ areDetailsShown }}
+              </button>
             </div>
 
             <div v-if="detailsShown" class="activities-list">
@@ -150,7 +183,7 @@
         </div>
         <!-- <img src="../assets/svgs/empty-checkbox.svg" alt=""> -->
 
-        <div v-else>Loading...</div>
+        <!-- <div v-else>Loading...</div> -->
 
         <nav @click.stop class="add-task-buttons-container">
           <p class="add-task-buttons-title">Add to card</p>
@@ -159,7 +192,9 @@
               @click.stop="openCmp('isMembers')"
               class="members-btn btn"
               title="Members"
-            >Members</button>
+            >
+              Members
+            </button>
             <members-preview
               v-if="handles.isMembers"
               :boardMembers="currBoard.members"
@@ -167,7 +202,13 @@
               @closeCmp="closeCmp"
               @toggleMemberInTask="toggleMemberInTask"
             />
-            <button @click.stop="openCmp('isLabel')" class="labels-btn btn" title="Labels">Labels</button>
+            <button
+              @click.stop="openCmp('isLabel')"
+              class="labels-btn btn"
+              title="Labels"
+            >
+              Labels
+            </button>
             <label-preview
               v-if="handles.isLabel"
               :boardLabels="currBoard.labels"
@@ -181,13 +222,21 @@
               class="checklist-btn btn"
               title="Checklist"
               @click.stop="openCmp('isChecklist')"
-            >Checklist</button>
+            >
+              Checklist
+            </button>
             <create-checklist
               v-if="handles.isChecklist"
               @closeCmp="closeCmp"
               @createChecklist="createChecklist"
             />
-            <button @click.stop="openCmp('isDatesOn')" class="dates-btn btn" title="Dates">Dates</button>
+            <button
+              @click.stop="openCmp('isDatesOn')"
+              class="dates-btn btn"
+              title="Dates"
+            >
+              Dates
+            </button>
             <date-preview
               v-if="handles.isDatesOn"
               :dueDate="task.dueDate?.dueDate || Date.now()"
@@ -198,7 +247,9 @@
               @click.stop="openCmp('isAttachOn')"
               class="attachment-img btn"
               title="Attachment"
-            >Attachment</button>
+            >
+              Attachment
+            </button>
             <attachment-preview
               :imgUrls="imgUrls"
               @attachImg="attachImg"
@@ -209,7 +260,9 @@
               @click.stop="openCmp('isCover')"
               class="cover-btn btn font-cmp-btn"
               title="Cover"
-            >Cover</button>
+            >
+              Cover
+            </button>
 
             <cover-unsplash
               v-if="handles.isCover"
@@ -222,7 +275,10 @@
           </div>
 
           <h3 class="td-actions">Actions</h3>
-          <a @click.stop="openCmp('isDelete')" class="td-delete-btn btn pointer">
+          <a
+            @click.stop="openCmp('isDelete')"
+            class="td-delete-btn btn pointer"
+          >
             <span class="td-delete-icon"></span>
             <span>Delete</span>
           </a>
@@ -234,6 +290,12 @@
           />
         </nav>
       </div>
+      <img
+        class="loading-task-details"
+        v-else
+        src="../assets/loading-task.gif"
+        alt=""
+      />
     </section>
   </div>
 </template>
@@ -386,31 +448,12 @@ export default {
       await this.saveTask("Changed Labels");
       this.loadTask();
     },
-    async removeLabelFromBoard(labelId) {
-      console.log("task", labelId);
-      const idx = this.currBoard.labels.findIndex((l) => l.id === labelId);
-      console.log("task", idx);
-      this.currBoard.labels.splice(idx, 1);
-      await this.saveBoard("Remove label");
-    },
-    async updateBoardLabels(newLabel) {
-      const idx = this.currBoard.labels.findIndex((l) => l.id === newLabel.id);
-      if (idx === -1) this.currBoard.labels.push(newLabel);
-      else this.currBoard.labels.splice(idx, 1, newLabel);
-      await this.saveBoard("Changed labels");
-    },
-    async saveBoard(type) {
-      const activity = {
-        id: utilService.makeId(),
-        txt: type,
-        createdAt: Date.now(),
-        byMember:
-          this.$store.getters.loggedinUser || this.$store.getters.getGuestUser,
-      };
-      this.currBoard.activities.push(activity);
+    async updateBoardLabels(val) {
       const board = await this.$store.dispatch({
-        type: "saveBoard",
-        board: JSON.parse(JSON.stringify(this.currBoard)),
+        type: "editBoard",
+        boardId: this.currBoard._id,
+        changeType: "update labels",
+        val,
       });
       await this.$emit("updateBoard", board);
     },
@@ -576,7 +619,7 @@ export default {
     },
     labelsToDisplay() {
       const labels = this.currBoard.labels.filter((label) => {
-        if (this.task.labelIds.includes(label.id)) return label;
+        if (this.task.labelIds?.includes(label.id)) return label;
       });
       return labels;
     },
@@ -585,9 +628,9 @@ export default {
       return d.toString().slice(4, 21);
     },
     dueDateCheckBox() {
-      return this.task.dueDate.isCompleted
-        ? "../src/assets/svgs/full-checkbox.svg"
-        : "../src/assets/svgs/empty-checkbox.svg";
+      return this.task.dueDate.isCompleted;
+      // ? "../src/assets/svgs/full-checkbox.svg"
+      // : "../src/assets/svgs/empty-checkbox.svg";
     },
     overdue() {
       const date = new Date(this.task.dueDate.dueDate);

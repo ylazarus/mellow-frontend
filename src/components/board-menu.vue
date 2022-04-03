@@ -115,19 +115,29 @@
                 @click="selectBg('bgClr', bgc.color)"
               ></div> </template
           ></list-slot>
-          <list-slot v-if="bgOptions.isChangImg">
+          <div  v-if="bgOptions.isChangImg" class="change-bg-img-screen">
+            <input
+        type="text"
+        placeholder="Search Unsplash for photos"
+        class="unsplash-search"
+        v-focus
+        v-model="search"
+        @input="waitSearch"
+      />
+          <list-slot>
             <!-- <list-slot> -->
             <template #list>
               <img
                 v-for="(photo, idx) in photos"
                 :key="idx"
                 class="photos-option"
-                :src="photo"
+                :src="photo.urls.thumb"
                 alt="img"
-                @click="selectBg('bgImg', photo)"
+                @click="selectBg('bgImg', photo.urls.full)"
               />
             </template>
           </list-slot>
+          </div>
         </div>
       </section>
       <!-- <cover-unsplash v-if="handles.isChangeBg" /> -->
@@ -138,6 +148,8 @@
 <script>
 import activityPreview from "./activity-preview.vue";
 import listSlot from "./list-slot.vue";
+import axios from "axios";
+import _ from "lodash";
 // import coverUnsplash from "./cover-unsplash.vue";
 export default {
   props: {
@@ -170,16 +182,37 @@ export default {
         { id: "l109", color: "#ff78cb", isSelected: false },
         { id: "l110", color: "#344563", isSelected: false },
       ],
-      photos: [
-        "https://images.unsplash.com/photo-1648138754706-4fccd621a5f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDR8MzE3MDk5fHx8fHwyfHwxNjQ4NjUyNTQ3&ixlib=rb-1.2.1&q=80&w=400",
-        "https://images.unsplash.com/photo-1648537949908-25fc530b5f7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjQ4NjUyNTQ3&ixlib=rb-1.2.1&q=80&w=400",
-        "https://images.unsplash.com/photo-1647960666864-01fdaed3431f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDE0fDMxNzA5OXx8fHx8Mnx8MTY0ODY1MjU0Nw&ixlib=rb-1.2.1&q=80&w=400",
-      ],
+      search: '',
+      photos: [],
       isLoading: false,
       attachments: [],
     };
   },
+
   methods: {
+
+    searchPhoto(term) {
+      const accessKey = "Y2X6Y_wdMpqvaYX_4jgO-dOBqVAsQMQpihsIFNOAX5E";
+      let count = 20;
+      let query = term
+      if (!query) query = this.search
+      axios
+        .get(
+          `https://api.unsplash.com/search/photos?page=1&per_page=${count}&query=${query}&client_id=${accessKey}`
+        )
+        .then((response) => {
+          // JSON responses are automatically parsed.
+          this.photos = response.data.results;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
+    
+    waitSearch: _.debounce(function () {
+      this.searchPhoto();
+    }, 1000),
+
     toggleMenu(type) {
       if (this.bgOptions.isChangClr || this.bgOptions.isChangImg) {
         this.toggleBgOption();
@@ -198,6 +231,7 @@ export default {
       }
       if (typeof type === "string") {
         this.bgOptions[type] = true;
+        if (type === 'isChangImg') this.searchPhoto(this.board.title)
       }
     },
     selectBg(type, val) {

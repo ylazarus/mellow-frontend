@@ -60,7 +60,6 @@ function _saveLocalUser(user) {
 
 function getLoggedinUser() {
     const currUser = JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER) || 'null')
-    console.log('current logged in user' , currUser);
     return currUser
 }
 

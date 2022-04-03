@@ -75,18 +75,6 @@
             <span v-if="label.isSelected" class="v-icon"></span>
           </div> </template
       ></list-slot>
-      <!-- <p class="labels-title">Select a color</p>
-      <div class="create-label-options-container">
-        <div
-          v-for="label in defaultLabels"
-          :key="label.id"
-          class="label-option flex pointer"
-          :style="{ backgroundColor: label.color }"
-          @click="selectLabel(label.id)"
-        >
-          <span v-if="label.isSelected" class="v-icon"></span>
-        </div>
-      </div> -->
       <div class="create-label-buttons-container flex">
         <button class="create-label-btn" @click.stop="changeBoardLabels">
           {{ createBtn }}
@@ -98,13 +86,6 @@
         >
           Delete
         </button>
-        <!-- <button
-          v-if="isChange"
-          class="delete-label-btn"
-          @click.stop="removeLabelFromBoard"
-        >
-          Delete
-        </button> -->
       </div>
     </section>
   </section>
@@ -211,7 +192,7 @@ export default {
       // if (!confirm("Remove label?")) return;
       // console.log("confirm");
       const labelId = this.labelToChange.id;
-      await this.$emit("removeLabelFromBoard", labelId);
+      await this.$emit("updateBoardLabels", labelId);
       this.aggregateLabels();
       this.isCreate = false;
       this.isChange = false;

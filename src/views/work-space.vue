@@ -86,11 +86,10 @@ export default {
       // NEED TO CHANGE STATE FROM THE OBJECT...
       // SOMETIMES THE STATE IS TRUE AND IT WONT CHANGE OTHERS IF THEY ARE TRUE
 
-      // this.isFavorite = !this.isFavorite;
-
       this.$store.dispatch({
-        type: "toggleFavorite",
-        board: { boardId, status: this.isFavorite },
+        type: "editBoard",
+        boardId,
+        changeType: "toggle favorite",
       });
     },
     async removeBoard(boardId) {

@@ -1,10 +1,6 @@
 <template>
   <section v-if="board" class="board-container" :style="background">
-    <router-view
-      @updateBoard="updateBoard"
-      @addLabelToBoard="addLabelToBoard"
-      @updateBoardLabels="updateBoardLabels"
-    ></router-view>
+    <router-view @updateBoard="loadBoard(board._id)"></router-view>
 
     <header class="board-header flex">
       <div class="board-title-container flex">
@@ -13,9 +9,19 @@
           class="board-title"
           contenteditable="true"
           @blur="editBoard('board title', $event)"
-        >{{ board.title }}</div>
-        <button class="star-btn btn-board btn" @click.stop="toggleFavorite(board._id)">
-          <img class="star" v-if="board.isFavorite" src="../assets/icons/full-star.png" alt />
+        >
+          {{ board.title }}
+        </div>
+        <button
+          class="star-btn btn-board btn"
+          @click.stop="editBoard('toggle favorite')"
+        >
+          <img
+            class="star"
+            v-if="board.isFavorite"
+            src="../assets/icons/full-star.png"
+            alt
+          />
           <img class="star" v-else src="../assets/icons/empty-star.png" />
         </button>
       </div>
@@ -32,14 +38,18 @@
       </div>
       <nav class="board-header-nav flex">
         <!-- <button class="filter-btn btn-board btn" @click="moveToDashboard(board._id)">dashboard</button> -->
-        <button class="filter-btn btn-board btn" @click="toggleFilter">Filter</button>
+        <button class="filter-btn btn-board btn" @click="toggleFilter">
+          Filter
+        </button>
         <board-filter
           v-if="isOpenFilter"
           :board="board"
           @closeCmp="toggleFilter"
           @setFilter="setFilter"
         />
-        <button class="show-menu-btn btn-board btn" @click="toggleMenu">Show menu</button>
+        <button class="show-menu-btn btn-board btn" @click="toggleMenu">
+          Show menu
+        </button>
         <board-menu
           v-if="isOpenMenu"
           :board="board"
@@ -53,7 +63,11 @@
     <div class="groups-layout">
       <article class="groups-container flex">
         <Container @drop="onDrop" orientation="horizontal">
-          <Draggable class="draggable-container flex" v-for="group in board.groups" :key="group.id">
+          <Draggable
+            class="draggable-container flex"
+            v-for="group in board.groups"
+            :key="group.id"
+          >
             <board-group
               :group="group"
               :isLabelTitle="isLabelTitle"
@@ -64,12 +78,6 @@
             />
           </Draggable>
         </Container>
-        <!-- <board-group
-        v-for="group in board.groups"
-        :key="group.id"
-        :group="group"
-        @saveGroup="saveGroup"
-        />-->
         <div class="add-group" @click="addGroup">+ Add another list</div>
       </article>
     </div>
@@ -89,7 +97,6 @@ import userAvatar from "../components/user-avatar.vue";
 import { Container, Draggable } from "vue3-smooth-dnd";
 import boardFilter from "../components/board-filter.vue";
 import boardMenu from "../components/board-menu.vue";
-// import boardMenu from "../components/board-menu.vue";
 // import dashboardPreview from "../views/dashboard-preview.vue";
 
 export default {
@@ -110,7 +117,6 @@ export default {
     Draggable,
     boardFilter,
     boardMenu,
-    // dashboardPreview,
   },
   async created() {
     this.unsubscribe = eventBus.on("show-msg", this.showMsg);
@@ -122,17 +128,8 @@ export default {
   },
   unmounted() {
     socketService.off("someone updated", this.boardUpdated);
-
-    // socketService.terminate();
   },
   methods: {
-    async updateBoard(board) {
-      const updatedBoard = await this.$store.dispatch({
-        type: "saveBoard",
-        board,
-      });
-      this.board = updatedBoard;
-    },
     onDrop(ev) {
       const group = this.board.groups.splice(ev.removedIndex, 1)[0];
       this.board.groups.splice(ev.addedIndex, 0, group);
@@ -177,48 +174,37 @@ export default {
       this.board = await this.$store.dispatch({ type: "loadBoard", boardId });
     },
     async saveBoard(type) {
-      const activity = {
-        id: utilService.makeId(),
-        txt: type,
-        createdAt: Date.now(),
-        byMember:
-          this.$store.getters.loggedinUser || this.$store.getters.getGuestUser,
-      };
-      this.board.activities.push(activity);
+      if (type) {
+        const activity = {
+          id: utilService.makeId(),
+          txt: type,
+          createdAt: Date.now(),
+          byMember:
+            this.$store.getters.loggedinUser ||
+            this.$store.getters.getGuestUser,
+        };
+        this.board.activities.push(activity);
+      }
       this.board = await this.$store.dispatch({
         type: "saveBoard",
         board: JSON.parse(JSON.stringify(this.board)),
       });
     },
-    async editBoard(type, val) {
-      let change;
-      switch (type) {
-        case "bgClr":
-          this.board.style[type] = val;
-          this.board.style.bgImg = "";
-          change = "background";
-          break;
-        case "bgImg":
-          this.board.style[type] = val;
-          this.board.style.bgClr = "";
-          change = "background";
-          break;
-        case "board title":
-          this.board.title = val.currentTarget.textContent;
-          change = "title";
-          break;
-      }
-      await this.saveBoard(`Change board ${change}`);
+    async editBoard(changeType, val) {
+      try {
+        this.board = await this.$store.dispatch({
+          type: "editBoard",
+          boardId: this.board._id,
+          changeType,
+          val,
+        });
+      } catch (err) {}
     },
     async attachImg(ev) {
       const { url } = await this.$store.dispatch({ type: "attachImg", ev });
       await this.editBoard("bgImg", url);
       console.log(url);
       return url;
-    },
-    async toggleFavorite() {
-      this.board.isFavorite = !this.board.isFavorite;
-      this.saveBoard("Toggle favorite");
     },
     async addGroup() {
       const newGroup = boardService.getEmptyGroup();
@@ -272,15 +258,6 @@ export default {
     toggleLabelTitle() {
       this.isLabelTitle = !this.isLabelTitle;
     },
-    async addLabelToBoard(newLabel) {
-      this.board.labels.push(newLabel);
-      await this.saveBoard("Added a new label");
-    },
-    async updateBoardLabels(newLabel) {
-      const idx = this.board.labels.findIndex((l) => l.id === newLabel.id);
-      this.board.labels.splice(idx, 1, newLabel);
-      await this.saveBoard("Added a new label");
-    },
     toggleFilter() {
       this.isOpenFilter = !this.isOpenFilter;
     },
@@ -296,8 +273,8 @@ export default {
     moveToDashboard(boardId) {
       // var currBoardId = this.$route.params;
       // console.log(boardId);
-      this.$router.push(`/${boardId}/dashboard`)
-    }
+      this.$router.push(`/${boardId}/dashboard`);
+    },
   },
   computed: {
     isStarred() {
