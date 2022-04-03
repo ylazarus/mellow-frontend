@@ -10,7 +10,7 @@
           class="title"
         >Collaborate, manage projects, and reach new productivity peaks. From high rises to the home office, the way your your team works is unique - accomplish it all with Mellow</h3>
         <router-link class="home-link" to="/board">
-          <span class="guest-login-button">Start as guest</span>
+          <span class="guest-login-button">See Demo</span>
         </router-link>
       <!-- </div> -->
       <div class="homepage-img">

@@ -9,7 +9,7 @@
             :key="board._id"
             @click="toBoardDetails(board._id)"
             class="board-preview img-pos style-font"
-            :style="{ backgroundImage: `url(${board.style?.bgImg || ''})`, backgroundColor: board.style?.bgClr || '' }"
+            :style="{ backgroundImage: `url(${board.style?.bgImg?.urls?.thumb || ''})`, backgroundColor: board.style?.bgClr || '' }"
           >
             <h2 class="favorite-board-title">{{ board.title }}</h2>
             <a class="star-container" @click.stop="toggleFavorite(board._id)">
@@ -27,7 +27,7 @@
           :key="board._id"
           @click="toBoardDetails(board._id)"
           class="board-preview img-pos style-font"
-          :style="{ backgroundImage: `url(${board.style?.bgImg || ''})`, backgroundColor: board.style?.bgClr || '' }"
+          :style="{ backgroundImage: `url(${board.style?.bgImg?.urls?.thumb || ''})`, backgroundColor: board.style?.bgClr || '' }"
         >
           <h2 class="title">{{ board.title }}</h2>
 

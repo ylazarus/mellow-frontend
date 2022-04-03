@@ -283,7 +283,7 @@ export default {
       return this.board.isFavorite ? "filled" : "stroke";
     },
     background() {
-      const backGroundImg = this.board.style?.bgImg || "";
+      const backGroundImg = this.board.style?.bgImg?.urls?.regular || "";
       const backgroundColor = this.board.style?.bgClr || "";
       return { backgroundImage: `url(${backGroundImg})`, backgroundColor };
     },

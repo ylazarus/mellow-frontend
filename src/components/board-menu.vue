@@ -133,7 +133,7 @@
                 class="photos-option"
                 :src="photo.urls.thumb"
                 alt="img"
-                @click="selectBg('bgImg', photo.urls.full)"
+                @click="selectBg('bgImg', photo)"
               />
             </template>
           </list-slot>

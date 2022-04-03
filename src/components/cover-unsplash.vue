@@ -223,7 +223,7 @@ export default {
     },
     applyPhoto(photo) {
       // this.currStyle.lastImg = (this.currStyle.bgImg) ? this.currStyle.bgImg : this.currStyle.uploadedImg || ""
-      this.currStyle.uploadedImg = photo?.urls?.regular || photo;
+      this.currStyle.uploadedImg = photo?.urls?.small || photo;
       this.currStyle.bgClr = "";
       this.currStyle.bgImg = "";
       this.searchResults = false;
@@ -275,7 +275,7 @@ export default {
       return this.style?.bgImg || this.style?.uploadedImg || ''
     },
     currCoverBg(){
-      const bgc = this.style?.bgClr || '#5E6C84'
+      const bgc = this.style?.bgClr || ''
       return {'background-color' : bgc }
     },
     deletable(){
