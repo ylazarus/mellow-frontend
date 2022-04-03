@@ -1,64 +1,52 @@
 <template>
-  <main class="main-layout">
-    <!-- <div class="side-bar">
-      <div>
-        <h3>boards</h3>
-        <h3>members</h3>
-      </div>
-    </div>-->
-    <section class="all-boards-container">
-      <!-- <h1>Work Space</h1> -->
-
-      <section>
-        <h1>Favorite boards</h1>
-        <ul class="favorite-boards flex">
-          <div class="boards-container flex">
+  <main class="workspace-page-container">
+      <section class="all-boards-container">
+        <section>
+          <h1>Favorite boards</h1>
+          <ul class="favorite-boards  flex">
             <li
               v-for="board in favoriteBoards"
               :key="board._id"
               @click="toBoardDetails(board._id)"
               class="board-preview img-pos style-font"
-              :style="{ backgroundImage: `url(${board.style?.bgImg || ''})` }"
+              :style="{ backgroundImage: `url(${board.style?.bgImg || ''})`, backgroundColor: board.style?.bgClr || '' }"
             >
               <h2 class="favorite-board-title">{{ board.title }}</h2>
+              <a class="star-container" @click.stop="toggleFavorite(board._id)">
+                <img
+                  class="ws-full-star"
+                  v-if="board.isFavorite"
+                  src="../assets/icons/full-star.png"
+                />
+                <img class="ws-empty-star" v-else src="../assets/icons/empty-star.png" />
+              </a>
             </li>
-          </div>
-        </ul>
-      </section>
+          </ul>
+        </section>
 
-      <h3>All boards</h3>
-      <article class="saved-boards">
+       
+
+        <h3  class="all-boards-title">All boards</h3>
+        <article class="saved-boards">
         <div
           v-for="board in boards"
           :key="board._id"
           @click="toBoardDetails(board._id)"
           class="board-preview img-pos style-font"
-          :style="{ backgroundImage: `url(${board.style?.bgImg || ''})` }"
+          :style="{ backgroundImage: `url(${board.style?.bgImg || ''})`, backgroundColor: board.style?.bgClr || '' }"
         >
           <h2 class="title">{{ board.title }}</h2>
 
           <a class="star-container" @click.stop="toggleFavorite(board._id)">
-            <img
-              class="ws-full-star"
-              v-if="board.isFavorite"
-              src="../assets/icons/full-star.png"
-            />
-            <img
-              class="ws-empty-star"
-              v-else
-              src="../assets/icons/empty-star.png"
-            />
-            <!-- <img src="../assets/icons/empty-star.png" /> -->
-            <!-- <img :src="changeImgUrl" /> -->
+            <img class="ws-full-star" v-if="board.isFavorite" src="../assets/icons/full-star.png" />
+            <img class="ws-empty-star" v-else src="../assets/icons/empty-star.png" />
           </a>
           <!-- <button class="remove-board-button" @click.stop="removeBoard(board._id)">remove</button> -->
         </div>
         <button
           @click="isCreateBoard = true"
           class="board-preview justify-center add-card"
-        >
-          Create new board
-        </button>
+        >Create new board</button>
         <create-board v-if="isCreateBoard" @closeCmp="isCreateBoard = false" />
       </article>
     </section>
@@ -108,6 +96,11 @@ export default {
       // for favorite (like is pinned)
       return this.$store.getters.favoriteBoards;
     },
+    cardBackground() {
+      if (this.board.style.bgImg) return { backgroundImage: `url(${board.style?.bgImg})` }
+      else if (this.board.style.bgClr) return { backgroundColor: `(${this.board.style.bgClr})` }
+      else return ''
+    }
     // getStarImg(){
     //   return new URL('./full-star.png', import.meta.url)
     // }

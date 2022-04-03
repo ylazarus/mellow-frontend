@@ -18,17 +18,17 @@
     <section v-if="!searchingUnsplash" class="main-cover-screen">
       <p class="labels-title">Size</p>
       <div class="cover-size-select">
-        <button class="coverSelect pointer" @click="setFullCover(true)">
-          <img v-if="currCoverImg" class="coverSelectImg" :src="currCoverImg" alt="" />
-          <div v-if="currCoverBg" class="coverSelectImg" :style="currCoverBg"></div>
+        <button class="coverSelect pointer" @click="setFullCover(false)">
+          <img v-if="currCoverImg" class="coverSelectImg top " :src="currCoverImg" alt="" />
+          <div v-if="currCoverBg" class="coverSelectImg top" :style="currCoverBg"></div>
           <div class="over-full-cover-select"></div>
           <div class="dummy title"></div>
           <div class="dummy text"></div>
         </button>
 
-        <button class="coverSelect pointer" @click="setFullCover(false)">
-          <img v-if="currCoverImg" class="coverSelectImg top " :src="currCoverImg" alt="" />
-          <div v-if="currCoverBg" class="coverSelectImg top" :style="currCoverBg"></div>
+        <button class="coverSelect pointer" @click="setFullCover(true)">
+          <img v-if="currCoverImg" class="coverSelectImg" :src="currCoverImg" alt="" />
+          <div v-if="currCoverBg" class="coverSelectImg" :style="currCoverBg"></div>
           <div class="over-full-cover-select"></div>
           <div class="dummy title"></div>
           <div class="dummy text"></div>
