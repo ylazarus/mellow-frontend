@@ -7,8 +7,6 @@
       </div>
     </div>-->
     <section class="all-boards-container">
-      <!-- <h1>Work Space</h1> -->
-      <!-- <p>:style="{ backgroundImage: `url(${board.style?.bgImg || ''})` }"</p> -->
       <section>
         <h1>Favorite boards</h1>
         <ul class="favorite-boards flex">
