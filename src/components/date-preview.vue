@@ -21,7 +21,7 @@ import "v-calendar/dist/style.css";
 export default {
   name: "date-preview",
   props: {
-    dueDate: Number,
+    dueDate: String,
   },
   created() {
     this.date.dueDate = this.dueDate;
@@ -33,7 +33,6 @@ export default {
   },
   methods: {
     saveDate() {
-      console.log(this.date, "this is the date from the library");
       this.$emit("saveDate", this.date);
     },
     closeCmp() {
