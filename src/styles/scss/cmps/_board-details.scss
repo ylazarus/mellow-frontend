@@ -1,6 +1,6 @@
 .board-header,
-.board-header > *,
-.board-header > * > * {
+.board-header>*,
+.board-header>*>* {
     // color: $text-color;
     // gap: 9px;
     // justify-content: space-between;
@@ -13,13 +13,16 @@
     height: auto;
     // background-color: #0000001a;
     flex-wrap: wrap;
+
     .star-btn {
         width: 32px;
         display: flex;
         justify-content: center;
+
         .star {
             width: 16px;
         }
+
         // .star:hover {
         // }
     }
@@ -28,6 +31,10 @@
         flex-grow: 1;
         gap: 6px;
         // padding-block-end: 4px;
+
+        .user-avatar {
+            margin-bottom: -1px;
+        }
     }
 
     .board-title {
@@ -44,6 +51,7 @@
     .star-btn {
         margin-right: 10px;
     }
+
     // .board-members-container{
     //     display: grid;
     // }
@@ -63,6 +71,7 @@
     margin-inline-end: 4px;
     content: "\e902";
 }
+
 .board-header-nav {
     position: relative;
 }
@@ -100,7 +109,8 @@
     // position: relative;
     // width: 93px;
     margin-block-end: 4px;
-padding: 6px 12px 6px 6px;
+    padding: 6px 12px 6px 6px;
+
     img {
         width: 20px;
         position: absolute;
@@ -151,6 +161,7 @@ padding: 6px 12px 6px 6px;
     overflow-x: auto;
     overflow-y: hidden;
     height: calc(100vh - 44px - 48px);
+
     // height: 93vh;
     // margin-left: 27px;
     .add-group {
@@ -170,6 +181,7 @@ padding: 6px 12px 6px 6px;
 .add-group:hover {
     background-color: #00000029;
 }
+
 .dark-mode {
     // font-size: 30px;
     // position: absolute;
