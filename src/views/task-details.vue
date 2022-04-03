@@ -288,6 +288,8 @@ export default {
   async created() {
     await this.loadTask();
     socketService.on("someone updated", this.boardUpdated);
+    console.log("task created");
+
     // this.setActivities();
   },
   unmounted() {
@@ -295,6 +297,7 @@ export default {
   },
   methods: {
     async loadTask() {
+      console.log("load task");
       const { boardId, groupId, taskId } = this.$route.params;
       this.currBoard = await this.$store.dispatch({
         type: "loadBoard",
@@ -320,6 +323,7 @@ export default {
       this.task.style = style;
       await this.saveTask("Updated style");
       // this.closeCmp();
+
       this.loadTask();
     },
     openCmp(type) {
@@ -335,14 +339,18 @@ export default {
     },
     async saveTaskTitle(ev) {
       const newTitle = ev.currentTarget.textContent;
+      if (!newTitle || newTitle === this.task.title) return;
       this.task.title = newTitle;
       await this.saveTask("Updated task title");
+      console.log("saveTaskTitle");
+
       this.loadTask();
     },
     async saveDate(newDateInfo) {
       this.task.dueDate = newDateInfo;
       await this.saveTask("Updated due date");
       this.closeCmp();
+
       this.loadTask();
     },
     async saveTask(type) {
@@ -375,6 +383,7 @@ export default {
     async saveDescription() {
       this.task.description = this.newDescription;
       await this.saveTask("Updated Description");
+
       this.loadTask();
     },
     async addLabelToTask(labelId) {
@@ -387,6 +396,7 @@ export default {
         this.task.labelIds.push(labelId);
       }
       await this.saveTask("Changed Labels");
+
       this.loadTask();
     },
     async updateBoardLabels(val) {
@@ -411,11 +421,13 @@ export default {
         this.task.members.isCheck = false;
       }
       await this.saveTask("Added member");
+
       this.loadTask();
     },
     async toggleDueDateDone() {
       this.task.dueDate.isCompleted = !this.task.dueDate.isCompleted;
       await this.saveTask("updated due date status");
+
       this.loadTask();
     },
     async attachImg(ev) {
@@ -426,11 +438,13 @@ export default {
       this.task.style.bgClr = "";
       this.task.style.bgImg = img.url;
       await this.saveTask("Added image");
+
       this.loadTask();
     },
     async deleteAttachment(idx) {
       this.task.attachments.splice(idx, 1);
       await this.saveTask("Deleted attachment");
+
       this.loadTask();
     },
     async makeCover(img) {
@@ -438,6 +452,7 @@ export default {
       this.task.style.bgClr = "";
       this.task.style.uploadedImg = "";
       await this.saveTask("Updated cover photo");
+
       this.loadTask();
     },
     async removeTask(type) {
@@ -476,6 +491,7 @@ export default {
 
       this.task.checklists.push(checklist);
       await this.saveTask("Added checklist");
+
       this.loadTask();
       this.closeCmp();
     },
@@ -490,7 +506,7 @@ export default {
         isDone: false,
       });
       await this.saveTask("Added todo");
-      console.log("task", this.task);
+
       this.loadTask();
     },
     async removeChecklist(checklistId) {
@@ -499,6 +515,7 @@ export default {
       });
       this.task.checklists.splice(checklistIdx, 1);
       await this.saveTask("Removed checklist");
+
       this.loadTask();
     },
     async updateTodo(checklistId, todoId, updateTodoVal) {
@@ -516,6 +533,7 @@ export default {
 
       checklistToUpdate.todos.splice(todoIdx, 1, todoToUpdate);
       await this.saveTask("Updated todo");
+
       this.loadTask();
     },
     async updateTodoDone(checklistId, todoId, updateTodoVal) {

@@ -77,9 +77,10 @@ cursor: pointer;
 
 .add-task-container {
     height: 100px;
-    margin-block-start: 8px;
-    padding: 0 7px 0 3px;
+    margin-block-end: 4px;
+    // padding-block-end: 12px;
     width: 100%;
+
 }
 
 textarea {
@@ -150,11 +151,12 @@ textarea {
     height: 100%;
     width: 272px;
     margin: 8px 0 5px 4px;
+    margin: 2px 8px 8px 4px;
     // margin-inline-start: 4px;
     // margin-block-end: 5px;
     display: flex;
     cursor: pointer;
-
+    color: $light-text;
     &:hover {
         border-radius: 3px;
         background-color: $card-grey-hover;
@@ -186,7 +188,7 @@ textarea {
     }
 }
 .group-container.add {
-    max-height: calc(100vh - 269px);
+    max-height: calc(100vh - 200px);
 }
 
 .group-container:last-child {

@@ -1,11 +1,18 @@
 <template>
   <section class="groups-border">
     <div class="outside-group flex">
-      <p class="group-title pointer" contenteditable="true" @blur="saveTitle">{{ group.title }}</p>
+      <p class="group-title pointer" contenteditable="true" @blur="saveTitle">
+        {{ group.title }}
+      </p>
       <span class="remove-group-btn" @click="toggleRemove"></span>
     </div>
-    <delete-cmp v-if="isRemove" :type="'list'" @remove="removeGroup" @closeCmp="toggleRemove" />
-    <div class="group-container" :class="calcHeight">
+    <delete-cmp
+      v-if="isRemove"
+      :type="'list'"
+      @remove="removeGroup"
+      @closeCmp="toggleRemove"
+    />
+    <div class="group-container" ref="list" :class="calcHeight">
       <Container
         class="tasks-container"
         v-if="group.tasks?.length"
@@ -27,10 +34,12 @@
           />
         </Draggable>
       </Container>
-    </div>
-    <div class="bottom-outside-group">
-      <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">Add a card</div>
-      <div v-else class="add-task-container">
+      <!-- <div class="bottom-outside-group"> -->
+      <!-- <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">
+          Add a card
+        </div> -->
+      <!-- <div class="add-task-container"> -->
+      <div v-if="isAdding" class="add-task-container">
         <textarea
           v-focus
           @blur.stop="saveIfTxt"
@@ -38,16 +47,39 @@
           placeholder="Enter a title for this card..."
         />
         <div class="add-task-buttons-container flex">
-          <button class="adding-task-btn btn" @click="addTask">Add card</button>
+          <button class="adding-task-btn btn" ref="bottom" @click="addTask">
+            Add card
+          </button>
           <button class="delete-task-btn" @click="clearForm"></button>
         </div>
       </div>
+      <!-- </div> -->
+    </div>
+    <div class="bottom-outside-group">
+      <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">
+        Add a card
+      </div>
+      <!-- <div v-else class="add-task-container">
+          <textarea
+            v-focus
+            @blur.stop="saveIfTxt"
+            v-model="newTaskTitle"
+            placeholder="Enter a title for this card..."
+          />
+          <div class="add-task-buttons-container flex">
+            <button class="adding-task-btn btn" @click="addTask">
+              Add card
+            </button>
+            <button class="delete-task-btn" @click="clearForm"></button>
+          </div>
+        </div> -->
     </div>
   </section>
 </template>
 
 
 <script>
+import { nextTick } from "vue";
 import { boardService } from "../services/board-service";
 import taskPreview from "./task-preview.vue";
 import { utilService } from "../services/util-service";
@@ -100,7 +132,11 @@ export default {
     },
     async openAddTask() {
       this.isAdding = true;
-      await utilService.delay(50);
+      await nextTick();
+      var element = this.$refs.list;
+      var top = element.offsetTop;
+      console.dir(element);
+      element.scrollTo(0, top + element.scrollHeight);
       // this.focusOnInput();
     },
     addTask() {

@@ -111,6 +111,7 @@ export default {
                 console.log('board');
 
                 commit({ type: 'setCurrBoard', board })
+                console.log('load board in store');
                 return JSON.parse(JSON.stringify(board))
             } catch (err) {
                 console.log("board module loadBoard cant load board now", err)
@@ -231,7 +232,6 @@ export default {
             try {
                 const savedBoard = await boardService.save(board)
                 commit({ type: 'saveBoard', savedBoard })
-                console.log('socket')
                 // socketService.emit("board updated")
                 return JSON.parse(JSON.stringify(savedBoard))
             } catch (err) {
