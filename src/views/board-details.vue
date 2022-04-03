@@ -9,19 +9,9 @@
           class="board-title"
           contenteditable="true"
           @blur="editBoard('board title', $event)"
-        >
-          {{ board.title }}
-        </div>
-        <button
-          class="star-btn btn-board btn"
-          @click.stop="editBoard('toggle favorite')"
-        >
-          <img
-            class="star"
-            v-if="board.isFavorite"
-            src="../assets/icons/full-star.png"
-            alt
-          />
+        >{{ board.title }}</div>
+        <button class="star-btn btn-board btn" @click.stop="editBoard('toggle favorite')">
+          <img class="star" v-if="board.isFavorite" src="../assets/icons/full-star.png" alt />
           <img class="star" v-else src="../assets/icons/empty-star.png" />
         </button>
       </div>
@@ -38,18 +28,14 @@
       </div>
       <nav class="board-header-nav flex">
         <!-- <button class="filter-btn btn-board btn" @click="moveToDashboard(board._id)">dashboard</button> -->
-        <button class="filter-btn btn-board btn" @click="toggleFilter">
-          Filter
-        </button>
+        <button class="filter-btn btn-board btn" @click="toggleFilter">Filter</button>
         <board-filter
           v-if="isOpenFilter"
           :board="board"
           @closeCmp="toggleFilter"
           @setFilter="setFilter"
         />
-        <button class="show-menu-btn btn-board btn" @click="toggleMenu">
-          Show menu
-        </button>
+        <button class="show-menu-btn btn-board btn" @click="toggleMenu">Show menu</button>
         <board-menu
           v-if="isOpenMenu"
           :board="board"
@@ -63,11 +49,7 @@
     <div class="groups-layout">
       <article class="groups-container flex">
         <Container @drop="onDrop" orientation="horizontal">
-          <Draggable
-            class="draggable-container flex"
-            v-for="group in board.groups"
-            :key="group.id"
-          >
+          <Draggable class="draggable-container flex" v-for="group in board.groups" :key="group.id">
             <board-group
               :group="group"
               :isLabelTitle="isLabelTitle"
@@ -124,7 +106,7 @@ export default {
     this.topic = boardId;
     socketService.emit("board topic", this.topic);
     socketService.on("someone updated", this.boardUpdated);
-    this.loadBoard(boardId);
+    // this.loadBoard(boardId);
   },
   unmounted() {
     console.log("un");
@@ -200,7 +182,7 @@ export default {
           changeType,
           val,
         });
-      } catch (err) {}
+      } catch (err) { }
     },
     async attachImg(ev) {
       const { url } = await this.$store.dispatch({ type: "attachImg", ev });
