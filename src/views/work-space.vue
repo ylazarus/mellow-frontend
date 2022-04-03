@@ -1,5 +1,5 @@
 <template>
-  <main class="main-layout">
+  <main class="workspace-page-container">
     <!-- <div class="side-bar">
       <div>
         <h3>boards</h3>
@@ -7,32 +7,28 @@
       </div>
     </div>-->
     <section class="all-boards-container">
+      <!-- <h1>Work Space</h1> -->
+
       <section>
         <h1>Favorite boards</h1>
         <ul class="favorite-boards flex">
-          <div class="boards-container flex">
-            <li
-              v-for="board in favoriteBoards"
-              :key="board._id"
-              @click="toBoardDetails(board._id)"
-              class="board-preview img-pos style-font"
-              :style="{ backgroundImage: `url(${board.style?.bgImg || ''})`, backgroundColor: board.style?.bgClr || '' }"
-            >
-              <h2 class="favorite-board-title">{{ board.title }}</h2>
-              <a class="star-container" @click.stop="toggleFavorite(board._id)">
-                <img
-                  class="ws-full-star"
-                  v-if="board.isFavorite"
-                  src="../assets/icons/full-star.png"
-                />
-                <img class="ws-empty-star" v-else src="../assets/icons/empty-star.png" />
-              </a>
-            </li>
-          </div>
+          <li
+            v-for="board in favoriteBoards"
+            :key="board._id"
+            @click="toBoardDetails(board._id)"
+            class="board-preview img-pos style-font"
+            :style="{ backgroundImage: `url(${board.style?.bgImg || ''})`, backgroundColor: board.style?.bgClr || '' }"
+          >
+            <h2 class="favorite-board-title">{{ board.title }}</h2>
+            <a class="star-container" @click.stop="toggleFavorite(board._id)">
+              <img class="ws-full-star" v-if="board.isFavorite" src="../assets/icons/full-star.png" />
+              <img class="ws-empty-star" v-else src="../assets/icons/empty-star.png" />
+            </a>
+          </li>
         </ul>
       </section>
 
-      <h3>All boards</h3>
+      <h3 class="all-boards-title">All boards</h3>
       <article class="saved-boards">
         <div
           v-for="board in boards"
