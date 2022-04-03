@@ -8,7 +8,7 @@
     </div>-->
     <section class="all-boards-container">
       <!-- <h1>Work Space</h1> -->
-
+      <!-- <p>:style="{ backgroundImage: `url(${board.style?.bgImg || ''})` }"</p> -->
       <section>
         <h1>Favorite boards</h1>
         <ul class="favorite-boards flex">
@@ -18,7 +18,7 @@
               :key="board._id"
               @click="toBoardDetails(board._id)"
               class="board-preview img-pos style-font"
-              :style="{ backgroundImage: `url(${board.style?.bgImg || ''})` }"
+              :style="{ backgroundImage: `url(${board.style?.bgImg || ''})`, backgroundColor: board.style?.bgClr || '' }"
             >
               <h2 class="favorite-board-title">{{ board.title }}</h2>
               <a class="star-container" @click.stop="toggleFavorite(board._id)">
@@ -41,7 +41,7 @@
           :key="board._id"
           @click="toBoardDetails(board._id)"
           class="board-preview img-pos style-font"
-          :style="{ backgroundImage: `url(${board.style?.bgImg || ''})` }"
+          :style="{ backgroundImage: `url(${board.style?.bgImg || ''})`, backgroundColor: board.style?.bgClr || '' }"
         >
           <h2 class="title">{{ board.title }}</h2>
 
@@ -105,6 +105,11 @@ export default {
       // for favorite (like is pinned)
       return this.$store.getters.favoriteBoards;
     },
+    cardBackground() {
+      if (this.board.style.bgImg) return { backgroundImage: `url(${board.style?.bgImg})` }
+      else if (this.board.style.bgClr) return { backgroundColor: `(${this.board.style.bgClr})` }
+      else return ''
+    }
     // getStarImg(){
     //   return new URL('./full-star.png', import.meta.url)
     // }
