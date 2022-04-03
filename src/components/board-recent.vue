@@ -17,7 +17,7 @@
         <img
           v-if="board.style.bgImg"
           class="recent-board-preview-img"
-          :src="board.style.bgImg"
+          :src="board.style.bgImg.urls.thumb"
         />
         <img
           v-else
