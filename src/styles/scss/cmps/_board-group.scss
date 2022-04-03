@@ -2,7 +2,8 @@
     // font-weight: 600;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     min-height: 28px;
-    min-width: 272px;
+    width: 272px;
+    // min-width: 272px;
     padding: 0 4px;
     height: fit-content;
     background-color: #ebecf0;
@@ -62,7 +63,7 @@ cursor: pointer;
 }
 
 .draggable-container {
-    width: 272px;
+    // width: 272px;
     padding-bottom: 0;
 }
 
@@ -71,17 +72,20 @@ cursor: pointer;
     margin: 0 2px;
     align-items: center;
     // font-weight: 600;
+    width: 100%;
 }
 
 .add-task-container {
     height: 100px;
     margin-block-start: 8px;
-    padding: 0 3px;
+    padding: 0 7px 0 3px;
+    width: 100%;
 }
 
 textarea {
     height: 54px;
-    width: 272px;
+    // width: 272px;
+    width: 100%;
     margin: 0 0 5px;
     border-radius: 3px;
     padding: 6px 8px 2px;
@@ -166,30 +170,31 @@ textarea {
 }
 
 .group-container {
-    max-height: calc(100vh - 292px);
+    max-height: calc(100vh - 274px);
     overflow-x: hidden;
     overflow-y: auto;
     padding: 0 5px;
+    width: 100%;
 
 
     @media (min-width: 372px){
-        max-height: calc(100vh - 256px);
+        max-height: calc(100vh - 238px);
     }
 
     @media (min-width: 662px){
-        max-height: calc(100vh - 220px);
+        max-height: calc(100vh - 202px);
     }
 }
 .group-container.add {
-    max-height: calc(100vh - 287px);
+    max-height: calc(100vh - 269px);
 }
 
 .group-container:last-child {
-    padding-bottom: 0;
+    padding-bottom: 1;
 }
 
 .tasks-container:last-child {
-    margin-bottom: 0;
+    margin-bottom: 1;
 }
 
 .middle-group-list {
@@ -202,10 +207,10 @@ textarea {
     gap: 8px;
     // background-color: #fff;
     border-radius: 3px;
-    background-color: $card-grey;
+    // background-color: $card-grey;
     cursor: pointer;
 }
 
 .smooth-dnd-draggable-wrapper:last-of-type {
-    padding-bottom: 0;
+    padding-bottom: 1;
 }
