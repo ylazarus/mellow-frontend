@@ -124,7 +124,6 @@ export default {
     this.topic = boardId;
     socketService.emit("board topic", this.topic);
     socketService.on("someone updated", this.boardUpdated);
-    // this.loadBoard(boardId);
   },
   unmounted() {
     console.log("un");

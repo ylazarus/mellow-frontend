@@ -4,7 +4,7 @@
       <a
         v-if="handles.isAbout || handles.isChangeBg || handles.isShowActivities"
         class="back-to-cmp-btn"
-        @click="toggleMenu"
+        @click="toggleMenuContent"
       >
         <span></span>
       </a>
@@ -21,7 +21,7 @@
         "
         class="menu-options flex"
       >
-        <div class="menu-option" @click="toggleMenu('isAbout')">
+        <div class="menu-option" @click="toggleMenuContent('isAbout')">
           <span class="trello-icon"></span>
           <div>
             <p class="menu-option-about">About this board</p>
@@ -30,11 +30,11 @@
             </p>
           </div>
         </div>
-        <div class="menu-option" @click="toggleMenu('isChangeBg')">
+        <div class="menu-option" @click="toggleMenuContent('isChangeBg')">
           <img class="board-bg-preview" src="../assets/imgs/board.jpg" />
           <p class="menu-option-bgc">Change background</p>
         </div>
-        <!-- <div class="menu-option" @click="toggleMenu('isSearch')">
+        <!-- <div class="menu-option" @click="toggleMenuContent('isSearch')">
           <span class="search-icon"></span>
           <p class="menu-option-search">Search</p>
         </div> -->
@@ -48,7 +48,7 @@
         <p
           v-if="!handles.isShowActivities"
           class="activity-header"
-          @click="toggleMenu('isShowActivities')"
+          @click="toggleMenuContent('isShowActivities')"
         >
           Activity
         </p>
@@ -62,7 +62,7 @@
         <a
           v-if="!handles.isShowActivities"
           class="show-allActivities"
-          @click="toggleMenu('isShowActivities')"
+          @click="toggleMenuContent('isShowActivities')"
           >View all activity
         </a>
       </section>
@@ -115,28 +115,28 @@
                 @click="selectBg('bgClr', bgc.color)"
               ></div> </template
           ></list-slot>
-          <div  v-if="bgOptions.isChangImg" class="change-bg-img-screen">
+          <div v-if="bgOptions.isChangImg" class="change-bg-img-screen">
             <input
-        type="text"
-        placeholder="Search Unsplash for photos"
-        class="unsplash-search"
-        v-focus
-        v-model="search"
-        @input="waitSearch"
-      />
-          <list-slot>
-            <!-- <list-slot> -->
-            <template #list>
-              <img
-                v-for="(photo, idx) in photos"
-                :key="idx"
-                class="photos-option"
-                :src="photo.urls.thumb"
-                alt="img"
-                @click="selectBg('bgImg', photo)"
-              />
-            </template>
-          </list-slot>
+              type="text"
+              placeholder="Search Unsplash for photos"
+              class="unsplash-search"
+              v-focus
+              v-model="search"
+              @input="waitSearch"
+            />
+            <list-slot>
+              <!-- <list-slot> -->
+              <template #list>
+                <img
+                  v-for="(photo, idx) in photos"
+                  :key="idx"
+                  class="photos-option"
+                  :src="photo.urls.thumb"
+                  alt="img"
+                  @click="selectBg('bgImg', photo)"
+                />
+              </template>
+            </list-slot>
           </div>
         </div>
       </section>
@@ -182,20 +182,18 @@ export default {
         { id: "l109", color: "#ff78cb", isSelected: false },
         { id: "l110", color: "#344563", isSelected: false },
       ],
-      search: '',
+      search: "",
       photos: [],
       isLoading: false,
       attachments: [],
     };
   },
-
   methods: {
-
     searchPhoto(term) {
       const accessKey = "Y2X6Y_wdMpqvaYX_4jgO-dOBqVAsQMQpihsIFNOAX5E";
       let count = 20;
-      let query = term
-      if (!query) query = this.search
+      let query = term;
+      if (!query) query = this.search;
       axios
         .get(
           `https://api.unsplash.com/search/photos?page=1&per_page=${count}&query=${query}&client_id=${accessKey}`
@@ -208,12 +206,12 @@ export default {
           console.log(e);
         });
     },
-    
+
     waitSearch: _.debounce(function () {
       this.searchPhoto();
     }, 1000),
 
-    toggleMenu(type) {
+    toggleMenuContent(type) {
       if (this.bgOptions.isChangClr || this.bgOptions.isChangImg) {
         this.toggleBgOption();
         return;
@@ -231,15 +229,12 @@ export default {
       }
       if (typeof type === "string") {
         this.bgOptions[type] = true;
-        if (type === 'isChangImg') this.searchPhoto(this.board.title)
+        if (type === "isChangImg") this.searchPhoto(this.board.title);
       }
     },
     selectBg(type, val) {
       // this.board.style[type] = val;
       this.$emit("editBoard", type, val);
-    },
-    selectPhoto(bgImg) {
-      this.bgImg = bgImg;
     },
     async onAttachImg(ev) {
       this.isLoading = true;
