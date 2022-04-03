@@ -228,7 +228,8 @@ export default {
             try {
                 const savedBoard = await boardService.save(board)
                 commit({ type: 'saveBoard', savedBoard })
-                socketService.emit("board updated")
+                console.log('socket')
+                // socketService.emit("board updated")
                 return JSON.parse(JSON.stringify(savedBoard))
             } catch (err) {
                 console.log("board module saveBoard cant save board now", err)

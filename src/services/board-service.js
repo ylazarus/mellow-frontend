@@ -3,6 +3,8 @@ import { utilService } from './util-service'
 import { httpService } from './http.service'
 import { storageService } from './async-storage-service'
 import { userService } from './user-service'
+import { socketService } from "./socket.service"
+
 
 const KEY = 'boards_db'
 const ENDPOINT = 'board'
@@ -39,11 +41,14 @@ async function remove(id) {
 }
 
 async function save(board) {
-    return board._id
+    const updatedBoard = board._id
         ? await httpService.put(`${ENDPOINT}/${board._id}`, board)
         : await httpService.post(ENDPOINT, board)
+    socketService.emit("board updated")
+    return updatedBoard
     // if (board._id) return storageService.put(KEY, board)
     // return storageService.post(KEY, board)
+
 }
 
 

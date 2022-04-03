@@ -127,6 +127,7 @@ export default {
     this.loadBoard(boardId);
   },
   unmounted() {
+    console.log("un");
     socketService.off("someone updated", this.boardUpdated);
   },
   methods: {
@@ -171,6 +172,7 @@ export default {
     },
 
     async loadBoard(boardId) {
+      console.log("load");
       this.board = await this.$store.dispatch({ type: "loadBoard", boardId });
     },
     async saveBoard(type) {
