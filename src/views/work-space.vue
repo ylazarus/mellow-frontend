@@ -1,14 +1,6 @@
 <template>
   <main class="workspace-page-container">
-    <!-- <div class="side-bar">
-      <div>
-        <h3>boards</h3>
-        <h3>members</h3>
-      </div>
-    </div>-->
       <section class="all-boards-container">
-        <!-- <h1>Work Space</h1> -->
-
         <section>
           <h1>Favorite boards</h1>
           <ul class="favorite-boards  flex">
@@ -34,8 +26,8 @@
 
        
 
-      <h3  class="all-boards-title">All boards</h3>
-      <article class="saved-boards">
+        <h3  class="all-boards-title">All boards</h3>
+        <article class="saved-boards">
         <div
           v-for="board in boards"
           :key="board._id"
