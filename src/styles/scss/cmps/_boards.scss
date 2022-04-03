@@ -1,5 +1,11 @@
+.workspace-page-container{
+    overflow-y: auto;
+    width: 100vw;
+    height: 100vh;
+
 .all-boards-container{
-    margin-block-start: 100px;
+    margin: 100px auto;
+    padding: 0 60px 0 100px;    
     .board-preview {
     display: flex;
     flex-direction: column;
@@ -52,16 +58,14 @@
         }
     }
 }
+}
 
 .favorite-boards{
     // margin: 0;
     padding: 0;
     margin-right: 1.0625rem;
     margin-bottom: 2.0625rem;
-    .boards-container{
-        // .board-preview{
-            
-        // }
+    flex-wrap: wrap;
 
         .favorite-board-title{
             margin: 0;
@@ -70,7 +74,7 @@
             align-self: flex-start;
             z-index: 2;
         }
-    }
+    
 }
 
 // .board-preview:hover {
@@ -148,4 +152,8 @@
 .img-pos {
     background-size: cover;
     background-position: center;
+}
+
+.all-boards-title{
+    margin-top: 0;
 }
