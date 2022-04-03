@@ -22,7 +22,7 @@ export default {
 
             // Yaron: needed this workaround as for score not reactive from birth
             state.loggedinUser = (user) ? { ...user } : null;
-            console.log('in mutation, ',state.loggedinUser);
+            console.log('in mutation, ', state.loggedinUser);
         },
         setWatchedUser(state, { user }) {
             state.watchedUser = user;
@@ -80,6 +80,7 @@ export default {
         },
         async loadAndWatchUser({ commit }, { userId }) {
             try {
+                console.log('store');
                 const user = await userService.getById(userId);
                 commit({ type: 'setWatchedUser', user })
                 // socketService.emit(SOCKET_EMIT_USER_WATCH, userId) 

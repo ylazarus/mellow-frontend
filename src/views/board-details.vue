@@ -124,7 +124,9 @@ export default {
     this.topic = boardId;
     socketService.emit("board topic", this.topic);
     socketService.on("someone updated", this.boardUpdated);
-    this.loadBoard(boardId);
+    console.log("board created");
+
+    // this.loadBoard(boardId);
   },
   unmounted() {
     console.log("un");
@@ -176,6 +178,7 @@ export default {
       this.board = await this.$store.dispatch({ type: "loadBoard", boardId });
     },
     async saveBoard(type) {
+      console.log("move");
       if (type) {
         const activity = {
           id: utilService.makeId(),
