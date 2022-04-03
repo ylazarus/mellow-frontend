@@ -13,7 +13,7 @@
         <span></span>
       </a>
     </div>
-    <hr />
+    <hr class="thin-hr" />
 
     <section v-if="!searchingUnsplash" class="main-cover-screen">
       <p class="labels-title">Size</p>

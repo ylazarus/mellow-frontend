@@ -9,12 +9,13 @@
     width: 316px;
     background-color: white;
     position: absolute;
-    top: -128px;
-    right: -128px;
+    top: 0;
+    right: 10px;
     border:1px solid black;
-    padding: 1px;
+    padding: 0 12px 12px;
     z-index: 10;
     border: none;
+    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
 
     .date-header{
         display: flex;
@@ -23,11 +24,7 @@
     // .attach-from{
     //     text-align: center;
     // }
-    .add-task-close-cmp-btn::before{
-        font-family: trellicons;
-
-        content: "";
-    }
+   
 
     .date-title{
         display: flex;
@@ -51,18 +48,22 @@
         color: $clr9;
         border-radius: 3px;
         border: none;
-        font-size: rem(24px);
+        font-size: 16px;
         cursor: pointer;
         display: flex;
         justify-content: center;
         align-items: center;
         position: absolute;
-        right: -20px;
-        bottom: 13px;
+        right: -17px;
+        bottom: 17px;
 
         
     }
+     .add-task-close-cmp-btn::before{
+        font-family: trellicons;
 
+        content: "";
+    }
     .add-task-close-cmp-btn:hover {
         color: $clr1;
         color: $text-color;

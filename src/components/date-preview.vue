@@ -4,7 +4,7 @@
       <h3 class="date-title">Dates</h3>
       <button class="add-task-close-cmp-btn" @click="closeCmp"></button>
     </div>
-    <!-- <hr /> -->
+    <hr class="thin-hr" />
     <v-date-picker
       v-model="date.dueDate"
       mode="dateTime"
