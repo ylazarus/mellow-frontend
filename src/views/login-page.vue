@@ -1,30 +1,69 @@
 
 <template>
-  <section class="login-page-container">
-    <h1>Welcome, please log in or sign up!</h1>
-    <router-link to="/board">WorkSpace</router-link>|
-    <router-link to="/about">About</router-link>
+  <section class="login-page">
+    <h1 class="login-logo-header">
+      <div class="login-icon"><span></span></div>
+      Mellow
+    </h1>
 
-    <button v-if="loggedinUser" @click="doLogout">Logout {{ loggedinUser.username }}</button>
-    <br />
-    <router-link to="/board" v-if="loggedinUser">To WorkSpace</router-link>
-    <section v-else>
-      <form v-if="isSignIn" @submit.prevent="doLogin">
-        <input type="text" v-model="loginCred.username" placeholder="Enter username" />
-        <input type="text" v-model="loginCred.password" placeholder="Enter password" />
-        <button>Login</button>
-      </form>
-      <button @click="toggleLoginSignUp">{{ loginSignUpButton }}</button>
-      <br />
-      <form v-if="!isSignIn" @submit.prevent="doSignup">
-        <input type="text" v-model="signupCred.fullname" placeholder="Enter your full name" />
-        <input type="text" v-model="signupCred.username" placeholder="Enter username" />
-        <input type="text" v-model="signupCred.password" placeholder="Enter password" />
-        <button>Login</button>
-      </form>
-      <h3>Guest Login:</h3>
-      <button @click="guestLogin">Login as Guest</button>
-    </section>
+    <div class="main-login-container">
+      <p class="login-welcome-msg">Log in to Mellow</p>
+
+      <button class="log-out-button" v-if="loggedinUser" @click="doLogout">
+        Logout {{ loggedinUser.username }}
+      </button>
+      <section class="login-form-container" v-else>
+        <form class="sign-in-form" v-if="isSignIn" @submit.prevent="doLogin">
+          <input
+            class="login-form-input"
+            type="text"
+            v-model="loginCred.username"
+            placeholder="Enter username"
+          />
+          <input
+            class="login-form-input"
+            type="password"
+            v-model="loginCred.password"
+            placeholder="Enter password"
+          />
+          <button class="login-button">Log In</button>
+          <div class="or-div">OR</div>
+          <button class="login-button guest" @click="guestLogin">
+            Login as Guest
+          </button>
+        </form>
+
+        <form class="sign-up-form" v-if="!isSignIn" @submit.prevent="doSignup">
+          <input
+            class="login-form-input"
+            type="text"
+            v-model="signupCred.fullname"
+            placeholder="Enter your full name"
+          />
+          <input
+            class="login-form-input"
+            type="text"
+            v-model="signupCred.username"
+            placeholder="Enter username"
+          />
+          <input
+            class="login-form-input"
+            type="password"
+            v-model="signupCred.password"
+            placeholder="Enter password"
+          />
+          <button class="login-button">Login</button>
+        </form>
+        <hr class="thin-hr" />
+        <div class="signup-select-container">
+        <a class="sign-up-toggle" @click="toggleLoginSignUp"> Can't log in?</a>
+        <span class="trello-dot"></span>
+        <a class="sign-up-toggle" @click="toggleLoginSignUp">{{
+          loginSignUpButton
+        }}</a>
+        </div>
+      </section>
+    </div>
   </section>
 </template>
 
@@ -44,11 +83,11 @@ export default {
       return this.$store.getters.loggedinUser;
     },
     loginSignUpButton() {
-      return (this.isSignIn) ? 'Or Sign Up' : 'Back To Login'
-    }
+      return this.isSignIn ? "Sign up for an account" : "Back";
+    },
   },
   created() {
-    this.loadUsers()
+    this.loadUsers();
   },
   methods: {
     async doLogin() {
@@ -86,7 +125,7 @@ export default {
       }
     },
     toggleLoginSignUp() {
-      this.isSignIn = !this.isSignIn
+      this.isSignIn = !this.isSignIn;
     },
     async removeUser(userId) {
       try {
