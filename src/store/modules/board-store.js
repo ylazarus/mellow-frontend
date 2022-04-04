@@ -38,59 +38,32 @@ export default {
         },
         setFavorite(state, { updatedBoard }) {
             const boardIdx = state.boards.findIndex(board => board._id === updatedBoard._id)
-            // console.log(boardIdx);
             state.boards.splice(boardIdx, 1, updatedBoard)
-            console.log(state.boards);
-            // console.log('updatedBoard', updatedBoard);
         },
-        // saveGroup(state, { updatingGroup }) {
-        //     if (updatingGroup) {
-        //         const idx = state.currBoard.groups.findIndex(g => g.id === updatingGroup.id)
-        //         state.currBoard.groups.splice(idx, 1, savedGroup)
-        //     }
-        //     else {
-        //         const newGroup = boardService.getEmptyGroup()
-        //         state.currBoard.groups.push(newGroup)
-        //     }
-        //     this.dispatch({ type: 'saveBoard', board: state.currBoard })
-        // },
         saveBoard(state, { savedBoard }) {
             const idx = state.boards.findIndex(b => b._id === savedBoard._id)
             state.boards.splice(idx, 1, savedBoard)
-            //////// ask avior ///////
-            // state.currBoard = JSON.parse(JSON.stringify(savedBoard))
         },
         saveGroup(state, { boardId, group }) {
             const updatingBoard = state.boards.find(b => b._id === boardId)
-            // console.log('boardId', boardId);
-            // console.log('group', group);
-            // console.log(updatingBoard);
             const idx = updatingBoard.groups.findIndex(g => g.id === group.id)
-            // console.log(idx);
             if (idx === -1) return updatingBoard.groups.push(group)
             updatingBoard.groups.splice(idx, 1, group)
             state.currBoard = updatingBoard
         },
         saveTask(state, { boardId, groupId, task }) {
-            // console.log(boardId, groupId, task);
-
             const updatingBoard = state.boards.find(b => b._id === boardId)
             const updatingGroup = updatingBoard.groups.find(g => g.id === groupId)
-            // console.log(updatingGroup);
             const idx = updatingGroup.tasks.findIndex(t => t.id === task.id)
-            // console.log(idx);
             if (idx === -1) return updatingGroup.tasks.push(task)
             updatingGroup.tasks.splice(idx, 1, task)
             state.currBoard = updatingBoard
         },
         removeTask(state, { board, group, taskIdx }) {
-            console.log('before', board);
             group.tasks.splice(taskIdx, 1)
-            console.log('after', board);
             state.currBoard = board
         },
         removeGroup(state, { board, groupIdx }) {
-            console.log(board, groupIdx);
             board.groups.splice(groupIdx, 1)
             state.currBoard = board
         }
@@ -107,9 +80,7 @@ export default {
         async loadBoard({ commit }, { boardId }) {
             try {
                 const board = await boardService.getById(boardId)
-
                 commit({ type: 'setCurrBoard', board })
-                console.log('load board in store');
                 return JSON.parse(JSON.stringify(board))
             } catch (err) {
                 console.log("board module loadBoard cant load board now", err)
@@ -132,33 +103,26 @@ export default {
             try {
                 await boardService.remove(boardId);
                 commit({ type: "removeBoard", boardId })
-
             } catch (err) {
                 console.log("board module removeBoard cant load boards now", err)
             }
         },
         async removeTask({ commit, state }, { boardId, groupId, task, activity }) {
             try {
-
                 const board = state.boards.find(board => board._id === boardId)
                 const group = board.groups.find(group => group.id === groupId)
                 const taskIdx = group.tasks.findIndex(t => t.id === task.id)
                 await commit({ type: 'removeTask', board, group, taskIdx })
-
                 const updatedBoard = JSON.parse(JSON.stringify(state.currBoard))
                 updatedBoard.activities.push(activity)
-
                 const savedBoard = await boardService.save(updatedBoard)
                 commit({ type: 'saveBoard', savedBoard })
-
                 return JSON.parse(JSON.stringify(savedBoard))
-
             } catch (err) {
                 console.log('board module removeTask cant remove task now', err);
             }
         },
         async removeGroup({ commit, state }, { boardId, groupId, activity }) {
-            console.log(boardId, groupId, activity);
             try {
                 const board = state.boards.find(board => board._id === boardId)
                 const groupIdx = board.groups.findIndex(group => group.id === groupId)
@@ -167,11 +131,9 @@ export default {
                 updatedBoard.activities.push(activity)
                 const savedBoard = await boardService.save(updatedBoard)
                 commit({ type: 'saveBoard', savedBoard })
-
                 return JSON.parse(JSON.stringify(savedBoard))
             } catch (err) {
                 console.log('board module removeGroup cant remove group now', err);
-
             }
         },
         async editBoard({ state, dispatch }, { boardId, changeType, val }) {
@@ -230,7 +192,6 @@ export default {
             try {
                 const savedBoard = await boardService.save(board)
                 commit({ type: 'saveBoard', savedBoard })
-                // socketService.emit("board updated")
                 return JSON.parse(JSON.stringify(savedBoard))
             } catch (err) {
                 console.log("board module saveBoard cant save board now", err)
@@ -250,7 +211,6 @@ export default {
                 await commit({ type: 'saveTask', boardId, groupId, task })
                 const updatingBoard = JSON.parse(JSON.stringify(state.currBoard))
                 updatingBoard.activities.push(activity)
-                // console.log(updatingBoard);
                 const savedBoard = await boardService.save(updatingBoard)
                 commit({ type: 'saveBoard', savedBoard })
                 return JSON.parse(JSON.stringify(savedBoard))
@@ -259,7 +219,6 @@ export default {
             }
         },
         async saveGroup({ commit, state }, { boardId, group, activity }) {
-            console.log(group);
             try {
                 await commit({ type: 'saveGroup', boardId, group })
                 const updatingBoard = JSON.parse(JSON.stringify(state.currBoard))

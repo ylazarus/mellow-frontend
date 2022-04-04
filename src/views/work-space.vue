@@ -9,12 +9,23 @@
             :key="board._id"
             @click="toBoardDetails(board._id)"
             class="board-preview img-pos style-font"
-            :style="{ backgroundImage: `url(${board.style?.bgImg?.urls?.thumb || ''})`, backgroundColor: board.style?.bgClr || '' }"
+            :style="{
+              backgroundImage: `url(${board.style?.bgImg?.urls?.thumb || ''})`,
+              backgroundColor: board.style?.bgClr || '',
+            }"
           >
             <h2 class="favorite-board-title">{{ board.title }}</h2>
             <a class="star-container" @click.stop="toggleFavorite(board._id)">
-              <img class="ws-full-star" v-if="board.isFavorite" src="../assets/icons/full-star.png" />
-              <img class="ws-empty-star" v-else src="../assets/icons/empty-star.png" />
+              <img
+                class="ws-full-star"
+                v-if="board.isFavorite"
+                src="../assets/icons/full-star.png"
+              />
+              <img
+                class="ws-empty-star"
+                v-else
+                src="../assets/icons/empty-star.png"
+              />
             </a>
           </li>
         </ul>
@@ -27,20 +38,33 @@
           :key="board._id"
           @click="toBoardDetails(board._id)"
           class="board-preview img-pos style-font"
-          :style="{ backgroundImage: `url(${board.style?.bgImg?.urls?.thumb || ''})`, backgroundColor: board.style?.bgClr || '' }"
+          :style="{
+            backgroundImage: `url(${board.style?.bgImg?.urls?.thumb || ''})`,
+            backgroundColor: board.style?.bgClr || '',
+          }"
         >
           <h2 class="title">{{ board.title }}</h2>
 
           <a class="star-container" @click.stop="toggleFavorite(board._id)">
-            <img class="ws-full-star" v-if="board.isFavorite" src="../assets/icons/full-star.png" />
-            <img class="ws-empty-star" v-else src="../assets/icons/empty-star.png" />
+            <img
+              class="ws-full-star"
+              v-if="board.isFavorite"
+              src="../assets/icons/full-star.png"
+            />
+            <img
+              class="ws-empty-star"
+              v-else
+              src="../assets/icons/empty-star.png"
+            />
           </a>
           <!-- <button class="remove-board-button" @click.stop="removeBoard(board._id)">remove</button> -->
         </div>
         <button
           @click="isCreateBoard = true"
           class="board-preview justify-center add-card"
-        >Create new board</button>
+        >
+          Create new board
+        </button>
         <create-board v-if="isCreateBoard" @closeCmp="isCreateBoard = false" />
       </article>
     </section>
@@ -55,23 +79,13 @@ export default {
     return {
       isFavorite: false,
       isCreateBoard: false,
-      //
     };
   },
   methods: {
     toBoardDetails(boardId) {
       this.$router.push(`/board/${boardId}`);
     },
-    // changeImgUrl() {
-    //     var images = require.context('../assets/', false, /\.png$/)
-    //     return images('./' + pet + ".png")
-    // },
     async toggleFavorite(boardId) {
-      console.log(boardId);
-
-      // NEED TO CHANGE STATE FROM THE OBJECT...
-      // SOMETIMES THE STATE IS TRUE AND IT WONT CHANGE OTHERS IF THEY ARE TRUE
-
       this.$store.dispatch({
         type: "editBoard",
         boardId,
@@ -87,20 +101,15 @@ export default {
       return this.$store.getters.boards;
     },
     favoriteBoards() {
-      // for favorite (like is pinned)
       return this.$store.getters.favoriteBoards;
     },
     cardBackground() {
-      if (this.board.style.bgImg) return { backgroundImage: `url(${board.style?.bgImg})` }
-      else if (this.board.style.bgClr) return { backgroundColor: `(${this.board.style.bgClr})` }
-      else return ''
-    }
-    // getStarImg(){
-    //   return new URL('./full-star.png', import.meta.url)
-    // }
-    // imgPos() {
-    //     return {}
-    // }
+      if (this.board.style.bgImg)
+        return { backgroundImage: `url(${board.style?.bgImg})` };
+      else if (this.board.style.bgClr)
+        return { backgroundColor: `(${this.board.style.bgClr})` };
+      else return "";
+    },
   },
   components: {
     createBoard,

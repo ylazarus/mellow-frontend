@@ -20,7 +20,7 @@ export const boardService = {
     uploadImg
 }
 
-_createBoards()
+// _createBoards()
 
 async function query(filterBy = {}) {
     return await httpService.get(ENDPOINT, filterBy)
@@ -41,7 +41,6 @@ async function remove(id) {
 }
 
 async function save(board) {
-    console.log('save');
     const updatedBoard = board._id
         ? await httpService.put(`${ENDPOINT}/${board._id}`, board)
         : await httpService.post(ENDPOINT, board)
@@ -88,11 +87,9 @@ function getEmptyTask() {
         style: {},
         attachments: []
     }
-
 }
 
 function getEmptyBoard() {
-
     const board = {
         title: '',
         isFavorite: false,
@@ -101,15 +98,29 @@ function getEmptyBoard() {
         createdBy: userService.getLoggedinUser() || userService.getGuestUser(),
         style: { "bgClr": '', "bgImg": '', },
         labels: [], // when adding custom labels from a component we will add to this, otherwise base colors come from component
-        members: [
-            userService.getGuestUser()
-        ], // in component, add curr user to list
+        members: [[
+            {
+                "_id": 'u105',
+                "fullname": "Yoni Lazarus",
+                "username": "Yoni",
+                "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
+            },
+            {
+                "_id": 'u106',
+                "fullname": "Almog Ben-Binyamin",
+                "username": "Almog",
+                "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2021-12-10_at_16.38.26_sft38h.jpg",
+            },
+            {
+                "_id": 'u107',
+                "fullname": "Zviki Zaks",
+                "username": "Zviki",
+                "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
+            },
+        ]], // in component, add curr user to list
         groups: [],
         activities: [],
     }
-
-    // return save(board)
-    // return storageService.post(KEY, board)
     return board
 }
 
@@ -168,25 +179,19 @@ function _createBoards() {
                         "_id": "u105",
                         "fullname": "Yoni Lazarus",
                         "username": "Yoni",
-                        "password": "123",
                         "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
-                        "mentions": []
                     },
                     {
                         "_id": "u106",
                         "fullname": "Almog Ben-Binyamin",
                         "username": "Almog",
-                        "password": "123",
                         "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2021-12-10_at_16.38.26_sft38h.jpg",
-                        "mentions": []
                     },
                     {
                         "_id": "u107",
                         "fullname": "Zviki zaks",
                         "username": "Zviki",
-                        "password": "123",
                         "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
-                        "mentions": []
                     }
                 ],
                 "groups": [
@@ -261,17 +266,13 @@ function _createBoards() {
                                         "_id": "u105",
                                         "fullname": "Yoni Lazarus",
                                         "username": "Yoni",
-                                        "password": "123",
                                         "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
-                                        "mentions": []
                                     },
                                     {
                                         "_id": "u107",
                                         "fullname": "Zviki zaks",
                                         "username": "Zviki",
-                                        "password": "123",
                                         "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
-                                        "mentions": []
                                     }
                                 ],
                                 "labelIds": [
@@ -344,25 +345,19 @@ function _createBoards() {
                                         "_id": "u105",
                                         "fullname": "Yoni Lazarus",
                                         "username": "Yoni",
-                                        "password": "123",
                                         "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
-                                        "mentions": []
                                     },
                                     {
                                         "_id": "u106",
                                         "fullname": "Almog Ben-Binyamin",
                                         "username": "Almog",
-                                        "password": "123",
                                         "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2021-12-10_at_16.38.26_sft38h.jpg",
-                                        "mentions": []
                                     },
                                     {
                                         "_id": "u107",
                                         "fullname": "Zviki zaks",
                                         "username": "Zviki",
-                                        "password": "123",
                                         "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
-                                        "mentions": []
                                     }
                                 ],
                                 "labelIds": [
@@ -395,17 +390,13 @@ function _createBoards() {
                                         "_id": "u105",
                                         "fullname": "Yoni Lazarus",
                                         "username": "Yoni",
-                                        "password": "123",
                                         "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
-                                        "mentions": []
                                     },
                                     {
                                         "_id": "u106",
                                         "fullname": "Almog Ben-Binyamin",
                                         "username": "Almog",
-                                        "password": "123",
                                         "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2021-12-10_at_16.38.26_sft38h.jpg",
-                                        "mentions": []
                                     }
                                 ],
                                 "style": { "bgClr": '', "bgImg": '', "isFullCover": false },
@@ -467,25 +458,19 @@ function _createBoards() {
                                         "_id": "u105",
                                         "fullname": "Yoni Lazarus",
                                         "username": "Yoni",
-                                        "password": "123",
                                         "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.02.12_gmtcrl.jpg",
-                                        "mentions": []
                                     },
                                     {
                                         "_id": "u106",
                                         "fullname": "Almog Ben-Binyamin",
                                         "username": "Almog",
-                                        "password": "123",
                                         "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2021-12-10_at_16.38.26_sft38h.jpg",
-                                        "mentions": []
                                     },
                                     {
                                         "_id": "u107",
                                         "fullname": "Zviki zaks",
                                         "username": "Zviki",
-                                        "password": "123",
                                         "imgUrl": "https://res.cloudinary.com/cajan22a/image/upload/v1648369158/WhatsApp_Image_2022-03-27_at_11.17.15_rq2ja9.jpg",
-                                        "mentions": []
                                     }
                                 ],
                                 "labelIds": [

@@ -59,7 +59,6 @@
         />
       </nav>
     </header>
-    <!-- <div class="article-container"> -->
     <div class="groups-layout">
       <article class="groups-container flex">
         <Container @drop="onDrop" orientation="horizontal">
@@ -83,7 +82,6 @@
         </div>
       </article>
     </div>
-    <!-- </div> -->
   </section>
 </template>
 
@@ -128,14 +126,12 @@ export default {
     socketService.on("someone updated", this.boardUpdated);
   },
   unmounted() {
-    console.log("un");
     socketService.off("someone updated", this.boardUpdated);
   },
   methods: {
     onDrop(ev) {
       const group = this.board.groups.splice(ev.removedIndex, 1)[0];
       this.board.groups.splice(ev.addedIndex, 0, group);
-      console.log("onDrop");
       this.saveBoard();
     },
     dropCard({ ev, groupToId }) {
@@ -155,9 +151,7 @@ export default {
         (this.dndInfo.removedIndex ||
           typeof this.dndInfo.removedIndex === "number")
       )
-        console.log("dropCard");
-
-      this.moveTask();
+        this.moveTask();
     },
     moveTask() {
       const fromGroup = this.board.groups.find(
@@ -171,18 +165,14 @@ export default {
         1
       )[0];
       toGroup.tasks.splice(this.dndInfo.addedIndex, 0, cardToMove);
-      console.log("moveTask");
-
       this.saveBoard();
       this.dndInfo = {};
     },
 
     async loadBoard(boardId) {
-      console.log("load in board details");
       this.board = await this.$store.dispatch({ type: "loadBoard", boardId });
     },
     async saveBoard(type) {
-      console.log("saveBoard in board details");
       if (type) {
         const activity = {
           id: utilService.makeId(),
@@ -212,7 +202,6 @@ export default {
     async attachImg(ev) {
       const { url } = await this.$store.dispatch({ type: "attachImg", ev });
       await this.editBoard("bgImg", url);
-      console.log(url);
       return url;
     },
     async addGroup() {
@@ -248,7 +237,6 @@ export default {
       });
     },
     async removeGroup(groupId) {
-      console.log("board", groupId);
       const activity = {
         id: utilService.makeId(),
         txt: "remove group",
@@ -274,16 +262,12 @@ export default {
       this.$store.commit({ type: "setFilter", filterBy });
     },
     boardUpdated() {
-      console.log("got socket in board details");
-
       this.loadBoard(this.board._id);
     },
     toggleMenu() {
       this.isOpenMenu = !this.isOpenMenu;
     },
     moveToDashboard(boardId) {
-      // var currBoardId = this.$route.params;
-      // console.log(boardId);
       this.$router.push(`/${boardId}/dashboard`);
     },
   },
@@ -299,9 +283,6 @@ export default {
     updatedBoardFromStore() {
       return this.$store.getters.boards;
     },
-    // getStarImg(){
-    //   return new URL('icons/full-star.png', import.meta.url)
-    // }
   },
   watch: {
     "$route.params.boardId": {

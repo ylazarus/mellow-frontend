@@ -74,7 +74,6 @@
                     v-if="overdue && !task.dueDate.isCompleted"
                     >Overdue</span
                   >
-                  <!-- needs to open dates -->
                   <img src="../assets/svgs/arrow-down.svg" alt />
                 </div>
               </div>
@@ -170,21 +169,7 @@
               />
             </div>
           </section>
-
-          <!-- <div class="img-container" v-if="task.attachments">
-            <h3>Attachments</h3>
-            <img class="img-preview" v-for="imgUrl in imgUrls" :key="imgUrl" :src="imgUrl" />
-            <p></p>
-          </div>-->
-
-          <!-- <div class="activities activity-details-header">
-            <p class="activity-header">Activity</p>
-            <button v-if="task.activity?.length" class="details-shown-btn btn">{{ areDetailsShown }}</button>
-          </div>-->
         </div>
-        <!-- <img src="../assets/svgs/empty-checkbox.svg" alt=""> -->
-
-        <!-- <div v-else>Loading...</div> -->
 
         <nav @click.stop class="add-task-buttons-container">
           <p class="add-task-buttons-title">Add to card</p>
@@ -312,7 +297,6 @@ import { useThrottledRefHistory } from "@vueuse/core";
 import coverUnsplash from "../components/cover-unsplash.vue";
 import deleteCmp from "../components/delete-cmp.vue";
 import createChecklist from "../components/create-checklist.vue";
-// import CreateChecklist from "../components/create-checklist.vue"
 import checklistActive from "../components/checklist-active.vue";
 import { socketService } from "../services/socket.service";
 import activityPreview from "../components/activity-preview.vue";
@@ -330,10 +314,7 @@ export default {
       addingDescription: false,
       newDescription: "",
       detailsShown: false,
-
       checklistTitle: "",
-      // checklist: [],
-      // isChecklistActive: false,
       handles: {
         isLabel: false,
         isAttachOn: false,
@@ -348,22 +329,17 @@ export default {
   async created() {
     await this.loadTask();
     socketService.on("someone updated", this.boardUpdated);
-    console.log("task created");
-
-    // this.setActivities();
   },
   unmounted() {
     socketService.off("someone updated", this.boardUpdated);
   },
   methods: {
     async loadTask() {
-      console.log("load task");
       const { boardId, groupId, taskId } = this.$route.params;
       this.currBoard = await this.$store.dispatch({
         type: "loadBoard",
         boardId,
       });
-      // this.currBoard = this.$store.getters.getCurrBoard;
       this.currGroup = this.currBoard.groups.find(
         (group) => group.id === groupId
       );
@@ -373,19 +349,15 @@ export default {
       this.imgUrls = this.task.attachments;
     },
     boardUpdated() {
-      console.log("got socket in task details");
       this.loadTask();
     },
     moveToBoard() {
       const currBoard = this.$store.getters.getCurrBoard;
       this.$router.push(`/board/${currBoard._id}`);
-      // document.body.classList.remove("dark-mode");
     },
     async addStyle(style) {
       this.task.style = style;
       await this.saveTask("Updated style");
-      // this.closeCmp();
-
       this.loadTask();
     },
     openCmp(type) {
@@ -404,14 +376,12 @@ export default {
       if (!newTitle || newTitle === this.task.title) return;
       this.task.title = newTitle;
       await this.saveTask("Updated task title");
-
       this.loadTask();
     },
     async saveDate(newDateInfo) {
       this.task.dueDate = newDateInfo;
       await this.saveTask("Updated due date");
       this.closeCmp();
-
       this.loadTask();
     },
     async saveTask(type) {
@@ -444,7 +414,6 @@ export default {
     async saveDescription() {
       this.task.description = this.newDescription;
       await this.saveTask("Updated Description");
-
       this.loadTask();
     },
     async addLabelToTask(labelId) {
@@ -457,7 +426,6 @@ export default {
         this.task.labelIds.push(labelId);
       }
       await this.saveTask("Changed Labels");
-
       this.loadTask();
     },
     async updateBoardLabels(val) {
@@ -482,13 +450,11 @@ export default {
         this.task.members.isCheck = false;
       }
       await this.saveTask("Added member");
-
       this.loadTask();
     },
     async toggleDueDateDone() {
       this.task.dueDate.isCompleted = !this.task.dueDate.isCompleted;
       await this.saveTask("updated due date status");
-
       this.loadTask();
     },
     async attachImg(ev) {
@@ -499,13 +465,11 @@ export default {
       this.task.style.bgClr = "";
       this.task.style.bgImg = img.url;
       await this.saveTask("Added image");
-
       this.loadTask();
     },
     async deleteAttachment(idx) {
       this.task.attachments.splice(idx, 1);
       await this.saveTask("Deleted attachment");
-
       this.loadTask();
     },
     async makeCover(img) {
@@ -513,7 +477,6 @@ export default {
       this.task.style.bgClr = "";
       this.task.style.uploadedImg = "";
       await this.saveTask("Updated cover photo");
-
       this.loadTask();
     },
     async removeTask(type) {
@@ -526,7 +489,6 @@ export default {
           this.$store.getters.loggedinUser || this.$store.getters.getGuestUser,
         task: { id: this.task.id, title: this.task.title }, // take out details and extract only mini task
       };
-
       const board = await this.$store.dispatch({
         type: "removeTask",
         boardId: this.currBoard._id,
@@ -549,10 +511,8 @@ export default {
         title,
         todos: [],
       };
-
       this.task.checklists.push(checklist);
       await this.saveTask("Added checklist");
-
       this.loadTask();
       this.closeCmp();
     },
@@ -567,7 +527,6 @@ export default {
         isDone: false,
       });
       await this.saveTask("Added todo");
-
       this.loadTask();
     },
     async removeChecklist(checklistId) {
@@ -576,7 +535,6 @@ export default {
       });
       this.task.checklists.splice(checklistIdx, 1);
       await this.saveTask("Removed checklist");
-
       this.loadTask();
     },
     async updateTodo(checklistId, todoId, updateTodoVal) {
@@ -591,10 +549,8 @@ export default {
       const todoIdx = checklistToUpdate.todos.findIndex((todo) => {
         return todo.id === todoId;
       });
-
       checklistToUpdate.todos.splice(todoIdx, 1, todoToUpdate);
       await this.saveTask("Updated todo");
-
       this.loadTask();
     },
     async updateTodoDone(checklistId, todoId, updateTodoVal) {
@@ -610,30 +566,22 @@ export default {
       });
       checklistToUpdate.todos.splice(todoIdx, 1, todoToUpdate);
       await this.saveTask("Updated todo");
-
       this.loadTask();
     },
     async removeTodo(checklistId, todoId) {
       const checklist = this.task.checklists.find((checklist) => {
         return checklist.id === checklistId;
       });
-      // const removeTodo = checklist.todos.find((todo) => {
-      //   return todo.id === todoId;
-      // });
       const todoIdx = checklist.todos.findIndex((todo) => {
         return todo.id === todoId;
       });
       console.log(todoIdx);
       checklist.todos.splice(todoIdx, 1);
       await this.saveTask("removeTodo");
-
       this.loadTask();
     },
   },
   computed: {
-    // getArrowDown(){
-    //         return new URL('../svgs/arrow-down.svg', import.meta.url)
-    // },
     areDetailsShown() {
       return this.detailsShown ? "Hide Details" : "Show Details";
     },
@@ -649,8 +597,6 @@ export default {
     },
     dueDateCheckBox() {
       return this.task.dueDate.isCompleted;
-      // ? "../src/assets/svgs/full-checkbox.svg"
-      // : "../src/assets/svgs/empty-checkbox.svg";
     },
     overdue() {
       const date = new Date(this.task.dueDate.dueDate);
@@ -659,7 +605,6 @@ export default {
         return true;
       }
     },
-    // {"bgClr": '', "bgImg": '', "isFullCover": false}
     coverStyle() {
       if (this.task.style.uploadedImg)
         return {
@@ -699,7 +644,6 @@ export default {
     deleteCmp,
     createChecklist,
     checklistActive,
-    // CreateChecklist
     activityPreview,
     attachedImgPreview,
   },
