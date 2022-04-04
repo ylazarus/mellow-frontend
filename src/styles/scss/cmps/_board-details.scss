@@ -162,8 +162,6 @@
     overflow-y: hidden;
     height: calc(100vh - 44px - 48px);
 
-    // height: 93vh;
-    // margin-left: 27px;
     .add-group {
         color: $text-color;
         background-color: #0000001a;
@@ -175,35 +173,17 @@
         flex-shrink: 0;
         border-radius: 3px;
         transition: ease-in-out 0.3s;
+        margin-inline-end: 8px;
+        &:hover {
+            background-color: #00000029;
+        }
+        span::before {
+            font-family: trellicons;
+            content: "";
+            font-size: 16px;
+            font-weight: 400;
+        }
     }
 }
 
-.add-group:hover {
-    background-color: #00000029;
-}
 
-.dark-mode {
-    // font-size: 30px;
-    // position: absolute;
-    // inset: 0;
-    // background-color: rgba(0, 0, 0, 0.726);
-    // cursor: pointer;
-    // opacity: 0;
-    // pointer-events: none;
-    // transition: opacity .6s;
-    // z-index: 1;
-}
-
-//   body.dark-mode .main-screen {
-//     pointer-events: auto;
-//     opacity: 1;
-//   }
-
-// .shows-options-btn img{
-//     width: 15px;
-//     // color: white;
-// }
-
-// .groups-layout{
-
-// }

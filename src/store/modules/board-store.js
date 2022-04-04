@@ -99,7 +99,6 @@ export default {
         async loadBoards({ commit }) {
             try {
                 const boards = await boardService.query()
-                console.log('boards');
                 commit({ type: "setBoards", boards })
             } catch (err) {
                 console.log("board module loadBoards cant load boards now", err)
@@ -108,7 +107,6 @@ export default {
         async loadBoard({ commit }, { boardId }) {
             try {
                 const board = await boardService.getById(boardId)
-                console.log('board');
 
                 commit({ type: 'setCurrBoard', board })
                 console.log('load board in store');

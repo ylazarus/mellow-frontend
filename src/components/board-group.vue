@@ -34,11 +34,6 @@
           />
         </Draggable>
       </Container>
-      <!-- <div class="bottom-outside-group"> -->
-      <!-- <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">
-          Add a card
-        </div> -->
-      <!-- <div class="add-task-container"> -->
       <div v-if="isAdding" class="add-task-container">
         <textarea
           v-focus
@@ -53,26 +48,11 @@
           <button class="delete-task-btn" @click="clearForm"></button>
         </div>
       </div>
-      <!-- </div> -->
     </div>
     <div class="bottom-outside-group">
       <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">
         Add a card
       </div>
-      <!-- <div v-else class="add-task-container">
-          <textarea
-            v-focus
-            @blur.stop="saveIfTxt"
-            v-model="newTaskTitle"
-            placeholder="Enter a title for this card..."
-          />
-          <div class="add-task-buttons-container flex">
-            <button class="adding-task-btn btn" @click="addTask">
-              Add card
-            </button>
-            <button class="delete-task-btn" @click="clearForm"></button>
-          </div>
-        </div> -->
     </div>
   </section>
 </template>
@@ -156,6 +136,7 @@ export default {
     },
     saveTitle(ev) {
       const newTitle = ev.currentTarget.textContent;
+      if (newTitle === this.group.title) return;
       this.$emit("saveGroup", {
         groupId: this.group.id,
         type: "save group title",

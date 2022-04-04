@@ -41,6 +41,7 @@ async function remove(id) {
 }
 
 async function save(board) {
+    console.log('save');
     const updatedBoard = board._id
         ? await httpService.put(`${ENDPOINT}/${board._id}`, board)
         : await httpService.post(ENDPOINT, board)

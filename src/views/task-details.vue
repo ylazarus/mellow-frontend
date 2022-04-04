@@ -59,7 +59,10 @@
                   class="due-date-checkbox"
                   :src="dueDateCheckBox"
                 />
-                <div class="date-label-container flex">
+                <div
+                  class="date-label-container flex"
+                  @click.stop="openCmp('isDatesOn')"
+                >
                   <span>{{ formattedDate }}</span>
                   <span
                     class="completed-overdue-label l101-label"
@@ -72,11 +75,7 @@
                     >Overdue</span
                   >
                   <!-- needs to open dates -->
-                  <img
-                    @click="toggleDates"
-                    src="../assets/svgs/arrow-down.svg"
-                    alt
-                  />
+                  <img src="../assets/svgs/arrow-down.svg" alt />
                 </div>
               </div>
             </div>
@@ -364,6 +363,7 @@ export default {
         type: "loadBoard",
         boardId,
       });
+      // this.currBoard = this.$store.getters.getCurrBoard;
       this.currGroup = this.currBoard.groups.find(
         (group) => group.id === groupId
       );
@@ -373,6 +373,7 @@ export default {
       this.imgUrls = this.task.attachments;
     },
     boardUpdated() {
+      console.log("got socket in task details");
       this.loadTask();
     },
     moveToBoard() {

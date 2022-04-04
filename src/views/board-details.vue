@@ -78,7 +78,9 @@
             />
           </Draggable>
         </Container>
-        <div class="add-group" @click="addGroup">+ Add another list</div>
+        <div class="add-group" @click="addGroup">
+          <span></span> Add another list
+        </div>
       </article>
     </div>
     <!-- </div> -->
@@ -133,6 +135,7 @@ export default {
     onDrop(ev) {
       const group = this.board.groups.splice(ev.removedIndex, 1)[0];
       this.board.groups.splice(ev.addedIndex, 0, group);
+      console.log("onDrop");
       this.saveBoard();
     },
     dropCard({ ev, groupToId }) {
@@ -152,7 +155,9 @@ export default {
         (this.dndInfo.removedIndex ||
           typeof this.dndInfo.removedIndex === "number")
       )
-        this.moveTask();
+        console.log("dropCard");
+
+      this.moveTask();
     },
     moveTask() {
       const fromGroup = this.board.groups.find(
@@ -166,16 +171,18 @@ export default {
         1
       )[0];
       toGroup.tasks.splice(this.dndInfo.addedIndex, 0, cardToMove);
+      console.log("moveTask");
+
       this.saveBoard();
       this.dndInfo = {};
     },
 
     async loadBoard(boardId) {
-      console.log("load");
+      console.log("load in board details");
       this.board = await this.$store.dispatch({ type: "loadBoard", boardId });
     },
     async saveBoard(type) {
-      console.log("move");
+      console.log("saveBoard in board details");
       if (type) {
         const activity = {
           id: utilService.makeId(),
@@ -267,6 +274,8 @@ export default {
       this.$store.commit({ type: "setFilter", filterBy });
     },
     boardUpdated() {
+      console.log("got socket in board details");
+
       this.loadBoard(this.board._id);
     },
     toggleMenu() {
