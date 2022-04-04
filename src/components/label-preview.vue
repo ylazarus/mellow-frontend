@@ -14,10 +14,7 @@
       </a>
     </div>
     <hr class="thin-hr" />
-    <section
-      v-if="!isCreate && !isChange && !isRemove"
-      class="select-label-container"
-    >
+    <section v-if="!isCreate && !isChange && !isRemove" class="select-label-container">
       <input
         class="label-input"
         type="text"
@@ -28,11 +25,7 @@
       <div class="choose-labels-container">
         <p class="labels-title">Labels</p>
         <ul class="labels-list flex clean-list">
-          <li
-            class="label-option-container flex"
-            v-for="label in getLabels"
-            :key="label.id"
-          >
+          <li class="label-option-container flex" v-for="label in getLabels" :key="label.id">
             <div
               class="label-option flex pointer"
               :style="{ backgroundColor: label.color }"
@@ -47,19 +40,12 @@
           </li>
         </ul>
       </div>
-      <button class="open-create-label-btn" @click="openCreate">
-        Create a new label
-      </button>
+      <button class="open-create-label-btn" @click="openCreate">Create a new label</button>
     </section>
     <section v-else class="create-label-container">
       <label>
         <p class="labels-title">Name</p>
-        <input
-          type="text"
-          class="label-input"
-          v-model="labelToChange.title"
-          v-focus
-        />
+        <input type="text" class="label-input" v-model="labelToChange.title" v-focus />
       </label>
 
       <list-slot>
@@ -73,28 +59,16 @@
             @click="selectLabel(label.id)"
           >
             <span v-if="label.isSelected" class="v-icon"></span>
-          </div> </template
-      ></list-slot>
+          </div>
+        </template>
+      </list-slot>
       <div class="create-label-buttons-container flex">
-        <button class="create-label-btn" @click.stop="changeBoardLabels">
-          {{ createBtn }}
-        </button>
-        <button
-          v-if="isChange"
-          class="delete-label-btn"
-          @click.stop="isRemove = true"
-        >
-          Delete
-        </button>
+        <button class="create-label-btn" @click.stop="changeBoardLabels">{{ createBtn }}</button>
+        <button v-if="isChange" class="delete-label-btn" @click.stop="isRemove = true">Delete</button>
       </div>
     </section>
   </section>
-  <delete-cmp
-    v-if="isRemove"
-    :type="'label'"
-    @remove="removeLabelFromBoard"
-    @closeCmp="closeCmp"
-  />
+  <delete-cmp v-if="isRemove" :type="'label'" @remove="removeLabelFromBoard" @closeCmp="closeCmp" />
 </template>
 
 <script>
@@ -181,7 +155,6 @@ export default {
 
       if (this.isCreate) {
         newLabel.id = "l" + utilService.makeId();
-        console.log(newLabel);
       }
       await this.$emit("updateBoardLabels", newLabel);
       this.aggregateLabels();
@@ -189,8 +162,6 @@ export default {
       this.isChange = false;
     },
     async removeLabelFromBoard() {
-      // if (!confirm("Remove label?")) return;
-      // console.log("confirm");
       const labelId = this.labelToChange.id;
       await this.$emit("updateBoardLabels", labelId);
       this.aggregateLabels();
@@ -219,7 +190,7 @@ export default {
       this.aggregateLabels();
     },
   },
-  unmounted() {},
+  unmounted() { },
 };
 </script>
 

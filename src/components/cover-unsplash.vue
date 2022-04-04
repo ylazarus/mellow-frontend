@@ -19,7 +19,7 @@
       <p class="labels-title">Size</p>
       <div class="cover-size-select">
         <button class="coverSelect pointer" @click="setFullCover(false)">
-          <img v-if="currCoverImg" class="coverSelectImg top " :src="currCoverImg" alt="" />
+          <img v-if="currCoverImg" class="coverSelectImg top" :src="currCoverImg" alt />
           <div v-if="currCoverBg" class="coverSelectImg top" :style="currCoverBg"></div>
           <div class="over-full-cover-select"></div>
           <div class="dummy title"></div>
@@ -27,20 +27,29 @@
         </button>
 
         <button class="coverSelect pointer" @click="setFullCover(true)">
-          <img v-if="currCoverImg" class="coverSelectImg" :src="currCoverImg" alt="" />
+          <img v-if="currCoverImg" class="coverSelectImg" :src="currCoverImg" alt />
           <div v-if="currCoverBg" class="coverSelectImg" :style="currCoverBg"></div>
           <div class="over-full-cover-select"></div>
           <div class="dummy title"></div>
           <div class="dummy text"></div>
         </button>
       </div>
-        <div v-if="deletable" @click="removeCover" class="unsplash-btn full-width-btn remove-cover pointer">Remove cover</div>
+      <div
+        v-if="deletable"
+        @click="removeCover"
+        class="unsplash-btn full-width-btn remove-cover pointer"
+      >Remove cover</div>
 
       <list-slot>
         <template #title>Color</template>
         <template #list>
-          <div v-for="bgc in bgColors" :key="bgc.id" class="label-option flex pointer" :style="{ backgroundColor: bgc.color }"
-            @click="selectBgClr(bgc.color)"></div>
+          <div
+            v-for="bgc in bgColors"
+            :key="bgc.id"
+            class="label-option flex pointer"
+            :style="{ backgroundColor: bgc.color }"
+            @click="selectBgClr(bgc.color)"
+          ></div>
         </template>
       </list-slot>
 
@@ -48,8 +57,14 @@
         <list-slot>
           <template #title>Attachments</template>
           <template #list>
-            <img v-for="(photo, idx) in attachments?.slice(0, 6)" :key="idx" class="unsplash-result-small pointer"
-              :src="photo" alt="img" @click="applyPhoto(photo)" />
+            <img
+              v-for="(photo, idx) in attachments?.slice(0, 6)"
+              :key="idx"
+              class="unsplash-result-small pointer"
+              :src="photo"
+              alt="img"
+              @click="applyPhoto(photo)"
+            />
           </template>
         </list-slot>
 
@@ -62,24 +77,24 @@
       <list-slot>
         <template #title>Photos from Unsplash</template>
         <template #list>
-          <img v-for="photo in photos.slice(0, 6)" :key="photo.id"
-            class="unsplash-result-small pointer" :src="photo.urls.thumb" alt="img"
-            @click="applyPhoto(photo)"/>
+          <img
+            v-for="photo in photos.slice(0, 6)"
+            :key="photo.id"
+            class="unsplash-result-small pointer"
+            :src="photo.urls.thumb"
+            alt="img"
+            @click="applyPhoto(photo)"
+          />
         </template>
       </list-slot>
 
       <button
         class="unsplash-btn full-width-btn pointer"
         @click="searchingUnsplash = true"
-      >
-        Search for photos
-      </button>
+      >Search for photos</button>
     </section>
 
-    <section
-      v-if="searchingUnsplash && !searchResults"
-      class="search-unsplash-screen"
-    >
+    <section v-if="searchingUnsplash && !searchResults" class="search-unsplash-screen">
       <input
         type="text"
         placeholder="Search Unsplash for photos"
@@ -96,17 +111,15 @@
             v-for="(term, idx) in searchTerms"
             :key="idx"
             @click="searchPhotoWithButton(term)"
-          >
-            {{ term }}
-          </button>
-        </template></list-slot
-      >
+          >{{ term }}</button>
+        </template>
+      </list-slot>
 
       <list-slot>
         <template #title>Top photos</template>
         <template #list>
           <img
-            v-for="photo in photos.slice(0,12)"
+            v-for="photo in photos.slice(0, 12)"
             :key="photo.id"
             class="unsplash-result-small pointer"
             :src="photo.urls.thumb"
@@ -131,7 +144,6 @@
         </template>
       </list-slot>
     </section>
-    
   </section>
 </template>
 
@@ -151,7 +163,6 @@ export default {
     style: Object,
     title: String,
     attachments: Array,
-    // currCoverStyle: Object
   },
   data() {
     return {
@@ -217,12 +228,11 @@ export default {
           console.log(e);
         });
     },
-    searchPhotoWithButton(searchTerm){
+    searchPhotoWithButton(searchTerm) {
       this.searchResults = true
       this.searchPhoto(searchTerm)
     },
     applyPhoto(photo) {
-      // this.currStyle.lastImg = (this.currStyle.bgImg) ? this.currStyle.bgImg : this.currStyle.uploadedImg || ""
       this.currStyle.uploadedImg = photo?.urls?.small || photo;
       this.currStyle.bgClr = "";
       this.currStyle.bgImg = "";
@@ -233,19 +243,18 @@ export default {
     },
     waitSearch: _.debounce(function () {
       this.searchPhoto();
-        this.searchResults = true;
-        this.search = ''
+      this.searchResults = true;
+      this.search = ''
 
     }, 1000),
 
     selectBgClr(bgClr) {
-      // this.currStyle.lastImg = (this.currStyle.bgImg) ? this.currStyle.bgImg : this.currStyle.uploadedImg || ""
       this.currStyle.bgClr = bgClr;
       this.currStyle.bgImg = "";
       this.currStyle.uploadedImg = "";
       this.$emit("addStyle", this.currStyle);
     },
-    removeCover(){
+    removeCover() {
       this.currStyle.bgClr = "";
       this.currStyle.bgImg = "";
       this.currStyle.uploadedImg = "";
@@ -260,7 +269,6 @@ export default {
     },
     async onAttachImg(ev) {
       const img = await this.$store.dispatch({ type: "attachImg", ev });
-      // this.currStyle.lastImg = (this.currStyle.bgImg) ? this.currStyle.bgImg : this.currStyle.uploadedImg
       this.currStyle.uploadedImg = img.url;
       this.currStyle.bgClr = "";
       this.currStyle.bgImg = "";
@@ -271,15 +279,15 @@ export default {
     pageTitle() {
       return this.searchingUnsplash ? "Photo search" : "Cover";
     },
-    currCoverImg(){
+    currCoverImg() {
       return this.style?.bgImg || this.style?.uploadedImg || ''
     },
-    currCoverBg(){
+    currCoverBg() {
       const bgc = this.style?.bgClr || ''
-      return {'background-color' : bgc }
+      return { 'background-color': bgc }
     },
-    deletable(){
-      if (this.style.bgImg || this.style.uploadedImg ||this.style.bgClr) return true
+    deletable() {
+      if (this.style.bgImg || this.style.uploadedImg || this.style.bgClr) return true
     }
   },
 };

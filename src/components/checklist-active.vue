@@ -4,10 +4,8 @@
             <div class="checklist-title-container">
                 <h3 class="checklist-title">{{ checklist.title }}</h3>
                 <a class="delete-checklist btn" @click.stop="removeChecklist(checklist.id)">Delete</a>
-                <!-- <a class="delete-checklist btn" @click.stop="openDeleteCmp(checklist.id)">Delete</a> -->
             </div>
 
-            <!-- <div v-for="(percentage, index) in progressBar" :key="index"> -->
             <span class="progress-bar-percentage">{{ progressBar[checklistIdx] }}%</span>
             <div class="progress-bar-container flex">
                 <div class="checklist-pb-full">
@@ -20,7 +18,6 @@
                     ></div>
                 </div>
             </div>
-            <!-- </div> -->
 
             <div v-for="(todo) in checklist.todos" :key="todo.id">
                 <div class="checklist-todo-title">
@@ -85,16 +82,8 @@
             </div>
         </div>
     </section>
-    <!-- <delete-cmp
-        v-if="isRemove"
-        :type="'checklist'"
-        @remove="removeChecklist"
-        @closeCmp="isRemove = false"
-    />-->
 </template>
-
 <script>
-// import deleteCmp from "./delete-cmp.vue";
 
 export default {
     props: {
@@ -102,12 +91,10 @@ export default {
 
     },
     components: {
-        // deleteCmp
     },
     data() {
         return {
             isCreateTodo: false,
-            // newTodo: '',
             newTodo: [],
             isCheckbox: [],
             isUpdateTodo: false,
@@ -128,8 +115,6 @@ export default {
     methods: {
         createTodo(checkListId) {
             this.addNewTodo = checkListId
-            console.log('checkListId', checkListId);
-            console.log('this.addNewTodo', this.addNewTodo);
         },
         addTodo(checklistId) {
             console.log(this.newTodo);
@@ -137,27 +122,18 @@ export default {
             // if (!textValue || !textValue.length) return
             this.$emit('addTodo', this.newTodo, checklistId)
             this.newTodo = ''
-            // this.addNewTodo = ''
         },
         removeChecklist(checklistId) {
-            console.log(checklistId, checklistId);
             this.$emit('removeChecklist', checklistId)
         },
         updateTodo(checklistId, todoId, ev) {
             ev.stopPropagation();
-            // ev.preventDefault();
-            console.log('updating!!!!');
-            console.log(todoId);
-            // console.log('checklistId', checklistId)
             const textValue = ev.currentTarget.textContent;
             if (!textValue || !textValue.length) {
                 this.editingTodoId = ''
                 this.addNewTodo = ''
                 return
             }
-            console.log('updating with good value !!!!');
-            // console.log(textValue)
-            // this.isUpdateTodo = false
             this.$emit('updateTodo', checklistId, todoId, textValue)
             this.editingTodoId = ''
             this.addNewTodo = ''
@@ -166,31 +142,22 @@ export default {
             this.$emit('removeTodo', checklistId, todoId)
         },
         openUpdateBar(todoId) {
-            console.log('open');
             this.editingTodoId = todoId
             this.addNewTodo = ''
         },
         closeCreateTodo() {
-            console.log('closing');
             this.editingTodoId = ''
             this.addNewTodo = ''
         },
         checkboxValue(checklistId, todo, ev) {
             const todoId = todo.id
             const checkboxVal = ev.target.checked
-            console.log(ev.target.checked);
             this.$emit('updateTodoDone', checklistId, todoId, checkboxVal)
         },
-        // openDeleteCmp(checklistId) {
-        //     this.isRemove = true
-        //     this.checklistId = checklistId
-        // }
-
     },
     computed: {
         progressBar() {
             let isDonePercentages = []
-            // let todoCount = 0
 
             this.task.checklists.forEach(checklist => {
                 let isDoneCount = 0
