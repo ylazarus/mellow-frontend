@@ -29,11 +29,7 @@
         <input type="checkbox" :value="'no'" hidden />
       </label>
       <div class="filter-members-list">
-        <label
-          v-for="member in board.members"
-          :key="member._id"
-          class="filter-member flex"
-        >
+        <label v-for="member in board.members" :key="member._id" class="filter-member flex">
           <img class="checkbox-icon" :src="checkBox" />
           <user-avatar :user="member" />
           <p class="filter-user-name">{{ member.fullname }}</p>
@@ -41,9 +37,6 @@
         </label>
       </div>
     </div>
-    <!-- <div class="filter-date-container">
-      <p class="filter-section-title">members</p>
-    </div> -->
   </section>
 </template>
 

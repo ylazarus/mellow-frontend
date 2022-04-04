@@ -1,17 +1,10 @@
 <template>
   <section class="groups-border">
     <div class="outside-group flex">
-      <p class="group-title pointer" contenteditable="true" @blur="saveTitle">
-        {{ group.title }}
-      </p>
+      <p class="group-title pointer" contenteditable="true" @blur="saveTitle">{{ group.title }}</p>
       <span class="remove-group-btn" @click="toggleRemove"></span>
     </div>
-    <delete-cmp
-      v-if="isRemove"
-      :type="'list'"
-      @remove="removeGroup"
-      @closeCmp="toggleRemove"
-    />
+    <delete-cmp v-if="isRemove" :type="'list'" @remove="removeGroup" @closeCmp="toggleRemove" />
     <div class="group-container" ref="list" :class="calcHeight">
       <Container
         class="tasks-container"
@@ -42,17 +35,13 @@
           placeholder="Enter a title for this card..."
         />
         <div class="add-task-buttons-container flex">
-          <button class="adding-task-btn btn" ref="bottom" @click="addTask">
-            Add card
-          </button>
+          <button class="adding-task-btn btn" ref="bottom" @click="addTask">Add card</button>
           <button class="delete-task-btn" @click="clearForm"></button>
         </div>
       </div>
     </div>
     <div class="bottom-outside-group">
-      <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">
-        Add a card
-      </div>
+      <div class="add-task-btn" v-if="!isAdding" @click="openAddTask">Add a card</div>
     </div>
   </section>
 </template>
@@ -82,7 +71,6 @@ export default {
       isAdding: false,
       newTaskTitle: "",
       isRemove: false,
-      // isDarkMode: ''
     };
   },
   methods: {
@@ -115,9 +103,7 @@ export default {
       await nextTick();
       var element = this.$refs.list;
       var top = element.offsetTop;
-      console.dir(element);
       element.scrollTo(0, top + element.scrollHeight);
-      // this.focusOnInput();
     },
     addTask() {
       if (!this.newTaskTitle) {
@@ -148,11 +134,9 @@ export default {
     },
     toggleRemove() {
       this.isRemove = !this.isRemove;
-      console.log(this.isRemove);
     },
     removeGroup() {
       this.$emit("removeGroup", this.group.id);
-      console.log("group", this.group.id);
     },
   },
   computed: {

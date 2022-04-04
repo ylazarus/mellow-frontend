@@ -45,7 +45,6 @@
           >
             <span class="checklist-img-font flex" :class="{ 'white': isChecklistDone }"></span>
             <span class></span>
-            <!-- {{ isChecklistDone }} -->
             {{ checkListsCount }}
           </div>
           <div
@@ -95,7 +94,6 @@ export default {
   },
   methods: {
     toTaskDetails(boardId, groupId, taskId) {
-      console.log(taskId);
       this.$router.push(`/board/${boardId}/${groupId}/${taskId}`);
     },
     toggleLabelTitle() {
@@ -128,7 +126,6 @@ export default {
           if (todo.isDone) totalIsDoneCount++
         })
       })
-      // return [totalTodosCount === totalIsDoneCount ? 'todo-done' : 'todo-incomplete']
       return totalTodosCount === totalIsDoneCount ? true : false
     },
     labelsToDisplay() {
@@ -157,9 +154,6 @@ export default {
     openLabel() {
       return { open: this.isLabelTitle };
     },
-    // taskHasImgOrCover(){
-    //   if (this.task.style.uploadedImg || this.task.style.bgImg) return true
-    // },
     taskImgUrl() {
       if (this.task.style.uploadedImg) return this.task.style.uploadedImg;
       else if (this.task.style.bgImg) return this.task.style.bgImg;

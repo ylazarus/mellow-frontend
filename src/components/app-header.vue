@@ -2,7 +2,7 @@
   <header class="app-header-container" :class="bgc">
     <div class="app-header-inner flex">
       <router-link class="logo-link flex" to="/">
-        <img class="logo-img" src="../assets/svgs/trello.svg" alt="" />
+        <img class="logo-img" src="../assets/svgs/trello.svg" alt />
         <h3 class="logo">Mellow</h3>
       </router-link>
       <nav class="app-header-nav flex">
@@ -28,17 +28,19 @@
             class="login-btn"
             @click="isLogin = true"
             to="/login"
-            >Log in</router-link
-          >
+          >Log in</router-link>
           <router-link
             v-if="!userIsLoggedIn"
             class="signup-btn"
             @click="isLogin = true"
             to="/login"
-            >Sign up</router-link
-          >
-          <router-link to="/login" class="header-bell pointer"><img src="../assets/svgs/bell.svg" /></router-link>
-         <router-link to="/login" class="avatar-login-link"><user-avatar class="pointer" v-if="currLoggedInUser" :user="currLoggedInUser" /></router-link>
+          >Sign up</router-link>
+          <router-link to="/login" class="header-bell pointer">
+            <img src="../assets/svgs/bell.svg" />
+          </router-link>
+          <router-link to="/login" class="avatar-login-link">
+            <user-avatar class="pointer" v-if="currLoggedInUser" :user="currLoggedInUser" />
+          </router-link>
         </div>
       </nav>
     </div>
@@ -60,11 +62,11 @@ export default {
       },
       isBlue: false,
       isLogin: false,
-      
+
     };
   },
   created() {
-   
+
   },
   methods: {
     openCmp(type) {
@@ -88,16 +90,16 @@ export default {
     bgc() {
       return { blue: this.isBlue };
     },
-    currLoggedInUser(){
+    currLoggedInUser() {
       const currUser = this.$store.getters.loggedinUser
       if (currUser) this.userLoggedIn = true
       return currUser ? currUser : this.$store.getters.getGuestUser
     },
-    userIsLoggedIn(){
+    userIsLoggedIn() {
       const currUser = this.$store.getters.loggedinUser
       if (currUser) return true
     }
-   
+
     // getTrelloIcon(){
     //   return new URL('../assets/svgs/trello.svg', import.meta.url)
     // }
@@ -111,8 +113,6 @@ export default {
           this.isBlue = true;
         } else this.isBlue = false;
         if (path !== "/" && path !== "/login") {
-          // console.log(this.$store.getters.getGuestUser);
-          // this.loggedinUser = this.$store.getters.getGuestUser;
         }
       },
     },
