@@ -12,6 +12,8 @@ import "./styles/scss/main.scss"
 
 
 import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+
 
 const app = createApp(App)
 
