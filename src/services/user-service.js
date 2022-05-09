@@ -16,8 +16,8 @@ export const userService = {
     getGuestUser,
 }
 
-function getUsers() {
-    return httpService.get(`user`)
+async function getUsers() {
+    return await httpService.get(`user`)
 }
 
 async function getById(userId) {

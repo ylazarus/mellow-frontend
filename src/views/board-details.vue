@@ -34,7 +34,18 @@
             :user="member"
           />
         </div>
-        <button class="invite-btn btn-board btn">Invite</button>
+        <button
+          class="invite-btn btn-board btn"
+          @click="isOpenInvite = !isOpenInvite"
+        >
+          Invite
+        </button>
+        <invite-user
+          v-if="isOpenInvite"
+          :members="board.members"
+          @closeCmp="isOpenInvite = !isOpenInvite"
+          @addMemberToBoard="editBoard"
+        />
       </div>
       <nav class="board-header-nav flex">
         <!-- <button class="filter-btn btn-board btn" @click="moveToDashboard(board._id)">dashboard</button> -->
@@ -97,6 +108,7 @@ import userAvatar from "../components/user-avatar.vue";
 import { Container, Draggable } from "vue3-smooth-dnd";
 import boardFilter from "../components/board-filter.vue";
 import boardMenu from "../components/board-menu.vue";
+import inviteUser from "../components/invite-user.vue";
 // import dashboardPreview from "../views/dashboard-preview.vue";
 
 export default {
@@ -108,6 +120,7 @@ export default {
       isLabelTitle: false,
       isOpenFilter: false,
       isOpenMenu: false,
+      isOpenInvite: false,
     };
   },
   components: {
@@ -117,6 +130,7 @@ export default {
     Draggable,
     boardFilter,
     boardMenu,
+    inviteUser,
   },
   async created() {
     this.unsubscribe = eventBus.on("show-msg", this.showMsg);
@@ -190,6 +204,8 @@ export default {
       });
     },
     async editBoard(changeType, val) {
+      console.log(changeType);
+      console.log(val);
       try {
         this.board = await this.$store.dispatch({
           type: "editBoard",

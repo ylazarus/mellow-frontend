@@ -159,6 +159,15 @@ export default {
                         boardToUpdate.isFavorite = !boardToUpdate.isFavorite;
                         change = "toggle favorite";
                         break;
+                    case "add members":
+                        let boardMembersIds = boardToUpdate.members.map((m) => m._id)
+                        val.forEach((member) => {
+                            if (!boardMembersIds?.includes(member._id)) {
+                                boardToUpdate.members.push(JSON.parse(JSON.stringify(member)))
+                            }
+                        });
+                        change = 'members';
+                        break;
                     case "update labels":
                         if (typeof val === 'string') {
                             const idx = boardToUpdate.labels.findIndex((l) => l.id === val);

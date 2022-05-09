@@ -12,7 +12,7 @@ export default {
         guestUser: userService.getGuestUser(),
     },
     getters: {
-        users({ users }) { return users },
+        users({ users }) { return JSON.parse(JSON.stringify(users)) },
         loggedinUser({ loggedinUser }) { return loggedinUser },
         watchedUser({ watchedUser }) { return watchedUser },
         getGuestUser({ guestUser }) { return guestUser }
@@ -78,6 +78,16 @@ export default {
                 throw err
             }
         },
+        async getUserById({ commit }, { userId }) {
+            try {
+                const user = await userService.getById(userId)
+                console.log(user);
+                return JSON.parse(JSON.stringify(user))
+            } catch (err) {
+                console.log('userStore: Error in getUserById', err)
+                throw err
+            }
+        },
         async loadAndWatchUser({ commit }, { userId }) {
             try {
                 console.log('store');
@@ -115,6 +125,15 @@ export default {
         loadGuestUser({ commit }) {
             const guestUser = userService.getGuestUser()
             commit({ type: 'setGuestUser', guestUser })
+        },
+        async loadUsers({ commit }) {
+            try {
+                const users = await userService.getUsers()
+                commit({ type: 'setUsers', users })
+            } catch (err) {
+                console.log('userStore: Error in loadUsers', err)
+                throw err
+            }
         }
     }
 }
